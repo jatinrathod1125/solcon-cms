@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/tmp/**)",
+      "Read(//c//**)",
+      "Bash(ls /mnt)",
+      "Bash(ls /tmp; ls -d /tmp/Solcon* 2>/dev/null; find / -maxdepth 3 -iname \"*solcon*\" -not -path \"/proc/*\" 2>/dev/null | head)",
+      "Read(//tmp/**)",
+      "Read(//tmp/claude/**)",
+      "Read(//mnt/c/Users/jmrat/Desktop/**)",
+      "Bash(xargs wc -l)",
+      "Bash(ls \"C:\\\\\\\\Users\\\\\\\\jmrat\\\\\\\\Desktop\\\\\\\\Solcon\")",
+      "Bash(ls -d \"C:\\\\\\\\Users\\\\\\\\jmrat\\\\\\\\Desktop\\\\\\\\Solcon\")"
+    ]
+  }
+}
