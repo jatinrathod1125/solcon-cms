@@ -150,12 +150,12 @@ class GroutProductionService
             $batch->update([
                 'status' => 'Timer Running',
                 'timer_start_time' => now(),
-                'timer_end_time' => now()->addMinutes(1),
+                'timer_end_time' => now()->addMinutes(59),
             ]);
 
             ActivityLogService::log(
                 'TIMER_STARTED',
-                "5-Minute dry mix timer started for Grout batch #{$batch->batch_no} on machine {$batch->machine->code}.",
+                "59-Minute dry mix timer started for Grout batch #{$batch->batch_no} on machine {$batch->machine->code}.",
                 auth()->id()
             );
 

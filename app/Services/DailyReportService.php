@@ -83,13 +83,23 @@ class DailyReportService
     {
         $user = auth()->user();
         $isSupervisor = $user && $user->isSupervisor();
-        $userDeptCode = ($isSupervisor && $user->department) ? $user->department->code : null;
+
+        // For supervisors, use the session-based department set by middleware, not the primary department_id
+        $currentDept = null;
+        $userDeptCode = null;
+        $supervisorDeptId = null;
+
+        if ($isSupervisor) {
+            $currentDept = \currentDepartment();
+            $userDeptCode = $currentDept ? strtoupper($currentDept->code) : null;
+            $supervisorDeptId = $currentDept ? $currentDept->id : null;
+        }
 
         // Department filter resolution
         if ($isSupervisor) {
             $showAdhesive = ($userDeptCode === 'TAD');
             $showGrout = ($userDeptCode === 'GRT');
-            $showEpoxy = ($userDeptCode === 'EPX');
+            $showEpoxy = ($userDeptCode === 'EP');
         } else {
             if ($deptFilter === 'TAD') {
                 $showAdhesive = true; $showGrout = false; $showEpoxy = false;
@@ -120,9 +130,9 @@ class DailyReportService
         if ($showAdhesive) {
             $adhBatchesQuery = ProductionBatch::whereBetween(DB::raw('DATE(start_time)'), [$startDate, $endDate])
                 ->where('status', 'completed')
-                ->when($isSupervisor, function ($q) use ($user) {
-                    $q->whereHas('machine', function ($qm) use ($user) {
-                        $qm->where('department_id', $user->department_id);
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('machine', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
                     });
                 });
 
@@ -130,6 +140,27 @@ class DailyReportService
                 ->with(['machine', 'grade', 'supervisor'])
                 ->orderBy('start_time', 'asc')
                 ->get();
+
+            // Pre-load coupon raw materials to identify coupon variants in-memory
+            $coupons = \App\Models\RawMaterial::where('is_coupon', true)->pluck('name', 'id')->toArray();
+            foreach ($completedBatches as $b) {
+                $couponId = null;
+                if (!empty($b->formula_snapshot)) {
+                    foreach ($b->formula_snapshot as $itemData) {
+                        $rmId = $itemData['raw_material_id'] ?? null;
+                        if ($rmId && isset($coupons[$rmId])) {
+                            $couponId = $rmId;
+                            break;
+                        }
+                    }
+                }
+                if ($b->grade) {
+                    $clonedGrade = clone $b->grade;
+                    $suffix = $couponId ? ' (' . $coupons[$couponId] . ')' : ' (No Coupon)';
+                    $clonedGrade->name = $clonedGrade->name . $suffix;
+                    $b->setRelation('grade', $clonedGrade);
+                }
+            }
 
             $grandTotal = (object) [
                 'total_batches' => $completedBatches->count(),
@@ -140,9 +171,9 @@ class DailyReportService
             // Summaries for test compatibility
             $machineSummary = ProductionBatch::whereBetween(DB::raw('DATE(start_time)'), [$startDate, $endDate])
                 ->where('status', 'completed')
-                ->when($isSupervisor, function ($q) use ($user) {
-                    $q->whereHas('machine', function ($qm) use ($user) {
-                        $qm->where('department_id', $user->department_id);
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('machine', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
                     });
                 })
                 ->select('machine_id', DB::raw('count(*) as total_batches'), DB::raw('sum(output_bags) as total_bags'), DB::raw('sum(output_kg) as total_kg'))
@@ -152,9 +183,9 @@ class DailyReportService
 
             $supervisorSummary = ProductionBatch::whereBetween(DB::raw('DATE(start_time)'), [$startDate, $endDate])
                 ->where('status', 'completed')
-                ->when($isSupervisor, function ($q) use ($user) {
-                    $q->whereHas('machine', function ($qm) use ($user) {
-                        $qm->where('department_id', $user->department_id);
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('machine', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
                     });
                 })
                 ->select('supervisor_id', DB::raw('count(*) as total_batches'), DB::raw('sum(output_bags) as total_bags'), DB::raw('sum(output_kg) as total_kg'))
@@ -164,9 +195,9 @@ class DailyReportService
 
             // Running & Completed Machines count
             $runningMachines = ProductionBatch::where('status', 'running')
-                ->when($isSupervisor, function ($q) use ($user) {
-                    $q->whereHas('machine', function ($qm) use ($user) {
-                        $qm->where('department_id', $user->department_id);
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('machine', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
                     });
                 })->distinct('machine_id')->count('machine_id');
 
@@ -294,9 +325,9 @@ class DailyReportService
         if ($showGrout) {
             $groutBatchesQuery = GroutProductionBatch::whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate])
                 ->where('status', 'Completed')
-                ->when($isSupervisor, function ($q) use ($user) {
-                    $q->whereHas('machine', function ($qm) use ($user) {
-                        $qm->where('department_id', $user->department_id);
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('machine', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
                     });
                 });
 
@@ -313,9 +344,9 @@ class DailyReportService
 
             $groutMachineSummary = GroutProductionBatch::whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate])
                 ->where('status', 'Completed')
-                ->when($isSupervisor, function ($q) use ($user) {
-                    $q->whereHas('machine', function ($qm) use ($user) {
-                        $qm->where('department_id', $user->department_id);
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('machine', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
                     });
                 })
                 ->select('machine_id', DB::raw('count(*) as total_batches'), DB::raw('sum(finished_bags) as total_bags'), DB::raw('sum(total_weight_kg) as total_kg'))
@@ -352,6 +383,11 @@ class DailyReportService
 
         if ($showEpoxy) {
             $epoxyCompletedAssemblies = EpoxyAssembly::whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate])
+                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
+                    $q->whereHas('product', function ($qm) use ($supervisorDeptId) {
+                        $qm->where('department_id', $supervisorDeptId);
+                    });
+                })
                 ->with(['product', 'color', 'operator'])
                 ->orderBy('created_at', 'asc')
                 ->get();
@@ -406,8 +442,8 @@ class DailyReportService
             ->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate]);
 
         if ($isSupervisor) {
-            $materialSummaryQuery->whereHas('rawMaterial', function ($q) use ($user) {
-                $q->where('department_id', $user->department_id);
+            $materialSummaryQuery->whereHas('rawMaterial', function ($q) use ($supervisorDeptId) {
+                $q->where('department_id', $supervisorDeptId);
             });
         }
 

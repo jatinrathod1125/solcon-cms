@@ -3,39 +3,37 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 $(document).ready(function () {
     const configMeta = $('meta[name="firebase-config"]').attr('content');
-    if (!configMeta) return;
+    let firebaseConfig = null;
 
-    let firebaseConfig;
-    try {
-        firebaseConfig = JSON.parse(configMeta);
-    } catch (e) {
-        console.error("Failed to parse Firebase configuration.");
-        return;
+    if (configMeta) {
+        try {
+            firebaseConfig = JSON.parse(configMeta);
+        } catch (e) {
+            console.error("Failed to parse Firebase configuration.");
+        }
     }
 
-    if (!firebaseConfig.api_key || 
-        !firebaseConfig.project_id || 
-        firebaseConfig.api_key === 'mock-api-key-here' || 
-        firebaseConfig.api_key.startsWith('mock')) {
-        console.warn("Firebase is using mock/placeholder credentials. Push notifications disabled. Please set a valid FIREBASE_API_KEY and other parameters in your .env file.");
-        return;
+    // Check if Firebase configurations are present and valid
+    const isFirebaseValid = firebaseConfig && 
+        firebaseConfig.api_key && 
+        firebaseConfig.api_key !== 'mock-api-key-here' && 
+        !firebaseConfig.api_key.startsWith('mock');
+
+    let swUrl = '/sw.js';
+    if (isFirebaseValid) {
+        const configParams = new URLSearchParams({
+            apiKey: firebaseConfig.api_key,
+            authDomain: firebaseConfig.auth_domain || '',
+            projectId: firebaseConfig.project_id,
+            storageBucket: firebaseConfig.storage_bucket || '',
+            messagingSenderId: firebaseConfig.messaging_sender_id,
+            appId: firebaseConfig.app_id
+        }).toString();
+        swUrl = `/sw.js?${configParams}`;
     }
-
-    // Initialize Firebase
-    const app = initializeApp({
-        apiKey: firebaseConfig.api_key,
-        authDomain: firebaseConfig.auth_domain,
-        projectId: firebaseConfig.project_id,
-        storageBucket: firebaseConfig.storage_bucket,
-        messagingSenderId: firebaseConfig.messaging_sender_id,
-        appId: firebaseConfig.app_id,
-        measurementId: firebaseConfig.measurement_id
-    });
-
-    const messaging = getMessaging(app);
 
     // Request notification permission and register token
-    function requestPermissionAndGetToken() {
+    function requestPermissionAndGetToken(messaging, registration) {
         if (!('Notification' in window)) {
             console.warn("This browser does not support desktop notifications.");
             return;
@@ -44,16 +42,16 @@ $(document).ready(function () {
         Notification.requestPermission().then((permission) => {
             if (permission === 'granted') {
                 console.log('Notification permission granted.');
-                
+
                 // Get FCM token
                 if (!firebaseConfig.vapid_key || firebaseConfig.vapid_key === 'BPl...' || firebaseConfig.vapid_key.includes('...')) {
                     console.warn("FCM token retrieval skipped: VAPID Key is a placeholder ('BPl...'). Please configure a valid VAPID Key in your .env file to enable push notifications.");
                     return;
                 }
 
-                getToken(messaging, { 
+                getToken(messaging, {
                     vapidKey: firebaseConfig.vapid_key,
-                    serviceWorkerRegistration: window.swRegistration
+                    serviceWorkerRegistration: registration
                 }).then((currentToken) => {
                     if (currentToken) {
                         console.log('FCM Device Token retrieved:', currentToken);
@@ -116,54 +114,98 @@ $(document).ready(function () {
         });
     }
 
-    // Register Service Worker
+    let messaging = null;
+
+    // Register Service Worker (Exactly ONE registration in the application)
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        navigator.serviceWorker.register(swUrl)
             .then((registration) => {
-                console.log('FCM Service Worker registered with scope:', registration.scope);
+                console.log('Service Worker registered with scope:', registration.scope);
                 window.swRegistration = registration;
-                
-                // Permission request after login is completed
-                requestPermissionAndGetToken();
+
+                // Dispatch event so PWA installer or other components can hook into it
+                window.dispatchEvent(new CustomEvent('swRegistered', { detail: registration }));
+
+                if (isFirebaseValid) {
+                    // Initialize client-side Firebase messaging if config is valid
+                    const app = initializeApp({
+                        apiKey: firebaseConfig.api_key,
+                        authDomain: firebaseConfig.auth_domain,
+                        projectId: firebaseConfig.project_id,
+                        storageBucket: firebaseConfig.storage_bucket,
+                        messagingSenderId: firebaseConfig.messaging_sender_id,
+                        appId: firebaseConfig.app_id,
+                        measurementId: firebaseConfig.measurement_id
+                    });
+
+                    messaging = getMessaging(app);
+
+                    // Request permission and fetch FCM token passing registration
+                    requestPermissionAndGetToken(messaging, registration);
+
+                    // Listen for foreground messages
+                    onMessage(messaging, (payload) => {
+                        console.log('Received foreground message:', payload);
+
+                        const notifTitle = payload.notification?.title || payload.data?.title || 'New Notification';
+                        const notifBody = payload.notification?.body || payload.data?.body || '';
+                        const clickUrl = payload.data?.click_action || payload.notification?.click_action;
+
+                        // System Notification (Foreground)
+                        if (Notification.permission === "granted") {
+                            const notification = new Notification(notifTitle, {
+                                body: notifBody,
+                                icon: "/icons/icon-192x192.png",
+                                badge: "/icons/icon-96x96.png",
+                                data: {
+                                    click_action: clickUrl || '/'
+                                }
+                            });
+
+                            notification.onclick = function(event) {
+                                event.preventDefault();
+                                const url = this.data?.click_action;
+                                if (url) {
+                                    window.focus();
+                                    window.location.href = url;
+                                }
+                            };
+                        }
+
+                        // SweetAlert (Foreground Toast)
+                        Swal.fire({
+                            title: notifTitle,
+                            text: notifBody,
+                            icon: 'info',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 6000,
+                            timerProgressBar: true,
+                            background: '#0f172a',
+                            color: '#ffffff',
+                            showCloseButton: true,
+                            customClass: {
+                                popup: 'rounded-2xl border border-slate-800 shadow-2xl'
+                            },
+                            didOpen: (toast) => {
+                                toast.addEventListener('click', () => {
+                                    if (clickUrl) {
+                                        window.location.href = clickUrl;
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
             })
             .catch((err) => {
                 console.error('Service Worker registration failed:', err);
             });
     }
 
-    // Listen for foreground messages
-    onMessage(messaging, (payload) => {
-        console.log('Received foreground message:', payload);
-        
-        // Show in-app custom notification banner using SweetAlert toast
-        Swal.fire({
-            title: payload.notification.title,
-            text: payload.notification.body,
-            icon: 'info',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 6000,
-            timerProgressBar: true,
-            background: '#0f172a',
-            color: '#ffffff',
-            showCloseButton: true,
-            customClass: {
-                popup: 'rounded-2xl border border-slate-800 shadow-2xl'
-            },
-            didOpen: (toast) => {
-                toast.addEventListener('click', () => {
-                    const clickUrl = payload.data && payload.data.click_action;
-                    if (clickUrl) {
-                        window.location.href = clickUrl;
-                    }
-                });
-            }
-        });
-
-        // Trigger updates on notifications count and bell UI dynamically
-        if (window.fetchUnreadNotifications) {
-            window.fetchUnreadNotifications();
-        }
-    });
+    // Trigger updates on notifications count and bell UI dynamically
+    if (window.fetchUnreadNotifications) {
+        window.fetchUnreadNotifications();
+    }
 });

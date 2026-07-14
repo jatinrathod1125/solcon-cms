@@ -19,7 +19,7 @@ class FirebaseService
         return Cache::remember('firebase_oauth_token', 3300, function () {
             try {
                 $credentialsPath = base_path(config('services.firebase.credentials', 'storage/app/firebase/firebase-service-account.json'));
-                
+
                 if (!file_exists($credentialsPath)) {
                     Log::error("Firebase credentials file not found at: {$credentialsPath}");
                     return null;
@@ -44,7 +44,7 @@ class FirebaseService
 
                 $payload = $this->base64UrlEncode(json_encode($header)) . '.' . $this->base64UrlEncode(json_encode($claim));
                 $signature = '';
-                
+
                 if (!openssl_sign($payload, $signature, $serviceAccount['private_key'], 'SHA256')) {
                     Log::error("Failed to sign JWT for Firebase OAuth token.");
                     return null;
@@ -52,10 +52,12 @@ class FirebaseService
 
                 $jwt = $payload . '.' . $this->base64UrlEncode($signature);
 
-                $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
-                    'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-                    'assertion' => $jwt,
-                ]);
+                $response = Http::withoutVerifying()
+                    ->asForm()
+                    ->post('https://oauth2.googleapis.com/token', [
+                        'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                        'assertion' => $jwt,
+                    ]);
 
                 if ($response->failed()) {
                     Log::error("Google OAuth token request failed: " . $response->body());
@@ -122,8 +124,11 @@ class FirebaseService
 
         for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
             try {
-                $response = Http::withToken($accessToken)
-                    ->withHeaders(['Content-Type' => 'application/json'])
+                $response = Http::withoutVerifying()
+                    ->withToken($accessToken)
+                    ->withHeaders([
+                        'Content-Type' => 'application/json',
+                    ])
                     ->post($url, $payload);
 
                 if ($response->successful()) {

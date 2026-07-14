@@ -6,61 +6,6 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Supervisor\DashboardController as SupervisorDashboardController;
 use Illuminate\Support\Facades\Auth;
 
-// Firebase Service Worker Dynamic Script Route
-Route::get('/firebase-messaging-sw.js', function () {
-    $config = config('services.firebase');
-    $js = "
-        importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
-        importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
-
-        firebase.initializeApp({
-            apiKey: '" . ($config['api_key'] ?? '') . "',
-            authDomain: '" . ($config['auth_domain'] ?? '') . "',
-            projectId: '" . ($config['project_id'] ?? '') . "',
-            storageBucket: '" . ($config['storage_bucket'] ?? '') . "',
-            messagingSenderId: '" . ($config['messaging_sender_id'] ?? '') . "',
-            appId: '" . ($config['app_id'] ?? '') . "'
-        });
-
-        const messaging = firebase.messaging();
-
-        messaging.onBackgroundMessage(function(payload) {
-            console.log('[firebase-messaging-sw.js] Received background message ', payload);
-            const notificationTitle = payload.notification.title;
-            const notificationOptions = {
-                body: payload.notification.body,
-                icon: '/icons/icon-192x192.png',
-                badge: '/icons/icon-96x96.png',
-                data: {
-                    url: payload.data.click_action || '/'
-                }
-            };
-
-            self.registration.showNotification(notificationTitle, notificationOptions);
-        });
-
-        self.addEventListener('notificationclick', function(event) {
-            event.notification.close();
-            const targetUrl = event.notification.data.url;
-            event.waitUntil(
-                clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(windowClients) {
-                    for (var i = 0; i < windowClients.length; i++) {
-                        var client = windowClients[i];
-                        if (client.url === targetUrl && 'focus' in client) {
-                            return client.focus();
-                        }
-                    }
-                    if (clients.openWindow) {
-                        return clients.openWindow(targetUrl);
-                    }
-                })
-            );
-        });
-    ";
-
-    return response($js)->header('Content-Type', 'application/javascript');
-});
-
 // Guest Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

@@ -3,7 +3,8 @@
     <div class="flex items-center gap-3 min-w-0">
         <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-md">
             <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
         </div>
         <div class="min-w-0">
@@ -12,12 +13,14 @@
         </div>
     </div>
     <div class="flex items-center gap-2 shrink-0">
-        <button id="pwaInstallBtn" type="button" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition shadow-sm">
+        <button id="pwaInstallBtn" type="button"
+            class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition shadow-sm">
             Install
         </button>
-        <button id="pwaCloseBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg transition" aria-label="Close">
+        <button id="pwaCloseBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg transition"
+            aria-label="Close">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
     </div>
@@ -28,17 +31,20 @@
     <div class="flex items-center gap-3 min-w-0">
         <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-md">
             <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
         </div>
         <div class="min-w-0">
             <h4 class="text-xs font-extrabold text-white tracking-wide">Install Solcon on iPhone/iPad</h4>
-            <p class="text-[11px] text-slate-350 leading-tight">Tap Share <span class="text-blue-400 font-bold">⎋</span> then select <span class="text-white font-bold">'Add to Home Screen'</span></p>
+            <p class="text-[11px] text-slate-350 leading-tight">Tap Share <span class="text-blue-400 font-bold">⎋</span>
+                then select <span class="text-white font-bold">'Add to Home Screen'</span></p>
         </div>
     </div>
-    <button id="pwaIosCloseBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg transition shrink-0" aria-label="Close">
+    <button id="pwaIosCloseBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg transition shrink-0"
+        aria-label="Close">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
     </button>
 </div>
@@ -53,19 +59,21 @@
         <span class="font-bold">App Update Available</span>
     </div>
     <div class="flex items-center gap-1.5">
-        <button id="pwaReloadBtn" type="button" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-lg transition shadow-sm">
+        <button id="pwaReloadBtn" type="button"
+            class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-lg transition shadow-sm">
             Reload
         </button>
-        <button id="pwaUpdateCloseBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg transition" aria-label="Close">
+        <button id="pwaUpdateCloseBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg transition"
+            aria-label="Close">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
     </div>
 </div>
 
 <script>
-(function() {
+    (function() {
     let deferredPrompt = null;
     const banner = document.getElementById('pwaInstallBanner');
     const installBtn = document.getElementById('pwaInstallBtn');
@@ -90,16 +98,16 @@
 
     // Check if app is running in Standalone (Installed) mode
     const isStandalone = Boolean(
-        window.navigator.standalone || 
-        window.matchMedia('(display-mode: standalone)').matches || 
+        window.navigator.standalone ||
+        window.matchMedia('(display-mode: standalone)').matches ||
         window.matchMedia('(display-mode: window-controls-overlay)').matches ||
         (document.referrer && document.referrer.includes('android-app://'))
     );
 
-    // Register Service Worker & Handle Updates
+    // Handle Updates and service worker lifecycle (Single registration is managed in firebase.js)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            function setupUpdateListener(registration) {
                 // Only show update notification if page was ALREADY controlled by an active SW
                 if (registration.waiting && navigator.serviceWorker.controller) {
                     showUpdateToast(registration.waiting);
@@ -114,9 +122,16 @@
                         }
                     });
                 });
-            }).catch(function(err) {
-                console.error('Service Worker registration failed:', err);
-            });
+            }
+
+            // Hook into the service worker registration
+            if (window.swRegistration) {
+                setupUpdateListener(window.swRegistration);
+            } else {
+                window.addEventListener('swRegistered', function(event) {
+                    setupUpdateListener(event.detail);
+                });
+            }
 
             let refreshing = false;
             navigator.serviceWorker.addEventListener('controllerchange', function() {
