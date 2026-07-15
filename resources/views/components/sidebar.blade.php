@@ -8,9 +8,9 @@ $deptTAD = \App\Models\Department::where('code', 'TAD')->first();
 $deptGRT = \App\Models\Department::where('code', 'GRT')->first();
 $deptEPX = \App\Models\Department::where('code', 'EPX')->first();
 
-$canAccessAdhesive = $user->isAdmin() || ($deptTAD && $user->canAccessDepartment($deptTAD->id));
-$canAccessGrout = $user->isAdmin() || ($deptGRT && $user->canAccessDepartment($deptGRT->id));
-$canAccessEpoxy = $user->isAdmin() || ($deptEPX && $user->canAccessDepartment($deptEPX->id));
+$canAccessAdhesive = !$user->isMarketing() && ($user->isAdmin() || ($deptTAD && $user->canAccessDepartment($deptTAD->id)));
+$canAccessGrout = !$user->isMarketing() && ($user->isAdmin() || ($deptGRT && $user->canAccessDepartment($deptGRT->id)));
+$canAccessEpoxy = !$user->isMarketing() && ($user->isAdmin() || ($deptEPX && $user->canAccessDepartment($deptEPX->id)));
 $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMarketing();
 @endphp
 
@@ -32,6 +32,7 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
 
     <nav class="sidebar-scroll flex-1 space-y-6 overflow-y-auto px-3 py-5">
         {{-- General Section --}}
+        @if(!$user->isMarketing())
         <section>
             <p class="sidebar-label nav-eyebrow">General</p>
             <div class="space-y-1">
@@ -43,6 +44,7 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
                 </a>
             </div>
         </section>
+        @endif
 
         {{-- Marketing Section --}}
         @if($canAccessMarketing)
@@ -135,6 +137,7 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
         @endif
 
         {{-- Inventory Section --}}
+        @if(!$user->isMarketing())
         <section>
             <p class="sidebar-label nav-eyebrow">Inventory</p>
             <div class="space-y-1">
@@ -162,9 +165,10 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
                 </a>
             </div>
         </section>
+        @endif
 
         {{-- Operations / Reports Section --}}
-        @if($user->isAdmin() || $user->hasPermission('view-reports'))
+        @if(($user->isAdmin() || $user->hasPermission('view-reports')) && !$user->isMarketing())
         <section>
             <p class="sidebar-label nav-eyebrow">Reports</p>
             <div class="space-y-1">

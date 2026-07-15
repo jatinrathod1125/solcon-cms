@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
         // Dashboard AJAX Statuses
         Route::get('/dashboard/machines', [AdminDashboardController::class, 'liveMachines'])->name('admin.dashboard.machines');
         Route::get('/calendar/details', [AdminDashboardController::class, 'calendarDetails'])->name('admin.calendar.details');
+
+        // Maintenance Settings Update
+        Route::post('/maintenance/update', [\App\Http\Controllers\MaintenanceController::class, 'update'])->name('admin.maintenance.update');
     });
 
     // Production Routes (Accessible by Admin and Supervisor)
@@ -199,3 +202,6 @@ Route::get('/', function () {
     }
     return redirect()->route('login');
 });
+
+// Secret bypass route - must be at the very bottom of web.php to prevent route clashing
+Route::get('/admin/{password}', [\App\Http\Controllers\MaintenanceController::class, 'bypass'])->name('maintenance.bypass');

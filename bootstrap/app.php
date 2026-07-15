@@ -17,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \App\Http\Middleware\PermissionMiddleware::class,
             'department.access' => \App\Http\Middleware\DepartmentAccessMiddleware::class,
         ]);
+
+        $middleware->web(append: [
+            \App\Http\Middleware\MaintenanceMiddleware::class,
+        ]);
     })
     ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
         $schedule->command('grout:check-timers')->everyMinute();

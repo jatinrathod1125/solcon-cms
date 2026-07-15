@@ -98,6 +98,21 @@
                         </div>
                     @endif
 
+                    @if(Auth::check() && Auth::user()->isAdmin())
+                        @php
+                            $maintenanceMode = \App\Models\Setting::get('maintenance_mode', 'off');
+                        @endphp
+                        <button type="button" id="maintenanceModeToggleBtn" 
+                                data-status="{{ $maintenanceMode }}" 
+                                class="relative flex h-10 w-10 items-center justify-center rounded-xl border transition focus:outline-none {{ $maintenanceMode === 'on' ? 'text-rose-650 border-rose-200 bg-rose-50 hover:bg-rose-100' : 'text-slate-500 border-slate-200 bg-white hover:bg-slate-50' }}" 
+                                title="Maintenance Mode Settings">
+                            <i data-lucide="wrench" class="h-5 w-5"></i>
+                            @if($maintenanceMode === 'on')
+                                <span class="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-rose-600 ring-2 ring-white animate-pulse"></span>
+                            @endif
+                        </button>
+                    @endif
+
                     <!-- Notification Bell with Dropdown -->
                     <div class="relative" id="notifications-dropdown-container">
                         <button type="button" id="bellButton" class="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50 hover:text-blue-600 focus:outline-none" aria-label="Notifications">
@@ -151,18 +166,24 @@
         </div>
     </div>
 
-    <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-[22px] border border-slate-200/80 bg-white/95 px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl shadow-slate-900/15 backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
-        @php
-            $mobileDashboard = Auth::user()->isAdmin() ? route('admin.dashboard') : route('supervisor.dashboard');
-            $settingsRoute = Auth::user()->isAdmin() ? route('admin.settings.factory') : '#';
-            $settingsClass = Auth::user()->isAdmin() ? '' : 'coming-soon-link';
-        @endphp
-        <a href="{{ $mobileDashboard }}" class="mobile-nav-item {{ request()->routeIs('admin.dashboard') || request()->routeIs('supervisor.dashboard') ? 'is-active' : '' }}"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
-        <a href="{{ route('production.index') }}" class="mobile-nav-item {{ request()->routeIs('production.index') || request()->routeIs('grout-production.index') || request()->routeIs('production.show') || request()->routeIs('grout-production.running') ? 'is-active' : '' }}"><i data-lucide="activity"></i><span>Production</span></a>
-        <a href="{{ route('production.ledger') }}" class="mobile-nav-item {{ request()->routeIs('production.ledger') ? 'is-active' : '' }}"><i data-lucide="archive"></i><span>Stock</span></a>
-        <a href="{{ route('admin.reports.daily') }}" class="mobile-nav-item {{ request()->routeIs('admin.reports.*') ? 'is-active' : '' }}"><i data-lucide="bar-chart-3"></i><span>Reports</span></a>
-        <a href="{{ $settingsRoute }}" class="mobile-nav-item {{ $settingsClass }} {{ request()->routeIs('admin.settings.*') ? 'is-active' : '' }}"><i data-lucide="settings"></i><span>Settings</span></a>
-    </nav>
+    @if(Auth::check() && Auth::user()->isMarketing())
+        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-1 rounded-[22px] border border-slate-200/80 bg-white/95 px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl shadow-slate-900/15 backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+            <a href="{{ route('marketing.orders.index') }}" class="mobile-nav-item {{ request()->routeIs('marketing.orders.*') ? 'is-active' : '' }}"><i data-lucide="clipboard-list"></i><span>Orders Board</span></a>
+        </nav>
+    @else
+        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-[22px] border border-slate-200/80 bg-white/95 px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl shadow-slate-900/15 backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+            @php
+                $mobileDashboard = Auth::user()->isAdmin() ? route('admin.dashboard') : route('supervisor.dashboard');
+                $settingsRoute = Auth::user()->isAdmin() ? route('admin.settings.factory') : '#';
+                $settingsClass = Auth::user()->isAdmin() ? '' : 'coming-soon-link';
+            @endphp
+            <a href="{{ $mobileDashboard }}" class="mobile-nav-item {{ request()->routeIs('admin.dashboard') || request()->routeIs('supervisor.dashboard') ? 'is-active' : '' }}"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+            <a href="{{ route('production.index') }}" class="mobile-nav-item {{ request()->routeIs('production.index') || request()->routeIs('grout-production.index') || request()->routeIs('production.show') || request()->routeIs('grout-production.running') ? 'is-active' : '' }}"><i data-lucide="activity"></i><span>Production</span></a>
+            <a href="{{ route('production.ledger') }}" class="mobile-nav-item {{ request()->routeIs('production.ledger') ? 'is-active' : '' }}"><i data-lucide="archive"></i><span>Stock</span></a>
+            <a href="{{ route('admin.reports.daily') }}" class="mobile-nav-item {{ request()->routeIs('admin.reports.*') ? 'is-active' : '' }}"><i data-lucide="bar-chart-3"></i><span>Reports</span></a>
+            <a href="{{ $settingsRoute }}" class="mobile-nav-item {{ $settingsClass }} {{ request()->routeIs('admin.settings.*') ? 'is-active' : '' }}"><i data-lucide="settings"></i><span>Settings</span></a>
+        </nav>
+    @endif
 
     <div id="searchPalette" class="fixed inset-0 z-[70] hidden items-start justify-center bg-slate-950/30 px-4 pt-[12vh] backdrop-blur-sm">
         <div class="w-full max-w-xl overflow-hidden rounded-3xl border border-white/70 bg-white shadow-2xl">
@@ -261,7 +282,9 @@
             'toggle-left': 'minus-circle',
             'trash-2': 'trash',
             'upload-cloud': 'cloud-arrow-up',
-            'zap': 'bolt'
+            'zap': 'bolt',
+            'wrench': 'wrench',
+            'shield-exclamation': 'shield-exclamation'
         };
         window.renderHeroicons = function(root = document) {
             const nodes = [];
@@ -379,6 +402,134 @@
             // Initial fetch
             window.fetchUnreadNotifications();
             window.setInterval(window.fetchUnreadNotifications, 30000);
+
+            // Maintenance Mode Control Panel
+            $('#maintenanceModeToggleBtn').click(function() {
+                const btn = $(this);
+                const currentStatus = btn.data('status');
+                
+                Swal.fire({
+                    title: 'System Maintenance Control',
+                    html: `
+                        <div class="text-left font-sans space-y-4">
+                            <p class="text-xs text-slate-500 mb-4">Manage system access. Active maintenance blocks all non-admin users.</p>
+                            
+                            <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                                <div>
+                                    <span class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider">Maintenance Mode</span>
+                                    <span class="text-xs font-bold text-slate-700" id="swal-status-text">
+                                        ${currentStatus === 'on' ? '🟢 Active (System Blocked)' : '🔴 Inactive (System Open)'}
+                                    </span>
+                                </div>
+                                <button type="button" id="swal-toggle-status-btn" class="px-3 py-1.5 text-xs font-extrabold rounded-lg shadow-sm text-white transition-all cursor-pointer ${currentStatus === 'on' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-rose-600 hover:bg-rose-700'}">
+                                    ${currentStatus === 'on' ? 'Deactivate' : 'Activate'}
+                                </button>
+                            </div>
+                            
+                            <div>
+                                <label for="swal-unlock-password" class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1.5">Set / Update Unlock Password</label>
+                                <div class="relative">
+                                    <input type="password" id="swal-unlock-password" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="••••••••">
+                                </div>
+                                <p class="text-[10px] text-slate-400 mt-1">Leave blank to keep the current password.</p>
+                            </div>
+                        </div>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save Password Changes',
+                    cancelButtonText: 'Close Panel',
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm cursor-pointer',
+                        cancelButton: 'px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl shadow-sm cursor-pointer'
+                    },
+                    buttonsStyling: false,
+                    didOpen: () => {
+                        let tempStatus = currentStatus;
+                        $('#swal-toggle-status-btn').click(function() {
+                            tempStatus = tempStatus === 'on' ? 'off' : 'on';
+                            
+                            // Ask for confirmation
+                            Swal.fire({
+                                title: tempStatus === 'on' ? 'Activate Maintenance Mode?' : 'Deactivate Maintenance Mode?',
+                                text: tempStatus === 'on' 
+                                    ? 'This will block all non-admin users and show the maintenance screen.' 
+                                    : 'This will restore public access to the ERP.',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Proceed',
+                                cancelButtonText: 'Cancel',
+                                customClass: {
+                                    confirmButton: 'px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl mr-2',
+                                    cancelButton: 'px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-750 font-bold text-xs rounded-xl'
+                                },
+                                buttonsStyling: false
+                            }).then((conf) => {
+                                if (conf.isConfirmed) {
+                                    // Send AJAX request to update status
+                                    $.post('/admin/maintenance/update', {
+                                        _token: $('meta[name="csrf-token"]').attr('content'),
+                                        maintenance_mode: tempStatus,
+                                        unlock_password: ''
+                                    })
+                                    .done(function(res) {
+                                        Swal.fire({
+                                            title: 'Updated!',
+                                            text: res.message,
+                                            icon: 'success',
+                                            timer: 1500,
+                                            showConfirmButton: false
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                    })
+                                    .fail(function(xhr) {
+                                        const msg = xhr.responseJSON && xhr.responseJSON.message 
+                                            ? xhr.responseJSON.message 
+                                            : (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.unlock_password 
+                                                ? xhr.responseJSON.errors.unlock_password[0] 
+                                                : 'Failed to update settings.');
+                                                
+                                        Swal.fire('Error', msg, 'error');
+                                        tempStatus = tempStatus === 'on' ? 'off' : 'on'; // revert tempStatus
+                                    });
+                                } else {
+                                    tempStatus = tempStatus === 'on' ? 'off' : 'on'; // revert tempStatus
+                                }
+                            });
+                        });
+                    },
+                    preConfirm: () => {
+                        return $('#swal-unlock-password').val();
+                    }
+                }).then((res) => {
+                    if (res.isConfirmed && res.value) {
+                        const newPassword = res.value;
+                        if (newPassword.length < 4) {
+                            Swal.fire('Error', 'Unlock password must be at least 4 characters long.', 'error');
+                            return;
+                        }
+                        
+                        $.post('/admin/maintenance/update', {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            maintenance_mode: currentStatus,
+                            unlock_password: newPassword
+                        })
+                        .done(function(resp) {
+                            Swal.fire({
+                                title: 'Saved!',
+                                text: 'Unlock password has been updated securely.',
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        })
+                        .fail(function(xhr) {
+                            Swal.fire('Error', 'Failed to update password.', 'error');
+                        });
+                    }
+                });
+            });
         });
     </script>
     @yield('scripts')
