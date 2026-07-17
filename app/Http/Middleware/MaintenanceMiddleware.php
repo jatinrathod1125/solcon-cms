@@ -4,56 +4,63 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Setting;
-use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\SettingService;
 
 class MaintenanceMiddleware
 {
     /**
      * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // 1. Check if maintenance mode is ON
-        if (Setting::get('maintenance_mode', 'off') !== 'on') {
+        // 1. Check if maintenance mode is enabled
+        $maintenanceMode = SettingService::get('maintenance_mode', 'disable');
+        if ($maintenanceMode !== 'enable') {
             return $next($request);
         }
 
-        // 2. Check if trying to access secret URL: /admin/{password}
-        if ($request->is('admin/*')) {
-            $segments = $request->segments();
-            // We want exactly 2 segments: "admin" and "{password}"
-            if (count($segments) === 2) {
-                $password = $segments[1];
-                $hashedPassword = Setting::get('maintenance_unlock_password');
+        // 2. Exclude specific routes (unlock screen, login, logout, debugbar)
+        if ($request->is('unlock') || $request->is('login') || $request->is('logout') || $request->is('_debugbar*')) {
+            return $next($request);
+        }
 
-                if ($hashedPassword && Hash::check($password, $hashedPassword)) {
-                    // Regenerate session for security
-                    $request->session()->regenerate();
-                    
-                    // Mark as unlocked
-                    session(['maintenance_unlocked' => true]);
-
-                    // Redirect to home/dashboard
-                    return redirect('/');
-                }
+        // 3. Exclude Super Admin users (if auto-bypass is enabled)
+        $bypassSuperAdmin = SettingService::get('maintenance_bypass_super_admin', 'enable');
+        if ($bypassSuperAdmin === 'enable') {
+            $user = auth()->user();
+            if ($user && $user->isSuperAdmin()) {
+                return $next($request);
             }
         }
 
-        // 3. Check if the session is unlocked
-        if ($request->session()->get('maintenance_unlocked') === true) {
+        // 4. Exclude if the session has been unlocked via password
+        if ($request->hasSession() && $request->session()->get('maintenance_unlocked') === true) {
             return $next($request);
         }
 
-        // 4. Return Maintenance Page or JSON response for AJAX/API requests
-        if ($request->expectsJson() || $request->ajax()) {
+        // 5. Handle AJAX/JSON requests
+        if ($request->expectsJson()) {
             return response()->json([
-                'status' => 'maintenance',
-                'message' => 'System is currently under maintenance. Please try again later.'
+                'message' => SettingService::get('maintenance_message', 'System is currently undergoing scheduled maintenance.'),
+                'title' => SettingService::get('maintenance_title', 'System Under Maintenance'),
+                'downtime' => SettingService::get('maintenance_downtime', '2 hours'),
             ], 503);
         }
 
-        return response()->view('maintenance', [], 503);
+        // 6. Otherwise, display the custom premium 503 maintenance page
+        $settings = [
+            'title' => SettingService::get('maintenance_title', 'System Under Maintenance'),
+            'message' => SettingService::get('maintenance_message', 'Solcon ERP is currently undergoing scheduled updates and maintenance. We will be back online shortly.'),
+            'downtime' => SettingService::get('maintenance_downtime', '2 hours'),
+            'logo' => SettingService::get('maintenance_logo') ?: SettingService::get('company_logo'),
+            'contact' => SettingService::get('maintenance_contact', 'support@solcon.com'),
+        ];
+
+        return response()->view('errors.503', compact('settings'), 503);
     }
 }

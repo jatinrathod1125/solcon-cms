@@ -8,6 +8,8 @@ use App\Models\MarketingOrderItem;
 use App\Services\MarketingOrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\EpoxyFillerColor;
+use App\Models\Color;
 
 class MarketingOrderController extends Controller
 {
@@ -50,6 +52,24 @@ class MarketingOrderController extends Controller
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
 
         return view('marketing.orders.index', compact('lanes', 'coupons', 'adhesives', 'grouts', 'epoxies'));
+    }
+
+    /**
+     * Show the form for creating a new order.
+     */
+    public function create()
+    {
+        $coupons = $this->orderService->getAvailableCoupons();
+        $adhesives = $this->orderService->getProductsByDepartment('TAD');
+        $grouts = $this->orderService->getProductsByDepartment('GRT');
+        $epoxies = $this->orderService->getProductsByDepartment('EPX');
+        $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
+        $groutColors = Color::where('is_active', true)
+            ->where('packing_size', '!=', '500 GM')
+            ->orderBy('code', 'asc')
+            ->get();
+
+        return view('marketing.orders.create', compact('coupons', 'adhesives', 'grouts', 'epoxies', 'epoxyColors', 'groutColors'));
     }
 
     /**

@@ -34,11 +34,6 @@ class DashboardController extends Controller
             ->orderBy('sort_order', 'asc')
             ->get();
 
-        // Fetch Marketing Orders that have shortage and merge them
-        $mktService = app(\App\Services\MarketingOrderService::class);
-        $mktTodos = $mktService->getDashboardMarketingTodos(auth()->user());
-        $todos = $todos->concat($mktTodos);
-
         $todoCounters = [
             'pending' => $todos->filter(fn($t) => in_array($t->status, ['pending', 'in_progress']))->count(),
             'completed_today' => $todos->filter(fn($t) => $t->status === 'completed' && $t->completed_at && $t->completed_at->isToday())->count(),

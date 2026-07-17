@@ -172,6 +172,7 @@ Route::middleware('auth')->group(function () {
     // Marketing Department Order Board Routes
     Route::middleware('role:admin,supervisor,marketing')->prefix('marketing')->group(function () {
         Route::get('/orders', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'index'])->name('marketing.orders.index');
+        Route::get('/orders/create', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'create'])->name('marketing.orders.create');
         Route::post('/orders', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'store'])->name('marketing.orders.store');
         Route::get('/orders/{order}', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'show'])->name('marketing.orders.show');
         Route::put('/orders/{order}', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'update'])->name('marketing.orders.update');
