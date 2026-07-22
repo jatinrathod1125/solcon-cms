@@ -149,86 +149,49 @@
             </div>
         </div>
 
-        <!-- 3. Customer Order Selection & Real-Time Product Summary Card -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- 3. Customer Order Selection -->
+        <div class="dispatch-card space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">3. Select Approved Orders</h3>
+                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+                    Select single or multiple orders
+                </span>
+            </div>
 
-            <!-- Approved Orders Selection List -->
-            <div class="lg:col-span-2 dispatch-card space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">3. Select Approved Orders</h3>
-                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
-                        Select single or multiple orders
-                    </span>
-                </div>
-
-                <div class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-                    @forelse($approvedOrders as $order)
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-2xl hover:bg-slate-50 transition cursor-pointer order-checkbox-card">
-                            <input type="checkbox" name="marketing_order_ids[]" value="{{ $order->id }}" class="mt-1 h-5 w-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 order-checkbox" onchange="recalculateSummary()">
-                            
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between gap-2 mb-1">
-                                    <span class="font-mono text-xs font-black text-blue-700">{{ $order->order_number }}</span>
-                                    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-                                        {{ ucfirst($order->priority) }} Priority
-                                    </span>
-                                </div>
-                                
-                                <div class="font-extrabold text-sm text-slate-900 truncate">{{ $order->party_name }}</div>
-                                <div class="text-xs font-bold text-slate-500 mt-0.5">
-                                    📍 {{ $order->city ?: 'N/A' }} | 📅 Order Date: {{ $order->order_date?->format('d/m/Y') }}
-                                </div>
-
-                                <!-- Items summary badge -->
-                                <div class="mt-2 flex flex-wrap gap-1.5">
-                                    @foreach($order->items as $item)
-                                        <span class="inline-flex items-center text-[11px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md border border-slate-200">
-                                            {{ $item->product_name }} - {{ $item->quantity_bags }} Bags
-                                        </span>
-                                    @endforeach
-                                </div>
+            <div class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                @forelse($approvedOrders as $order)
+                    <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-2xl hover:bg-slate-50 transition cursor-pointer order-checkbox-card">
+                        <input type="checkbox" name="marketing_order_ids[]" value="{{ $order->id }}" class="mt-1 h-5 w-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 order-checkbox" onchange="recalculateSummary()">
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <span class="font-mono text-xs font-black text-blue-700">{{ $order->order_number }}</span>
+                                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                                    {{ ucfirst($order->priority) }} Priority
+                                </span>
                             </div>
-                        </label>
-                    @empty
-                        <div class="p-8 text-center text-slate-400 font-bold text-xs bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                            No approved orders found. You can still create manual dispatch.
+                            
+                            <div class="font-extrabold text-sm text-slate-900 truncate">{{ $order->party_name }}</div>
+                            <div class="text-xs font-bold text-slate-500 mt-0.5">
+                                📍 {{ $order->city ?: 'N/A' }} | 📅 Order Date: {{ $order->order_date?->format('d/m/Y') }}
+                            </div>
+
+                            <!-- Items summary badge -->
+                            <div class="mt-2 flex flex-wrap gap-1.5">
+                                @foreach($order->items as $item)
+                                    <span class="inline-flex items-center text-[11px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md border border-slate-200">
+                                        {{ $item->product_name }} - {{ $item->quantity_bags }} {{ $item->unit_label }}
+                                    </span>
+                                @endforeach
+                            </div>
                         </div>
-                    @endforelse
-                </div>
+                    </label>
+                @empty
+                    <div class="p-8 text-center text-slate-400 font-bold text-xs bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                        No approved orders found. You can still create manual dispatch.
+                    </div>
+                @endforelse
             </div>
-
-            <!-- Product Summary Card -->
-            <div class="summary-card shadow-xl flex flex-col justify-between space-y-6">
-                <div>
-                    <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-                        <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="package" class="h-4 w-4 text-blue-400"></i>
-                            Product Summary Card
-                        </h3>
-                        <span class="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full border border-emerald-400/20">Auto Calculated</span>
-                    </div>
-
-                    <div id="summaryContent" class="space-y-4">
-                        <p class="text-xs text-slate-400 font-bold italic">Select customer orders to calculate totals automatically.</p>
-                    </div>
-                </div>
-
-                <div class="pt-4 border-t border-white/10 space-y-2">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="font-extrabold text-slate-300">Total Bags:</span>
-                        <strong id="summaryTotalBags" class="text-xl font-black text-white">0 Bags</strong>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="font-extrabold text-slate-300">Total Weight:</span>
-                        <strong id="summaryTotalWeight" class="text-lg font-black text-blue-400">0.0 KG</strong>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="font-extrabold text-slate-300">Total Ton:</span>
-                        <strong id="summaryTotalTon" class="text-lg font-black text-emerald-400">0.00 Ton</strong>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <!-- 4. Payment & Release Controls -->

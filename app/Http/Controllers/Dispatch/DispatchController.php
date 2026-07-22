@@ -37,7 +37,6 @@ class DispatchController extends Controller
                 $q->whereRaw('LOWER(dispatch_number) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(party_name) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(vehicle_number) LIKE ?', ["%{$search}%"])
-                  ->orWhereRaw('LOWER(driver_name) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(city) LIKE ?', ["%{$search}%"]);
             });
         }
@@ -133,7 +132,6 @@ class DispatchController extends Controller
             'full_address' => 'nullable|string',
             'google_map_url' => 'nullable|string',
             'vehicle_number' => 'required|string|max:255',
-            'driver_name' => 'required|string|max:255',
             'driver_mobile' => 'required|string|max:255',
             'expected_arrival_at' => 'nullable|date',
             'payment_required' => 'nullable|boolean',
@@ -218,7 +216,6 @@ class DispatchController extends Controller
             'full_address' => 'nullable|string',
             'google_map_url' => 'nullable|string',
             'vehicle_number' => 'required|string|max:255',
-            'driver_name' => 'required|string|max:255',
             'driver_mobile' => 'required|string|max:255',
             'expected_arrival_at' => 'nullable|date',
             'payment_required' => 'nullable|boolean',

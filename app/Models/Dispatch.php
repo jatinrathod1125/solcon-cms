@@ -17,7 +17,6 @@ class Dispatch extends Model
         'full_address',
         'google_map_url',
         'vehicle_number',
-        'driver_name',
         'driver_mobile',
         'expected_arrival_at',
         'payment_required',

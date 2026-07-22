@@ -207,42 +207,8 @@
 
         </div>
 
-        <!-- Right Column: Product Summary Card, Payment, Status Logs -->
+        <!-- Right Column: Payment & Status Logs -->
         <div class="space-y-6">
-
-            <!-- Product Summary Card -->
-            <div class="summary-dark-card shadow-xl space-y-4">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 border-b border-white/10 pb-3 flex items-center gap-2">
-                    <i data-lucide="package" class="h-4 w-4 text-blue-400"></i>
-                    Product Summary Card
-                </h3>
-
-                <div class="space-y-3">
-                    @foreach($dispatch->product_summary as $deptLabel => $data)
-                        <div class="p-3 bg-white/5 rounded-xl border border-white/10 space-y-1">
-                            <div class="flex items-center justify-between text-xs font-black text-white">
-                                <span>{{ $deptLabel }}</span>
-                                <span class="text-blue-400 font-extrabold">{{ $data['total_bags'] }} Bags ({{ number_format($data['total_weight'], 1) }} KG)</span>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="pt-3 border-t border-white/10 space-y-1.5">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="font-extrabold text-slate-300">Total Bags:</span>
-                        <strong class="text-xl font-black text-white">{{ $dispatch->total_bags }} Bags</strong>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="font-extrabold text-slate-300">Total Weight:</span>
-                        <strong class="text-lg font-black text-blue-400">{{ number_format($dispatch->total_weight, 1) }} KG</strong>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="font-extrabold text-slate-300">Total Ton:</span>
-                        <strong class="text-lg font-black text-emerald-400">{{ number_format($dispatch->total_tons, 2) }} Ton</strong>
-                    </div>
-                </div>
-            </div>
 
             <!-- Payment & Release Status Card -->
             <div class="dispatch-card space-y-4">
