@@ -26,6 +26,7 @@ class MarketingOrder extends Model
         'cancelled_at',
         'cancel_reason',
         'sort_order',
+        'is_edited',
     ];
 
     protected $casts = [
@@ -35,6 +36,7 @@ class MarketingOrder extends Model
         'completed_at' => 'datetime',
         'cancelled_at' => 'datetime',
         'sort_order' => 'integer',
+        'is_edited' => 'boolean',
     ];
 
     /**

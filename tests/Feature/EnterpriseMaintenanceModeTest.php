@@ -75,12 +75,18 @@ class EnterpriseMaintenanceModeTest extends TestCase
         $response->assertStatus(503);
     }
 
-    public function test_when_maintenance_is_on_super_admin_can_bypass(): void
+    public function test_secret_url_deactivates_and_bypasses_maintenance(): void
     {
         SettingService::set('maintenance_mode', 'enable');
 
+        // Without entering secret URL, super admin gets 503
         $response = $this->actingAs($this->superAdminUser)->get('/admin/dashboard');
-        $response->assertStatus(200);
+        $response->assertStatus(503);
+
+        // Accessing secret URL /admin/admin123 deactivates maintenance and unlocks system
+        $response = $this->actingAs($this->superAdminUser)->get('/admin/admin123');
+        $response->assertRedirect();
+        $this->assertEquals('disable', SettingService::get('maintenance_mode'));
     }
 
     public function test_unlocked_session_bypasses_maintenance(): void

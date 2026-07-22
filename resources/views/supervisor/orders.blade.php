@@ -254,7 +254,16 @@
                                 $searchText = strtolower($order->order_number . ' ' . $order->party_name . ' ' . $order->city . ' ' . $cList . ' ' . $order->status . ' ' . $priority);
                             @endphp
                             <tr class="main-row transition hover:bg-slate-50/70" data-status="{{ $order->status }}" data-search="{{ $searchText }}" data-order-id="{{ $order->id }}">
-                                <td data-label="Order No." class="font-mono text-sm font-black text-blue-700">{{ $order->order_number }}</td>
+                                <td data-label="Order No." class="font-mono text-sm font-black text-blue-700">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>{{ $order->order_number }}</span>
+                                        @if($order->is_edited)
+                                            <span class="inline-flex items-center gap-0.5 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-black text-amber-800 border border-amber-300 shadow-sm" title="Order was updated/edited">
+                                                ✏️ Edited
+                                            </span>
+                                        @endif
+                                    </div>
+                                </td>
                                 <td data-label="Party Name" class="font-extrabold text-slate-900">{{ $order->party_name }}</td>
                                 <td data-label="City" class="font-bold text-slate-600">{{ $order->city ?: 'N/A' }}</td>
                                 <td data-label="Coupon" class="font-bold text-slate-700">
@@ -302,9 +311,16 @@
                                                 </thead>
                                                 <tbody class="divide-y divide-slate-50">
                                                     @forelse($order->items as $item)
-                                                    <tr>
+                                                    <tr class="{{ $item->is_edited ? 'bg-amber-50/80 border-l-4 border-l-amber-500 font-bold' : '' }}">
                                                         <td class="px-3 py-2 font-bold text-slate-600 whitespace-nowrap">{{ $item->department_label }}</td>
-                                                        <td class="px-3 py-2 font-black text-slate-900">{{ $item->product_name }}</td>
+                                                        <td class="px-3 py-2 font-black text-slate-900">
+                                                            {{ $item->product_name }}
+                                                            @if($item->is_edited)
+                                                                <span class="inline-flex items-center gap-0.5 rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-extrabold text-amber-800 border border-amber-300 ml-1" title="Product updated">
+                                                                    Updated
+                                                                </span>
+                                                            @endif
+                                                        </td>
                                                         <td class="px-3 py-2 text-center font-extrabold text-blue-700">{{ $item->quantity_bags }} {{ $item->unit_label }}</td>
                                                         <td class="px-3 py-2 font-bold text-slate-600">{{ $item->packing ?? '-' }}</td>
                                                         <td class="px-3 py-2 text-right font-bold text-slate-700">{{ number_format($item->calculated_weight_kg, 1) }}</td>

@@ -127,22 +127,11 @@
                 {{ $settings['message'] ?? 'We are upgrading our systems to serve you better. We apologize for any temporary inconvenience.' }}
             </p>
 
-            <!-- Estimated Downtime Banner -->
-            <div class="w-full bg-white/5 border border-white/5 rounded-2xl p-5 mb-8 flex items-center justify-between gap-4 text-left">
-                <div>
-                    <span class="block text-[10px] uppercase tracking-wider font-semibold text-slate-400">Estimated Downtime</span>
-                    <strong class="text-sm text-indigo-300 font-bold block mt-0.5" id="downtime-text">{{ $settings['downtime'] ?? '2 Hours' }}</strong>
-                </div>
-                <!-- Countdown Visual -->
-                <div class="flex items-center gap-1.5 bg-slate-900/60 px-4 py-2.5 rounded-xl border border-white/5" id="countdown-box">
-                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-xs font-bold font-mono tracking-wider text-emerald-400" id="countdown-timer">02:00:00</span>
-                </div>
-            </div>
 
-            <!-- Support Details & Unlock Action -->
-            <footer class="w-full pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-left flex items-center gap-2">
+
+            <!-- Support Details -->
+            <footer class="w-full pt-6 border-t border-white/5 flex items-center justify-center gap-4">
+                <div class="text-center flex items-center gap-2">
                     <div class="h-8 w-8 rounded-lg bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400">
                         <i data-lucide="help-circle" class="w-4 h-4"></i>
                     </div>
@@ -153,12 +142,6 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Admin Unlock Action Link -->
-                <a href="/unlock" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 border border-white/15 text-xs font-bold text-slate-250 hover:bg-white/10 hover:border-white/20 transition-all">
-                    <i data-lucide="key-round" class="w-3.5 h-3.5 text-indigo-400"></i>
-                    <span>Admin Bypass</span>
-                </a>
             </footer>
 
         </main>
@@ -198,43 +181,6 @@
             container.appendChild(particle);
         }
 
-        // 3. Simple countdown parser
-        function startCountdown() {
-            const downtimeText = "{{ $settings['downtime'] ?? '2 hours' }}";
-            let totalSeconds = 7200; // Default 2 hours
-
-            // Parse simple expressions like "2 hours" or "30 minutes"
-            const num = parseInt(downtimeText);
-            if (!isNaN(num)) {
-                if (downtimeText.toLowerCase().includes('hour')) {
-                    totalSeconds = num * 3600;
-                } else if (downtimeText.toLowerCase().includes('min')) {
-                    totalSeconds = num * 60;
-                } else if (downtimeText.toLowerCase().includes('sec')) {
-                    totalSeconds = num;
-                }
-            }
-
-            const timerEl = document.getElementById('countdown-timer');
-            
-            function tick() {
-                if (totalSeconds <= 0) {
-                    timerEl.innerText = "00:00:00";
-                    return;
-                }
-                totalSeconds--;
-                
-                const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
-                const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
-                const seconds = (totalSeconds % 60).toString().padStart(2, '0');
-                
-                timerEl.innerText = `${hours}:${minutes}:${seconds}`;
-            }
-
-            tick();
-            setInterval(tick, 1000);
-        }
-        startCountdown();
     </script>
 </body>
 </html>

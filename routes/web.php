@@ -190,7 +190,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Dispatch Management System Routes
-    Route::middleware('role:admin,supervisor,marketing,dispatch')->prefix('dispatch')->group(function () {
+    Route::middleware('role:admin,marketing,dispatch')->prefix('dispatch')->group(function () {
         Route::get('/', [\App\Http\Controllers\Dispatch\DispatchController::class, 'index'])->name('dispatch.index');
         Route::get('/create', [\App\Http\Controllers\Dispatch\DispatchController::class, 'create'])->name('dispatch.create');
         Route::post('/', [\App\Http\Controllers\Dispatch\DispatchController::class, 'store'])->name('dispatch.store');

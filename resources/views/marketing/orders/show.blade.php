@@ -31,6 +31,19 @@
         color: #047857 !important;
     }
 
+    .page-content .marketing-orders-page tr.edited-product-row {
+        background-color: #fef3c7 !important;
+        border-left: 4px solid #f59e0b !important;
+    }
+
+    .page-content .marketing-orders-page input.edited-qty-input {
+        background-color: #fef3c7 !important;
+        border-color: #f59e0b !important;
+        color: #92400e !important;
+        font-weight: 900 !important;
+        box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25) !important;
+    }
+
     .erp-table th {
         font-weight: 800;
         text-transform: uppercase;
@@ -130,7 +143,14 @@
                     <i data-lucide="eye" class="w-5 h-5"></i>
                 </div>
                 <div>
-                    <h2 class="text-base font-extrabold text-slate-900">Order details: {{ $order->order_number }}</h2>
+                    <h2 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                        <span>Order details: {{ $order->order_number }}</span>
+                        @if($order->is_edited)
+                            <span class="inline-flex items-center gap-0.5 rounded bg-amber-100 px-2 py-0.5 text-xs font-black text-amber-800 border border-amber-300 shadow-sm" title="Order was updated/edited">
+                                ✏️ Edited
+                            </span>
+                        @endif
+                    </h2>
                     <p class="text-xs text-slate-400 font-bold">Created by {{ $order->creator->name ?? 'System' }} on {{ $order->created_at->format('d M Y, h:i A') }}</p>
                 </div>
             </div>
@@ -662,39 +682,62 @@
 <script>
     $(document).ready(function() {
         // Pre-populate quantities from order items
+        var isOrderEdited = @json($order->is_edited);
         var orderItems = @json($order->items);
+
         orderItems.forEach(function(item) {
             var qtyInput = null;
+            var isItemEdited = !!item.is_edited;
             
             if (item.grade_id) {
                 // TAD
                 qtyInput = $('.qty-input[data-dept="TAD"][data-product-id="' + item.grade_id + '"]');
-                qtyInput.val(item.quantity_bags).addClass('highlighted-qty-input');
-                if (item.coupon_raw_material_id && item.coupon_material) {
-                    var codeInput = $('.coupon-code-input[data-dept="TAD"][data-product-id="' + item.grade_id + '"]');
-                    codeInput.val(item.coupon_material.code).addClass('highlighted-qty-input');
-                }
             } else if (item.color_id && item.department_code === 'GRT') {
                 // GRT
                 qtyInput = $('.qty-input[data-dept="GRT"][data-product-id="' + item.color_id + '"][data-packing="' + item.packing + '"]');
-                qtyInput.val(item.quantity_bags).addClass('highlighted-qty-input');
             } else if (item.epoxy_product_id) {
                 // EPX Products
                 if (item.epoxy_filler_color_id) {
                     qtyInput = $('.qty-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"][data-packing="' + item.packing + '"]');
-                    qtyInput.val(item.quantity_bags).addClass('highlighted-qty-input');
-                    if (item.coupon_raw_material_id && item.coupon_material) {
-                        var codeInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"]');
-                        codeInput.val(item.coupon_material.code).addClass('highlighted-qty-input');
-                    }
                 } else {
                     qtyInput = $('.qty-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-packing="' + item.packing + '"]');
-                    qtyInput.val(item.quantity_bags).addClass('highlighted-qty-input');
                 }
             } else if (item.epoxy_component_id) {
                 // EPX Components
                 qtyInput = $('.qty-input[data-dept="EPX"][data-component-id="' + item.epoxy_component_id + '"]');
-                qtyInput.val(item.quantity_bags).addClass('highlighted-qty-input');
+            }
+
+            if (qtyInput && qtyInput.length) {
+                qtyInput.val(item.quantity_bags);
+
+                if (isItemEdited) {
+                    qtyInput.removeClass('highlighted-qty-input').addClass('edited-qty-input');
+                    var tr = qtyInput.closest('tr');
+                    tr.addClass('edited-product-row');
+                    var nameTd = tr.find('td:first-child');
+                    if (nameTd.length && !nameTd.find('.edited-item-tag').length) {
+                        nameTd.append('<span class="edited-item-tag inline-flex items-center gap-0.5 rounded bg-amber-200 px-1 py-0.5 text-[9px] font-black text-amber-900 border border-amber-300 ml-1 shadow-sm">✏️ Updated</span>');
+                    }
+                } else {
+                    qtyInput.addClass('highlighted-qty-input');
+                }
+            }
+
+            if (item.coupon_raw_material_id && item.coupon_material) {
+                var codeInput = null;
+                if (item.grade_id) {
+                    codeInput = $('.coupon-code-input[data-dept="TAD"][data-product-id="' + item.grade_id + '"]');
+                } else if (item.epoxy_product_id) {
+                    codeInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"]');
+                }
+                if (codeInput && codeInput.length) {
+                    codeInput.val(item.coupon_material.code);
+                    if (isItemEdited) {
+                        codeInput.removeClass('highlighted-qty-input').addClass('edited-qty-input');
+                    } else {
+                        codeInput.addClass('highlighted-qty-input');
+                    }
+                }
             }
         });
     });

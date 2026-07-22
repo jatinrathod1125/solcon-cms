@@ -272,7 +272,16 @@
                                 $searchText = strtolower($order->order_number . ' ' . $order->party_name . ' ' . ($order->city ?: '') . ' ' . ($order->vehicle_number ?: '') . ' ' . $cList . ' ' . ($order->creator->name ?? '') . ' ' . $order->status . ' ' . $priority);
                             @endphp
                             <tr class="order-row transition hover:bg-slate-50/70" data-status="{{ $order->status }}" data-search="{{ $searchText }}">
-                                <td data-label="Order No." class="font-mono text-sm font-black text-blue-700">{{ $order->order_number }}</td>
+                                <td data-label="Order No." class="font-mono text-sm font-black text-blue-700">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>{{ $order->order_number }}</span>
+                                        @if($order->is_edited)
+                                            <span class="inline-flex items-center gap-0.5 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-black text-amber-800 border border-amber-300 shadow-sm" title="Order was updated/edited">
+                                                ✏️ Edited
+                                            </span>
+                                        @endif
+                                    </div>
+                                </td>
                                 <td data-label="Party Name" class="font-extrabold text-slate-900">{{ $order->party_name }}</td>
                                 <td data-label="City / Vehicle" class="font-bold text-slate-600">{{ $order->city ?: ($order->vehicle_number ?: 'N/A') }}</td>
                                 <td data-label="Coupon" class="font-bold text-slate-700">

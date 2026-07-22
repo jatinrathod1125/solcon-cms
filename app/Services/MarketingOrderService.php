@@ -129,16 +129,62 @@ class MarketingOrderService
                 'order_date' => $data['order_date'] ?? $order->order_date,
                 'priority' => $data['priority'] ?? $order->priority,
                 'remarks' => $data['remarks'] ?? $order->remarks,
+                'is_edited' => true,
             ]);
 
-            // If items provided, replace all items
+            // If items provided, compare existing items to flag ONLY modified/new products
             if (isset($data['items'])) {
+                // Key existing items by a unique product signature
+                $existingItemsMap = $order->items->mapWithKeys(function ($item) {
+                    $key = sprintf(
+                        '%s_%s_%s_%s_%s_%s',
+                        $item->department_code,
+                        $item->grade_id ?? 0,
+                        $item->color_id ?? 0,
+                        $item->epoxy_product_id ?? 0,
+                        $item->epoxy_filler_color_id ?? 0,
+                        $item->epoxy_component_id ?? 0
+                    );
+                    return [$key => [
+                        'quantity_bags' => (int) $item->quantity_bags,
+                        'packing' => (string) ($item->packing ?? ''),
+                        'coupon_raw_material_id' => $item->coupon_raw_material_id ?? null,
+                        'was_edited' => (bool) $item->is_edited,
+                    ]];
+                });
+
                 $order->items()->delete();
 
                 foreach ($data['items'] as $itemData) {
                     $couponQty = null;
                     if (!empty($itemData['coupon_raw_material_id'])) {
                         $couponQty = $itemData['coupon_quantity'] ?? $itemData['quantity_bags'];
+                    }
+
+                    $productKey = sprintf(
+                        '%s_%s_%s_%s_%s_%s',
+                        $itemData['department_code'],
+                        $itemData['grade_id'] ?? 0,
+                        $itemData['color_id'] ?? 0,
+                        $itemData['epoxy_product_id'] ?? 0,
+                        $itemData['epoxy_filler_color_id'] ?? 0,
+                        $itemData['epoxy_component_id'] ?? 0
+                    );
+
+                    $isItemChanged = true;
+                    if ($existingItemsMap->has($productKey)) {
+                        $old = $existingItemsMap->get($productKey);
+                        $newQty = (int) $itemData['quantity_bags'];
+                        $newPacking = (string) ($itemData['packing'] ?? '');
+                        $newCoupon = $itemData['coupon_raw_material_id'] ?? null;
+
+                        if (
+                            $old['quantity_bags'] === $newQty &&
+                            $old['packing'] === $newPacking &&
+                            $old['coupon_raw_material_id'] == $newCoupon
+                        ) {
+                            $isItemChanged = $old['was_edited'];
+                        }
                     }
 
                     $order->items()->create([
@@ -153,6 +199,7 @@ class MarketingOrderService
                         'packing' => $itemData['packing'] ?? null,
                         'coupon_raw_material_id' => $itemData['coupon_raw_material_id'] ?? null,
                         'coupon_quantity' => $couponQty,
+                        'is_edited' => $isItemChanged,
                         'remarks' => $itemData['remarks'] ?? null,
                     ]);
                 }

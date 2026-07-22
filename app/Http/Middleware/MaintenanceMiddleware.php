@@ -18,24 +18,18 @@ class MaintenanceMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // 1. Check if maintenance mode is enabled
+        // 1. Check if maintenance mode is enabled (supports 'enable' or 'on')
         $maintenanceMode = SettingService::get('maintenance_mode', 'disable');
-        if ($maintenanceMode !== 'enable') {
+        if (!in_array($maintenanceMode, ['enable', 'on'])) {
             return $next($request);
         }
 
-        // 2. Exclude specific routes (unlock screen, login, logout, debugbar)
-        if ($request->is('unlock') || $request->is('login') || $request->is('logout') || $request->is('_debugbar*')) {
+        // 2. Exclude secret bypass URL (/admin/{password}), login, logout, and debugbar
+        if ($request->routeIs('maintenance.bypass') || $request->is('login') || $request->is('logout') || $request->is('_debugbar*')) {
             return $next($request);
         }
 
-        // 3. Exclude Super Admin users
-        $user = auth()->user();
-        if ($user && $user->isSuperAdmin()) {
-            return $next($request);
-        }
-
-        // 4. Exclude if the session has been unlocked via password
+        // 3. Exclude if the session has been unlocked via password
         if ($request->hasSession() && $request->session()->get('maintenance_unlocked') === true) {
             return $next($request);
         }

@@ -23,6 +23,7 @@ class MarketingOrderItem extends Model
         'is_product_available',
         'is_coupon_available',
         'item_status',
+        'is_edited',
         'remarks',
     ];
 
@@ -32,6 +33,7 @@ class MarketingOrderItem extends Model
         'coupon_quantity' => 'integer',
         'is_product_available' => 'boolean',
         'is_coupon_available' => 'boolean',
+        'is_edited' => 'boolean',
     ];
 
     protected $appends = [
