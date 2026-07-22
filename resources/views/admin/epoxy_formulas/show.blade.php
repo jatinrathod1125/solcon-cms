@@ -88,7 +88,7 @@
                                     <span class="text-slate-500 text-xs">No</span>
                                 @endif
                             </td>
-                            <td class="p-4 text-right font-mono font-bold text-emerald-400">{{ number_format($item->quantity, 4) }}</td>
+                            <td class="p-4 text-right font-mono font-bold text-emerald-400">{{ format_quantity($item->quantity) }}</td>
                             <td class="p-4 text-slate-400 font-mono">{{ $item->unit->code }}</td>
                         </tr>
                     @endforeach

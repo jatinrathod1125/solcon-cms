@@ -149,17 +149,17 @@
 
                             <!-- Quantity -->
                             <td class="p-4 text-right font-mono font-bold {{ $ledger->transaction_type === 'OUT' ? 'text-rose-455' : 'text-emerald-400' }}">
-                                {{ $ledger->transaction_type === 'OUT' ? '-' : '+' }}{{ number_format(abs($ledger->quantity), 4) }} {{ $ledger->rawMaterial->stockUnit->code }}
+                                {{ $ledger->transaction_type === 'OUT' ? '-' : '+' }}{{ format_quantity(abs($ledger->quantity)) }} {{ $ledger->rawMaterial->stockUnit->code }}
                             </td>
 
                             <!-- Previous Stock -->
                             <td class="p-4 text-right font-mono text-slate-400">
-                                {{ number_format($ledger->previous_stock, 4) }}
+                                {{ format_quantity($ledger->previous_stock) }}
                             </td>
 
                             <!-- Balance After & Low Stock Alert -->
                             <td class="p-4 text-right font-mono font-bold text-white">
-                                <div>{{ number_format($ledger->balance_after, 4) }}</div>
+                                <div>{{ format_quantity($ledger->balance_after) }}</div>
                                 @if($ledger->balance_after < (float) $ledger->rawMaterial->minimum_stock)
                                     <span class="inline-flex items-center px-1.5 py-0.5 text-[9px] font-bold bg-rose-500/20 text-rose-450 border border-rose-500/35 rounded mt-0.5 uppercase tracking-wide">
                                         LOW STOCK

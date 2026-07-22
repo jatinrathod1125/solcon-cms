@@ -112,7 +112,7 @@
                                     </span>
                                 </td>
                                 <td class="p-3 text-right font-mono font-bold text-white">
-                                    {{ number_format(abs($ledger->quantity), 4) }}
+                                    {{ format_quantity(abs($ledger->quantity)) }}
                                 </td>
                                 <td class="p-3 text-slate-500 font-semibold">
                                     {{ $ledger->rawMaterial->stockUnit->code }}

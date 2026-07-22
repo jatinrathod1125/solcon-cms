@@ -90,7 +90,7 @@
                     <option value="">Select Raw Material</option>
                     @foreach($rawMaterials as $rm)
                         <option value="{{ $rm->id }}">
-                            {{ $rm->name }} ({{ $rm->code }}) - Current: {{ number_format($rm->current_stock, 2) }}
+                            {{ $rm->name }} ({{ $rm->code }}) - Current: {{ format_quantity($rm->current_stock) }}
                         </option>
                     @endforeach
                 </select>
@@ -98,12 +98,12 @@
 
             <div>
                 <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Quantity (+ for Stock IN, - for Stock OUT)</label>
-                <input type="number" step="0.0001" name="quantity" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="e.g. 50.0000 or -25.5000" required>
+                <input type="number" step="0.0001" name="quantity" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="e.g. 50 or -25.5" required>
             </div>
 
             <div>
-                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Reason / Remarks</label>
-                <textarea name="remarks" rows="3" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="State reason for manual stock correction..." required></textarea>
+                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Reason / Remarks (Optional)</label>
+                <textarea name="remarks" rows="3" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="State reason for manual stock correction (optional)..."></textarea>
             </div>
 
             <div class="pt-2 border-t border-slate-100 flex justify-end gap-2">

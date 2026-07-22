@@ -76,6 +76,9 @@ Route::middleware('auth')->group(function () {
 
     // Production Routes (Accessible by Admin and Supervisor)
     Route::middleware(['role:admin,supervisor', 'department.access'])->prefix('production')->group(function () {
+        Route::get('/planning', [\App\Http\Controllers\ProductionPlanningController::class, 'index'])->name('production.planning');
+        Route::get('/planning/orders', [\App\Http\Controllers\ProductionPlanningController::class, 'getOrders'])->name('production.planning.orders');
+
         Route::get('/', [\App\Http\Controllers\ProductionController::class, 'index'])->name('production.index');
         Route::get('/create', [\App\Http\Controllers\ProductionController::class, 'create'])->name('production.create');
         Route::post('/', [\App\Http\Controllers\ProductionController::class, 'store'])->name('production.store');

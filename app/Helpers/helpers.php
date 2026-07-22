@@ -66,3 +66,26 @@ if (!function_exists('userDepartmentIds')) {
         return app(\App\Services\DepartmentAccessService::class)->getUserDepartmentIds($user)->toArray();
     }
 }
+
+if (!function_exists('format_quantity')) {
+    /**
+     * Format number dynamically without unnecessary trailing zeros after decimal point.
+     * Examples:
+     *   10000.0000 -> "10000"
+     *   1000.0470  -> "1000.047"
+     *   0.0000     -> "0"
+     */
+    function format_quantity($value, int $maxDecimals = 4, bool $useComma = false): string
+    {
+        if ($value === null || $value === '') {
+            return '0';
+        }
+        $val = (float) $value;
+        $formatted = number_format($val, $maxDecimals, '.', $useComma ? ',' : '');
+        if (strpos($formatted, '.') !== false) {
+            $formatted = rtrim(rtrim($formatted, '0'), '.');
+        }
+        return $formatted;
+    }
+}
+

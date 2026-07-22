@@ -74,9 +74,9 @@
                                 </select>
                             </td>
                             <td class="p-3">
-                                <input type="number" step="0.0001" name="items[{{ $idx }}][quantity]" value="{{ number_format($item->quantity, 4, '.', '') }}" required min="0.0001"
+                                <input type="number" step="0.0001" name="items[{{ $idx }}][quantity]" value="{{ format_quantity($item->quantity) }}" required min="0.0001"
                                     class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-right text-xs font-mono focus:outline-none focus:border-cyan-500"
-                                    placeholder="0.0000">
+                                    placeholder="e.g. 10.5">
                             </td>
                             <td class="p-3">
                                 <select name="items[{{ $idx }}][unit_id]" required

@@ -21,9 +21,9 @@
                     </td>
                     <td class="px-5 py-3 text-slate-500 font-semibold">{{ $adj->rawMaterial->department->code }}</td>
                     <td class="px-5 py-3 text-right font-mono font-bold {{ $adj->quantity >= 0 ? 'text-emerald-600' : 'text-rose-600' }}">
-                        {{ $adj->quantity >= 0 ? '+' : '' }}{{ number_format($adj->quantity, 4) }}
+                        {{ $adj->quantity >= 0 ? '+' : '' }}{{ format_quantity($adj->quantity) }}
                     </td>
-                    <td class="px-5 py-3 text-slate-650 font-semibold">{{ $adj->remarks }}</td>
+                    <td class="px-5 py-3 text-slate-650 font-semibold">{{ $adj->remarks ?: '-' }}</td>
                     <td class="px-5 py-3 text-slate-450 font-semibold">{{ $adj->creator->name }}</td>
                     <td class="px-5 py-3 text-slate-400 font-semibold text-[11px]">{{ $adj->created_at->format('Y-m-d H:i') }}</td>
                 </tr>

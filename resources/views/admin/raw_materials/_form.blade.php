@@ -65,9 +65,9 @@
     <!-- Opening Stock -->
     <div>
         <label for="opening_stock" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Opening Stock</label>
-        <input type="number" step="0.0001" id="opening_stock" name="opening_stock" value="{{ old('opening_stock', $rawMaterial->opening_stock ?? '0.0000') }}" required
+        <input type="number" step="0.0001" id="opening_stock" name="opening_stock" value="{{ old('opening_stock', isset($rawMaterial) ? format_quantity($rawMaterial->opening_stock) : '0') }}" required
             class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm font-mono"
-            placeholder="e.g. 100.0000">
+            placeholder="e.g. 100">
         @error('opening_stock')
             <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
         @enderror
@@ -76,9 +76,9 @@
     <!-- Minimum Stock -->
     <div>
         <label for="minimum_stock" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Minimum Stock</label>
-        <input type="number" step="0.0001" id="minimum_stock" name="minimum_stock" value="{{ old('minimum_stock', $rawMaterial->minimum_stock ?? '0.0000') }}" required
+        <input type="number" step="0.0001" id="minimum_stock" name="minimum_stock" value="{{ old('minimum_stock', isset($rawMaterial) ? format_quantity($rawMaterial->minimum_stock) : '0') }}" required
             class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm font-mono"
-            placeholder="e.g. 20.0000">
+            placeholder="e.g. 20">
         @error('minimum_stock')
             <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
         @enderror
@@ -87,9 +87,9 @@
     <!-- Maximum Stock -->
     <div>
         <label for="maximum_stock" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Maximum Stock</label>
-        <input type="number" step="0.0001" id="maximum_stock" name="maximum_stock" value="{{ old('maximum_stock', $rawMaterial->maximum_stock ?? '0.0000') }}" required
+        <input type="number" step="0.0001" id="maximum_stock" name="maximum_stock" value="{{ old('maximum_stock', isset($rawMaterial) ? format_quantity($rawMaterial->maximum_stock) : '0') }}" required
             class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm font-mono"
-            placeholder="e.g. 500.0000">
+            placeholder="e.g. 500">
         @error('maximum_stock')
             <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
         @enderror

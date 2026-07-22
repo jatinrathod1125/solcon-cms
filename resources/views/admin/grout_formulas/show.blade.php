@@ -110,7 +110,7 @@
                                         <div class="text-[10px] font-mono text-cyan-400 uppercase mt-0.5">{{ $item->rawMaterial->code }}</div>
                                     </td>
                                     <td class="p-3 text-right font-mono font-bold text-white">
-                                        {{ number_format($item->quantity, 4) }}
+                                        {{ format_quantity($item->quantity) }}
                                     </td>
                                     <td class="p-3 text-slate-400 font-semibold">
                                         {{ $item->unit->code }}
@@ -156,7 +156,7 @@
                                         <div class="text-[10px] font-mono text-cyan-400 uppercase mt-0.5">{{ $item->rawMaterial->code }}</div>
                                     </td>
                                     <td class="p-3 text-right font-mono font-bold text-white">
-                                        {{ number_format($item->quantity, 4) }}
+                                        {{ format_quantity($item->quantity) }}
                                     </td>
                                     <td class="p-3 text-slate-400 font-semibold">
                                         {{ $item->unit->code }}

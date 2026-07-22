@@ -491,7 +491,7 @@
                         html += '<td class="text-center font-mono text-slate-400 text-xs">' + (i + 1) + '</td>';
                         html += '<td class="font-mono font-semibold text-blue-600 text-xs">' + escapeHtml(item.raw_material_code) + '</td>';
                         html += '<td class="font-medium text-slate-800">' + escapeHtml(item.raw_material_name) + '</td>';
-                        html += '<td class="text-right font-mono font-bold text-slate-800">' + item.quantity.toFixed(4) + '</td>';
+                        html += '<td class="text-right font-mono font-bold text-slate-800">' + formatQuantity(item.quantity) + '</td>';
                         html += '<td class="text-slate-500 font-medium">' + escapeHtml(item.unit_code) + '</td>';
                         html += '</tr>';
                     });

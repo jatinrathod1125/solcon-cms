@@ -97,17 +97,17 @@
                             <!-- Stock -->
                             <td class="p-4">
                                 <div class="font-bold font-mono {{ $material->current_stock <= $material->minimum_stock ? 'text-amber-500 animate-pulse' : 'text-white' }}">
-                                    {{ number_format($material->current_stock, 4) }} <span class="text-xs text-slate-450 font-normal">{{ $material->stockUnit->code }}</span>
+                                    {{ format_quantity($material->current_stock) }} <span class="text-xs text-slate-450 font-normal">{{ $material->stockUnit->code }}</span>
                                 </div>
                                 <div class="text-xs text-slate-500 font-mono">
-                                    Opening: {{ number_format($material->opening_stock, 4) }}
+                                    Opening: {{ format_quantity($material->opening_stock) }}
                                 </div>
                             </td>
 
                             <!-- Limits -->
                             <td class="p-4 font-mono text-xs">
-                                <div>Min: <span class="text-rose-400">{{ number_format($material->minimum_stock, 4) }}</span></div>
-                                <div>Max: <span class="text-emerald-500">{{ number_format($material->maximum_stock, 4) }}</span></div>
+                                <div>Min: <span class="text-rose-400">{{ format_quantity($material->minimum_stock) }}</span></div>
+                                <div>Max: <span class="text-emerald-500">{{ format_quantity($material->maximum_stock) }}</span></div>
                             </td>
 
                             <!-- Status -->

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('raw_material_id')->constrained('raw_materials')->onDelete('restrict');
             $table->decimal('quantity', 12, 4);
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->foreignId('created_by')->constrained('users')->onDelete('restrict');
             $table->timestamps();
         });

@@ -106,6 +106,12 @@ $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispat
         <section>
             <p class="sidebar-label nav-eyebrow">Adhesive Dept</p>
             <div class="space-y-1">
+                <a href="{{ route('production.planning') }}"
+                    class="{{ $navClass(request()->routeIs('production.planning')) }}"
+                    title="Production Planning">
+                    <i data-lucide="layers"></i>
+                    <span class="sidebar-label">Production Planning</span>
+                </a>
                 <a href="{{ route('production.running_active') }}"
                     class="{{ $navClass(request()->routeIs('production.index') || request()->routeIs('production.running_active') || request()->routeIs('production.show')) }}"
                     title="Live production">

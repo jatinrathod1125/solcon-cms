@@ -193,6 +193,17 @@
     </div>
 
     <script>
+        window.formatQuantity = function(val, maxDecimals = 4) {
+            if (val === null || val === undefined || val === '') return '0';
+            let num = parseFloat(val);
+            if (isNaN(num)) return '0';
+            let str = num.toFixed(maxDecimals);
+            if (str.indexOf('.') !== -1) {
+                str = str.replace(/\.?0+$/, '');
+            }
+            return str;
+        };
+
         window.heroiconMap = {
             'layout-dashboard': 'squares-2x2',
             'panel-left-close': 'bars-3-bottom-left',

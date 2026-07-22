@@ -75,6 +75,29 @@ class EnterpriseTest extends TestCase
         ]);
     }
 
+    public function test_stock_adjustment_without_remarks_is_allowed(): void
+    {
+        $admin = User::where('email', 'admin@solcon.com')->first();
+        $rawMaterial = RawMaterial::first();
+
+        $this->actingAs($admin);
+
+        // Perform stock adjustment without remarks
+        $adjustment = StockService::adjustStock($rawMaterial->id, 10.0000);
+
+        $this->assertInstanceOf(StockAdjustment::class, $adjustment);
+        $this->assertEquals('', $adjustment->remarks);
+
+        // HTTP POST store request without remarks
+        $response = $this->post(route('admin.stock-adjustments.store'), [
+            'raw_material_id' => $rawMaterial->id,
+            'quantity' => 5.0,
+        ]);
+
+        $response->assertRedirect(route('admin.stock-adjustments.index'));
+        $response->assertSessionHas('success');
+    }
+
     public function test_production_service_manages_batch_lifecycle(): void
     {
         $supervisor = User::where('email', 'supervisor@solcon.com')->first();

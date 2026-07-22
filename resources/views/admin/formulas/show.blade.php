@@ -88,7 +88,7 @@
                                     {{ $item->rawMaterial->name }}
                                 </td>
                                 <td class="p-3 text-right font-mono font-bold text-white">
-                                    {{ number_format($item->quantity, 4) }}
+                                    {{ format_quantity($item->quantity) }}
                                 </td>
                                 <td class="p-3 font-semibold text-indigo-300">
                                     {{ $item->unit->code }}
@@ -116,7 +116,7 @@
                         <!-- Total Row -->
                         <tr class="bg-slate-900/40 font-bold border-t border-slate-800 text-white">
                             <td colspan="3" class="p-3 text-right">Total Quantity:</td>
-                            <td class="p-3 text-right font-mono text-cyan-400">{{ number_format($totalQty, 4) }}</td>
+                            <td class="p-3 text-right font-mono text-cyan-400">{{ format_quantity($totalQty) }}</td>
                             <td colspan="2" class="p-3 text-slate-400">KG</td>
                         </tr>
                     </tbody>

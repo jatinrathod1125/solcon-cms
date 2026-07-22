@@ -51,14 +51,14 @@ class StockAdjustmentController extends Controller
         $validated = $request->validate([
             'raw_material_id' => 'required|exists:raw_materials,id',
             'quantity' => 'required|numeric',
-            'remarks' => 'required|string|max:1000',
+            'remarks' => 'nullable|string|max:1000',
         ]);
 
         try {
             $adjustment = StockService::adjustStock(
                 $validated['raw_material_id'],
                 (float)$validated['quantity'],
-                $validated['remarks']
+                $validated['remarks'] ?? null
             );
 
             return redirect()->route('admin.stock-adjustments.index')

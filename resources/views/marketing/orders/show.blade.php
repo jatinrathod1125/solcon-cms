@@ -204,7 +204,7 @@
             <!-- COLUMN 1 -->
             <div class="flex flex-col gap-6">
                 <!-- TILE ADHESIVE -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tile Adhesive</span>
@@ -246,7 +246,7 @@
                 </div>
 
                 <!-- TILES CLEANER -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Cleaner</span>
@@ -277,7 +277,7 @@
                 </div>
 
                 <!-- GROUT ADMIX -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Grout Admix</span>
@@ -309,7 +309,7 @@
             <!-- COLUMN 2 -->
             <div class="flex flex-col gap-6">
                 <!-- TILES GROUT -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Grout</span>
@@ -348,162 +348,190 @@
                     </div>
                 </div>
 
-                <!-- Solitite/Resin Kit & Jari Powder -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Left Stack (Solitite & Resin Kit) -->
-                    <div class="flex flex-col gap-4">
-                        <!-- SOLITITE -->
-                        <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
-                            <div class="px-3 py-2 flex items-center gap-2 border-b border-slate-100 bg-slate-50/50">
-                                <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-850">Solitite</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[100px]">
-                                    <tbody>
-                                        @foreach(['1.8KG', '900 GM', '450 GM'] as $size)
-                                        <tr>
-                                            <td class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">{{ $size }}</td>
-                                            <td class="w-14">
-                                                <input type="text" class="compact-input qty-input" 
-                                                       data-dept="EPX" 
-                                                       data-product-id="{{ $solititeProduct->id ?? '' }}" 
-                                                       data-packing="{{ $size }}" readonly>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- SOLITITE -->
+                    <div
+                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
+                            <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Solitite</span>
                         </div>
-
-                        <!-- RESIN KIT -->
-                        <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
-                            <div class="px-3 py-2 flex items-center gap-2 border-b border-slate-100 bg-slate-50/50">
-                                <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-855">Resin Kit</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[100px]">
-                                    <tbody>
-                                        @foreach(['0.3KG', '1.5KG'] as $size)
-                                        <tr>
-                                            <td class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">{{ $size }}</td>
-                                            <td class="w-14">
-                                                <input type="text" class="compact-input qty-input" 
-                                                       data-dept="EPX" 
-                                                       data-product-id="{{ $resinKitProduct->id ?? '' }}" 
-                                                       data-packing="{{ $size }}" readonly>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full erp-table text-center min-w-[200px]">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Product</th>
+                                        <th class="w-20 text-center">Box</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(['1.8KG', '900 GM', '450 GM'] as $size)
+                                    <tr>
+                                        <td
+                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                            {{ $size }}</td>
+                                        <td class="w-20">
+                                            <input type="text" class="compact-input qty-input"
+                                                data-dept="EPX"
+                                                data-product-id="{{ $solititeProduct->id ?? '' }}"
+                                                data-packing="{{ $size }}" readonly>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
-                    <!-- Right Stack (Jari Powder) -->
-                    <div>
-                        <!-- JARI POWDER -->
-                        <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm h-full flex flex-col">
-                            <div class="px-3 py-2 flex items-center gap-2 border-b border-slate-100 bg-slate-50/50">
-                                <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-850">Jari Powder</span>
-                            </div>
-                            <div class="overflow-x-auto flex-1">
-                                <table class="w-full erp-table text-center min-w-[100px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Color</th>
-                                            <th class="w-14 text-center">Pckt</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach(['SILVER', 'COPPER', 'GOLD', 'RED'] as $color)
-                                        @php 
-                                            $comp = $jariComponents->first(fn($c) => str_contains(strtolower($c->name), strtolower($color)));
-                                        @endphp
-                                        <tr>
-                                            <td class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">{{ $color }}</td>
-                                            <td class="w-14">
-                                                <input type="text" class="compact-input qty-input" 
-                                                       data-dept="EPX" 
-                                                       data-component-id="{{ $comp->id ?? '' }}" 
-                                                       data-packing="Pckt" readonly>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- RESIN KIT -->
+                    <div
+                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
+                            <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Resin Kit</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full erp-table text-center min-w-[200px]">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Product</th>
+                                        <th class="w-16 text-center">Box</th>
+                                        <th class="w-24 text-center">Coupon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(['0.3KG', '1.5KG'] as $size)
+                                    <tr>
+                                        <td
+                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                            {{ $size }}</td>
+                                        <td class="w-16">
+                                            <input type="text" class="compact-input qty-input"
+                                                data-dept="EPX"
+                                                data-product-id="{{ $resinKitProduct->id ?? '' }}"
+                                                data-packing="{{ $size }}" readonly>
+                                        </td>
+                                        <td class="w-24">
+                                            <input type="text" class="compact-input coupon-code-input uppercase"
+                                                placeholder="None" data-dept="EPX"
+                                                data-product-id="{{ $resinKitProduct->id ?? '' }}"
+                                                data-packing="{{ $size }}" readonly>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- JARI POWDER -->
+                    <div
+                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
+                            <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Jari Powder</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full erp-table text-center min-w-[200px]">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Color</th>
+                                        <th class="w-20 text-center">Pckt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(['SILVER', 'COPPER', 'GOLD', 'RED'] as $color)
+                                    @php
+                                    $comp = $jariComponents->first(fn($c) => str_contains(strtolower($c->name),
+                                    strtolower($color)));
+                                    @endphp
+                                    <tr>
+                                        <td
+                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                            {{ $color }}</td>
+                                        <td class="w-20">
+                                            <input type="text" class="compact-input qty-input"
+                                                data-dept="EPX" data-component-id="{{ $comp->id ?? '' }}"
+                                                data-packing="Pckt" readonly>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- COLUMN 3 -->
-            <div class="flex flex-col gap-6">
-                <!-- EPOXY -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
-                    <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                        <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                        <span class="text-xs font-black uppercase tracking-wider text-slate-800">Epoxy</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full erp-table text-center min-w-[220px]">
-                            <thead>
-                                <tr>
-                                    <th class="text-left">Color</th>
-                                    <th class="w-14 text-center">1KG</th>
-                                    <th class="w-14 text-center">5KG</th>
-                                    <th class="w-20 text-center">Coupon</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($epoxyColors as $color)
-                                @php 
-                                    $epoxy1kg = $epoxies->where('code', '1B')->first();
-                                    $epoxy5kg = $epoxies->where('code', '5B')->first();
-                                @endphp
-                                <tr>
-                                    <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                        {{ $color->code }} - {{ $color->name }}
-                                    </td>
-                                    <td class="w-14">
-                                        <input type="text" class="compact-input qty-input" 
-                                               data-dept="EPX" 
-                                               data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
-                                               data-filler-color-id="{{ $color->id }}" 
-                                               data-packing="1KG" readonly>
-                                    </td>
-                                    <td class="w-14">
-                                        <input type="text" class="compact-input qty-input" 
-                                               data-dept="EPX" 
-                                               data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
-                                               data-filler-color-id="{{ $color->id }}" 
-                                               data-packing="5KG" readonly>
-                                    </td>
-                                    <td class="w-20">
-                                        <input type="text" class="compact-input coupon-code-input uppercase" 
-                                               placeholder="None" 
-                                               data-dept="EPX" 
-                                               data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
-                                               data-filler-color-id="{{ $color->id }}" 
-                                               data-packing="1KG" readonly>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                <!-- COLUMN 3 -->
+                <div class="flex flex-col gap-6">
+                    <!-- EPOXY -->
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
+                            <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Epoxy</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full erp-table text-center min-w-[320px]">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Color</th>
+                                        <th class="w-14 text-center">1KG</th>
+                                        <th class="w-20 text-center">Coupon</th>
+                                        <th class="w-14 text-center">5KG</th>
+                                        <th class="w-20 text-center">Coupon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($epoxyColors as $color)
+                                    @php 
+                                        $epoxy1kg = $epoxies->where('code', '1B')->first();
+                                        $epoxy5kg = $epoxies->where('code', '5B')->first();
+                                    @endphp
+                                    <tr>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                            {{ $color->code }} - {{ $color->name }}
+                                        </td>
+                                        <td class="w-14">
+                                            <input type="text" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="1KG" readonly>
+                                        </td>
+                                        <td class="w-20">
+                                            <input type="text" class="compact-input coupon-code-input uppercase" 
+                                                   placeholder="None" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="1KG" readonly>
+                                        </td>
+                                        <td class="w-14">
+                                            <input type="text" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="5KG" readonly>
+                                        </td>
+                                        <td class="w-20">
+                                            <input type="text" class="compact-input coupon-code-input uppercase" 
+                                                   placeholder="None" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="5KG" readonly>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <!-- COLUMN 4 -->
             <div class="flex flex-col gap-6">
                 <!-- SPACER -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Spacer</span>
@@ -534,7 +562,7 @@
                 </div>
 
                 <!-- TILES LEVELER -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Leveler</span>
@@ -565,7 +593,7 @@
                 </div>
 
                 <!-- SB+ -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB+</span>
@@ -599,7 +627,7 @@
                 </div>
 
                 <!-- SB++ -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB++</span>
@@ -633,7 +661,7 @@
                 </div>
 
                 <!-- SK+ -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">SK+</span>
@@ -728,7 +756,11 @@
                 if (item.grade_id) {
                     codeInput = $('.coupon-code-input[data-dept="TAD"][data-product-id="' + item.grade_id + '"]');
                 } else if (item.epoxy_product_id) {
-                    codeInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"]');
+                    if (item.epoxy_filler_color_id) {
+                        codeInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"][data-packing="' + item.packing + '"]');
+                    } else {
+                        codeInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-packing="' + item.packing + '"]');
+                    }
                 }
                 if (codeInput && codeInput.length) {
                     codeInput.val(item.coupon_material.code);

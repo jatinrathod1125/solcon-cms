@@ -40,7 +40,7 @@ class StockService
 
             // Prevent stock from dropping below zero
             if ($balanceAfter < 0) {
-                throw new \Exception("Insufficient stock for raw material '{$rawMaterial->name}'. Current available stock: " . number_format($balanceBefore, 4) . ".");
+                throw new \Exception("Insufficient stock for raw material '{$rawMaterial->name}'. Current available stock: " . format_quantity($balanceBefore) . ".");
             }
 
             // Update Current Stock
@@ -71,7 +71,7 @@ class StockService
     /**
      * Perform a manual stock adjustment.
      */
-    public static function adjustStock(int $rawMaterialId, float $quantity, string $remarks): StockAdjustment
+    public static function adjustStock(int $rawMaterialId, float $quantity, ?string $remarks = null): StockAdjustment
     {
         return DB::transaction(function () use ($rawMaterialId, $quantity, $remarks) {
             $userId = auth()->id() ?? User::where('email', 'admin@solcon.com')->first()?->id ?? 1;
@@ -79,23 +79,24 @@ class StockService
             $adjustment = StockAdjustment::create([
                 'raw_material_id' => $rawMaterialId,
                 'quantity' => $quantity,
-                'remarks' => $remarks,
+                'remarks' => $remarks ?? '',
                 'created_by' => $userId,
             ]);
 
             // Log stock movement
+            $movementRemarks = $remarks ? "Adjustment: {$remarks}" : "Manual Stock Adjustment";
             self::recordMovement(
                 $rawMaterialId,
                 $quantity,
                 'ADJUSTMENT',
                 null,
-                "Adjustment: {$remarks}"
+                $movementRemarks
             );
 
             // Audit Log
             ActivityLogService::log(
                 'STOCK_ADJUSTMENT',
-                "Manual stock adjustment of {$quantity} for raw material ID {$rawMaterialId}. Remarks: {$remarks}",
+                "Manual stock adjustment of {$quantity} for raw material ID {$rawMaterialId}." . ($remarks ? " Remarks: {$remarks}" : ""),
                 $userId
             );
 

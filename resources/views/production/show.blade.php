@@ -223,17 +223,17 @@
 
                                     <!-- Quantity -->
                                     <td class="p-3 text-right font-mono font-bold text-rose-450">
-                                        -{{ number_format(abs($ledger->quantity), 4) }} {{ $ledger->rawMaterial->stockUnit->code }}
+                                        -{{ format_quantity(abs($ledger->quantity)) }} {{ $ledger->rawMaterial->stockUnit->code }}
                                     </td>
 
                                     <!-- Prev Stock -->
-                                    <td class="p-3 text-right font-mono text-slate-450">
-                                        {{ number_format($ledger->previous_stock, 4) }}
+                                    <td class="p-3 text-right font-mono text-slate-455">
+                                        {{ format_quantity($ledger->previous_stock) }}
                                     </td>
 
                                     <!-- Balance After -->
                                     <td class="p-3 text-right font-mono font-bold text-white">
-                                        {{ number_format($ledger->balance_after, 4) }}
+                                        {{ format_quantity($ledger->balance_after) }}
                                     </td>
 
                                     <!-- Date Time -->

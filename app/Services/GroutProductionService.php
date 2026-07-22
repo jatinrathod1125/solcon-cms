@@ -330,7 +330,7 @@ class GroutProductionService
                         "Failed to complete Grout batch #{$batch->batch_no} due to insufficient stock of {$rawMat->name}.",
                         auth()->id() ?? $batch->operator_id
                     );
-                    throw new \Exception("Insufficient stock for raw material: {$rawMat->name}. Required: " . number_format($consumedQty, 4) . ", Available: " . number_format($rawMat->current_stock, 4));
+                    throw new \Exception("Insufficient stock for raw material: {$rawMat->name}. Required: " . format_quantity($consumedQty) . ", Available: " . format_quantity($rawMat->current_stock));
                 }
             }
 
