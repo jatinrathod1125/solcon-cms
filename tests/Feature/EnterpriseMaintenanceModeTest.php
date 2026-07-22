@@ -49,7 +49,6 @@ class EnterpriseMaintenanceModeTest extends TestCase
         SettingService::set('maintenance_message', 'Downtime Message');
         SettingService::set('maintenance_downtime', '2 hours');
         SettingService::set('maintenance_contact', 'support@solcon.com');
-        SettingService::set('maintenance_bypass_super_admin', 'enable');
     }
 
     public function test_maintenance_is_off_by_default_and_access_is_allowed(): void
@@ -79,19 +78,9 @@ class EnterpriseMaintenanceModeTest extends TestCase
     public function test_when_maintenance_is_on_super_admin_can_bypass(): void
     {
         SettingService::set('maintenance_mode', 'enable');
-        SettingService::set('maintenance_bypass_super_admin', 'enable');
 
         $response = $this->actingAs($this->superAdminUser)->get('/admin/dashboard');
         $response->assertStatus(200);
-    }
-
-    public function test_when_maintenance_is_on_super_admin_cannot_bypass_if_disabled(): void
-    {
-        SettingService::set('maintenance_mode', 'enable');
-        SettingService::set('maintenance_bypass_super_admin', 'disable');
-
-        $response = $this->actingAs($this->superAdminUser)->get('/admin/dashboard');
-        $response->assertStatus(503);
     }
 
     public function test_unlocked_session_bypasses_maintenance(): void

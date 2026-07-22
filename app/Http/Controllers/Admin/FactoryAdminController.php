@@ -41,7 +41,10 @@ class FactoryAdminController extends Controller
      */
     public function settingsUpdate(Request $request)
     {
-        $request->validate([
+        $user = auth()->user();
+        $isSuperAdmin = $user && $user->isSuperAdmin();
+
+        $rules = [
             // Factory Settings
             'company_name' => 'required|string|max:100',
             'company_address' => 'nullable|string|max:200',
@@ -60,7 +63,6 @@ class FactoryAdminController extends Controller
             'auto_batch_number' => 'required|in:enable,disable',
             'auto_report_generation' => 'required|in:enable,disable',
             'production_timer' => 'required|in:enable,disable',
-            'maintenance_mode' => 'required|in:enable,disable',
 
             // SMTP Settings
             'smtp_host' => 'nullable|string|max:100',
@@ -75,9 +77,33 @@ class FactoryAdminController extends Controller
             'ui_sidebar_style' => 'required|in:light,dark',
             'ui_compact_mode' => 'required|in:enable,disable',
             'ui_table_density' => 'required|in:normal,dense,spacious',
-        ]);
+        ];
 
-        $settingsData = $request->except(['_token', 'company_logo']);
+        if ($isSuperAdmin) {
+            $rules['maintenance_mode'] = 'required|in:enable,disable';
+            $rules['maintenance_password'] = 'nullable|string|min:4';
+            $rules['maintenance_title'] = 'required|string|max:150';
+            $rules['maintenance_message'] = 'required|string|max:1000';
+            $rules['maintenance_downtime'] = 'required|string|max:50';
+            $rules['maintenance_contact'] = 'required|string|max:100';
+            $rules['maintenance_logo'] = 'nullable|image|max:2048';
+        } else {
+            $rules['maintenance_mode'] = 'nullable|in:enable,disable';
+        }
+
+        $request->validate($rules);
+
+        $settingsData = $request->except(['_token', 'company_logo', 'maintenance_logo', 'maintenance_password']);
+
+        if (!$isSuperAdmin) {
+            $settingsData = array_diff_key($settingsData, array_flip([
+                'maintenance_mode',
+                'maintenance_title',
+                'maintenance_message',
+                'maintenance_downtime',
+                'maintenance_contact',
+            ]));
+        }
 
         // Handle Company Logo Upload
         if ($request->hasFile('company_logo')) {
@@ -90,6 +116,24 @@ class FactoryAdminController extends Controller
             
             $logo->move(public_path('images'), $logoName);
             SettingService::set('company_logo', 'images/' . $logoName);
+        }
+
+        // Handle Maintenance Logo Upload
+        if ($isSuperAdmin && $request->hasFile('maintenance_logo')) {
+            $mLogo = $request->file('maintenance_logo');
+            $mLogoName = 'maintenance_logo_' . time() . '.' . $mLogo->getClientOriginalExtension();
+
+            if (!file_exists(public_path('images'))) {
+                File::makeDirectory(public_path('images'), 0755, true);
+            }
+
+            $mLogo->move(public_path('images'), $mLogoName);
+            SettingService::set('maintenance_logo', 'images/' . $mLogoName);
+        }
+
+        // Handle Maintenance Password Update
+        if ($isSuperAdmin && $request->filled('maintenance_password')) {
+            SettingService::set('maintenance_password', \Illuminate\Support\Facades\Hash::make($request->input('maintenance_password')));
         }
 
         // Also update standard settings keys to maintain compatibility with dashboard

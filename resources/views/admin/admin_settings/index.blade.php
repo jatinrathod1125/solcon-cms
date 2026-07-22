@@ -131,6 +131,75 @@
                     </div>
                 </div>
             </div>
+
+            @if(Auth::user()->isSuperAdmin())
+            <hr class="border-slate-100">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-1">
+                    <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5 text-rose-700">
+                        <i data-lucide="shield-alert" class="w-4.5 h-4.5 text-rose-600"></i>
+                        <span>Maintenance Settings</span>
+                    </h3>
+                    <p class="text-xs text-slate-550 mt-1">Manage database-driven maintenance mode configuration, custom headers, logos, and support details.</p>
+                </div>
+                <div class="md:col-span-2 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="maintenance_mode" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Maintenance Mode</label>
+                            <select id="maintenance_mode" name="maintenance_mode" class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm">
+                                <option value="disable" {{ ($settings['maintenance_mode'] ?? 'disable') === 'disable' ? 'selected' : '' }}>Disabled (System Live)</option>
+                                <option value="enable" {{ ($settings['maintenance_mode'] ?? 'disable') === 'enable' ? 'selected' : '' }}>Enabled (Downtime Screen)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="maintenance_password" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Update Unlock Password</label>
+                            <input type="password" name="maintenance_password" id="maintenance_password" class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm" placeholder="Leave blank to keep current">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="maintenance_title" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Downtime Title</label>
+                            <input type="text" name="maintenance_title" id="maintenance_title" value="{{ old('maintenance_title', $settings['maintenance_title'] ?? 'System Under Maintenance') }}" class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm">
+                        </div>
+                        <div>
+                            <label for="maintenance_downtime" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Estimated Downtime</label>
+                            <input type="text" name="maintenance_downtime" id="maintenance_downtime" value="{{ old('maintenance_downtime', $settings['maintenance_downtime'] ?? '2 hours') }}" class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm" placeholder="e.g. 2 hours, 45 minutes">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="maintenance_message" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Downtime Message / Description</label>
+                        <textarea name="maintenance_message" id="maintenance_message" rows="3" class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm">{{ old('maintenance_message', $settings['maintenance_message'] ?? 'Solcon ERP is currently undergoing scheduled updates and maintenance. We will be back online shortly.') }}</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="maintenance_contact" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Support Contact Details</label>
+                            <input type="text" name="maintenance_contact" id="maintenance_contact" value="{{ old('maintenance_contact', $settings['maintenance_contact'] ?? 'support@solcon.com') }}" class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Custom Maintenance Logo</label>
+                            <div class="flex items-center gap-3">
+                                @if($settings['maintenance_logo'] ?? null)
+                                    <div class="w-10 h-10 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center shrink-0">
+                                        <img src="{{ asset($settings['maintenance_logo']) }}" class="max-w-full max-h-full object-contain">
+                                    </div>
+                                @endif
+                                <div class="flex-grow">
+                                    <input type="file" name="maintenance_logo" id="maintenance_logo" accept="image/*" class="hidden">
+                                    <label for="maintenance_logo" class="inline-flex items-center px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg text-xs font-bold text-slate-700 cursor-pointer gap-1">
+                                        <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+                                        <span>Upload Logo</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
 
         <!-- Footer Actions -->

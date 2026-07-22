@@ -29,13 +29,10 @@ class MaintenanceMiddleware
             return $next($request);
         }
 
-        // 3. Exclude Super Admin users (if auto-bypass is enabled)
-        $bypassSuperAdmin = SettingService::get('maintenance_bypass_super_admin', 'enable');
-        if ($bypassSuperAdmin === 'enable') {
-            $user = auth()->user();
-            if ($user && $user->isSuperAdmin()) {
-                return $next($request);
-            }
+        // 3. Exclude Super Admin users
+        $user = auth()->user();
+        if ($user && $user->isSuperAdmin()) {
+            return $next($request);
         }
 
         // 4. Exclude if the session has been unlocked via password
