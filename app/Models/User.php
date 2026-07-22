@@ -174,6 +174,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if the user is in Dispatch.
+     */
+    public function isDispatch(): bool
+    {
+        return $this->hasRole('dispatch');
+    }
+
+    /**
      * Check if the user is authorized to skip the mixing timer.
      */
     public function canSkipTimer(): bool

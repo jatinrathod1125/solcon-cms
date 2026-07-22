@@ -55,7 +55,9 @@ class MarketingOrderService
                 'order_number' => $this->generateOrderNumber(),
                 'party_name' => $data['party_name'],
                 'vehicle_number' => $data['vehicle_number'] ?? null,
+                'city' => $data['city'] ?? null,
                 'order_date' => $data['order_date'] ?? Carbon::now('Asia/Kolkata')->toDateString(),
+                'delivery_date' => $data['delivery_date'] ?? null,
                 'priority' => $data['priority'] ?? 'medium',
                 'status' => 'pending',
                 'availability' => 'unknown',
@@ -77,6 +79,8 @@ class MarketingOrderService
                         'grade_id' => $itemData['grade_id'] ?? null,
                         'color_id' => $itemData['color_id'] ?? null,
                         'epoxy_product_id' => $itemData['epoxy_product_id'] ?? null,
+                        'epoxy_filler_color_id' => $itemData['epoxy_filler_color_id'] ?? null,
+                        'epoxy_component_id' => $itemData['epoxy_component_id'] ?? null,
                         'quantity_bags' => $itemData['quantity_bags'],
                         'quantity_kg' => $itemData['quantity_kg'] ?? null,
                         'packing' => $itemData['packing'] ?? null,
@@ -87,8 +91,18 @@ class MarketingOrderService
                 }
             }
 
-            // Check and cache availability
+            // Refresh availability
             $this->refreshOrderAvailability($order);
+
+            // Populate summary coupon column on order from all items (Adhesive, Epoxy, Grout)
+            $couponSummary = $order->items()
+                ->with('couponMaterial')
+                ->get()
+                ->map(fn($i) => $i->coupon_name)
+                ->filter(fn($c) => $c && $c !== 'No Coupon' && $c !== 'N/A')
+                ->unique()
+                ->implode(', ');
+            $order->update(['coupon' => $couponSummary ?: null]);
 
             // Log activity
             ActivityLogService::log(
@@ -111,6 +125,7 @@ class MarketingOrderService
             $order->update([
                 'party_name' => $data['party_name'] ?? $order->party_name,
                 'vehicle_number' => $data['vehicle_number'] ?? $order->vehicle_number,
+                'city' => $data['city'] ?? $order->city,
                 'order_date' => $data['order_date'] ?? $order->order_date,
                 'priority' => $data['priority'] ?? $order->priority,
                 'remarks' => $data['remarks'] ?? $order->remarks,
@@ -131,6 +146,8 @@ class MarketingOrderService
                         'grade_id' => $itemData['grade_id'] ?? null,
                         'color_id' => $itemData['color_id'] ?? null,
                         'epoxy_product_id' => $itemData['epoxy_product_id'] ?? null,
+                        'epoxy_filler_color_id' => $itemData['epoxy_filler_color_id'] ?? null,
+                        'epoxy_component_id' => $itemData['epoxy_component_id'] ?? null,
                         'quantity_bags' => $itemData['quantity_bags'],
                         'quantity_kg' => $itemData['quantity_kg'] ?? null,
                         'packing' => $itemData['packing'] ?? null,
@@ -143,6 +160,16 @@ class MarketingOrderService
 
             // Refresh availability
             $this->refreshOrderAvailability($order);
+
+            // Populate summary coupon column on order from all items (Adhesive, Epoxy, Grout)
+            $couponSummary = $order->items()
+                ->with('couponMaterial')
+                ->get()
+                ->map(fn($i) => $i->coupon_name)
+                ->filter(fn($c) => $c && $c !== 'No Coupon' && $c !== 'N/A')
+                ->unique()
+                ->implode(', ');
+            $order->update(['coupon' => $couponSummary ?: null]);
 
             ActivityLogService::log(
                 'MARKETING_ORDER_UPDATED',
@@ -185,6 +212,52 @@ class MarketingOrderService
             );
 
             return $order->fresh();
+        });
+    }
+
+    /**
+     * Approve an order (Admin only). Sets status to in_progress.
+     */
+    public function approveOrder(MarketingOrder $order): MarketingOrder
+    {
+        return DB::transaction(function () use ($order) {
+            $maxSort = MarketingOrder::where('status', 'in_progress')->max('sort_order');
+
+            $order->update([
+                'status' => 'in_progress',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+                'sort_order' => ($maxSort ?? 0) + 1,
+            ]);
+
+            ActivityLogService::log(
+                'MARKETING_ORDER_APPROVED',
+                "Marketing order {$order->order_number} approved for party: {$order->party_name}",
+                auth()->id()
+            );
+
+            // Send notification to all supervisors
+            try {
+                $notificationService = app(\App\Services\NotificationService::class);
+                $supervisors = \App\Models\User::whereHas('roles', function ($q) {
+                    $q->where('slug', 'supervisor');
+                })->where('is_active', true)->get();
+
+                foreach ($supervisors as $supervisor) {
+                    $notificationService->sendToUser(
+                        $supervisor,
+                        'New Order Approved: ' . $order->order_number,
+                        "Order for {$order->party_name} ({$order->city}) has been approved. Priority: " . ucfirst($order->priority),
+                        'marketing_order_approved',
+                        null,
+                        ['order_id' => $order->id, 'click_url' => '/supervisor/orders']
+                    );
+                }
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Failed to send order approval notification: ' . $e->getMessage());
+            }
+
+            return $order->fresh(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator']);
         });
     }
 
@@ -232,7 +305,14 @@ class MarketingOrderService
                 $fgQuery->where('color_id', $item->color_id);
                 break;
             case 'EPX':
-                $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
+                if ($item->epoxy_component_id) {
+                    $fgQuery->where('epoxy_component_id', $item->epoxy_component_id);
+                } else {
+                    $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
+                    if ($item->epoxy_filler_color_id) {
+                        $fgQuery->where('epoxy_filler_color_id', $item->epoxy_filler_color_id);
+                    }
+                }
                 break;
         }
 
@@ -271,7 +351,14 @@ class MarketingOrderService
                 $fgQuery->where('color_id', $item->color_id);
                 break;
             case 'EPX':
-                $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
+                if ($item->epoxy_component_id) {
+                    $fgQuery->where('epoxy_component_id', $item->epoxy_component_id);
+                } else {
+                    $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
+                    if ($item->epoxy_filler_color_id) {
+                        $fgQuery->where('epoxy_filler_color_id', $item->epoxy_filler_color_id);
+                    }
+                }
                 break;
         }
 

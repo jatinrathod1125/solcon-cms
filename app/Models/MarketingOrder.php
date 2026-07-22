@@ -11,6 +11,8 @@ class MarketingOrder extends Model
     protected $fillable = [
         'order_number',
         'party_name',
+        'city',
+        'coupon',
         'vehicle_number',
         'order_date',
         'priority',
@@ -28,6 +30,7 @@ class MarketingOrder extends Model
 
     protected $casts = [
         'order_date' => 'date',
+        'delivery_date' => 'date',
         'approved_at' => 'datetime',
         'completed_at' => 'datetime',
         'cancelled_at' => 'datetime',
@@ -81,6 +84,11 @@ class MarketingOrder extends Model
     }
 
     // ─── Scopes ──────────────────────────────────
+
+    public function scopeApproved($query)
+    {
+        return $query->whereNotNull('approved_by');
+    }
 
     public function scopePending($query)
     {

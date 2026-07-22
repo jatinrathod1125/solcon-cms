@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Marketing Orders')
-@section('header-title', 'Marketing Orders')
+@section('title', 'Approved Orders')
+@section('header-title', 'Approved Orders')
 
 @section('styles')
 <style>
@@ -92,7 +92,6 @@
     }
 
     .priority-badge,
-    .availability-badge,
     .status-badge {
         align-items: center;
         border-radius: 999px;
@@ -109,11 +108,6 @@
     .priority-medium { background: #fffbeb; color: #b45309; }
     .priority-high { background: #fef2f2; color: #dc2626; }
     .priority-urgent { background: #fff7ed; color: #c2410c; }
-
-    .availability-available { background: #ecfdf5; color: #047857; }
-    .availability-partial { background: #fffbeb; color: #a16207; }
-    .availability-unavailable { background: #fef2f2; color: #dc2626; }
-    .availability-unknown { background: #f1f5f9; color: #475569; }
 
     .order-action-button {
         align-items: center;
@@ -151,7 +145,7 @@
             padding-inline: 0 !important;
         }
 
-        .marketing-orders-page .marketing-orders-table tr {
+        .marketing-orders-page .marketing-orders-table tr.main-row {
             border-radius: 16px !important;
             padding: 10px !important;
         }
@@ -178,13 +172,10 @@
 @section('content')
 @php
     $statusTabs = [
-        'all' => ['label' => 'All Orders', 'count' => $orders->count()],
-        'pending' => ['label' => 'Pending', 'count' => $orders->where('status', 'pending')->count()],
+        'all' => ['label' => 'All Approved', 'count' => $orders->count()],
         'in_progress' => ['label' => 'In Progress', 'count' => $orders->where('status', 'in_progress')->count()],
         'completed' => ['label' => 'Completed', 'count' => $orders->where('status', 'completed')->count()],
-        'cancelled' => ['label' => 'Cancelled', 'count' => $orders->where('status', 'cancelled')->count()],
     ];
-    $availableCount = $orders->filter(fn ($order) => ($order->availability_badge['class'] ?? 'unknown') === 'available')->count();
     $totalItems = $orders->sum(fn ($order) => $order->items->count());
 @endphp
 
@@ -192,12 +183,12 @@
     <section class="page-card bg-white border border-slate-200 p-5 shadow-sm space-y-5">
         <header class="flex flex-col gap-4 border-b border-slate-100 pb-4 lg:flex-row lg:items-center lg:justify-between">
             <div class="flex items-start gap-3">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-                    <i data-lucide="clipboard-list" class="h-5 w-5"></i>
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                    <i data-lucide="check-circle" class="h-5 w-5"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black tracking-tight text-slate-950">Orders List</h2>
-                    <p class="mt-1 text-sm font-semibold text-slate-500">Search, review, edit, and track marketing orders from one clean board.</p>
+                    <h2 class="text-xl font-black tracking-tight text-slate-950">Approved Orders</h2>
+                    <p class="mt-1 text-sm font-semibold text-slate-500">Read-only view of approved marketing orders for supervisors.</p>
                 </div>
             </div>
 
@@ -208,27 +199,21 @@
                     <input id="marketingOrderSearch" type="search" placeholder="Search order, party, city..."
                         class="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm font-bold text-slate-900 outline-none transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100">
                 </label>
-
-                <a href="{{ route('marketing.orders.create') }}"
-                    class="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 text-sm font-extrabold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700">
-                    <i data-lucide="plus-circle" class="h-5 w-5"></i>
-                    <span>Create Order</span>
-                </a>
             </div>
         </header>
 
         <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <div class="order-metric">
-                <span>Total Orders</span>
+                <span>Total Approved</span>
                 <strong>{{ $orders->count() }}</strong>
             </div>
             <div class="order-metric">
-                <span>Pending</span>
-                <strong>{{ $statusTabs['pending']['count'] }}</strong>
+                <span>In Progress</span>
+                <strong>{{ $statusTabs['in_progress']['count'] }}</strong>
             </div>
             <div class="order-metric">
-                <span>Available</span>
-                <strong>{{ $availableCount }}</strong>
+                <span>Completed</span>
+                <strong>{{ $statusTabs['completed']['count'] }}</strong>
             </div>
             <div class="order-metric">
                 <span>Total Items</span>
@@ -252,13 +237,11 @@
                         <tr>
                             <th>Order No.</th>
                             <th>Party Name</th>
-                            <th>City / Vehicle</th>
+                            <th>City</th>
                             <th>Coupon</th>
-                            <th class="text-center">Items</th>
                             <th>Priority</th>
                             <th>Status</th>
-                            <th>Stock</th>
-                            <th>Created By</th>
+                            <th>Approved By</th>
                             <th class="text-right">Actions</th>
                         </tr>
                     </thead>
@@ -267,14 +250,13 @@
                             @php
                                 $statusInfo = $order->status_info;
                                 $priority = $order->priority ?: 'medium';
-                                $availability = $order->availability_badge;
                                 $cList = $order->items->map(fn($item) => $item->coupon_name)->filter(fn($c) => $c && $c !== 'No Coupon' && $c !== 'N/A')->unique()->implode(', ');
-                                $searchText = strtolower($order->order_number . ' ' . $order->party_name . ' ' . ($order->city ?: '') . ' ' . ($order->vehicle_number ?: '') . ' ' . $cList . ' ' . ($order->creator->name ?? '') . ' ' . $order->status . ' ' . $priority);
+                                $searchText = strtolower($order->order_number . ' ' . $order->party_name . ' ' . $order->city . ' ' . $cList . ' ' . $order->status . ' ' . $priority);
                             @endphp
-                            <tr class="order-row transition hover:bg-slate-50/70" data-status="{{ $order->status }}" data-search="{{ $searchText }}">
+                            <tr class="main-row transition hover:bg-slate-50/70" data-status="{{ $order->status }}" data-search="{{ $searchText }}" data-order-id="{{ $order->id }}">
                                 <td data-label="Order No." class="font-mono text-sm font-black text-blue-700">{{ $order->order_number }}</td>
                                 <td data-label="Party Name" class="font-extrabold text-slate-900">{{ $order->party_name }}</td>
-                                <td data-label="City / Vehicle" class="font-bold text-slate-600">{{ $order->city ?: ($order->vehicle_number ?: 'N/A') }}</td>
+                                <td data-label="City" class="font-bold text-slate-600">{{ $order->city ?: 'N/A' }}</td>
                                 <td data-label="Coupon" class="font-bold text-slate-700">
                                     @if($cList)
                                         <span class="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2 py-0.5 text-xs font-bold text-amber-700 border border-amber-200">
@@ -284,50 +266,81 @@
                                         <span class="text-xs text-slate-400 font-normal">None</span>
                                     @endif
                                 </td>
-                                <td data-label="Items" class="text-center font-black text-slate-900">{{ $order->items->count() }}</td>
                                 <td data-label="Priority">
                                     <span class="priority-badge priority-{{ $priority }}">{{ ucfirst($priority) }}</span>
                                 </td>
                                 <td data-label="Status">
                                     <span class="status-badge border"
-                                        style="background-color: {{ $statusInfo['bg'] }}; color: {{ $statusInfo['color'] }}; border-color: {{ $statusInfo['color'] }}40;">
-                                        {{ $statusInfo['label'] }}
+                                        style="background-color: {{ $statusInfo['bg'] ?? '#f1f5f9' }}; color: {{ $statusInfo['color'] ?? '#475569' }}; border-color: {{ $statusInfo['color'] ?? '#475569' }}40;">
+                                        {{ $statusInfo['label'] ?? ucfirst($order->status) }}
                                     </span>
                                 </td>
-                                <td data-label="Stock">
-                                    <span class="availability-badge availability-{{ $availability['class'] ?? 'unknown' }}">{{ $availability['label'] ?? 'Unknown' }}</span>
-                                </td>
-                                <td data-label="Created By" class="font-bold text-slate-600">{{ $order->creator->name ?? 'System' }}</td>
+                                <td data-label="Approved By" class="font-bold text-slate-600">{{ $order->approver->name ?? 'System' }}</td>
                                 <td data-label="Actions" class="text-right">
-                                    <div class="inline-flex items-center justify-end gap-2">
-                                        <a href="{{ route('marketing.orders.show', $order->id) }}" class="order-action-button hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700" title="View details">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
-                                        @if(auth()->user()->isAdmin() && $order->status === 'pending')
-                                            <button type="button" onclick="approveOrder({{ $order->id }})" class="order-action-button hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" title="Approve order" style="border-color:#bbf7d0;background:#f0fdf4;color:#16a34a;">
-                                                <i data-lucide="check-circle" class="h-4 w-4"></i>
-                                            </button>
-                                        @endif
-                                        @if($order->status === 'pending' || auth()->user()->isAdmin())
-                                            <a href="{{ route('marketing.orders.edit', $order->id) }}" class="order-action-button hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" title="Edit order">
-                                                <i data-lucide="edit" class="h-4 w-4"></i>
-                                            </a>
-                                            <button type="button" onclick="confirmDeleteOrder({{ $order->id }})" class="order-action-button hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700" title="Delete/cancel order">
-                                                <i data-lucide="trash-2" class="h-4 w-4"></i>
-                                            </button>
-                                        @endif
+                                    <button type="button" class="expand-btn order-action-button hover:border-slate-300 hover:bg-white hover:text-slate-900 shadow-sm" data-order-id="{{ $order->id }}" title="View items">
+                                        <i data-lucide="chevron-down" class="h-4 w-4 chevron-icon"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr id="sub-row-{{ $order->id }}" class="sub-row hidden bg-slate-50 border-b border-slate-100" data-status="{{ $order->status }}" data-search="{{ $searchText }}">
+                                <td colspan="8" class="!p-4 sm:!p-6">
+                                    <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                                        <h4 class="mb-3 text-xs font-black uppercase tracking-wider text-slate-500">Ordered Items</h4>
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full text-left text-sm">
+                                                <thead class="border-b border-slate-100 text-xs font-extrabold text-slate-400">
+                                                    <tr>
+                                                        <th class="px-3 py-2">Dept</th>
+                                                        <th class="px-3 py-2">Product</th>
+                                                        <th class="px-3 py-2 text-center">Quantity</th>
+                                                        <th class="px-3 py-2">Packing</th>
+                                                        <th class="px-3 py-2 text-right">Weight (KG)</th>
+                                                        <th class="px-3 py-2 text-right">Weight (Ton)</th>
+                                                        <th class="px-3 py-2">Coupon</th>
+                                                        <th class="px-3 py-2">Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-slate-50">
+                                                    @forelse($order->items as $item)
+                                                    <tr>
+                                                        <td class="px-3 py-2 font-bold text-slate-600 whitespace-nowrap">{{ $item->department_label }}</td>
+                                                        <td class="px-3 py-2 font-black text-slate-900">{{ $item->product_name }}</td>
+                                                        <td class="px-3 py-2 text-center font-extrabold text-blue-700">{{ $item->quantity_bags }} {{ $item->unit_label }}</td>
+                                                        <td class="px-3 py-2 font-bold text-slate-600">{{ $item->packing ?? '-' }}</td>
+                                                        <td class="px-3 py-2 text-right font-bold text-slate-700">{{ number_format($item->calculated_weight_kg, 1) }}</td>
+                                                        <td class="px-3 py-2 text-right font-black text-emerald-600">{{ number_format($item->calculated_weight_kg / 1000, 2) }}</td>
+                                                        <td class="px-3 py-2 font-bold text-slate-600">
+                                                            @if($item->coupon_name)
+                                                                {{ $item->coupon_name }} 
+                                                                @if($item->coupon_quantity)
+                                                                <span class="text-slate-400 text-xs">(x{{ $item->coupon_quantity }})</span>
+                                                                @endif
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-3 py-2 text-slate-500 text-xs">{{ $item->remarks ?? '-' }}</td>
+                                                    </tr>
+                                                    @empty
+                                                    <tr>
+                                                        <td colspan="6" class="px-3 py-4 text-center text-xs font-bold text-slate-400">No items found for this order.</td>
+                                                    </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10" class="p-10 text-center">
+                                <td colspan="8" class="p-10 text-center">
                                     <div class="mx-auto max-w-sm">
                                         <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-                                            <i data-lucide="clipboard-list" class="h-6 w-6"></i>
+                                            <i data-lucide="check-circle" class="h-6 w-6"></i>
                                         </div>
-                                        <p class="mt-3 text-base font-black text-slate-800">No marketing orders found</p>
-                                        <p class="mt-1 text-sm font-semibold text-slate-500">Create the first order to start tracking dispatch work.</p>
+                                        <p class="mt-3 text-base font-black text-slate-800">No approved orders found</p>
+                                        <p class="mt-1 text-sm font-semibold text-slate-500">When marketing orders are approved, they will appear here.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -335,7 +348,7 @@
 
                         @if($orders->isNotEmpty())
                             <tr id="emptyFilteredRow" class="hidden">
-                                <td colspan="10" class="p-10 text-center text-sm font-bold text-slate-500">
+                                <td colspan="8" class="p-10 text-center text-sm font-bold text-slate-500">
                                     No orders match your current search or status filter.
                                 </td>
                             </tr>
@@ -362,7 +375,8 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        var $rows = $('.order-row');
+        var $mainRows = $('.main-row');
+        var $subRows = $('.sub-row');
         var $search = $('#marketingOrderSearch');
         var $visibleCount = $('#ordersVisibleCount');
         var $emptyFilteredRow = $('#emptyFilteredRow');
@@ -372,21 +386,37 @@
             var status = $('.status-tab.active').data('status') || 'all';
             var visible = 0;
 
-            $rows.each(function() {
+            $mainRows.each(function() {
                 var $row = $(this);
+                var orderId = $row.data('order-id');
+                var $subRow = $('#sub-row-' + orderId);
+                
                 var matchesStatus = status === 'all' || $row.data('status') === status;
                 var matchesSearch = !query || String($row.data('search')).indexOf(query) !== -1;
                 var showRow = matchesStatus && matchesSearch;
 
                 $row.toggle(showRow);
+                
+                // Hide sub-rows when filtering to prevent visual mess, 
+                // but if we wanted to preserve them, we could check if they were already visible
+                if (!showRow) {
+                    $subRow.hide();
+                    $row.find('.chevron-icon').attr('data-lucide', 'chevron-down');
+                }
+                
                 if (showRow) {
                     visible += 1;
                 }
             });
 
+            // Re-render icons after changing attr
+            if (window.renderHeroicons) {
+                window.renderHeroicons();
+            }
+
             $visibleCount.text(visible);
             if ($emptyFilteredRow.length) {
-                $emptyFilteredRow.toggleClass('hidden', visible !== 0);
+                $emptyFilteredRow.toggleClass('hidden', visible === 0);
             }
         }
 
@@ -405,84 +435,25 @@
             applyOrderFilters();
         });
 
+        $('.expand-btn').on('click', function() {
+            var orderId = $(this).data('order-id');
+            var $subRow = $('#sub-row-' + orderId);
+            var $icon = $(this).find('.chevron-icon');
+            
+            $subRow.toggleClass('hidden');
+            
+            if ($subRow.hasClass('hidden')) {
+                $icon.attr('data-lucide', 'chevron-down');
+            } else {
+                $icon.attr('data-lucide', 'chevron-up');
+            }
+            
+            if (window.renderHeroicons) {
+                window.renderHeroicons(this);
+            }
+        });
+
         applyOrderFilters();
     });
-
-    function confirmDeleteOrder(orderId) {
-        Swal.fire({
-            title: 'Cancel this order?',
-            text: 'This will move the order out of active work.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#cbd5e1',
-            confirmButtonText: 'Yes, cancel it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/marketing/orders/' + orderId,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire(
-                                'Cancelled!',
-                                'The order has been cancelled successfully.',
-                                'success'
-                            ).then(() => {
-                                window.location.reload();
-                            });
-                        } else {
-                            Swal.fire('Error', response.message || 'Failed to cancel order.', 'error');
-                        }
-                    },
-                    error: function(xhr) {
-                        var msg = xhr.responseJSON ? xhr.responseJSON.message : 'Server error occurred.';
-                        Swal.fire('Error', msg, 'error');
-                    }
-                });
-            }
-        });
-    }
-    function approveOrder(orderId) {
-        Swal.fire({
-            title: 'Approve this order?',
-            text: 'This will notify supervisors and make the order visible to them.',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#16a34a',
-            cancelButtonColor: '#cbd5e1',
-            confirmButtonText: 'Yes, approve it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/marketing/orders/' + orderId + '/approve',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire(
-                                'Approved!',
-                                response.message || 'The order has been approved.',
-                                'success'
-                            ).then(() => {
-                                window.location.reload();
-                            });
-                        } else {
-                            Swal.fire('Error', response.message || 'Failed to approve order.', 'error');
-                        }
-                    },
-                    error: function(xhr) {
-                        var msg = xhr.responseJSON ? xhr.responseJSON.message : 'Server error occurred.';
-                        Swal.fire('Error', msg, 'error');
-                    }
-                });
-            }
-        });
-    }
 </script>
 @endsection

@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MarketingOrderItem extends Model
+class DispatchItem extends Model
 {
     protected $fillable = [
+        'dispatch_id',
         'marketing_order_id',
+        'marketing_order_item_id',
         'department_code',
         'grade_id',
         'color_id',
@@ -20,18 +22,12 @@ class MarketingOrderItem extends Model
         'packing',
         'coupon_raw_material_id',
         'coupon_quantity',
-        'is_product_available',
-        'is_coupon_available',
-        'item_status',
-        'remarks',
     ];
 
     protected $casts = [
         'quantity_bags' => 'integer',
         'quantity_kg' => 'decimal:2',
         'coupon_quantity' => 'integer',
-        'is_product_available' => 'boolean',
-        'is_coupon_available' => 'boolean',
     ];
 
     protected $appends = [
@@ -165,57 +161,46 @@ class MarketingOrderItem extends Model
 
     // ─── Relationships ───────────────────────────
 
-    /**
-     * Get the parent order.
-     */
+    public function dispatch(): BelongsTo
+    {
+        return $this->belongsTo(Dispatch::class);
+    }
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(MarketingOrder::class, 'marketing_order_id');
     }
 
-    /**
-     * Get the grade (Adhesive/TAD).
-     */
+    public function orderItem(): BelongsTo
+    {
+        return $this->belongsTo(MarketingOrderItem::class, 'marketing_order_item_id');
+    }
+
     public function grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class);
     }
 
-    /**
-     * Get the color (Grout/GRT).
-     */
     public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
 
-    /**
-     * Get the epoxy product (EPX).
-     */
     public function epoxyProduct(): BelongsTo
     {
         return $this->belongsTo(EpoxyProduct::class);
     }
 
-    /**
-     * Get the epoxy filler color.
-     */
     public function epoxyFillerColor(): BelongsTo
     {
         return $this->belongsTo(EpoxyFillerColor::class, 'epoxy_filler_color_id');
     }
 
-    /**
-     * Get the epoxy component.
-     */
     public function epoxyComponent(): BelongsTo
     {
         return $this->belongsTo(EpoxyComponent::class, 'epoxy_component_id');
     }
 
-    /**
-     * Get the coupon raw material.
-     */
     public function couponMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class, 'coupon_raw_material_id');
@@ -223,9 +208,6 @@ class MarketingOrderItem extends Model
 
     // ─── Accessors ───────────────────────────────
 
-    /**
-     * Get the product name based on department code.
-     */
     public function getProductNameAttribute(): string
     {
         return match ($this->department_code) {
@@ -242,9 +224,6 @@ class MarketingOrderItem extends Model
         };
     }
 
-    /**
-     * Get the department label.
-     */
     public function getDepartmentLabelAttribute(): string
     {
         return match ($this->department_code) {
@@ -255,39 +234,11 @@ class MarketingOrderItem extends Model
         };
     }
 
-    /**
-     * Get the coupon display name.
-     */
     public function getCouponNameAttribute(): string
     {
         if (!$this->coupon_raw_material_id) {
             return 'No Coupon';
         }
         return $this->couponMaterial ? $this->couponMaterial->name : 'N/A';
-    }
-
-    /**
-     * Get the item availability status text.
-     */
-    public function getAvailabilityTextAttribute(): string
-    {
-        $productOk = $this->is_product_available;
-        $couponOk = $this->is_coupon_available;
-
-        if ($couponOk === null) {
-            // No coupon needed
-            return $productOk ? 'Available' : 'Product Not Available';
-        }
-
-        if ($productOk && $couponOk) {
-            return 'Available';
-        }
-        if (!$productOk && !$couponOk) {
-            return 'Not Available';
-        }
-        if (!$productOk) {
-            return 'Product Not Available';
-        }
-        return 'Coupon Not Available';
     }
 }

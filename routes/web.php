@@ -123,6 +123,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:supervisor', 'department.access'])->prefix('supervisor')->group(function () {
         Route::get('/dashboard', [SupervisorDashboardController::class, 'index'])->name('supervisor.dashboard');
         Route::get('/dashboard/machines', [SupervisorDashboardController::class, 'liveMachines'])->name('supervisor.dashboard.machines');
+        Route::get('/orders', [SupervisorDashboardController::class, 'orders'])->name('supervisor.orders');
     });
 
     // Epoxy Assembly Routes (Accessible by Admin and Supervisor)
@@ -175,15 +176,37 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders/create', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'create'])->name('marketing.orders.create');
         Route::post('/orders', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'store'])->name('marketing.orders.store');
         Route::get('/orders/{order}', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'show'])->name('marketing.orders.show');
+        Route::get('/orders/{order}/edit', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'edit'])->name('marketing.orders.edit');
         Route::put('/orders/{order}', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'update'])->name('marketing.orders.update');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'status'])->name('marketing.orders.status');
         Route::post('/orders/{order}/reorder', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'reorder'])->name('marketing.orders.reorder');
+        Route::post('/orders/{order}/approve', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'approve'])->name('marketing.orders.approve');
         Route::post('/orders/{order}/complete', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'complete'])->name('marketing.orders.complete');
         Route::delete('/orders/{order}', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'destroy'])->name('marketing.orders.destroy');
         Route::post('/orders/refresh-availability', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'refresh'])->name('marketing.orders.refresh');
         
         // API endpoints for dynamic stock checking
         Route::get('/api/product-stock', [\App\Http\Controllers\Marketing\MarketingOrderController::class, 'productStock'])->name('marketing.api.product_stock');
+    });
+
+    // Dispatch Management System Routes
+    Route::middleware('role:admin,supervisor,marketing,dispatch')->prefix('dispatch')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Dispatch\DispatchController::class, 'index'])->name('dispatch.index');
+        Route::get('/create', [\App\Http\Controllers\Dispatch\DispatchController::class, 'create'])->name('dispatch.create');
+        Route::post('/', [\App\Http\Controllers\Dispatch\DispatchController::class, 'store'])->name('dispatch.store');
+        Route::get('/reports', [\App\Http\Controllers\Dispatch\DispatchController::class, 'reports'])->name('dispatch.reports');
+        Route::get('/api/approved-orders', [\App\Http\Controllers\Dispatch\DispatchController::class, 'apiApprovedOrders'])->name('dispatch.api.approved_orders');
+        Route::get('/api/preview-map', [\App\Http\Controllers\Dispatch\DispatchController::class, 'previewMap'])->name('dispatch.api.preview_map');
+        Route::get('/{dispatch}', [\App\Http\Controllers\Dispatch\DispatchController::class, 'show'])->name('dispatch.show');
+        Route::get('/{dispatch}/edit', [\App\Http\Controllers\Dispatch\DispatchController::class, 'edit'])->name('dispatch.edit');
+        Route::put('/{dispatch}', [\App\Http\Controllers\Dispatch\DispatchController::class, 'update'])->name('dispatch.update');
+        Route::delete('/{dispatch}', [\App\Http\Controllers\Dispatch\DispatchController::class, 'destroy'])->name('dispatch.destroy');
+        Route::post('/{dispatch}/release', [\App\Http\Controllers\Dispatch\DispatchController::class, 'toggleRelease'])->name('dispatch.toggle_release');
+        Route::post('/{dispatch}/payment', [\App\Http\Controllers\Dispatch\DispatchController::class, 'updatePayment'])->name('dispatch.update_payment');
+        Route::post('/{dispatch}/status', [\App\Http\Controllers\Dispatch\DispatchController::class, 'updateStatus'])->name('dispatch.update_status');
+        Route::get('/{dispatch}/loading', [\App\Http\Controllers\Dispatch\DispatchController::class, 'loadingScreen'])->name('dispatch.loading');
+        Route::post('/{dispatch}/start-loading', [\App\Http\Controllers\Dispatch\DispatchController::class, 'startLoading'])->name('dispatch.start_loading');
+        Route::post('/{dispatch}/finish-loading', [\App\Http\Controllers\Dispatch\DispatchController::class, 'finishLoading'])->name('dispatch.finish_loading');
     });
 });
 
@@ -199,6 +222,9 @@ Route::get('/', function () {
         }
         if ($user->isMarketing()) {
             return redirect()->route('marketing.orders.index');
+        }
+        if ($user->isDispatch()) {
+            return redirect()->route('dispatch.index');
         }
     }
     return redirect()->route('login');

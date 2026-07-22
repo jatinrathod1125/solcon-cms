@@ -47,4 +47,17 @@ class DashboardController extends Controller
         $liveMachines = DashboardService::getLiveMachineStatus(auth()->user()->department_id);
         return view('admin.dashboard.partials.machines', compact('liveMachines'));
     }
+
+    /**
+     * Display approved orders for supervisors.
+     */
+    public function orders()
+    {
+        $orders = \App\Models\MarketingOrder::approved()
+            ->orderByDesc('approved_at')
+            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator', 'approver'])
+            ->get();
+
+        return view('supervisor.orders', compact('orders'));
+    }
 }

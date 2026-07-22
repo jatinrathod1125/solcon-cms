@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Create Order')
-@section('header-title', 'Create Order')
+@section('title', 'Edit Order')
+@section('header-title', 'Edit Order')
 
 @section('styles')
 <style>
@@ -220,18 +220,18 @@
 @section('content')
 <div class="marketing-orders-page mx-auto max-w-[1700px]">
 
-    <form id="createOrderForm" action="{{ route('marketing.orders.store') }}" method="POST">
+    <form id="editOrderForm" action="{{ route('marketing.orders.update', $order->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <section class="bg-white border border-slate-200 rounded-[24px] p-5 shadow-sm space-y-5">
             <header class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-blue-50 text-blue-600 rounded-xl">
-                        <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                        <i data-lucide="edit" class="w-5 h-5"></i>
                     </div>
-                    <h2 class="text-base font-extrabold text-slate-900">Create Order</h2>
+                    <h2 class="text-base font-extrabold text-slate-900">Edit Order: {{ $order->order_number }}</h2>
                 </div>
-                <a href="{{ route('marketing.orders.index') }}"
-                    class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
+                <a href="{{ route('marketing.orders.index') }}" class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
                     Back to Orders
                 </a>
@@ -248,42 +248,28 @@
             <!-- Order Header Fields -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
                 <div>
-                    <label
-                        class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Order
-                        No. <span class="text-rose-500">*</span></label>
-                    <input type="text" value="AUTO GENERATED"
-                        class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-500 focus:outline-none"
-                        readonly>
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Order No. <span class="text-rose-500">*</span></label>
+                    <input type="text" value="{{ $order->order_number }}" class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-500 focus:outline-none" readonly>
                 </div>
                 <div>
-                    <label
-                        class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Order
-                        Date <span class="text-rose-500">*</span></label>
-                    <input type="date" id="order_date" name="order_date" value="{{ date('Y-m-d') }}"
-                        class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Order Date <span class="text-rose-500">*</span></label>
+                    <input type="date" id="order_date" name="order_date" value="{{ $order->order_date?->format('Y-m-d') }}" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Party
-                        Name <span class="text-rose-500">*</span></label>
-                    <input type="text" id="party_name" name="party_name" placeholder="Type party name"
-                        class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Party Name <span class="text-rose-500">*</span></label>
+                    <input type="text" id="party_name" name="party_name" value="{{ $order->party_name }}" placeholder="Type party name" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">City
-                        <span class="text-rose-500">*</span></label>
-                    <input type="text" id="city" name="city" placeholder="Type city name"
-                        class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">City <span class="text-rose-500">*</span></label>
+                    <input type="text" id="city" name="city" value="{{ $order->city }}" placeholder="Type city name" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
                 </div>
                 <div>
-                    <label
-                        class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Priority
-                        <span class="text-rose-500">*</span></label>
-                    <select id="priority" name="priority"
-                        class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
-                        <option value="low">Low</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="high">High</option>
-                        <option value="urgent">Urgent</option>
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Priority <span class="text-rose-500">*</span></label>
+                    <select id="priority" name="priority" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                        <option value="low" {{ $order->priority === 'low' ? 'selected' : '' }}>Low</option>
+                        <option value="medium" {{ $order->priority === 'medium' ? 'selected' : '' }}>Medium</option>
+                        <option value="high" {{ $order->priority === 'high' ? 'selected' : '' }}>High</option>
+                        <option value="urgent" {{ $order->priority === 'urgent' ? 'selected' : '' }}>Urgent</option>
                     </select>
                 </div>
             </div>
@@ -294,12 +280,10 @@
                 <!-- COLUMN 1 -->
                 <div class="flex flex-col gap-6">
                     <!-- TILE ADHESIVE -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tile
-                                Adhesive</span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tile Adhesive</span>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full erp-table text-center min-w-[200px]">
@@ -314,18 +298,21 @@
                                     @foreach($adhesives as $grade)
                                     @php $packing = $grade->bagSize->name ?? '20KG'; @endphp
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
                                             {{$grade->name }}
                                         </td>
                                         <td class="w-16">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="TAD"
-                                                data-product-id="{{ $grade->id }}" data-packing="{{ $packing }}">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="TAD" 
+                                                   data-product-id="{{ $grade->id }}" 
+                                                   data-packing="{{ $packing }}">
                                         </td>
                                         <td class="w-24">
-                                            <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase"
-                                                placeholder="Coupon" data-dept="TAD"
-                                                data-product-id="{{ $grade->id }}" data-packing="{{ $packing }}">
+                                            <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase" 
+                                                   placeholder="Coupon" 
+                                                   data-dept="TAD" 
+                                                   data-product-id="{{ $grade->id }}" 
+                                                   data-packing="{{ $packing }}">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -335,12 +322,10 @@
                     </div>
 
                     <!-- TILES CLEANER -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles
-                                Cleaner</span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Cleaner</span>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full erp-table text-center min-w-[200px]">
@@ -353,13 +338,12 @@
                                 <tbody>
                                     @foreach(['1-LTR', '5-LTR'] as $prod)
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $prod }}</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $prod }}</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $tilesCleanerProduct->id ?? '' }}"
-                                                data-packing="{{ $prod }}">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $tilesCleanerProduct->id ?? '' }}" 
+                                                   data-packing="{{ $prod }}">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -369,8 +353,7 @@
                     </div>
 
                     <!-- GROUT ADMIX -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Grout Admix</span>
@@ -385,13 +368,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            200GM Admix</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">200GM Admix</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $groutAdmixProduct->id ?? '' }}"
-                                                data-packing="200GM">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $groutAdmixProduct->id ?? '' }}" 
+                                                   data-packing="200GM">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -403,8 +385,7 @@
                 <!-- COLUMN 2 -->
                 <div class="flex flex-col gap-6">
                     <!-- TILES GROUT -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Grout</span>
@@ -421,17 +402,20 @@
                                 <tbody>
                                     @foreach($groutColors as $color)
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
                                             {{ $color->name }}
                                         </td>
                                         <td class="w-16">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="GRT"
-                                                data-product-id="{{ $color->id }}" data-packing="1 KG">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="GRT" 
+                                                   data-product-id="{{ $color->id }}" 
+                                                   data-packing="1 KG">
                                         </td>
                                         <td class="w-16">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="GRT"
-                                                data-product-id="{{ $color->id }}" data-packing="500GM">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="GRT" 
+                                                   data-product-id="{{ $color->id }}" 
+                                                   data-packing="500GM">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -448,22 +432,19 @@
                             <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                                 <div class="px-3 py-2 flex items-center gap-2 border-b border-slate-100 bg-slate-50/50">
                                     <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                                    <span
-                                        class="text-[10px] font-black uppercase tracking-wider text-slate-850">Solitite</span>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-850">Solitite</span>
                                 </div>
                                 <div class="overflow-x-auto">
                                     <table class="w-full erp-table text-center min-w-[100px]">
                                         <tbody>
                                             @foreach(['1.8KG', '900 GM', '450 GM'] as $size)
                                             <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">
-                                                    {{ $size }}</td>
+                                                <td class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">{{ $size }}</td>
                                                 <td class="w-14">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX"
-                                                        data-product-id="{{ $solititeProduct->id ?? '' }}"
-                                                        data-packing="{{ $size }}">
+                                                    <input type="number" min="0" class="compact-input qty-input" 
+                                                           data-dept="EPX" 
+                                                           data-product-id="{{ $solititeProduct->id ?? '' }}" 
+                                                           data-packing="{{ $size }}">
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -476,22 +457,19 @@
                             <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                                 <div class="px-3 py-2 flex items-center gap-2 border-b border-slate-100 bg-slate-50/50">
                                     <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-855">Resin
-                                        Kit</span>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-855">Resin Kit</span>
                                 </div>
                                 <div class="overflow-x-auto">
                                     <table class="w-full erp-table text-center min-w-[100px]">
                                         <tbody>
                                             @foreach(['0.3KG', '1.5KG'] as $size)
                                             <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">
-                                                    {{ $size }}</td>
+                                                <td class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">{{ $size }}</td>
                                                 <td class="w-14">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX"
-                                                        data-product-id="{{ $resinKitProduct->id ?? '' }}"
-                                                        data-packing="{{ $size }}">
+                                                    <input type="number" min="0" class="compact-input qty-input" 
+                                                           data-dept="EPX" 
+                                                           data-product-id="{{ $resinKitProduct->id ?? '' }}" 
+                                                           data-packing="{{ $size }}">
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -504,12 +482,10 @@
                         <!-- Right Stack (Jari Powder) -->
                         <div>
                             <!-- JARI POWDER -->
-                            <div
-                                class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm h-full flex flex-col">
+                            <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm h-full flex flex-col">
                                 <div class="px-3 py-2 flex items-center gap-2 border-b border-slate-100 bg-slate-50/50">
                                     <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-850">Jari
-                                        Powder</span>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-850">Jari Powder</span>
                                 </div>
                                 <div class="overflow-x-auto flex-1">
                                     <table class="w-full erp-table text-center min-w-[100px]">
@@ -521,18 +497,16 @@
                                         </thead>
                                         <tbody>
                                             @foreach(['SILVER', 'COPPER', 'GOLD', 'RED'] as $color)
-                                            @php
-                                            $comp = $jariComponents->first(fn($c) => str_contains(strtolower($c->name),
-                                            strtolower($color)));
+                                            @php 
+                                                $comp = $jariComponents->first(fn($c) => str_contains(strtolower($c->name), strtolower($color)));
                                             @endphp
                                             <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">
-                                                    {{ $color }}</td>
+                                                <td class="text-left font-bold text-slate-700 text-[10px] whitespace-nowrap">{{ $color }}</td>
                                                 <td class="w-14">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX" data-component-id="{{ $comp->id ?? '' }}"
-                                                        data-packing="Pckt">
+                                                    <input type="number" min="0" class="compact-input qty-input" 
+                                                           data-dept="EPX" 
+                                                           data-component-id="{{ $comp->id ?? '' }}" 
+                                                           data-packing="Pckt">
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -547,8 +521,7 @@
                 <!-- COLUMN 3 -->
                 <div class="flex flex-col gap-6">
                     <!-- EPOXY -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Epoxy</span>
@@ -565,30 +538,35 @@
                                 </thead>
                                 <tbody>
                                     @foreach($epoxyColors as $color)
-                                    @php
-                                    $epoxy1kg = $epoxies->where('code', '1B')->first();
-                                    $epoxy5kg = $epoxies->where('code', '5B')->first();
+                                    @php 
+                                        $epoxy1kg = $epoxies->where('code', '1B')->first();
+                                        $epoxy5kg = $epoxies->where('code', '5B')->first();
                                     @endphp
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
                                             {{ $color->code }} - {{ $color->name }}
                                         </td>
                                         <td class="w-14">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $epoxy1kg->id ?? 1 }}"
-                                                data-filler-color-id="{{ $color->id }}" data-packing="1KG">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="1KG">
                                         </td>
                                         <td class="w-14">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $epoxy5kg->id ?? 2 }}"
-                                                data-filler-color-id="{{ $color->id }}" data-packing="5KG">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="5KG">
                                         </td>
                                         <td class="w-20">
-                                            <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase"
-                                                placeholder="Coupon" data-dept="EPX"
-                                                data-product-id="{{ $epoxy1kg->id ?? 1 }}"
-                                                data-filler-color-id="{{ $color->id }}" data-packing="1KG">
+                                            <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase" 
+                                                   placeholder="Coupon" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-filler-color-id="{{ $color->id }}" 
+                                                   data-packing="1KG">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -601,8 +579,7 @@
                 <!-- COLUMN 4 -->
                 <div class="flex flex-col gap-6">
                     <!-- SPACER -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Spacer</span>
@@ -618,13 +595,12 @@
                                 <tbody>
                                     @foreach(['2MM', '3MM', '4MM', '5MM', '6MM'] as $size)
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $size }}</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $size }}</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $spacerProduct->id ?? '' }}"
-                                                data-packing="{{ $size }}">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $spacerProduct->id ?? '' }}" 
+                                                   data-packing="{{ $size }}">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -634,12 +610,10 @@
                     </div>
 
                     <!-- TILES LEVELER -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles
-                                Leveler</span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Leveler</span>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full erp-table text-center min-w-[200px]">
@@ -650,16 +624,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(['CLIP 2MM', 'CLIP 3MM', 'CLIP 4MM', 'WEDGE', 'LEVELLING JACK SPACER',
-                                    'TROWEL', 'PLIER', 'VACUUM'] as $type)
+                                    @foreach(['CLIP 2MM', 'CLIP 3MM', 'CLIP 4MM', 'WEDGE', 'LEVELLING JACK SPACER', 'TROWEL', 'PLIER', 'VACUUM'] as $type)
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $type }}</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $type }}</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $levelerProduct->id ?? '' }}"
-                                                data-packing="{{ $type }}">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-product-id="{{ $levelerProduct->id ?? '' }}" 
+                                                   data-packing="{{ $type }}">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -669,8 +641,7 @@
                     </div>
 
                     <!-- SB+ -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB+</span>
@@ -685,16 +656,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach(['1 KG', '5 KG', '20 KG'] as $size)
-                                    @php
-                                    $comp = $sbPlusComponents->first(fn($c) => str_contains($c->name, $size));
+                                    @php 
+                                        $comp = $sbPlusComponents->first(fn($c) => str_contains($c->name, $size));
                                     @endphp
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $size }}</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $size }}</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-component-id="{{ $comp->id ?? '' }}" data-packing="Box">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-component-id="{{ $comp->id ?? '' }}" 
+                                                   data-packing="Box">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -704,8 +675,7 @@
                     </div>
 
                     <!-- SB++ -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB++</span>
@@ -720,16 +690,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach(['1 KG', '5 KG', '20 KG'] as $size)
-                                    @php
-                                    $comp = $sbPlusPlusComponents->first(fn($c) => str_contains($c->name, $size));
+                                    @php 
+                                        $comp = $sbPlusPlusComponents->first(fn($c) => str_contains($c->name, $size));
                                     @endphp
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $size }}</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $size }}</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-component-id="{{ $comp->id ?? '' }}" data-packing="Box">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-component-id="{{ $comp->id ?? '' }}" 
+                                                   data-packing="Box">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -739,8 +709,7 @@
                     </div>
 
                     <!-- SK+ -->
-                    <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">SK+</span>
@@ -755,16 +724,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach(['1 LTR', '5 LTR', '20 LTR'] as $size)
-                                    @php
-                                    $comp = $skPlusComponents->first(fn($c) => str_contains($c->name, $size));
+                                    @php 
+                                        $comp = $skPlusComponents->first(fn($c) => str_contains($c->name, $size));
                                     @endphp
                                     <tr>
-                                        <td
-                                            class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $size }}</td>
+                                        <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $size }}</td>
                                         <td class="w-20">
-                                            <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-component-id="{{ $comp->id ?? '' }}" data-packing="Box">
+                                            <input type="number" min="0" class="compact-input qty-input" 
+                                                   data-dept="EPX" 
+                                                   data-component-id="{{ $comp->id ?? '' }}" 
+                                                   data-packing="Box">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -775,18 +744,13 @@
 
                     <!-- Remarks Notes -->
                     <div class="pt-2">
-                        <label
-                            class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Remarks
-                            / Notes</label>
-                        <textarea id="remarks" name="remarks" rows="2" placeholder="Add optional remarks..."
-                            class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"></textarea>
+                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Remarks / Notes</label>
+                        <textarea id="remarks" name="remarks" rows="2" placeholder="Add optional remarks..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">{{ $order->remarks }}</textarea>
                     </div>
 
                     <!-- Form Action Buttons -->
                     <div class="flex gap-3 justify-end pt-2">
-                        <button type="submit"
-                            class="erp-button bg-[#10b981] hover:bg-emerald-600 text-white !py-2 px-6 text-sm rounded-xl font-bold transition shadow-sm w-full sm:w-auto">Save
-                            Order</button>
+                        <button type="submit" class="erp-button bg-blue-600 hover:bg-blue-700 text-white !py-2 px-6 text-sm rounded-xl font-bold transition shadow-sm w-full sm:w-auto">Update Order</button>
                     </div>
                 </div>
 
@@ -799,7 +763,45 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('#createOrderForm').on('submit', function(e) {
+        // Pre-populate quantities from order items
+        var orderItems = @json($order->items);
+        orderItems.forEach(function(item) {
+            if (item.grade_id) {
+                // TAD
+                var qtyInput = $('.qty-input[data-dept="TAD"][data-product-id="' + item.grade_id + '"]');
+                qtyInput.val(item.quantity_bags);
+                if (item.coupon_raw_material_id && item.coupon_material) {
+                    var codeInput = $('.coupon-code-input[data-dept="TAD"][data-product-id="' + item.grade_id + '"]');
+                    codeInput.val(item.coupon_material.code);
+                }
+            } else if (item.color_id && item.department_code === 'GRT') {
+                // GRT
+                var qtyInput = $('.qty-input[data-dept="GRT"][data-product-id="' + item.color_id + '"][data-packing="' + item.packing + '"]');
+                qtyInput.val(item.quantity_bags);
+            } else if (item.epoxy_product_id) {
+                // EPX Products
+                if (item.epoxy_filler_color_id) {
+                    var qtyInput = $('.qty-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"][data-packing="' + item.packing + '"]');
+                    qtyInput.val(item.quantity_bags);
+                    
+                    // Populate coupon details if exists on this epoxy color
+                    if (item.coupon_raw_material_id && item.coupon_material) {
+                        var codeInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-filler-color-id="' + item.epoxy_filler_color_id + '"]');
+                        codeInput.val(item.coupon_material.code);
+                    }
+                } else {
+                    var qtyInput = $('.qty-input[data-dept="EPX"][data-product-id="' + item.epoxy_product_id + '"][data-packing="' + item.packing + '"]');
+                    qtyInput.val(item.quantity_bags);
+                }
+            } else if (item.epoxy_component_id) {
+                // EPX Components
+                var qtyInput = $('.qty-input[data-dept="EPX"][data-component-id="' + item.epoxy_component_id + '"]');
+                qtyInput.val(item.quantity_bags);
+            }
+        });
+
+        // Form submit handler
+        $('#editOrderForm').on('submit', function(e) {
             e.preventDefault();
 
             // Prepare items array
@@ -823,10 +825,9 @@
                     };
 
                     if (productId) {
-                        // For Epoxy Colors, TAD, GRT or general products
                         if (dept === 'TAD') {
                             item.grade_id = productId;
-
+                            
                             // Check for coupon code
                             var couponInput = $('.coupon-code-input[data-dept="TAD"][data-product-id="' + productId + '"]');
                             var cCode = couponInput.val() ? couponInput.val().trim() : '';
@@ -841,8 +842,8 @@
                             item.epoxy_product_id = productId;
                             if (fillerColorId) {
                                 item.epoxy_filler_color_id = fillerColorId;
-
-                                // Check for coupon code on this Epoxy Color
+                                
+                                // Check for coupon code
                                 var couponInput = $('.coupon-code-input[data-dept="EPX"][data-product-id="' + productId + '"][data-filler-color-id="' + fillerColorId + '"]');
                                 var cCode = couponInput.val() ? couponInput.val().trim() : '';
 
@@ -853,7 +854,6 @@
                             }
                         }
                     } else if (componentId) {
-                        // For dynamic Epoxy components (Jari, SB+, SB++, SK+)
                         item.epoxy_component_id = componentId;
                     }
 
@@ -884,6 +884,7 @@
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
+                    _method: 'PUT',
                     party_name: partyName,
                     order_date: orderDate,
                     city: city,
@@ -895,19 +896,19 @@
                 success: function(response) {
                     if (response.success) {
                         Swal.fire({
-                            title: 'Order Created!',
-                            text: 'The order has been created successfully.',
+                            title: 'Order Updated!',
+                            text: 'The order has been updated successfully.',
                             icon: 'success',
                             confirmButtonColor: '#2563eb'
                         }).then(() => {
                             window.location.href = "{{ route('marketing.orders.index') }}";
                         });
                     } else {
-                        Swal.fire('Error', response.message || 'Failed to create order.', 'error');
+                        Swal.fire('Error', response.message || 'Failed to update order.', 'error');
                     }
                 },
                 error: function(xhr) {
-                    var errorMsg = 'Failed to save order.';
+                    var errorMsg = 'Failed to update order.';
                     if (xhr.responseJSON && xhr.responseJSON.message) {
                         errorMsg = xhr.responseJSON.message;
                     }

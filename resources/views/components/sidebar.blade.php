@@ -8,10 +8,11 @@ $deptTAD = \App\Models\Department::where('code', 'TAD')->first();
 $deptGRT = \App\Models\Department::where('code', 'GRT')->first();
 $deptEPX = \App\Models\Department::where('code', 'EPX')->first();
 
-$canAccessAdhesive = !$user->isMarketing() && ($user->isAdmin() || ($deptTAD && $user->canAccessDepartment($deptTAD->id)));
-$canAccessGrout = !$user->isMarketing() && ($user->isAdmin() || ($deptGRT && $user->canAccessDepartment($deptGRT->id)));
-$canAccessEpoxy = !$user->isMarketing() && ($user->isAdmin() || ($deptEPX && $user->canAccessDepartment($deptEPX->id)));
+$canAccessAdhesive = !$user->isMarketing() && !$user->isDispatch() && ($user->isAdmin() || ($deptTAD && $user->canAccessDepartment($deptTAD->id)));
+$canAccessGrout = !$user->isMarketing() && !$user->isDispatch() && ($user->isAdmin() || ($deptGRT && $user->canAccessDepartment($deptGRT->id)));
+$canAccessEpoxy = !$user->isMarketing() && !$user->isDispatch() && ($user->isAdmin() || ($deptEPX && $user->canAccessDepartment($deptEPX->id)));
 $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMarketing();
+$canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispatch() || $user->isSupervisor();
 @endphp
 
 <aside id="appSidebar"
@@ -32,7 +33,7 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
 
     <nav class="sidebar-scroll flex-1 space-y-6 overflow-y-auto px-3 py-5">
         {{-- General Section --}}
-        @if(!$user->isMarketing())
+        @if(!$user->isMarketing() && !$user->isDispatch())
         <section>
             <p class="sidebar-label nav-eyebrow">General</p>
             <div class="space-y-1">
@@ -51,11 +52,50 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
         <section>
             <p class="sidebar-label nav-eyebrow">Marketing</p>
             <div class="space-y-1">
+                @if(!$user->isSupervisor())
                 <a href="{{ route('marketing.orders.index') }}"
                     class="{{ $navClass(request()->routeIs('marketing.orders.*')) }}"
                     title="Orders Board">
                     <i data-lucide="clipboard-list"></i>
                     <span class="sidebar-label">Orders Board</span>
+                </a>
+                @endif
+                @if($user->isSupervisor() || $user->isAdmin())
+                <a href="{{ route('supervisor.orders') }}"
+                    class="{{ $navClass(request()->routeIs('supervisor.orders')) }}"
+                    title="Approved Orders">
+                    <i data-lucide="check-circle"></i>
+                    <span class="sidebar-label">Approved Orders</span>
+                </a>
+                @endif
+            </div>
+        </section>
+        @endif
+
+        {{-- Dispatch Section --}}
+        @if($canAccessDispatch)
+        <section>
+            <p class="sidebar-label nav-eyebrow">Dispatch Dept</p>
+            <div class="space-y-1">
+                <a href="{{ route('dispatch.index') }}"
+                    class="{{ $navClass(request()->routeIs('dispatch.index') || request()->routeIs('dispatch.show') || request()->routeIs('dispatch.loading')) }}"
+                    title="Dispatch Planning">
+                    <i data-lucide="truck"></i>
+                    <span class="sidebar-label">Dispatches</span>
+                </a>
+                @if($user->isAdmin() || $user->isMarketing())
+                <a href="{{ route('dispatch.create') }}"
+                    class="{{ $navClass(request()->routeIs('dispatch.create')) }}"
+                    title="Create Dispatch">
+                    <i data-lucide="plus-circle"></i>
+                    <span class="sidebar-label">Create Dispatch</span>
+                </a>
+                @endif
+                <a href="{{ route('dispatch.reports') }}"
+                    class="{{ $navClass(request()->routeIs('dispatch.reports')) }}"
+                    title="Dispatch Reports">
+                    <i data-lucide="bar-chart"></i>
+                    <span class="sidebar-label">Dispatch Reports</span>
                 </a>
             </div>
         </section>
@@ -137,7 +177,7 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
         @endif
 
         {{-- Inventory Section --}}
-        @if(!$user->isMarketing())
+        @if(!$user->isMarketing() && !$user->isDispatch())
         <section>
             <p class="sidebar-label nav-eyebrow">Inventory</p>
             <div class="space-y-1">
@@ -168,7 +208,7 @@ $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMark
         @endif
 
         {{-- Operations / Reports Section --}}
-        @if(($user->isAdmin() || $user->hasPermission('view-reports')) && !$user->isMarketing())
+        @if(($user->isAdmin() || $user->hasPermission('view-reports')) && !$user->isMarketing() && !$user->isDispatch())
         <section>
             <p class="sidebar-label nav-eyebrow">Reports</p>
             <div class="space-y-1">
