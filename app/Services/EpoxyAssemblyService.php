@@ -215,23 +215,36 @@ class EpoxyAssemblyService
 
             // 1. Validate and prepare deductions for formula items
             foreach ($formula->items as $item) {
-                $rawMaterial = $item->rawMaterial;
                 $neededQty = (float) $item->quantity * $quantity;
+                $remarksText = "Formula consumed to prepare {$quantity} units of component: {$component->name}";
 
-                // Lock the raw material record to prevent race conditions
-                $lockedRm = RawMaterial::lockForUpdate()->findOrFail($rawMaterial->id);
-
-                if ($lockedRm->current_stock < $neededQty) {
-                    throw ValidationException::withMessages([
-                        'quantity' => ["Insufficient stock for raw material '{$lockedRm->name}'. Required: {$neededQty}, Available: {$lockedRm->current_stock}."],
-                    ]);
+                if ($item->packing_material_id) {
+                    $lockedPm = \App\Models\PackingMaterial::lockForUpdate()->findOrFail($item->packing_material_id);
+                    if ((float) $lockedPm->current_stock < $neededQty) {
+                        throw ValidationException::withMessages([
+                            'quantity' => ["Insufficient stock for packing material '{$lockedPm->name}'. Required: {$neededQty}, Available: {$lockedPm->current_stock}."],
+                        ]);
+                    }
+                    $deductions[] = [
+                        'rm_id' => null,
+                        'pm_id' => $lockedPm->id,
+                        'qty' => $neededQty,
+                        'remarks' => $remarksText,
+                    ];
+                } elseif ($item->raw_material_id) {
+                    $lockedRm = RawMaterial::lockForUpdate()->findOrFail($item->raw_material_id);
+                    if ((float) $lockedRm->current_stock < $neededQty) {
+                        throw ValidationException::withMessages([
+                            'quantity' => ["Insufficient stock for raw material '{$lockedRm->name}'. Required: {$neededQty}, Available: {$lockedRm->current_stock}."],
+                        ]);
+                    }
+                    $deductions[] = [
+                        'rm_id' => $lockedRm->id,
+                        'pm_id' => null,
+                        'qty' => $neededQty,
+                        'remarks' => $remarksText,
+                    ];
                 }
-
-                $deductions[] = [
-                    'rm_id' => $lockedRm->id,
-                    'qty' => $neededQty,
-                    'remarks' => "Formula consumed to prepare {$quantity} units of component: {$component->name}",
-                ];
             }
 
             // 2. Perform OUT movements for ingredients
@@ -241,7 +254,10 @@ class EpoxyAssemblyService
                     $ded['qty'],
                     'OUT',
                     null,
-                    $ded['remarks']
+                    $ded['remarks'],
+                    null,
+                    null,
+                    $ded['pm_id']
                 );
             }
 

@@ -64,6 +64,8 @@ class DashboardService
 
         $lowStockItems = RawMaterial::where('is_active', true)
             ->whereColumn('current_stock', '<', 'minimum_stock')
+            ->count() + \App\Models\PackingMaterial::where('status', 'active')
+            ->whereColumn('current_stock', '<', 'minimum_stock')
             ->count();
 
         // Epoxy KPI Stats
@@ -497,26 +499,52 @@ class DashboardService
         $topGrades = array_slice($topGrades, 0, 5);
 
         // 5. Raw Material Consumption (Last 30 Days OUT ledgers)
+        // 5. Material Consumption (Last 30 Days OUT ledgers for Raw & Packing Materials)
         $materialConsumption = StockLedger::where('transaction_type', 'OUT')
             ->where('created_at', '>=', $thirtyDaysAgo)
-            ->selectRaw('raw_material_id, abs(sum(quantity)) as total_qty')
-            ->groupBy('raw_material_id')
-            ->with('rawMaterial')
+            ->with(['rawMaterial', 'packingMaterial'])
             ->get()
-            ->map(fn($item) => [
-                'label' => $item->rawMaterial->name,
-                'value' => (float)$item->total_qty
-            ])->toArray();
+            ->groupBy(function ($ledger) {
+                if ($ledger->packing_material_id) {
+                    return 'packing_' . $ledger->packing_material_id;
+                }
+                return 'raw_' . ($ledger->raw_material_id ?? 0);
+            })
+            ->map(function ($group) {
+                $first = $group->first();
+                $name = 'Unknown';
+                if ($first->packingMaterial) {
+                    $name = $first->packingMaterial->name . ' (Packing)';
+                } elseif ($first->rawMaterial) {
+                    $name = $first->rawMaterial->name;
+                }
+                $totalQty = $group->sum(fn($i) => abs($i->quantity));
+                return [
+                    'label' => $name,
+                    'value' => (float) $totalQty
+                ];
+            })->values()->toArray();
 
         // 6. Low Stock items (Current Stock vs Minimum Stock)
-        $lowStockCompare = RawMaterial::where('is_active', true)
+        $lowStockRaw = RawMaterial::where('is_active', true)
             ->whereColumn('current_stock', '<', 'minimum_stock')
             ->get()
             ->map(fn($item) => [
                 'label' => $item->name,
                 'current' => (float)$item->current_stock,
                 'minimum' => (float)$item->minimum_stock,
-            ])->toArray();
+            ]);
+
+        $lowStockPacking = \App\Models\PackingMaterial::where('status', 'active')
+            ->whereColumn('current_stock', '<', 'minimum_stock')
+            ->get()
+            ->map(fn($item) => [
+                'label' => $item->name . ' (Packing)',
+                'current' => (float)$item->current_stock,
+                'minimum' => (float)$item->minimum_stock,
+            ]);
+
+        $lowStockCompare = $lowStockRaw->concat($lowStockPacking)->toArray();
 
         return [
             'last7Days' => $last7Days,
@@ -529,11 +557,11 @@ class DashboardService
     }
 
     /**
-     * Get Low Stock items list for Widget.
+     * Get Low Stock items list for Widget (Raw Materials and Packing Materials).
      */
     public static function getLowStockWidgetData(): array
     {
-        return RawMaterial::where('is_active', true)
+        $rawLow = RawMaterial::where('is_active', true)
             ->whereColumn('current_stock', '<', 'minimum_stock')
             ->orderBy('current_stock')
             ->with('stockUnit')
@@ -541,8 +569,6 @@ class DashboardService
             ->map(function ($item) {
                 $diff = (float)$item->current_stock - (float)$item->minimum_stock;
                 $priority = 'Warning';
-
-                // Critical: stock is less than 50% of minimum stock
                 if ((float)$item->current_stock <= ((float)$item->minimum_stock * 0.5)) {
                     $priority = 'Critical';
                 }
@@ -550,13 +576,40 @@ class DashboardService
                 return [
                     'material_name' => $item->name,
                     'material_code' => $item->code,
+                    'type' => 'Raw Material',
                     'current_stock' => $item->current_stock,
                     'minimum_stock' => $item->minimum_stock,
                     'difference' => $diff,
-                    'unit' => $item->stockUnit->code,
+                    'unit' => $item->stockUnit->code ?? 'KG',
                     'priority' => $priority,
                 ];
-            })->toArray();
+            });
+
+        $packingLow = \App\Models\PackingMaterial::where('status', 'active')
+            ->whereColumn('current_stock', '<', 'minimum_stock')
+            ->orderBy('current_stock')
+            ->with('unit')
+            ->get()
+            ->map(function ($item) {
+                $diff = (float)$item->current_stock - (float)$item->minimum_stock;
+                $priority = 'Warning';
+                if ((float)$item->current_stock <= ((float)$item->minimum_stock * 0.5)) {
+                    $priority = 'Critical';
+                }
+
+                return [
+                    'material_name' => $item->name,
+                    'material_code' => $item->code ?? '-',
+                    'type' => 'Packing Material',
+                    'current_stock' => $item->current_stock,
+                    'minimum_stock' => $item->minimum_stock,
+                    'difference' => $diff,
+                    'unit' => $item->unit->code ?? 'PCS',
+                    'priority' => $priority,
+                ];
+            });
+
+        return $rawLow->concat($packingLow)->toArray();
     }
 
     /**
@@ -582,16 +635,20 @@ class DashboardService
             ];
         }
 
-        // 2. Low Stock Warning
-        $lowStockCount = RawMaterial::where('is_active', true)
+        // 2. Low Stock Warning (Raw Materials & Packing Materials)
+        $lowStockRawCount = RawMaterial::where('is_active', true)
             ->whereColumn('current_stock', '<', 'minimum_stock')
             ->count();
+        $lowStockPackingCount = \App\Models\PackingMaterial::where('status', 'active')
+            ->whereColumn('current_stock', '<', 'minimum_stock')
+            ->count();
+        $lowStockCount = $lowStockRawCount + $lowStockPackingCount;
 
         if ($lowStockCount > 0) {
             $alerts[] = [
                 'type' => 'danger',
                 'title' => 'Low Stock Warning',
-                'message' => "There are {$lowStockCount} raw materials below their configured minimum stock level."
+                'message' => "There are {$lowStockCount} inventory items ({$lowStockRawCount} raw materials, {$lowStockPackingCount} packing materials) below their minimum stock level."
             ];
         }
 

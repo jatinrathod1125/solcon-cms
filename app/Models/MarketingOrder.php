@@ -173,4 +173,23 @@ class MarketingOrder extends Model
     {
         return self::STATUSES[$this->status] ?? self::STATUSES['pending'];
     }
+
+    /**
+     * Check if order quantity and production quantity match (all items available in finished goods stock).
+     */
+    public function isProductionReady(): bool
+    {
+        if ($this->items->isEmpty()) {
+            return false;
+        }
+
+        foreach ($this->items as $item) {
+            $stockInfo = $item->stock_info;
+            if (!$stockInfo['is_available']) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -38,10 +38,18 @@ class MarketingOrderController extends Controller
             Log::error("Failed to auto-refresh availability: " . $e->getMessage());
         }
 
-        // Get orders grouped by status
-        $orders = MarketingOrder::orderBy('sort_order', 'asc')
-            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator'])
-            ->get();
+        $user = auth()->user();
+
+        // Get orders query
+        $ordersQuery = MarketingOrder::orderBy('sort_order', 'asc')
+            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator']);
+
+        // Non-admin users (Marketing role) only see orders created by themselves
+        if (!$user->isAdmin()) {
+            $ordersQuery->where('created_by', $user->id);
+        }
+
+        $orders = $ordersQuery->get();
 
         $lanes = [
             'pending' => $orders->where('status', 'pending'),
@@ -341,6 +349,11 @@ class MarketingOrderController extends Controller
      */
     public function edit(MarketingOrder $order)
     {
+        $user = auth()->user();
+        if (!$user->isAdmin() && $order->created_by !== $user->id) {
+            abort(403, 'Unauthorized. You can only edit orders created by yourself.');
+        }
+
         $order->load(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial']);
 
         $coupons = $this->orderService->getAvailableCoupons();
@@ -390,8 +403,14 @@ class MarketingOrderController extends Controller
         }
 
         // Admin can edit anything.
-        // Marketing can only edit if status is pending.
+        // Marketing can only edit if created by themselves and status is pending.
         if (!$user->isAdmin()) {
+            if ($order->created_by !== $user->id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized. You can only edit orders created by yourself.'
+                ], 403);
+            }
             if ($order->status !== 'pending') {
                 return response()->json([
                     'success' => false,
@@ -646,8 +665,14 @@ class MarketingOrderController extends Controller
             ], 403);
         }
 
-        // Admin always can delete. Marketing can only delete if pending or in_progress.
+        // Admin always can delete. Marketing can only delete if created by themselves and pending or in_progress.
         if (!$user->isAdmin()) {
+            if ($order->created_by !== $user->id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized. You can only delete orders created by yourself.'
+                ], 403);
+            }
             if (!in_array($order->status, ['pending', 'in_progress'], true)) {
                 return response()->json([
                     'success' => false,

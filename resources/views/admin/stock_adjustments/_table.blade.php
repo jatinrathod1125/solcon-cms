@@ -16,10 +16,27 @@
                 <tr class="hover:bg-slate-50/50 transition">
                     <td class="px-5 py-3 font-mono font-bold text-slate-450">#ADJ-{{ str_pad($adj->id, 5, '0', STR_PAD_LEFT) }}</td>
                     <td class="px-5 py-3 text-slate-900 font-bold">
-                        {{ $adj->rawMaterial->name }}
-                        <span class="text-slate-400 font-semibold font-mono text-[10px]">({{ $adj->rawMaterial->code }})</span>
+                        @if($adj->packingMaterial)
+                            {{ $adj->packingMaterial->name }}
+                            <span class="text-slate-400 font-semibold font-mono text-[10px]">({{ $adj->packingMaterial->code ?? '-' }})</span>
+                            <span class="ml-1 px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 text-[9px] font-bold">Packing</span>
+                        @elseif($adj->rawMaterial)
+                            {{ $adj->rawMaterial->name }}
+                            <span class="text-slate-400 font-semibold font-mono text-[10px]">({{ $adj->rawMaterial->code }})</span>
+                            <span class="ml-1 px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 text-[9px] font-bold">Raw</span>
+                        @else
+                            -
+                        @endif
                     </td>
-                    <td class="px-5 py-3 text-slate-500 font-semibold">{{ $adj->rawMaterial->department->code }}</td>
+                    <td class="px-5 py-3 text-slate-500 font-semibold">
+                        @if($adj->packingMaterial)
+                            {{ $adj->packingMaterial->category->name ?? '-' }}
+                        @elseif($adj->rawMaterial)
+                            {{ $adj->rawMaterial->department->code ?? '-' }}
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td class="px-5 py-3 text-right font-mono font-bold {{ $adj->quantity >= 0 ? 'text-emerald-600' : 'text-rose-600' }}">
                         {{ $adj->quantity >= 0 ? '+' : '' }}{{ format_quantity($adj->quantity) }}
                     </td>

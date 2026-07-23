@@ -180,6 +180,32 @@
 @endphp
 
 <div class="marketing-orders-page mx-auto max-w-[1700px] space-y-5">
+    @if(session('success'))
+        <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-800 text-sm font-bold flex items-center justify-between shadow-sm">
+            <div class="flex items-center gap-2">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+            <a href="{{ route('dispatch.index') }}" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all">
+                View Dispatch Board &rarr;
+            </a>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-800 text-sm font-bold flex items-center gap-2 shadow-sm">
+            <i data-lucide="alert-circle" class="w-5 h-5 text-rose-600"></i>
+            <span>{{ session('error') }}</span>
+        </div>
+    @endif
+
+    @if(session('warning'))
+        <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-amber-800 text-sm font-bold flex items-center gap-2 shadow-sm">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600"></i>
+            <span>{{ session('warning') }}</span>
+        </div>
+    @endif
+
     <section class="page-card bg-white border border-slate-200 p-5 shadow-sm space-y-5">
         <header class="flex flex-col gap-4 border-b border-slate-100 pb-4 lg:flex-row lg:items-center lg:justify-between">
             <div class="flex items-start gap-3">
@@ -285,10 +311,27 @@
                                     </span>
                                 </td>
                                 <td data-label="Approved By" class="font-bold text-slate-600">{{ $order->approver->name ?? 'System' }}</td>
-                                <td data-label="Actions" class="text-right">
-                                    <button type="button" class="expand-btn order-action-button hover:border-slate-300 hover:bg-white hover:text-slate-900 shadow-sm" data-order-id="{{ $order->id }}" title="View items">
-                                        <i data-lucide="chevron-down" class="h-4 w-4 chevron-icon"></i>
-                                    </button>
+                                <td data-label="Actions" class="text-right whitespace-nowrap">
+                                    <div class="flex items-center justify-end gap-2">
+                                        @if(auth()->user()?->isAdmin() && $order->status !== 'completed' && $order->status !== 'cancelled')
+                                            @if($order->isProductionReady())
+                                                <form method="POST" action="{{ route('supervisor.orders.ready-to-dispatch', $order->id) }}" class="inline" onsubmit="return confirm('Order quantity and production quantity match! Mark this order as Ready to Dispatch and set status to Completed on Dispatch board?')">
+                                                    @csrf
+                                                    <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-sm transition-all whitespace-nowrap" title="Order quantity matches completed production stock. Click to dispatch!">
+                                                        <i data-lucide="truck" class="h-3.5 w-3.5"></i>
+                                                        <span>Ready to Dispatch</span>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <span class="inline-flex items-center gap-1 rounded-xl bg-amber-50 px-2.5 py-1.5 text-[11px] font-black text-amber-700 border border-amber-200 whitespace-nowrap" title="Waiting for production quantity to match order quantity">
+                                                    <i data-lucide="clock" class="h-3 w-3"></i> Awaiting Production
+                                                </span>
+                                            @endif
+                                        @endif
+                                        <button type="button" class="expand-btn order-action-button hover:border-slate-300 hover:bg-white hover:text-slate-900 shadow-sm" data-order-id="{{ $order->id }}" title="View items">
+                                            <i data-lucide="chevron-down" class="h-4 w-4 chevron-icon"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr id="sub-row-{{ $order->id }}" class="sub-row hidden bg-slate-50 border-b border-slate-100" data-status="{{ $order->status }}" data-search="{{ $searchText }}">

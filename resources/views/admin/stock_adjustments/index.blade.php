@@ -85,12 +85,38 @@
             @csrf
 
             <div>
+                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Material Type</label>
+                <div class="flex gap-4 mb-2">
+                    <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer">
+                        <input type="radio" name="material_type" value="raw" checked onchange="toggleMaterialType(this.value)" class="text-blue-600 focus:ring-blue-500">
+                        Raw Material
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer">
+                        <input type="radio" name="material_type" value="packing" onchange="toggleMaterialType(this.value)" class="text-purple-600 focus:ring-purple-500">
+                        Packing Material
+                    </label>
+                </div>
+            </div>
+
+            <div id="rawMaterialGroup">
                 <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Select Raw Material</label>
-                <select name="raw_material_id" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50" required>
+                <select name="raw_material_id" id="raw_material_select" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50" required>
                     <option value="">Select Raw Material</option>
                     @foreach($rawMaterials as $rm)
                         <option value="{{ $rm->id }}">
                             {{ $rm->name }} ({{ $rm->code }}) - Current: {{ format_quantity($rm->current_stock) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div id="packingMaterialGroup" class="hidden">
+                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Select Packing Material</label>
+                <select name="packing_material_id" id="packing_material_select" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500/50">
+                    <option value="">Select Packing Material</option>
+                    @foreach($packingMaterials as $pm)
+                        <option value="{{ $pm->id }}">
+                            {{ $pm->name }} ({{ $pm->code ?? '-' }}) - Current: {{ format_quantity($pm->current_stock) }} {{ $pm->unit->code ?? 'PCS' }}
                         </option>
                     @endforeach
                 </select>
@@ -166,6 +192,20 @@ function openAdjustModal() {
 
 function closeAdjustModal() {
     $('#adjustModal').addClass('hidden').find('.transform').removeClass('scale-100').addClass('scale-95');
+}
+
+function toggleMaterialType(type) {
+    if (type === 'raw') {
+        $('#rawMaterialGroup').removeClass('hidden');
+        $('#raw_material_select').prop('required', true);
+        $('#packingMaterialGroup').addClass('hidden');
+        $('#packing_material_select').prop('required', false).val('');
+    } else {
+        $('#packingMaterialGroup').removeClass('hidden');
+        $('#packing_material_select').prop('required', true);
+        $('#rawMaterialGroup').addClass('hidden');
+        $('#raw_material_select').prop('required', false).val('');
+    }
 }
 </script>
 @endsection

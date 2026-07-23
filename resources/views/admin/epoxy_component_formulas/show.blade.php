@@ -55,7 +55,8 @@
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
                         <tr class="border-b border-slate-900 bg-slate-900/30 text-slate-400 font-semibold">
-                            <th class="p-3">Raw Material</th>
+                            <th class="p-3">Type</th>
+                            <th class="p-3">Material Name</th>
                             <th class="p-3 w-32 text-right">Quantity Required</th>
                             <th class="p-3 w-40">Unit</th>
                         </tr>
@@ -64,8 +65,24 @@
                         @foreach($epoxyComponentFormula->items as $item)
                         <tr>
                             <td class="p-3">
-                                <span class="font-bold text-white block">{{ $item->rawMaterial->name }}</span>
-                                <span class="font-mono text-slate-500 text-[10px]">{{ $item->rawMaterial->code }}</span>
+                                @if($item->packingMaterial)
+                                    <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 text-[10px] font-bold border border-purple-500/20">Packing</span>
+                                @elseif($item->rawMaterial)
+                                    <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 text-[10px] font-bold border border-cyan-500/20">Raw Material</span>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td class="p-3">
+                                @if($item->packingMaterial)
+                                    <span class="font-bold text-white block">{{ $item->packingMaterial->name }}</span>
+                                    <span class="font-mono text-slate-500 text-[10px]">{{ $item->packingMaterial->code ?? '-' }}</span>
+                                @elseif($item->rawMaterial)
+                                    <span class="font-bold text-white block">{{ $item->rawMaterial->name }}</span>
+                                    <span class="font-mono text-slate-500 text-[10px]">{{ $item->rawMaterial->code }}</span>
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td class="p-3 text-right font-mono font-bold text-emerald-400">{{ (float) $item->quantity }}</td>
                             <td class="p-3">{{ $item->unit->name }} ({{ $item->unit->code }})</td>

@@ -12,7 +12,7 @@ $canAccessAdhesive = !$user->isMarketing() && !$user->isDispatch() && ($user->is
 $canAccessGrout = !$user->isMarketing() && !$user->isDispatch() && ($user->isAdmin() || ($deptGRT && $user->canAccessDepartment($deptGRT->id)));
 $canAccessEpoxy = !$user->isMarketing() && !$user->isDispatch() && ($user->isAdmin() || ($deptEPX && $user->canAccessDepartment($deptEPX->id)));
 $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMarketing();
-$canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispatch() || $user->isSupervisor();
+$canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispatch();
 @endphp
 
 <aside id="appSidebar"
@@ -192,6 +192,11 @@ $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispat
                     class="{{ $navClass(request()->routeIs('admin.raw-materials.*')) }}" title="Raw Materials">
                     <i data-lucide="box"></i>
                     <span class="sidebar-label">Raw Materials</span>
+                </a>
+                <a href="{{ route('admin.packing-materials.index') }}"
+                    class="{{ $navClass(request()->routeIs('admin.packing-materials.*')) }}" title="Packing Materials">
+                    <i data-lucide="package-search"></i>
+                    <span class="sidebar-label">Packing Materials</span>
                 </a>
                 @endif
                 <a href="{{ route('finished-goods.index') }}"

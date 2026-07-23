@@ -4,7 +4,7 @@
 @section('header-title', 'Create Component Formula')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="max-w-5xl mx-auto space-y-6">
     <div class="flex items-center gap-3">
         <a href="{{ route('admin.epoxy-component-formulas.index') }}" class="p-2 hover:bg-slate-900 rounded-xl text-slate-400 hover:text-white transition-all">
             <i data-lucide="arrow-left" class="w-5 h-5"></i>
@@ -68,9 +68,10 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-sm">
                         <thead>
-                            <tr class="border-b border-slate-850 text-slate-400 font-semibold">
-                                <th class="pb-3 pr-2">Raw Material</th>
-                                <th class="pb-3 pr-2 w-32 text-right">Quantity Required</th>
+                            <tr class="border-b border-slate-850 text-slate-400 font-semibold text-xs">
+                                <th class="pb-3 pr-2 w-36">Type</th>
+                                <th class="pb-3 pr-2">Material / Item Name</th>
+                                <th class="pb-3 pr-2 w-32 text-right">Qty Required</th>
                                 <th class="pb-3 pr-2 w-40">Unit</th>
                                 <th class="pb-3 w-16 text-right">Remove</th>
                             </tr>
@@ -99,18 +100,44 @@
 <!-- Template Row for items builder -->
 <template id="item-row-template">
     <tr class="item-row">
+        <!-- Item Type Selection -->
         <td class="py-3 pr-2">
-            <select name="items[INDEX][raw_material_id]" required class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
-                <option value="">-- Select Material --</option>
-                @foreach($rawMaterials as $rm)
-                    <option value="{{ $rm->id }}">{{ $rm->name }} ({{ $rm->code }})</option>
-                @endforeach
+            <select name="items[INDEX][item_type]" class="item-type-select block w-full px-2.5 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                <option value="raw">Raw Material</option>
+                <option value="packing">Packing Material</option>
             </select>
         </td>
+
+        <!-- Material Select -->
+        <td class="py-3 pr-2">
+            <!-- Raw Material Select -->
+            <div class="raw-select-wrap">
+                <select name="items[INDEX][raw_material_id]" class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                    <option value="">-- Select Raw Material --</option>
+                    @foreach($rawMaterials as $rm)
+                        <option value="{{ $rm->id }}">{{ $rm->name }} ({{ $rm->code }})</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Packing Material Select -->
+            <div class="packing-select-wrap hidden">
+                <select name="items[INDEX][packing_material_id]" class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-purple-500">
+                    <option value="">-- Select Packing Material --</option>
+                    @foreach($packingMaterials as $pm)
+                        <option value="{{ $pm->id }}">{{ $pm->name }} ({{ $pm->category->name ?? 'Packing' }})</option>
+                    @endforeach
+                </select>
+            </div>
+        </td>
+
+        <!-- Quantity -->
         <td class="py-3 pr-2 text-right">
             <input type="number" name="items[INDEX][quantity]" step="0.0001" min="0.0001" required
                 class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs text-right focus:outline-none focus:ring-1 focus:ring-cyan-500 font-mono text-emerald-400 font-bold">
         </td>
+
+        <!-- Unit -->
         <td class="py-3 pr-2">
             <select name="items[INDEX][unit_id]" required class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
                 @foreach($units as $unit)
@@ -118,6 +145,8 @@
                 @endforeach
             </select>
         </td>
+
+        <!-- Remove -->
         <td class="py-3 text-right">
             <button type="button" class="remove-item-btn p-1.5 hover:bg-rose-500/10 text-slate-500 hover:text-rose-400 rounded-lg transition-colors">
                 <i data-lucide="trash" class="w-4 h-4"></i>
@@ -144,6 +173,18 @@
             
             itemIndex++;
         }
+
+        $(document).on('change', '.item-type-select', function() {
+            var $row = $(this).closest('tr');
+            var type = $(this).val();
+            if (type === 'raw') {
+                $row.find('.raw-select-wrap').removeClass('hidden').find('select').prop('required', true);
+                $row.find('.packing-select-wrap').addClass('hidden').find('select').prop('required', false).val('');
+            } else {
+                $row.find('.packing-select-wrap').removeClass('hidden').find('select').prop('required', true);
+                $row.find('.raw-select-wrap').addClass('hidden').find('select').prop('required', false).val('');
+            }
+        });
 
         $('#add-item-btn').click(function() {
             addRow();

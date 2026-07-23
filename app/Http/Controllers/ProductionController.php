@@ -503,6 +503,8 @@ class ProductionController extends Controller
 
         $query = \App\Models\StockLedger::with([
             'rawMaterial.stockUnit',
+            'packingMaterial.unit',
+            'packingMaterial.category',
             'batch.machine',
             'batch.grade',
             'batch.supervisor',
@@ -521,14 +523,16 @@ class ProductionController extends Controller
                 })->orWhere(function ($qo) use ($user) {
                     $qo->whereNull('batch_id')
                        ->whereNull('grout_batch_id')
-                       ->whereHas('rawMaterial', function ($qr) use ($user) {
-                           $qr->where('department_id', $user->department_id);
+                       ->where(function ($qm) use ($user) {
+                           $qm->whereHas('rawMaterial', function ($qr) use ($user) {
+                               $qr->where('department_id', $user->department_id);
+                           })->orWhereNotNull('packing_material_id');
                        });
                 });
             });
         }
 
-        // Search by batch number
+        // Search by batch number, material name, code, or remarks
         if ($request->filled('search')) {
             $search = trim($request->input('search'));
             $query->where(function ($q) use ($search) {
@@ -536,13 +540,34 @@ class ProductionController extends Controller
                     $qb->where('batch_no', 'like', '%' . $search . '%');
                 })->orWhereHas('groutBatch', function ($qg) use ($search) {
                     $qg->where('batch_no', 'like', '%' . $search . '%');
-                });
+                })->orWhereHas('rawMaterial', function ($qr) use ($search) {
+                    $qr->where('name', 'like', '%' . $search . '%')
+                       ->orWhere('code', 'like', '%' . $search . '%');
+                })->orWhereHas('packingMaterial', function ($qp) use ($search) {
+                    $qp->where('name', 'like', '%' . $search . '%')
+                       ->orWhere('code', 'like', '%' . $search . '%');
+                })->orWhere('remarks', 'like', '%' . $search . '%');
             });
+        }
+
+        // Filter by Material Type
+        if ($request->filled('material_type')) {
+            $mType = $request->input('material_type');
+            if ($mType === 'raw') {
+                $query->whereNotNull('raw_material_id');
+            } elseif ($mType === 'packing') {
+                $query->whereNotNull('packing_material_id');
+            }
         }
 
         // Filter by Raw Material
         if ($request->filled('raw_material_id')) {
             $query->where('raw_material_id', $request->input('raw_material_id'));
+        }
+
+        // Filter by Packing Material
+        if ($request->filled('packing_material_id')) {
+            $query->where('packing_material_id', $request->input('packing_material_id'));
         }
 
         // Filter by Transaction Type
@@ -567,7 +592,13 @@ class ProductionController extends Controller
         }
         $rawMaterials = $rawMaterialsQuery->orderBy('name')->get();
 
-        return view('production.ledger', compact('ledgers', 'rawMaterials'));
+        // Packing Materials for filter select option
+        $packingMaterials = \App\Models\PackingMaterial::where('status', 'active')
+            ->with('category')
+            ->orderBy('name')
+            ->get();
+
+        return view('production.ledger', compact('ledgers', 'rawMaterials', 'packingMaterials'));
     }
 
     /**

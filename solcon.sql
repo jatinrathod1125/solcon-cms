@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 23, 2026 at 06:42 AM
+-- Generation Time: Jul 23, 2026 at 10:43 AM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `activity_logs_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=243 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=252 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -289,7 +289,16 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `module`,
 (239, 2, 'MARKETING_ORDER_APPROVED', 'Marketing order MKT-20260722-004 approved for party: ABC MARBLE', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-22 12:05:30', '2026-07-22 12:05:30'),
 (240, 2, 'DISPATCH_CREATED', 'Dispatch DISP-20260722-002 created for party: ABC MARBLE', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-22 12:23:01', '2026-07-22 12:23:01'),
 (241, 2, 'MARKETING_ORDER_UPDATED', 'Marketing order MKT-20260722-004 updated', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-22 16:57:28', '2026-07-22 16:57:28'),
-(242, 2, 'STOCK_ADJUSTMENT', 'Manual stock adjustment of 12 for raw material ID 38.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 06:20:44', '2026-07-23 06:20:44');
+(242, 2, 'STOCK_ADJUSTMENT', 'Manual stock adjustment of 12 for raw material ID 38.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 06:20:44', '2026-07-23 06:20:44'),
+(243, 2, 'DISPATCH_RELEASE_TOGGLED', 'Dispatch DISP-20260722-002 release status changed to: Released', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 07:03:13', '2026-07-23 07:03:13'),
+(244, 2, 'STOCK_ADJUSTMENT', 'Manual stock adjustment of 500 for packing material ID 14.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 08:32:34', '2026-07-23 08:32:34'),
+(245, 2, 'STOCK_ADJUSTMENT', 'Manual stock adjustment of 500 for packing material ID 46.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 08:32:49', '2026-07-23 08:32:49'),
+(246, 2, 'EPOXY_COMPONENT_PREPARED', 'Prepared 10 units of Clip Box 2MM (Direct Finished Product). Ingredients deducted.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 08:33:21', '2026-07-23 08:33:21'),
+(247, 2, 'MARKETING_ORDER_CREATED', 'Marketing order MKT-20260723-001 created for party: Digitek', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 10:25:58', '2026-07-23 10:25:58'),
+(248, 2, 'MARKETING_ORDER_APPROVED', 'Marketing order MKT-20260723-001 approved for party: Digitek', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 10:26:13', '2026-07-23 10:26:13'),
+(249, 2, 'DISPATCH_CREATED', 'Dispatch DISP-20260723-001 created for party: Digitek', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 10:26:52', '2026-07-23 10:26:52'),
+(250, 2, 'FINISHED_GOODS_ADJUSTED', 'Manual stock adjustment (decrease) of 100 units for product: F-101 (No Coupon) (20KG). Reason: Dispatch DISP-20260723-001.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 10:26:53', '2026-07-23 10:26:53'),
+(251, 2, 'DISPATCH_COMPLETED', 'Dispatch DISP-20260723-001 completed. Finished Goods stock deducted for party: Digitek', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-23 10:26:53', '2026-07-23 10:26:53');
 
 -- --------------------------------------------------------
 
@@ -338,13 +347,14 @@ CREATE TABLE IF NOT EXISTS `cache` (
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('laravel-cache-app_settings_cache', 'a:3:{s:16:\"maintenance_mode\";s:7:\"disable\";s:27:\"maintenance_unlock_password\";s:60:\"$2y$12$v53qIAvf/BpnDdaK.Uj7OORUC7d3ZmaoAiMaZEUGBQg0VSuGXMhkW\";s:20:\"maintenance_password\";s:60:\"$2y$12$YVm3y.eS3Z5a1V6AubSUvuoKtVHVypkmze65fMRNiXcXgU1SLJbSC\";}', 2100083927),
-('laravel-cache-active_department_ids', 'a:3:{i:0;i:3;i:1;i:1;i:2;i:2;}', 1784791057),
+('laravel-cache-active_department_ids', 'a:3:{i:0;i:3;i:1;i:1;i:2;i:2;}', 1784805509),
 ('laravel-cache-user_department_ids_7', 'a:0:{}', 1784723591),
 ('laravel-cache-maintenance_unlock_attempts:127.0.0.1:timer', 'i:1784716744;', 1784716744),
 ('laravel-cache-maintenance_unlock_attempts:127.0.0.1', 'i:2;', 1784716744),
-('laravel-cache-firebase_oauth_token', 's:1024:\"ya29.c.c0AZ4bNpa_VQG6VqAiAoyu3kMuc_Xhp-RzOv1nm2DGd8W2OGnAg9TkM9T99W-74VAa7ryqHyhmUkryuClPVLiyOMi4L3jWQ_0aXg2JT13ZslcPMdoyUcFkTHE5zOQucti3mAa3oR7vTAmYP0NlkDduTk4WmrNwqBeR0aYVa8cXjeJEB7EXdYGZWxd3nrOeAiemwyXoOi8VB0UhFVPaxmrYj9IV-7o_7kuxQgVAgYz_Oe5GMDOoa2IAhYsKJy2tk2y_oLo6dt1FDTvEM5YuRtlwWDqeA1zua8_1uoHrgPYedAleoP20JW_tZv-9BOQM7NmKSN7HCV-5Tblc_mPi53aV996TXh0w0JdR_3EXYPMVRzSUlqEpqsFe1U_7T385A6QSs4t3YY-xXtXim0ISUyIwY_6liwB1jeXbobdVdYae6ox5x4lZyzj6xfyFv2lo9_qSUF4eFI24Xapm9Xxk62OyBQd__zhsZSBqu1raz_7b0nUJ_Fu1Wt-bMl5MIdSgXbzu49ro2b5_WQyiv-OnZcVBiVeSFnIjMfxcoeb4usOrfJ9xvty9Vy3q6zepgdpeIkeaj4Jrnupf2Y9vVgXYlY_rhJJJo7gqJ-oRware0su1bX2rx2Vb1dyw4XYQS-sr3tijO1kS42dSRoael1n4rrh04YJ3WXeWZ1kXZkeU8WYRaw_ozIyIsmX_gWd06c5X7fXk4fOqxlclFMRUcggul-hpgYoIhInnI60ryceiyW_J7XF8UV1JROIpYWlXsFIqwyw8qxjdY4Zp-ZfdjtZ4VI8pY4Fd1R1Q-I2zmeqyvabXcgxMs7vy9gzk_YwVqjq50Wrlpn4gtn8b-9x6n2jqXBayBY5FXf-h1We6U8vM-Y9jck_j7WFk02a5yR3_0Bmspm8zIxxOc8zs0W3Vyqk1aI5d9forBVxF-2kXW5tx8WeWng3df7Rd9Sn5eomk_xe4B5SQVuXBX9WySxviZUx7O-e66MpFd9avRy7p9b4ys8gh_Yz9YvJpjuekziX\";', 1784725233),
-('laravel-cache-user_departments_4', 'a:1:{i:0;i:2;}', 1784743071),
-('laravel-cache-user_department_ids_4', 'a:1:{i:0;i:2;}', 1784741891);
+('laravel-cache-firebase_oauth_token', 's:1024:\"ya29.c.c0AZ4bNpZtXKy8Hbn_WW9cNo1mVa76gVJkdL1ufASo34Bzr9k6zS-liHEfJAp54Cfnmrx_ICY70uo4Gtru5yVnKSXQ7czl_3n6f1DcqrrvliLbY69R_O-7jZQuq6-u1UxaWgTMyfcMP635pvEJ4sTUW6tmLS1jBSqVhY-7KZ_qrFjtDux_y5fa1YIE1gune1K2rO7IDBoUI8V6eWj4Vbv3nFOwB0A3dcB-lIqxskj_mNYNpBH5bZU_CReVurctF2vREWGXiQ4_PpcgZY_OpZszCYUa_hIXrsqqqg7vzy-o_52FS6ojKEDfYBG_nFVS0d1EcjBqlPqlsN_nL85ETvfaP1DGLaqNXHaXhGQUbUnUQQ5tS70xb-81KiUE384A29uh8VMgd6JR5IBilgVvsBxi2oznIR6ftqn-Qv4jWv5fzwbawpduUydsRb0JW09kqcZ1x2ta9k-oyfo-aV4eBeJ1IkUR0IlOuk3JqQ0IcBWiQOyFavqZaeXdofmlJkjsQakefjrfmv1l22zB6apnZ4i5QwoxwUXxoBcgt3vn1bOOZehFlwXjtiRt9pb9ldioq_ORszIWrs5dqlmy2jtM4Y4Ub95M4c73IWcss-sllXsFYg_yqUjqaYyx0ZIRlXiVtml3mUg3kseWJvS0x8gVY6Xg4d_txcBU-6isv5wnlvk210B0W0mgX4cR4u17q6Fh1grSa--5BsBWuZVn2IhSVfv56129kjczwYxzJzv9Z_B6tQeXho9cFj4Rtz1U4Z0i8dxjov4yqqOR50j5yw3kbYe0d1_tshtgaiR3moWbvk_4UZRfrwQU-1mcWf_YR6WhkZ5a9jawqO487p0R1kQr8v1kzuhbOU2un8X93Voj1IyedSMnen5Rd0glF5a0tRuJ-243bXmabl6BnkiBRB-hZ8Sya3uxOQ8oFwgaMBa0jv5B4RZxxXoI40kkgoYvvbibuxhceUcxflO3l-mq0zf548kelqcqpqpokyj1ccJJQdjxYycYJW8gdjRlFa5\";', 1784805675),
+('laravel-cache-user_departments_4', 'a:1:{i:0;i:2;}', 1784806091),
+('laravel-cache-user_department_ids_4', 'a:1:{i:0;i:2;}', 1784805185),
+('laravel-cache-user_department_ids_1', 'a:0:{}', 1784806113);
 
 -- --------------------------------------------------------
 
@@ -490,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `dispatches` (
   KEY `dispatches_status_dispatch_type_index` (`status`,`dispatch_type`),
   KEY `dispatches_party_name_index` (`party_name`),
   KEY `dispatches_is_released_index` (`is_released`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dispatches`
@@ -499,7 +509,8 @@ CREATE TABLE IF NOT EXISTS `dispatches` (
 INSERT INTO `dispatches` (`id`, `dispatch_number`, `dispatch_type`, `party_name`, `city`, `place`, `full_address`, `google_map_url`, `vehicle_number`, `driver_mobile`, `expected_arrival_at`, `payment_required`, `is_released`, `released_by`, `released_at`, `status`, `remarks`, `created_by`, `loaded_by`, `loaded_at`, `created_at`, `updated_at`) VALUES
 (1, 'DISP-20260721-001', 'factory_pickup', 'xyz', 'Morbi', NULL, NULL, NULL, 'GJ-36-12-4031', '9898989898', '2026-07-21 22:26:00', 0, 1, 2, '2026-07-21 17:01:11', 'planned', NULL, 2, NULL, NULL, '2026-07-21 16:56:51', '2026-07-21 17:01:11'),
 (2, 'DISP-20260722-001', 'factory_pickup', 'OM SAI RAM GRAYNIGHT STONE', 'CHHINDWARA', NULL, NULL, NULL, 'RJ09GD3600', '9510213965', '2026-07-22 09:58:00', 1, 1, 2, '2026-07-22 04:42:26', 'loading', 'DISPLAY, TSHIRT , DAIRY , PEN', 2, NULL, NULL, '2026-07-22 04:36:12', '2026-07-22 04:43:09'),
-(3, 'DISP-20260722-002', 'crossing_delivery', 'ABC MARBLE', 'Morbi', NULL, NULL, 'https://maps.app.goo.gl/GGDjzY2HS7g4EJsTA', 'GJ-36-12-4031', '9898989898', '2026-07-22 17:44:00', 1, 0, NULL, NULL, 'planned', NULL, 2, NULL, NULL, '2026-07-22 12:23:01', '2026-07-22 12:23:01');
+(3, 'DISP-20260722-002', 'crossing_delivery', 'ABC MARBLE', 'Morbi', NULL, NULL, 'https://maps.app.goo.gl/GGDjzY2HS7g4EJsTA', 'GJ-36-12-4031', '9898989898', '2026-07-22 17:44:00', 1, 1, 2, '2026-07-23 07:03:13', 'planned', NULL, 2, NULL, NULL, '2026-07-22 12:23:01', '2026-07-23 07:03:13'),
+(4, 'DISP-20260723-001', 'factory_pickup', 'Digitek', 'Morbi', NULL, NULL, NULL, 'Factory Pickup / Direct', 'N/A', NULL, 0, 1, 2, '2026-07-23 10:26:52', 'completed', 'Auto-created via Ready to Dispatch for Order MKT-20260723-001', 2, 2, '2026-07-23 10:26:53', '2026-07-23 10:26:52', '2026-07-23 10:26:53');
 
 -- --------------------------------------------------------
 
@@ -536,7 +547,7 @@ CREATE TABLE IF NOT EXISTS `dispatch_items` (
   KEY `dispatch_items_coupon_raw_material_id_foreign` (`coupon_raw_material_id`),
   KEY `dispatch_items_dispatch_id_index` (`dispatch_id`),
   KEY `dispatch_items_marketing_order_id_index` (`marketing_order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dispatch_items`
@@ -556,7 +567,8 @@ INSERT INTO `dispatch_items` (`id`, `dispatch_id`, `marketing_order_id`, `market
 (11, 3, 7, 39, 'TAD', 2, NULL, NULL, NULL, NULL, 500, 10000.00, '20KG', NULL, NULL, '2026-07-22 12:23:01', '2026-07-22 12:23:01'),
 (12, 3, 7, 40, 'GRT', NULL, 9, NULL, NULL, NULL, 10, 250.00, '1 KG', NULL, NULL, '2026-07-22 12:23:01', '2026-07-22 12:23:01'),
 (13, 3, 7, 41, 'EPX', NULL, NULL, 1, 1, NULL, 50, 50.00, '1KG', NULL, NULL, '2026-07-22 12:23:01', '2026-07-22 12:23:01'),
-(14, 3, 7, 42, 'EPX', NULL, NULL, 2, 1, NULL, 10, 50.00, '5KG', NULL, NULL, '2026-07-22 12:23:01', '2026-07-22 12:23:01');
+(14, 3, 7, 42, 'EPX', NULL, NULL, 2, 1, NULL, 10, 50.00, '5KG', NULL, NULL, '2026-07-22 12:23:01', '2026-07-22 12:23:01'),
+(15, 4, 8, 48, 'TAD', 1, NULL, NULL, NULL, NULL, 100, 2000.00, '20KG', NULL, NULL, '2026-07-23 10:26:52', '2026-07-23 10:26:52');
 
 -- --------------------------------------------------------
 
@@ -576,14 +588,15 @@ CREATE TABLE IF NOT EXISTS `dispatch_loading_logs` (
   PRIMARY KEY (`id`),
   KEY `dispatch_loading_logs_dispatch_id_foreign` (`dispatch_id`),
   KEY `dispatch_loading_logs_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dispatch_loading_logs`
 --
 
 INSERT INTO `dispatch_loading_logs` (`id`, `dispatch_id`, `status`, `user_id`, `remarks`, `created_at`, `updated_at`) VALUES
-(1, 2, 'loading', 7, 'Started loading process', '2026-07-22 04:43:09', '2026-07-22 04:43:09');
+(1, 2, 'loading', 7, 'Started loading process', '2026-07-22 04:43:09', '2026-07-22 04:43:09'),
+(2, 4, 'completed', 2, 'Marked Ready to Dispatch & Completed by Admin for Order MKT-20260723-001', '2026-07-23 10:26:53', '2026-07-23 10:26:53');
 
 -- --------------------------------------------------------
 
@@ -603,7 +616,7 @@ CREATE TABLE IF NOT EXISTS `dispatch_status_history` (
   PRIMARY KEY (`id`),
   KEY `dispatch_status_history_dispatch_id_foreign` (`dispatch_id`),
   KEY `dispatch_status_history_changed_by_foreign` (`changed_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dispatch_status_history`
@@ -618,7 +631,10 @@ INSERT INTO `dispatch_status_history` (`id`, `dispatch_id`, `status`, `changed_b
 (6, 2, 'planned', 2, 'Goods Locked (Unreleased) by Marketing', '2026-07-22 04:41:52', '2026-07-22 04:41:52'),
 (7, 2, 'planned', 2, 'Goods Released by Marketing', '2026-07-22 04:42:26', '2026-07-22 04:42:26'),
 (8, 2, 'loading', 7, 'Loading started by Dispatch staff', '2026-07-22 04:43:09', '2026-07-22 04:43:09'),
-(9, 3, 'planned', 2, 'Dispatch created by Marketing', '2026-07-22 12:23:01', '2026-07-22 12:23:01');
+(9, 3, 'planned', 2, 'Dispatch created by Marketing', '2026-07-22 12:23:01', '2026-07-22 12:23:01'),
+(10, 3, 'planned', 2, 'Goods Released by Marketing', '2026-07-23 07:03:13', '2026-07-23 07:03:13'),
+(11, 4, 'planned', 2, 'Dispatch created by Marketing', '2026-07-23 10:26:52', '2026-07-23 10:26:52'),
+(12, 4, 'completed', 2, 'Dispatch completed by Dispatch staff. Finished Goods stock deducted.', '2026-07-23 10:26:53', '2026-07-23 10:26:53');
 
 -- --------------------------------------------------------
 
@@ -681,7 +697,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_components` (
   KEY `epoxy_components_raw_material_id_foreign` (`raw_material_id`),
   KEY `epoxy_components_parent_component_id_foreign` (`parent_component_id`),
   KEY `epoxy_components_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_components`
@@ -732,7 +748,10 @@ INSERT INTO `epoxy_components` (`id`, `name`, `code`, `requires_color`, `templat
 (42, 'SK+ 5 LTR', 'EPX-SKP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
 (43, 'SK+ 20 LTR', 'EPX-SKP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
 (44, '100 GM HARDNER BOTTLE FINISH', 'EPX-BLT-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:33:42', '2026-07-22 11:33:42', 'Bottle', 'Assembly Component', 3, 1, NULL, 79, NULL, NULL),
-(45, '200GM RESIN BOTTLE FINISH', 'F-011', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:36:55', '2026-07-22 11:36:55', 'Bottle', 'Assembly Component', 3, 1, NULL, 82, NULL, NULL);
+(45, '200GM RESIN BOTTLE FINISH', 'F-011', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:36:55', '2026-07-22 11:36:55', 'Bottle', 'Assembly Component', 3, 1, NULL, 82, NULL, NULL),
+(46, 'CLIP 2MM', '2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 08:24:43', '2026-07-23 08:56:16', 'Pouch', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(47, 'CLIP 3MM', '3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-23 09:01:34', 'Pouch', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(48, 'CLIP 4MM', '4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-23 09:01:34', 'Pouch', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -755,7 +774,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_formulas` (
   KEY `epoxy_component_formulas_epoxy_component_id_foreign` (`epoxy_component_id`),
   KEY `epoxy_component_formulas_created_by_foreign` (`created_by`),
   KEY `epoxy_component_formulas_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_component_formulas`
@@ -764,7 +783,10 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_formulas` (
 INSERT INTO `epoxy_component_formulas` (`id`, `epoxy_component_id`, `version`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 1, NULL, 2, NULL, '2026-07-13 08:46:58', '2026-07-13 08:46:58'),
 (2, 44, 1, 1, NULL, 2, 2, '2026-07-22 11:36:01', '2026-07-22 11:36:10'),
-(3, 45, 1, 1, NULL, 2, NULL, '2026-07-22 11:37:34', '2026-07-22 11:37:34');
+(3, 45, 1, 1, NULL, 2, NULL, '2026-07-22 11:37:34', '2026-07-22 11:37:34'),
+(4, 46, 1, 1, NULL, 2, NULL, '2026-07-23 08:30:33', '2026-07-23 08:30:33'),
+(5, 47, 1, 1, NULL, 2, NULL, '2026-07-23 09:03:03', '2026-07-23 09:03:03'),
+(6, 48, 1, 1, NULL, 2, NULL, '2026-07-23 09:06:03', '2026-07-23 09:06:03');
 
 -- --------------------------------------------------------
 
@@ -776,7 +798,8 @@ DROP TABLE IF EXISTS `epoxy_component_formula_items`;
 CREATE TABLE IF NOT EXISTS `epoxy_component_formula_items` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `epoxy_component_formula_id` bigint UNSIGNED NOT NULL,
-  `raw_material_id` bigint UNSIGNED NOT NULL,
+  `raw_material_id` bigint UNSIGNED DEFAULT NULL,
+  `packing_material_id` bigint UNSIGNED DEFAULT NULL,
   `quantity` decimal(12,4) NOT NULL,
   `unit_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -784,20 +807,27 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_formula_items` (
   PRIMARY KEY (`id`),
   KEY `epoxy_component_formula_items_epoxy_component_formula_id_foreign` (`epoxy_component_formula_id`),
   KEY `epoxy_component_formula_items_raw_material_id_foreign` (`raw_material_id`),
-  KEY `epoxy_component_formula_items_unit_id_foreign` (`unit_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `epoxy_component_formula_items_unit_id_foreign` (`unit_id`),
+  KEY `epoxy_component_formula_items_packing_material_id_foreign` (`packing_material_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_component_formula_items`
 --
 
-INSERT INTO `epoxy_component_formula_items` (`id`, `epoxy_component_formula_id`, `raw_material_id`, `quantity`, `unit_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 44, 0.7000, 1, '2026-07-13 08:46:58', '2026-07-13 08:46:58'),
-(2, 1, 39, 1.0000, 3, '2026-07-13 08:46:58', '2026-07-13 08:46:58'),
-(12, 2, 35, 1.0000, 3, '2026-07-22 11:38:01', '2026-07-22 11:38:01'),
-(11, 2, 81, 0.1000, 1, '2026-07-22 11:38:01', '2026-07-22 11:38:01'),
-(7, 3, 80, 0.2000, 1, '2026-07-22 11:37:34', '2026-07-22 11:37:34'),
-(8, 3, 36, 1.0000, 3, '2026-07-22 11:37:34', '2026-07-22 11:37:34');
+INSERT INTO `epoxy_component_formula_items` (`id`, `epoxy_component_formula_id`, `raw_material_id`, `packing_material_id`, `quantity`, `unit_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 44, NULL, 0.7000, 1, '2026-07-13 08:46:58', '2026-07-13 08:46:58'),
+(2, 1, 39, NULL, 1.0000, 3, '2026-07-13 08:46:58', '2026-07-13 08:46:58'),
+(12, 2, 35, NULL, 1.0000, 3, '2026-07-22 11:38:01', '2026-07-22 11:38:01'),
+(11, 2, 81, NULL, 0.1000, 1, '2026-07-22 11:38:01', '2026-07-22 11:38:01'),
+(7, 3, 80, NULL, 0.2000, 1, '2026-07-22 11:37:34', '2026-07-22 11:37:34'),
+(8, 3, 36, NULL, 1.0000, 3, '2026-07-22 11:37:34', '2026-07-22 11:37:34'),
+(13, 4, NULL, 46, 1.0000, 3, '2026-07-23 08:30:33', '2026-07-23 08:30:33'),
+(14, 4, NULL, 14, 25.0000, 3, '2026-07-23 08:30:33', '2026-07-23 08:30:33'),
+(15, 5, NULL, 46, 1.0000, 3, '2026-07-23 09:03:03', '2026-07-23 09:03:03'),
+(16, 5, NULL, 15, 25.0000, 3, '2026-07-23 09:03:03', '2026-07-23 09:03:03'),
+(17, 6, NULL, 46, 1.0000, 3, '2026-07-23 09:06:03', '2026-07-23 09:06:03'),
+(18, 6, NULL, 16, 25.0000, 3, '2026-07-23 09:06:03', '2026-07-23 09:06:03');
 
 -- --------------------------------------------------------
 
@@ -839,7 +869,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_preparations` (
   KEY `epoxy_component_preparations_epoxy_component_id_foreign` (`epoxy_component_id`),
   KEY `epoxy_component_preparations_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`),
   KEY `epoxy_component_preparations_operator_id_foreign` (`operator_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_component_preparations`
@@ -850,7 +880,8 @@ INSERT INTO `epoxy_component_preparations` (`id`, `epoxy_component_id`, `epoxy_f
 (2, 44, NULL, 500, 2, NULL, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
 (3, 45, NULL, 100, 2, NULL, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
 (4, 1, 1, 100, 2, NULL, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
-(5, 44, NULL, 100, 2, NULL, '2026-07-22 11:48:11', '2026-07-22 11:48:11');
+(5, 44, NULL, 100, 2, NULL, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
+(6, 46, NULL, 10, 2, NULL, '2026-07-23 08:33:21', '2026-07-23 08:33:21');
 
 -- --------------------------------------------------------
 
@@ -1046,14 +1077,14 @@ CREATE TABLE IF NOT EXISTS `finished_goods` (
   KEY `finished_goods_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`),
   KEY `finished_goods_epoxy_component_id_foreign` (`epoxy_component_id`),
   KEY `finished_goods_coupon_raw_material_id_foreign` (`coupon_raw_material_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=136 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `finished_goods`
 --
 
 INSERT INTO `finished_goods` (`id`, `department_id`, `grade_id`, `color_id`, `epoxy_filler_color_id`, `epoxy_product_id`, `packing`, `available_bags`, `available_weight`, `minimum_stock`, `last_production_date`, `status`, `remarks`, `created_at`, `updated_at`, `epoxy_component_id`, `coupon_raw_material_id`) VALUES
-(1, 2, 1, NULL, NULL, NULL, '20KG', 875, 17500.0000, 20, '2026-07-22 16:54:51', 'active', 'Dispatched to jatin bhai via Dispatch #DISP-20260721-001', '2026-07-13 04:11:06', '2026-07-22 11:24:51', NULL, NULL),
+(1, 2, 1, NULL, NULL, NULL, '20KG', 775, 15500.0000, 20, '2026-07-22 16:54:51', 'active', 'Dispatched to Digitek via Dispatch #DISP-20260723-001', '2026-07-13 04:11:06', '2026-07-23 10:26:53', NULL, NULL),
 (2, 2, 2, NULL, NULL, NULL, '20KG', 70, 1400.0000, 20, '2026-07-13 09:58:46', 'active', 'Auto-deducted for order MKT-20260713-005, Party: jatin bhai', '2026-07-13 04:28:46', '2026-07-13 05:47:03', NULL, 7),
 (3, 1, NULL, 1, NULL, NULL, '1 KG', 150, 3750.0000, 20, '2026-07-14 08:32:37', 'active', NULL, '2026-07-13 11:04:08', '2026-07-14 03:02:37', NULL, NULL),
 (4, 1, NULL, 3, NULL, NULL, '1 KG', 152, 3800.0000, 20, '2026-07-13 23:38:35', 'active', NULL, '2026-07-13 16:46:53', '2026-07-13 18:08:35', NULL, NULL),
@@ -1187,7 +1218,8 @@ INSERT INTO `finished_goods` (`id`, `department_id`, `grade_id`, `color_id`, `ep
 (132, 3, NULL, NULL, NULL, NULL, 'Box', 100, 2000.0000, 10, NULL, 'active', NULL, '2026-07-17 17:24:00', '2026-07-17 17:24:00', 40, NULL),
 (133, 3, NULL, NULL, NULL, NULL, 'Box', 100, 100.0000, 10, NULL, 'active', NULL, '2026-07-17 17:24:00', '2026-07-17 17:24:00', 41, NULL),
 (134, 3, NULL, NULL, NULL, NULL, 'Box', 100, 500.0000, 10, NULL, 'active', NULL, '2026-07-17 17:24:00', '2026-07-17 17:24:00', 42, NULL),
-(135, 3, NULL, NULL, NULL, NULL, 'Box', 100, 2000.0000, 10, NULL, 'active', NULL, '2026-07-17 17:24:00', '2026-07-17 17:24:00', 43, NULL);
+(135, 3, NULL, NULL, NULL, NULL, 'Box', 100, 2000.0000, 10, NULL, 'active', NULL, '2026-07-17 17:24:00', '2026-07-17 17:24:00', 43, NULL),
+(136, 3, NULL, NULL, NULL, NULL, '1 Unit', 10, 10.0000, 0, '2026-07-23 14:03:21', 'Active', NULL, '2026-07-23 08:33:21', '2026-07-23 08:33:21', 46, NULL);
 
 -- --------------------------------------------------------
 
@@ -1616,7 +1648,7 @@ CREATE TABLE IF NOT EXISTS `marketing_orders` (
   KEY `marketing_orders_status_sort_order_index` (`status`,`sort_order`),
   KEY `marketing_orders_party_name_index` (`party_name`),
   KEY `marketing_orders_order_date_index` (`order_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `marketing_orders`
@@ -1627,7 +1659,8 @@ INSERT INTO `marketing_orders` (`id`, `order_number`, `party_name`, `city`, `cou
 (2, 'MKT-20260722-001', 'ABC MARBLE', 'MORBI', 'RS-20 Solcon', NULL, '2026-07-22', 'medium', 'pending', 1, 'partial', NULL, 2, NULL, NULL, NULL, NULL, NULL, 1, '2026-07-22 04:22:25', '2026-07-22 10:55:46'),
 (3, 'MKT-20260722-002', 'OM SAI RAM GRAYNIGHT STONE', 'CHHINDWARA', NULL, NULL, '2026-07-22', 'high', 'in_progress', 1, 'partial', NULL, 2, 2, '2026-07-22 04:26:01', NULL, NULL, NULL, 2, '2026-07-22 04:25:07', '2026-07-22 10:50:17'),
 (7, 'MKT-20260722-004', 'ABC MARBLE', 'Morbi', 'RS-10 Solcon, RS-30 Solcon', NULL, '2026-07-22', 'medium', 'in_progress', 1, 'partial', NULL, 2, 2, '2026-07-22 12:05:30', NULL, NULL, NULL, 3, '2026-07-22 12:03:48', '2026-07-22 16:57:28'),
-(6, 'MKT-20260722-003', 'SUD', 'SDS', NULL, NULL, '2026-07-22', 'medium', 'cancelled', 0, 'available', NULL, 2, NULL, NULL, NULL, '2026-07-22 12:03:57', 'Cancelled by user', 2, '2026-07-22 12:02:43', '2026-07-22 12:03:57');
+(6, 'MKT-20260722-003', 'SUD', 'SDS', NULL, NULL, '2026-07-22', 'medium', 'cancelled', 0, 'available', NULL, 2, NULL, NULL, NULL, '2026-07-22 12:03:57', 'Cancelled by user', 2, '2026-07-22 12:02:43', '2026-07-22 12:03:57'),
+(8, 'MKT-20260723-001', 'Digitek', 'Morbi', NULL, NULL, '2026-07-23', 'urgent', 'completed', 0, 'available', NULL, 2, 2, '2026-07-23 10:26:13', '2026-07-23 10:26:53', NULL, NULL, 4, '2026-07-23 10:25:58', '2026-07-23 10:26:53');
 
 -- --------------------------------------------------------
 
@@ -1666,7 +1699,7 @@ CREATE TABLE IF NOT EXISTS `marketing_order_items` (
   KEY `marketing_order_items_department_code_index` (`department_code`),
   KEY `fk_mkt_items_epoxy_filler_color` (`epoxy_filler_color_id`),
   KEY `fk_mkt_items_epoxy_component` (`epoxy_component_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `marketing_order_items`
@@ -1692,7 +1725,8 @@ INSERT INTO `marketing_order_items` (`id`, `marketing_order_id`, `department_cod
 (45, 7, 'GRT', NULL, 9, NULL, 10, NULL, '1 KG', NULL, NULL, 0, NULL, 'pending', 0, NULL, '2026-07-22 16:57:27', '2026-07-22 16:57:27', NULL, NULL),
 (44, 7, 'TAD', 2, NULL, NULL, 500, NULL, '20KG', NULL, NULL, 0, NULL, 'pending', 0, NULL, '2026-07-22 16:57:27', '2026-07-22 16:57:27', NULL, NULL),
 (43, 7, 'TAD', 1, NULL, NULL, 100, NULL, '20KG', NULL, NULL, 1, NULL, 'pending', 0, NULL, '2026-07-22 16:57:27', '2026-07-22 16:57:28', NULL, NULL),
-(47, 7, 'EPX', NULL, NULL, 2, 10, NULL, '5KG', 9, 10, 1, 1, 'pending', 1, NULL, '2026-07-22 16:57:27', '2026-07-22 16:57:28', 1, NULL);
+(47, 7, 'EPX', NULL, NULL, 2, 10, NULL, '5KG', 9, 10, 1, 1, 'pending', 1, NULL, '2026-07-22 16:57:27', '2026-07-22 16:57:28', 1, NULL),
+(48, 8, 'TAD', 1, NULL, NULL, 100, NULL, '20KG', NULL, NULL, 1, NULL, 'completed', 0, NULL, '2026-07-23 10:25:58', '2026-07-23 10:26:53', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1706,7 +1740,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -1769,7 +1803,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (55, '2026_07_21_180000_create_dispatch_management_system_tables', 7),
 (56, '2026_07_21_190000_remove_payment_fields_from_dispatches_table', 8),
 (57, '2026_07_22_190000_add_is_edited_to_marketing_orders_and_items_tables', 9),
-(58, '2026_07_22_200000_remove_driver_name_from_dispatches_table', 10);
+(58, '2026_07_22_200000_remove_driver_name_from_dispatches_table', 10),
+(59, '2026_07_22_210000_make_remarks_nullable_in_stock_adjustments_table', 11),
+(60, '2026_07_23_000001_create_packing_material_categories_table', 11),
+(61, '2026_07_23_000002_create_packing_materials_table', 11),
+(62, '2026_07_23_000003_add_packing_material_id_to_stock_tables', 11),
+(63, '2026_07_23_000004_migrate_packing_materials_data', 11),
+(64, '2026_07_23_000005_add_packing_material_id_to_epoxy_component_formula_items_table', 12);
 
 -- --------------------------------------------------------
 
@@ -1794,7 +1834,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   PRIMARY KEY (`id`),
   KEY `notifications_department_id_foreign` (`department_id`),
   KEY `notifications_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `notifications`
@@ -1857,7 +1897,130 @@ INSERT INTO `notifications` (`id`, `title`, `body`, `type`, `department_id`, `us
 (54, 'New Order Approved: MKT-20260722-004', 'Order for ABC MARBLE (Morbi) has been approved. Priority: Medium', 'marketing_order_approved', NULL, 6, 'no_device_registered', '2026-07-22 12:05:34', NULL, '{\"order_id\": 7, \"click_url\": \"/supervisor/orders\"}', '2026-07-22 12:05:34', '2026-07-22 12:05:34'),
 (55, 'New Dispatch Created: DISP-20260722-002', 'New Crossing Delivery created for ABC MARBLE. Vehicle: GJ-36-12-4031. Expected: 22 Jul 2026 05:44 PM', 'dispatch_created', NULL, 2, 'sent', '2026-07-22 12:23:02', '2026-07-22 16:33:22', '{\"click_url\": \"/dispatch/3\", \"dispatch_id\": 3}', '2026-07-22 12:23:02', '2026-07-22 16:33:22'),
 (56, 'New Dispatch Created: DISP-20260722-002', 'New Crossing Delivery created for ABC MARBLE. Vehicle: GJ-36-12-4031. Expected: 22 Jul 2026 05:44 PM', 'dispatch_created', NULL, 3, 'no_device_registered', '2026-07-22 12:23:02', NULL, '{\"click_url\": \"/dispatch/3\", \"dispatch_id\": 3}', '2026-07-22 12:23:02', '2026-07-22 12:23:02'),
-(57, 'New Dispatch Created: DISP-20260722-002', 'New Crossing Delivery created for ABC MARBLE. Vehicle: GJ-36-12-4031. Expected: 22 Jul 2026 05:44 PM', 'dispatch_created', NULL, 7, 'no_device_registered', '2026-07-22 12:23:02', NULL, '{\"click_url\": \"/dispatch/3\", \"dispatch_id\": 3}', '2026-07-22 12:23:02', '2026-07-22 12:23:02');
+(57, 'New Dispatch Created: DISP-20260722-002', 'New Crossing Delivery created for ABC MARBLE. Vehicle: GJ-36-12-4031. Expected: 22 Jul 2026 05:44 PM', 'dispatch_created', NULL, 7, 'no_device_registered', '2026-07-22 12:23:02', NULL, '{\"click_url\": \"/dispatch/3\", \"dispatch_id\": 3}', '2026-07-22 12:23:02', '2026-07-22 12:23:02'),
+(58, 'New Order Approved: MKT-20260723-001', 'Order for Digitek (Morbi) has been approved. Priority: Urgent', 'marketing_order_approved', NULL, 4, 'no_device_registered', '2026-07-23 10:26:13', '2026-07-23 10:34:38', '{\"order_id\": 8, \"click_url\": \"/supervisor/orders\"}', '2026-07-23 10:26:13', '2026-07-23 10:34:38'),
+(59, 'New Order Approved: MKT-20260723-001', 'Order for Digitek (Morbi) has been approved. Priority: Urgent', 'marketing_order_approved', NULL, 5, 'sent', '2026-07-23 10:26:16', NULL, '{\"order_id\": 8, \"click_url\": \"/supervisor/orders\"}', '2026-07-23 10:26:16', '2026-07-23 10:26:16'),
+(60, 'New Order Approved: MKT-20260723-001', 'Order for Digitek (Morbi) has been approved. Priority: Urgent', 'marketing_order_approved', NULL, 6, 'no_device_registered', '2026-07-23 10:26:16', NULL, '{\"order_id\": 8, \"click_url\": \"/supervisor/orders\"}', '2026-07-23 10:26:16', '2026-07-23 10:26:16'),
+(61, 'New Dispatch Created: DISP-20260723-001', 'New Factory Pickup created for Digitek. Vehicle: Factory Pickup / Direct. Expected: TBD', 'dispatch_created', NULL, 2, 'sent', '2026-07-23 10:26:53', NULL, '{\"click_url\": \"/dispatch/4\", \"dispatch_id\": 4}', '2026-07-23 10:26:53', '2026-07-23 10:26:53'),
+(62, 'New Dispatch Created: DISP-20260723-001', 'New Factory Pickup created for Digitek. Vehicle: Factory Pickup / Direct. Expected: TBD', 'dispatch_created', NULL, 3, 'no_device_registered', '2026-07-23 10:26:53', NULL, '{\"click_url\": \"/dispatch/4\", \"dispatch_id\": 4}', '2026-07-23 10:26:53', '2026-07-23 10:26:53'),
+(63, 'New Dispatch Created: DISP-20260723-001', 'New Factory Pickup created for Digitek. Vehicle: Factory Pickup / Direct. Expected: TBD', 'dispatch_created', NULL, 7, 'no_device_registered', '2026-07-23 10:26:53', NULL, '{\"click_url\": \"/dispatch/4\", \"dispatch_id\": 4}', '2026-07-23 10:26:53', '2026-07-23 10:26:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packing_materials`
+--
+
+DROP TABLE IF EXISTS `packing_materials`;
+CREATE TABLE IF NOT EXISTS `packing_materials` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `size` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit_id` bigint UNSIGNED NOT NULL,
+  `minimum_stock` decimal(12,4) NOT NULL DEFAULT '0.0000',
+  `opening_stock` decimal(12,4) NOT NULL DEFAULT '0.0000',
+  `current_stock` decimal(12,4) NOT NULL DEFAULT '0.0000',
+  `remarks` text COLLATE utf8mb4_unicode_ci,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `packing_materials_category_id_foreign` (`category_id`),
+  KEY `packing_materials_unit_id_foreign` (`unit_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `packing_materials`
+--
+
+INSERT INTO `packing_materials` (`id`, `category_id`, `name`, `code`, `size`, `unit_id`, `minimum_stock`, `opening_stock`, `current_stock`, `remarks`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'F101 Bag', 'BAG-F101', NULL, 3, 2000.0000, 12000.0000, 10927.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(2, 1, 'F107 Bag', 'BAG-F107', NULL, 3, 2000.0000, 12000.0000, 11158.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(3, 1, 'F121 Bag', 'BAG-F121', NULL, 3, 2000.0000, 12000.0000, 11773.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(4, 1, 'F115 Bag', 'BAG-F115', NULL, 3, 2000.0000, 12000.0000, 12000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(5, 1, 'F133 Bag', 'BAG-F133', NULL, 3, 2000.0000, 12000.0000, 12000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(6, 1, 'B01 Bag', 'BAG-B01', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(7, 2, 'Grout 1Kg Pouch', 'PCH-GRT-1KG', '1Kg', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(8, 2, 'Grout 500gm Pouch', 'PCH-GRT-500G', '500gm', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(9, 2, 'Filler Pouch', 'PCH-FLR', NULL, 3, 50.0000, 150.0000, 49950.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(10, 2, 'Spacer Pouch 2mm', 'PCH-SPC-2MM', '2mm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(11, 2, 'Spacer Pouch 3mm', 'PCH-SPC-3MM', '3mm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(12, 2, 'Spacer Pouch 4mm', 'PCH-SPC-4MM', '4mm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(13, 2, 'Spacer Pouch 5mm', 'PCH-SPC-5MM', '5mm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(14, 2, 'Clip Pouch 2mm', 'PCH-CLP-2MM', '2mm', 3, 0.0000, 0.0000, 250.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 08:33:21'),
+(15, 2, 'Clip Pouch 3mm', 'PCH-CLP-3MM', '3mm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(16, 2, 'Clip Pouch 4mm', 'PCH-CLP-4MM', '4mm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(17, 2, 'Wedge Pouch', 'PCH-WDG', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(18, 2, 'Jari Pouch', 'PCH-JRI', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(19, 3, '1Kg Bucket', 'BKT-1KG', '1Kg', 3, 2000.0000, 10000.0000, 10000.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(20, 3, '5Kg Bucket', 'BKT-5KG', '5Kg', 3, 2000.0000, 10000.0000, 10000.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(21, 4, '100gm Bottle', 'BTL-100G', '100gm', 3, 50.0000, 150.0000, 550.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(22, 4, '200gm Bottle', 'BTL-200G', '200gm', 3, 50.0000, 1000.0000, 50.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(23, 4, '500gm Bottle', 'BTL-500G', '500gm', 3, 50.0000, 150.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(24, 4, '1Kg Bottle', 'BTL-1KG', '1Kg', 3, 50.0000, 150.0000, 162.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(25, 4, 'Tile Power 1L Bottle', 'BTL-TP-1L', '1L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(26, 4, 'Tile Power 5L Bottle', 'BTL-TP-5L', '5L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(27, 4, 'SBR 1L Bottle', 'BTL-SBR-1L', '1L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(28, 4, 'SBR 5L Bottle', 'BTL-SBR-5L', '5L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(29, 5, '100gm Sticker', 'STK-100G', '100gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(30, 5, '200gm Sticker', 'STK-200G', '200gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(31, 5, '500gm Sticker', 'STK-500G', '500gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(32, 5, '1Kg Sticker', 'STK-1KG', '1Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(33, 5, 'Tile Power 1L Sticker', 'STK-TP-1L', '1L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(34, 5, 'Tile Power 5L Sticker', 'STK-TP-5L', '5L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(35, 5, 'Grout Admix Sticker', 'STK-GA', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(36, 5, 'Soltite 1.8Kg Sticker', 'STK-SLT-1.8KG', '1.8Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(37, 5, 'Soltite 900gm Sticker', 'STK-SLT-900G', '900gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(38, 5, 'Soltite 450gm Sticker', 'STK-SLT-450G', '450gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(39, 6, 'Grout Admix Box', 'BOX-GA', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(40, 6, 'Sample Box', 'BOX-SMP', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(41, 6, 'Tile Cleaner 1L Box', 'BOX-TC-1L', '1L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(42, 6, 'Tile Cleaner 5L Box', 'BOX-TC-5L', '5L', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(43, 6, 'Epoxy 1Kg Box', 'BOX-EPX-1KG', '1Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(44, 6, 'Epoxy 5Kg Box', 'BOX-EPX-5KG', '5Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(45, 6, 'Small Grout Box', 'BOX-GRT-SM', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(46, 6, 'Big Grout Box', 'BOX-GRT-BG', NULL, 3, 0.0000, 0.0000, 490.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 08:33:21'),
+(47, 6, 'Jari Box', 'BOX-JRI', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(48, 6, 'Soltite 1.8Kg Box', 'BOX-SLT-1.8KG', '1.8Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(49, 6, 'Soltite 900gm Box', 'BOX-SLT-900G', '900gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(50, 6, 'Soltite 450gm Box', 'BOX-SLT-450G', '450gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(51, 7, 'Acid Barrel', 'BRL-ACD', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(52, 7, 'SBR Barrel 50 Ltr', 'BRL-SBR-50L', '50 Ltr', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(53, 8, 'Sponge', 'ACC-SPG', NULL, 3, 50.0000, 150.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(54, 8, 'Blade', 'ACC-BLD', NULL, 3, 50.0000, 150.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(55, 8, 'Hand Gloves', 'ACC-GLV', NULL, 3, 50.0000, 150.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packing_material_categories`
+--
+
+DROP TABLE IF EXISTS `packing_material_categories`;
+CREATE TABLE IF NOT EXISTS `packing_material_categories` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `packing_material_categories_name_unique` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `packing_material_categories`
+--
+
+INSERT INTO `packing_material_categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Adhesive Bags', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(2, 'Pouches', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(3, 'Buckets', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(4, 'Bottles', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(5, 'Stickers', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(6, 'Boxes / Cartons', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(7, 'Barrels', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(8, 'Epoxy Accessories', '2026-07-23 07:07:43', '2026-07-23 07:07:43');
 
 -- --------------------------------------------------------
 
@@ -2025,11 +2188,6 @@ CREATE TABLE IF NOT EXISTS `raw_materials` (
 --
 
 INSERT INTO `raw_materials` (`id`, `name`, `code`, `department_id`, `stock_unit_id`, `purchase_unit_id`, `purchase_conversion`, `opening_stock`, `current_stock`, `minimum_stock`, `maximum_stock`, `description`, `is_active`, `is_coupon`, `created_at`, `updated_at`) VALUES
-(1, 'Empty Bag F-101', 'F-101', 2, 3, 3, 1.0000, 12000.0000, 10927.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:00:05', '2026-07-22 11:24:51'),
-(2, 'Empty Bag F-107', 'F-107', 2, 3, 3, 1.0000, 12000.0000, 11158.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-14 06:57:08'),
-(3, 'Empty Bag F-121', 'F-121', 2, 3, 3, 1.0000, 12000.0000, 11773.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-14 07:02:07'),
-(4, 'Empty Bag F-115', 'F-115', 2, 3, 3, 1.0000, 12000.0000, 12000.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-12 11:05:03'),
-(5, 'Empty Bag F-133', 'F-133', 2, 3, 3, 1.0000, 12000.0000, 12000.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-12 11:05:03'),
 (6, 'Empty Bag F-147', 'F-147', 2, 3, 3, 1.0000, 12000.0000, 12000.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-12 11:05:03'),
 (7, 'RS-10 Solcon', 'RS-10', 2, 3, 3, 1.0000, 3000.0000, 2900.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-13 04:28:46'),
 (8, 'RS-20 Solcon', 'RS-20', 2, 3, 3, 1.0000, 3000.0000, 3000.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-12 11:24:04'),
@@ -2051,22 +2209,12 @@ INSERT INTO `raw_materials` (`id`, `name`, `code`, `department_id`, `stock_unit_
 (24, 'Prigment Color Red 110', 'PMT-03', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
 (25, 'Prigment Color Blue', 'PMT-04', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
 (26, 'Prigment Color Green', 'PMT-05', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(31, 'Empty Grout 1kg Pouch', 'EG1', 1, 3, 3, 1.0000, 20000.0000, 20000.0000, 5000.0000, 30000.0000, NULL, 1, 0, '2026-07-13 07:07:19', '2026-07-13 07:07:19'),
 (28, 'Prigment Color Yellow', 'PMT-07', 1, 1, 1, 1.0000, 150.0000, 142.0668, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 18:08:35'),
 (29, 'Prigment Color Orange', 'PMT-08', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
 (30, 'Prigment Color Alphine', 'PMT-09', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(32, 'Empty Grout 500 Pouch', 'eG500', 1, 3, 3, 1.0000, 20000.0000, 20000.0000, 5000.0000, 30000.0000, NULL, 1, 0, '2026-07-13 07:08:28', '2026-07-13 07:08:28'),
 (33, 'Empty Bucket 1KG', 'EXP-01', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
 (34, 'Empty Bucket 5KG', 'EXP-02', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
-(35, '100GM Bottle', 'EXP-03', 3, 3, 3, 1.0000, 150.0000, 550.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-22 11:48:11'),
-(36, '200GM Bottle', 'EXP-04', 3, 3, 3, 1.0000, 1000.0000, 50.0000, 50.0000, 1000.0000, NULL, 1, 0, '2026-07-13 08:38:47', '2026-07-22 11:41:05'),
-(37, '500GM Bottle', 'EXP-05', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
-(38, '1KG Bottle', 'EXP-06', 3, 3, 3, 1.0000, 150.0000, 162.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-23 06:20:44'),
-(39, 'Empty Filler Pouch', 'EXP-07', 3, 3, 3, 1.0000, 150.0000, 49950.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-22 11:47:04'),
 (40, 'Empty Sprakle Pouch', 'EXP-08', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
-(41, 'Spounch', 'EXP-09', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
-(42, 'Blade', 'EXP-10', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
-(43, 'Gloves', 'EXP-11', 3, 3, 3, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-13 08:38:47'),
 (44, 'Bulk Epoxy Bag-Black', 'EXP-12', 3, 1, 1, 1.0000, 1000.0000, 860.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-22 11:47:04'),
 (45, '700gm Black Filler Pouch', 'EPX-BLK', 3, 3, 3, 1.0000, 0.0000, 110.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-13 08:49:04', '2026-07-22 11:47:04'),
 (46, 'Bulk Epoxy Bag-White', 'EXP-13', 3, 1, 1, 1.0000, 1000.0000, 1000.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-13 10:21:52'),
@@ -2098,8 +2246,6 @@ INSERT INTO `raw_materials` (`id`, `name`, `code`, `department_id`, `stock_unit_
 (72, 'Bulk Epoxy Bag-Light-Green', 'EXP-39', 3, 1, 1, 1.0000, 1000.0000, 1000.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-13 10:21:52'),
 (73, 'Bulk Epoxy Bag-Sky Blue', 'EXP-40', 3, 1, 1, 1.0000, 1000.0000, 1000.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-13 10:21:52'),
 (74, 'Bulk Epoxy Bag-Vilote', 'EXP-41', 3, 1, 1, 1.0000, 1000.0000, 1000.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-13 10:21:52'),
-(75, 'Empty 1KG Bucket', 'E1b', 3, 3, 3, 1.0000, 10000.0000, 10000.0000, 2000.0000, 15000.0000, NULL, 1, 0, '2026-07-13 10:41:04', '2026-07-13 10:41:04'),
-(76, 'Empty 5KG Bucket', 'E5B', 3, 3, 3, 1.0000, 10000.0000, 10000.0000, 2000.0000, 15000.0000, NULL, 1, 0, '2026-07-13 10:41:45', '2026-07-13 10:41:45'),
 (77, '700gm White Filler Pouch', 'EPX-WHT', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-13 10:55:58', '2026-07-13 10:55:58'),
 (78, 'Custom 10rs', 'CUSTOM-10RS', 2, 3, 3, 1.0000, 0.0000, 999999.0000, 0.0000, 0.0000, NULL, 1, 1, '2026-07-21 15:10:47', '2026-07-21 15:10:47'),
 (79, '100 GM HARDNER BOTTLE FINISH', 'EPX-BLT-01', 3, 3, 3, 1.0000, 0.0000, 600.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-22 11:33:42', '2026-07-22 11:48:11'),
@@ -2188,8 +2334,8 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Jjv2jqcCV660r1236NJyUFbDg0e3R15BZIZ9txEH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI5cXFORXdsR05pZDgyckRlYkJSVEZ3M09TVFF6Tnp1RWJUQ1EyTlZLIiwidXJsIjp7ImludGVuZGVkIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL3N1cGVydmlzb3JcL29yZGVycyJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1784788925),
-('oimgci3I3om9puCwMahdrzgSm12VIuAHddslyycr', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJlT1M3dWRkTG5ZampZY2hwbnE0UUtqdVVhUkNPMnlqRjJSQ3d1WmM0IiwidXJsIjpbXSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2FkbWluXC9lcG94eS1wcm9kdWN0cyIsInJvdXRlIjoiYWRtaW4uZXBveHktcHJvZHVjdHMuaW5kZXgifSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjIsImN1cnJlbnRfZGVwYXJ0bWVudF9pZF8yIjozfQ==', 1784788943);
+('oimgci3I3om9puCwMahdrzgSm12VIuAHddslyycr', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJlT1M3dWRkTG5ZampZY2hwbnE0UUtqdVVhUkNPMnlqRjJSQ3d1WmM0IiwidXJsIjpbXSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL21hcmtldGluZ1wvb3JkZXJzXC9jcmVhdGUiLCJyb3V0ZSI6Im1hcmtldGluZy5vcmRlcnMuY3JlYXRlIn0sImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjoyLCJjdXJyZW50X2RlcGFydG1lbnRfaWRfMiI6Mn0=', 1784803370),
+('66RpXBvNakMJkvJaHfE93YmbFOylISJ63mSXnJv7', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiIzbkdHUXZvTXIzaUxCRW5hbDhzY3o1NVFKb0NpWXRkazkzWTZTdDVqIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2Rpc3BhdGNoIiwicm91dGUiOiJkaXNwYXRjaC5pbmRleCJ9LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6NCwiY3VycmVudF9kZXBhcnRtZW50X2lkXzQiOjJ9', 1784803385);
 
 -- --------------------------------------------------------
 
@@ -2224,26 +2370,30 @@ INSERT INTO `settings` (`key`, `value`, `created_at`, `updated_at`) VALUES
 DROP TABLE IF EXISTS `stock_adjustments`;
 CREATE TABLE IF NOT EXISTS `stock_adjustments` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `raw_material_id` bigint UNSIGNED NOT NULL,
+  `raw_material_id` bigint UNSIGNED DEFAULT NULL,
+  `packing_material_id` bigint UNSIGNED DEFAULT NULL,
   `quantity` decimal(12,4) NOT NULL,
-  `remarks` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remarks` text COLLATE utf8mb4_unicode_ci,
   `created_by` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `stock_adjustments_raw_material_id_foreign` (`raw_material_id`),
-  KEY `stock_adjustments_created_by_foreign` (`created_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `stock_adjustments_created_by_foreign` (`created_by`),
+  KEY `stock_adjustments_packing_material_id_foreign` (`packing_material_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `stock_adjustments`
 --
 
-INSERT INTO `stock_adjustments` (`id`, `raw_material_id`, `quantity`, `remarks`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 12, 350000.0000, 'new', 2, '2026-07-22 11:21:59', '2026-07-22 11:21:59'),
-(2, 35, 1000.0000, 'sbc', 2, '2026-07-22 11:28:52', '2026-07-22 11:28:52'),
-(3, 39, 50000.0000, 'NEW', 2, '2026-07-22 11:46:45', '2026-07-22 11:46:45'),
-(4, 38, 12.0000, '', 2, '2026-07-23 06:20:44', '2026-07-23 06:20:44');
+INSERT INTO `stock_adjustments` (`id`, `raw_material_id`, `packing_material_id`, `quantity`, `remarks`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 12, NULL, 350000.0000, 'new', 2, '2026-07-22 11:21:59', '2026-07-22 11:21:59'),
+(2, NULL, 21, 1000.0000, 'sbc', 2, '2026-07-22 11:28:52', '2026-07-22 11:28:52'),
+(3, NULL, 9, 50000.0000, 'NEW', 2, '2026-07-22 11:46:45', '2026-07-22 11:46:45'),
+(4, NULL, 24, 12.0000, '', 2, '2026-07-23 06:20:44', '2026-07-23 06:20:44'),
+(5, NULL, 14, 500.0000, '', 2, '2026-07-23 08:32:34', '2026-07-23 08:32:34'),
+(6, NULL, 46, 500.0000, '', 2, '2026-07-23 08:32:49', '2026-07-23 08:32:49');
 
 -- --------------------------------------------------------
 
@@ -2254,7 +2404,8 @@ INSERT INTO `stock_adjustments` (`id`, `raw_material_id`, `quantity`, `remarks`,
 DROP TABLE IF EXISTS `stock_ledgers`;
 CREATE TABLE IF NOT EXISTS `stock_ledgers` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `raw_material_id` bigint UNSIGNED NOT NULL,
+  `raw_material_id` bigint UNSIGNED DEFAULT NULL,
+  `packing_material_id` bigint UNSIGNED DEFAULT NULL,
   `batch_id` bigint UNSIGNED DEFAULT NULL,
   `grout_batch_id` bigint UNSIGNED DEFAULT NULL,
   `epoxy_assembly_id` bigint UNSIGNED DEFAULT NULL,
@@ -2270,213 +2421,218 @@ CREATE TABLE IF NOT EXISTS `stock_ledgers` (
   KEY `stock_ledgers_created_by_foreign` (`created_by`),
   KEY `stock_ledgers_raw_material_id_created_at_index` (`raw_material_id`,`created_at`),
   KEY `stock_ledgers_grout_batch_id_foreign` (`grout_batch_id`),
-  KEY `stock_ledgers_epoxy_assembly_id_foreign` (`epoxy_assembly_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=200 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `stock_ledgers_epoxy_assembly_id_foreign` (`epoxy_assembly_id`),
+  KEY `stock_ledgers_packing_material_id_created_at_index` (`packing_material_id`,`created_at`)
+) ENGINE=MyISAM AUTO_INCREMENT=204 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `stock_ledgers`
 --
 
-INSERT INTO `stock_ledgers` (`id`, `raw_material_id`, `batch_id`, `grout_batch_id`, `epoxy_assembly_id`, `transaction_type`, `quantity`, `balance_after`, `remarks`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, NULL, 'OUT', -98.0000, 11902.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
-(2, 12, 1, NULL, NULL, 'OUT', -1280.0000, 348720.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
-(3, 13, 1, NULL, NULL, 'OUT', -500.0000, 49500.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
-(4, 15, 1, NULL, NULL, 'OUT', -200.0000, 49800.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
-(5, 17, 1, NULL, NULL, 'OUT', -4.0000, 3996.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
-(6, 18, 1, NULL, NULL, 'OUT', -4.0000, 3996.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
-(7, 2, 2, NULL, NULL, 'OUT', -100.0000, 11900.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(8, 12, 2, NULL, NULL, 'OUT', -1280.0000, 347440.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(9, 13, 2, NULL, NULL, 'OUT', -600.0000, 48900.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(10, 15, 2, NULL, NULL, 'OUT', -200.0000, 49600.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(11, 17, 2, NULL, NULL, 'OUT', -10.0000, 3986.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(12, 18, 2, NULL, NULL, 'OUT', -4.0000, 3992.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(13, 7, 2, NULL, NULL, 'OUT', -100.0000, 2900.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
-(14, 44, NULL, NULL, NULL, 'OUT', -7.0000, 993.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:47:15', '2026-07-13 08:47:15'),
-(15, 39, NULL, NULL, NULL, 'OUT', -10.0000, 140.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:47:15', '2026-07-13 08:47:15'),
-(16, 44, NULL, NULL, NULL, 'OUT', -7.0000, 986.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:49:28', '2026-07-13 08:49:28'),
-(17, 39, NULL, NULL, NULL, 'OUT', -10.0000, 130.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:49:28', '2026-07-13 08:49:28'),
-(18, 44, NULL, NULL, NULL, 'OUT', -7.0000, 979.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:17', '2026-07-13 08:50:17'),
-(19, 39, NULL, NULL, NULL, 'OUT', -10.0000, 120.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:17', '2026-07-13 08:50:17'),
-(20, 44, NULL, NULL, NULL, 'OUT', -7.0000, 972.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:24', '2026-07-13 08:50:24'),
-(21, 39, NULL, NULL, NULL, 'OUT', -10.0000, 110.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:24', '2026-07-13 08:50:24'),
-(22, 44, NULL, NULL, NULL, 'OUT', -7.0000, 965.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:36', '2026-07-13 08:50:36'),
-(23, 39, NULL, NULL, NULL, 'OUT', -10.0000, 100.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:36', '2026-07-13 08:50:36'),
-(24, 44, NULL, NULL, NULL, 'OUT', -7.0000, 958.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:07', '2026-07-13 08:51:07'),
-(25, 39, NULL, NULL, NULL, 'OUT', -10.0000, 90.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:07', '2026-07-13 08:51:07'),
-(26, 44, NULL, NULL, NULL, 'OUT', -7.0000, 951.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:45', '2026-07-13 08:51:45'),
-(27, 39, NULL, NULL, NULL, 'OUT', -10.0000, 80.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:45', '2026-07-13 08:51:45'),
-(28, 44, NULL, NULL, NULL, 'OUT', -7.0000, 944.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:18', '2026-07-13 08:53:18'),
-(29, 39, NULL, NULL, NULL, 'OUT', -10.0000, 70.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:18', '2026-07-13 08:53:18'),
-(30, 44, NULL, NULL, NULL, 'OUT', -7.0000, 937.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:40', '2026-07-13 08:53:40'),
-(31, 39, NULL, NULL, NULL, 'OUT', -10.0000, 60.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:40', '2026-07-13 08:53:40'),
-(32, 44, NULL, NULL, NULL, 'OUT', -7.0000, 930.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:55:15', '2026-07-13 08:55:15'),
-(33, 39, NULL, NULL, NULL, 'OUT', -10.0000, 50.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:55:15', '2026-07-13 08:55:15'),
-(34, 45, NULL, NULL, NULL, 'IN', 10.0000, 10.0000, 'Prepared component stock increment: 700gm Black Filler Pouch', 2, '2026-07-13 08:55:15', '2026-07-13 08:55:15'),
-(35, 1, 3, NULL, NULL, 'OUT', -100.0000, 11802.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
-(36, 12, 3, NULL, NULL, 'OUT', -1280.0000, 346160.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
-(37, 13, 3, NULL, NULL, 'OUT', -500.0000, 48400.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
-(38, 15, 3, NULL, NULL, 'OUT', -200.0000, 49400.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
-(39, 17, 3, NULL, NULL, 'OUT', -4.0000, 3982.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
-(40, 18, 3, NULL, NULL, 'OUT', -4.0000, 3988.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:18', '2026-07-13 09:24:18'),
-(41, 16, NULL, 1, NULL, 'OUT', -658.9958, 19341.0042, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
-(42, 14, NULL, 1, NULL, 'OUT', -235.3556, 14264.6444, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
-(43, 17, NULL, 1, NULL, 'OUT', -3.7657, 3978.2343, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
-(44, 18, NULL, 1, NULL, 'OUT', -1.8828, 3986.1172, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
-(45, 16, NULL, 4, NULL, 'OUT', -658.9958, 18682.0084, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
-(46, 14, NULL, 4, NULL, 'OUT', -235.3556, 14029.2888, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
-(47, 17, NULL, 4, NULL, 'OUT', -3.7657, 3974.4686, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
-(48, 18, NULL, 4, NULL, 'OUT', -1.8828, 3984.2344, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
-(49, 16, NULL, 5, NULL, 'OUT', -732.2176, 17949.7908, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
-(50, 14, NULL, 5, NULL, 'OUT', -261.5063, 13767.7825, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
-(51, 17, NULL, 5, NULL, 'OUT', -4.1841, 3970.2845, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
-(52, 18, NULL, 5, NULL, 'OUT', -2.0921, 3982.1423, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
-(53, 16, NULL, 6, NULL, 'OUT', -657.6200, 17292.1708, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
-(54, 14, NULL, 6, NULL, 'OUT', -234.8643, 13532.9182, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
-(55, 17, NULL, 6, NULL, 'OUT', -3.7578, 3966.5267, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
-(56, 18, NULL, 6, NULL, 'OUT', -1.8789, 3980.2634, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
-(57, 28, NULL, 6, NULL, 'OUT', -1.8789, 148.1211, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
-(58, 16, NULL, 7, NULL, 'OUT', -694.1545, 16598.0163, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
-(59, 14, NULL, 7, NULL, 'OUT', -247.9123, 13285.0059, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
-(60, 17, NULL, 7, NULL, 'OUT', -3.9666, 3962.5601, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
-(61, 18, NULL, 7, NULL, 'OUT', -1.9833, 3978.2801, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
-(62, 28, NULL, 7, NULL, 'OUT', -1.9833, 146.1378, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
-(63, 16, NULL, 8, NULL, 'OUT', -712.4217, 15885.5946, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
-(64, 14, NULL, 8, NULL, 'OUT', -254.4363, 13030.5696, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
-(65, 17, NULL, 8, NULL, 'OUT', -4.0710, 3958.4891, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
-(66, 18, NULL, 8, NULL, 'OUT', -2.0355, 3976.2446, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
-(67, 28, NULL, 8, NULL, 'OUT', -2.0355, 144.1023, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
-(68, 16, NULL, 9, NULL, 'OUT', -712.4217, 15173.1729, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
-(69, 14, NULL, 9, NULL, 'OUT', -254.4363, 12776.1333, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
-(70, 17, NULL, 9, NULL, 'OUT', -4.0710, 3954.4181, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
-(71, 18, NULL, 9, NULL, 'OUT', -2.0355, 3974.2091, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
-(72, 28, NULL, 9, NULL, 'OUT', -2.0355, 142.0668, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
-(73, 16, NULL, 10, NULL, 'OUT', -695.6067, 14477.5662, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
-(74, 14, NULL, 10, NULL, 'OUT', -248.4310, 12527.7023, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
-(75, 17, NULL, 10, NULL, 'OUT', -3.9749, 3950.4432, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
-(76, 18, NULL, 10, NULL, 'OUT', -1.9874, 3972.2217, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
-(77, 1, 4, NULL, NULL, 'OUT', -97.0000, 11705.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
-(78, 12, 4, NULL, NULL, 'OUT', -1280.0000, 344880.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
-(79, 13, 4, NULL, NULL, 'OUT', -500.0000, 47900.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
-(80, 15, 4, NULL, NULL, 'OUT', -200.0000, 49200.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
-(81, 17, 4, NULL, NULL, 'OUT', -4.0000, 3946.4432, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
-(82, 18, 4, NULL, NULL, 'OUT', -4.0000, 3968.2217, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
-(83, 1, 5, NULL, NULL, 'OUT', -107.0000, 11598.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
-(84, 12, 5, NULL, NULL, 'OUT', -1280.0000, 343600.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
-(85, 13, 5, NULL, NULL, 'OUT', -500.0000, 47400.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
-(86, 15, 5, NULL, NULL, 'OUT', -200.0000, 49000.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
-(87, 17, 5, NULL, NULL, 'OUT', -4.0000, 3942.4432, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
-(88, 18, 5, NULL, NULL, 'OUT', -4.0000, 3964.2217, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
-(89, 1, 6, NULL, NULL, 'OUT', -104.0000, 11494.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
-(90, 12, 6, NULL, NULL, 'OUT', -1280.0000, 342320.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
-(91, 13, 6, NULL, NULL, 'OUT', -500.0000, 46900.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
-(92, 15, 6, NULL, NULL, 'OUT', -200.0000, 48800.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
-(93, 17, 6, NULL, NULL, 'OUT', -4.0000, 3938.4432, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
-(94, 18, 6, NULL, NULL, 'OUT', -4.0000, 3960.2217, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
-(95, 2, 7, NULL, NULL, 'OUT', -101.0000, 11799.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
-(96, 12, 7, NULL, NULL, 'OUT', -1280.0000, 341040.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
-(97, 13, 7, NULL, NULL, 'OUT', -600.0000, 46300.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
-(98, 15, 7, NULL, NULL, 'OUT', -200.0000, 48600.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
-(99, 17, 7, NULL, NULL, 'OUT', -10.0000, 3928.4432, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
-(100, 18, 7, NULL, NULL, 'OUT', -4.0000, 3956.2217, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
-(101, 2, 8, NULL, NULL, 'OUT', -106.0000, 11693.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
-(102, 12, 8, NULL, NULL, 'OUT', -1280.0000, 339760.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
-(103, 13, 8, NULL, NULL, 'OUT', -600.0000, 45700.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
-(104, 15, 8, NULL, NULL, 'OUT', -200.0000, 48400.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
-(105, 17, 8, NULL, NULL, 'OUT', -10.0000, 3918.4432, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
-(106, 18, 8, NULL, NULL, 'OUT', -4.0000, 3952.2217, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
-(107, 2, 9, NULL, NULL, 'OUT', -106.0000, 11587.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
-(108, 12, 9, NULL, NULL, 'OUT', -1280.0000, 338480.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
-(109, 13, 9, NULL, NULL, 'OUT', -600.0000, 45100.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
-(110, 15, 9, NULL, NULL, 'OUT', -200.0000, 48200.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
-(111, 17, 9, NULL, NULL, 'OUT', -10.0000, 3908.4432, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
-(112, 18, 9, NULL, NULL, 'OUT', -4.0000, 3948.2217, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
-(113, 2, 10, NULL, NULL, 'OUT', -108.0000, 11479.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(114, 12, 10, NULL, NULL, 'OUT', -1280.0000, 337200.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(115, 13, 10, NULL, NULL, 'OUT', -600.0000, 44500.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(116, 15, 10, NULL, NULL, 'OUT', -200.0000, 48000.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(117, 17, 10, NULL, NULL, 'OUT', -10.0000, 3898.4432, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(118, 18, 10, NULL, NULL, 'OUT', -4.0000, 3944.2217, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(119, 10, 10, NULL, NULL, 'OUT', -108.0000, 2892.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
-(120, 2, 11, NULL, NULL, 'OUT', -108.0000, 11371.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(121, 12, 11, NULL, NULL, 'OUT', -1280.0000, 335920.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(122, 13, 11, NULL, NULL, 'OUT', -600.0000, 43900.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(123, 15, 11, NULL, NULL, 'OUT', -200.0000, 47800.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(124, 17, 11, NULL, NULL, 'OUT', -10.0000, 3888.4432, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(125, 18, 11, NULL, NULL, 'OUT', -4.0000, 3940.2217, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(126, 10, 11, NULL, NULL, 'OUT', -108.0000, 2784.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
-(127, 2, 12, NULL, NULL, 'OUT', -106.0000, 11265.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(128, 12, 12, NULL, NULL, 'OUT', -1280.0000, 334640.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(129, 13, 12, NULL, NULL, 'OUT', -600.0000, 43300.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(130, 15, 12, NULL, NULL, 'OUT', -200.0000, 47600.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(131, 17, 12, NULL, NULL, 'OUT', -10.0000, 3878.4432, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(132, 18, 12, NULL, NULL, 'OUT', -4.0000, 3936.2217, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(133, 10, 12, NULL, NULL, 'OUT', -106.0000, 2678.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
-(134, 2, 13, NULL, NULL, 'OUT', -107.0000, 11158.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
-(135, 12, 13, NULL, NULL, 'OUT', -1280.0000, 333360.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
-(136, 13, 13, NULL, NULL, 'OUT', -600.0000, 42700.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
-(137, 15, 13, NULL, NULL, 'OUT', -200.0000, 47400.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
-(138, 17, 13, NULL, NULL, 'OUT', -10.0000, 3868.4432, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
-(139, 18, 13, NULL, NULL, 'OUT', -4.0000, 3932.2217, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
-(140, 1, 14, NULL, NULL, 'OUT', -162.0000, 11332.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
-(141, 12, 14, NULL, NULL, 'OUT', -1280.0000, 332080.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
-(142, 13, 14, NULL, NULL, 'OUT', -500.0000, 42200.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
-(143, 15, 14, NULL, NULL, 'OUT', -200.0000, 47200.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
-(144, 17, 14, NULL, NULL, 'OUT', -4.0000, 3864.4432, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
-(145, 18, 14, NULL, NULL, 'OUT', -4.0000, 3928.2217, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
-(146, 1, 15, NULL, NULL, 'OUT', -102.0000, 11230.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
-(147, 12, 15, NULL, NULL, 'OUT', -1280.0000, 330800.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
-(148, 13, 15, NULL, NULL, 'OUT', -500.0000, 41700.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
-(149, 15, 15, NULL, NULL, 'OUT', -200.0000, 47000.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
-(150, 17, 15, NULL, NULL, 'OUT', -4.0000, 3860.4432, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
-(151, 18, 15, NULL, NULL, 'OUT', -4.0000, 3924.2217, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
-(152, 1, 16, NULL, NULL, 'OUT', -102.0000, 11128.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
-(153, 12, 16, NULL, NULL, 'OUT', -1280.0000, 329520.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
-(154, 13, 16, NULL, NULL, 'OUT', -500.0000, 41200.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
-(155, 15, 16, NULL, NULL, 'OUT', -200.0000, 46800.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
-(156, 17, 16, NULL, NULL, 'OUT', -4.0000, 3856.4432, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
-(157, 18, 16, NULL, NULL, 'OUT', -4.0000, 3920.2217, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
-(158, 1, 17, NULL, NULL, 'OUT', -103.0000, 11025.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
-(159, 12, 17, NULL, NULL, 'OUT', -1280.0000, 328240.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
-(160, 13, 17, NULL, NULL, 'OUT', -500.0000, 40700.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
-(161, 15, 17, NULL, NULL, 'OUT', -200.0000, 46600.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
-(162, 17, 17, NULL, NULL, 'OUT', -4.0000, 3852.4432, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
-(163, 18, 17, NULL, NULL, 'OUT', -4.0000, 3916.2217, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
-(164, 3, 18, NULL, NULL, 'OUT', -115.0000, 11885.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(165, 12, 18, NULL, NULL, 'OUT', -1280.0000, 326960.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(166, 13, 18, NULL, NULL, 'OUT', -700.0000, 40000.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(167, 15, 18, NULL, NULL, 'OUT', -200.0000, 46400.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(168, 17, 18, NULL, NULL, 'OUT', -28.0000, 3824.4432, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(169, 18, 18, NULL, NULL, 'OUT', -6.0000, 3910.2217, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(170, 19, 18, NULL, NULL, 'OUT', -2.0000, 1998.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
-(171, 3, 19, NULL, NULL, 'OUT', -112.0000, 11773.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(172, 12, 19, NULL, NULL, 'OUT', -1280.0000, 325680.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(173, 13, 19, NULL, NULL, 'OUT', -700.0000, 39300.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(174, 15, 19, NULL, NULL, 'OUT', -200.0000, 46200.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(175, 17, 19, NULL, NULL, 'OUT', -28.0000, 3796.4432, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(176, 18, 19, NULL, NULL, 'OUT', -6.0000, 3904.2217, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(177, 19, 19, NULL, NULL, 'OUT', -2.0000, 1996.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
-(178, 12, NULL, NULL, NULL, 'ADJUSTMENT', 350000.0000, 675680.0000, 'Adjustment: new', 2, '2026-07-22 11:21:59', '2026-07-22 11:21:59'),
-(179, 1, 20, NULL, NULL, 'OUT', -98.0000, 10927.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
-(180, 12, 20, NULL, NULL, 'OUT', -1280.0000, 674400.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
-(181, 13, 20, NULL, NULL, 'OUT', -500.0000, 38800.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
-(182, 15, 20, NULL, NULL, 'OUT', -200.0000, 46000.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
-(183, 17, 20, NULL, NULL, 'OUT', -4.0000, 3792.4432, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
-(184, 18, 20, NULL, NULL, 'OUT', -4.0000, 3900.2217, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
-(185, 35, NULL, NULL, NULL, 'ADJUSTMENT', 1000.0000, 1150.0000, 'Adjustment: sbc', 2, '2026-07-22 11:28:52', '2026-07-22 11:28:52'),
-(186, 35, NULL, NULL, NULL, 'OUT', -500.0000, 650.0000, 'Formula consumed to prepare 500 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
-(187, 81, NULL, NULL, NULL, 'OUT', -50.0000, 450.0000, 'Formula consumed to prepare 500 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
-(188, 79, NULL, NULL, NULL, 'IN', 500.0000, 500.0000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
-(189, 80, NULL, NULL, NULL, 'OUT', -20.0000, 480.0000, 'Formula consumed to prepare 100 units of component: 200GM RESIN BOTTLE FINISH', 2, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
-(190, 36, NULL, NULL, NULL, 'OUT', -100.0000, 50.0000, 'Formula consumed to prepare 100 units of component: 200GM RESIN BOTTLE FINISH', 2, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
-(191, 82, NULL, NULL, NULL, 'IN', 100.0000, 100.0000, 'Prepared component stock increment: 200GM RESIN BOTTLE FINISH', 2, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
-(192, 39, NULL, NULL, NULL, 'ADJUSTMENT', 50000.0000, 50050.0000, 'Adjustment: NEW', 2, '2026-07-22 11:46:45', '2026-07-22 11:46:45'),
-(193, 44, NULL, NULL, NULL, 'OUT', -70.0000, 860.0000, 'Formula consumed to prepare 100 units of component: 700gm Black Filler Pouch', 2, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
-(194, 39, NULL, NULL, NULL, 'OUT', -100.0000, 49950.0000, 'Formula consumed to prepare 100 units of component: 700gm Black Filler Pouch', 2, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
-(195, 45, NULL, NULL, NULL, 'IN', 100.0000, 110.0000, 'Prepared component stock increment: 700gm Black Filler Pouch', 2, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
-(196, 35, NULL, NULL, NULL, 'OUT', -100.0000, 550.0000, 'Formula consumed to prepare 100 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
-(197, 81, NULL, NULL, NULL, 'OUT', -10.0000, 440.0000, 'Formula consumed to prepare 100 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
-(198, 79, NULL, NULL, NULL, 'IN', 100.0000, 600.0000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
-(199, 38, NULL, NULL, NULL, 'ADJUSTMENT', 12.0000, 162.0000, 'Manual Stock Adjustment', 2, '2026-07-23 06:20:44', '2026-07-23 06:20:44');
+INSERT INTO `stock_ledgers` (`id`, `raw_material_id`, `packing_material_id`, `batch_id`, `grout_batch_id`, `epoxy_assembly_id`, `transaction_type`, `quantity`, `balance_after`, `remarks`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, NULL, 1, 1, NULL, NULL, 'OUT', -98.0000, 11902.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
+(2, 12, NULL, 1, NULL, NULL, 'OUT', -1280.0000, 348720.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
+(3, 13, NULL, 1, NULL, NULL, 'OUT', -500.0000, 49500.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
+(4, 15, NULL, 1, NULL, NULL, 'OUT', -200.0000, 49800.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
+(5, 17, NULL, 1, NULL, NULL, 'OUT', -4.0000, 3996.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
+(6, 18, NULL, 1, NULL, NULL, 'OUT', -4.0000, 3996.0000, 'Consumed in production batch #ADH-20260713-0001', 2, '2026-07-13 04:11:06', '2026-07-13 04:11:06'),
+(7, NULL, 2, 2, NULL, NULL, 'OUT', -100.0000, 11900.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(8, 12, NULL, 2, NULL, NULL, 'OUT', -1280.0000, 347440.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(9, 13, NULL, 2, NULL, NULL, 'OUT', -600.0000, 48900.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(10, 15, NULL, 2, NULL, NULL, 'OUT', -200.0000, 49600.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(11, 17, NULL, 2, NULL, NULL, 'OUT', -10.0000, 3986.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(12, 18, NULL, 2, NULL, NULL, 'OUT', -4.0000, 3992.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(13, 7, NULL, 2, NULL, NULL, 'OUT', -100.0000, 2900.0000, 'Consumed in production batch #ADH-20260713-0002', 2, '2026-07-13 04:28:46', '2026-07-13 04:28:46'),
+(14, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 993.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:47:15', '2026-07-13 08:47:15'),
+(15, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 140.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:47:15', '2026-07-13 08:47:15'),
+(16, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 986.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:49:28', '2026-07-13 08:49:28'),
+(17, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 130.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:49:28', '2026-07-13 08:49:28'),
+(18, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 979.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:17', '2026-07-13 08:50:17'),
+(19, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 120.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:17', '2026-07-13 08:50:17'),
+(20, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 972.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:24', '2026-07-13 08:50:24'),
+(21, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 110.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:24', '2026-07-13 08:50:24'),
+(22, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 965.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:36', '2026-07-13 08:50:36'),
+(23, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 100.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:50:36', '2026-07-13 08:50:36'),
+(24, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 958.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:07', '2026-07-13 08:51:07'),
+(25, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 90.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:07', '2026-07-13 08:51:07'),
+(26, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 951.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:45', '2026-07-13 08:51:45'),
+(27, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 80.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:51:45', '2026-07-13 08:51:45'),
+(28, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 944.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:18', '2026-07-13 08:53:18'),
+(29, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 70.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:18', '2026-07-13 08:53:18'),
+(30, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 937.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:40', '2026-07-13 08:53:40'),
+(31, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 60.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:53:40', '2026-07-13 08:53:40'),
+(32, 44, NULL, NULL, NULL, NULL, 'OUT', -7.0000, 930.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:55:15', '2026-07-13 08:55:15'),
+(33, NULL, 9, NULL, NULL, NULL, 'OUT', -10.0000, 50.0000, 'Formula consumed to prepare 10 units of component: 700gm Black Filler Pouch', 2, '2026-07-13 08:55:15', '2026-07-13 08:55:15'),
+(34, 45, NULL, NULL, NULL, NULL, 'IN', 10.0000, 10.0000, 'Prepared component stock increment: 700gm Black Filler Pouch', 2, '2026-07-13 08:55:15', '2026-07-13 08:55:15'),
+(35, NULL, 1, 3, NULL, NULL, 'OUT', -100.0000, 11802.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
+(36, 12, NULL, 3, NULL, NULL, 'OUT', -1280.0000, 346160.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
+(37, 13, NULL, 3, NULL, NULL, 'OUT', -500.0000, 48400.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
+(38, 15, NULL, 3, NULL, NULL, 'OUT', -200.0000, 49400.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
+(39, 17, NULL, 3, NULL, NULL, 'OUT', -4.0000, 3982.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:17', '2026-07-13 09:24:17'),
+(40, 18, NULL, 3, NULL, NULL, 'OUT', -4.0000, 3988.0000, 'Consumed in production batch #ADH-20260713-0003', 2, '2026-07-13 09:24:18', '2026-07-13 09:24:18'),
+(41, 16, NULL, NULL, 1, NULL, 'OUT', -658.9958, 19341.0042, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
+(42, 14, NULL, NULL, 1, NULL, 'OUT', -235.3556, 14264.6444, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
+(43, 17, NULL, NULL, 1, NULL, 'OUT', -3.7657, 3978.2343, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
+(44, 18, NULL, NULL, 1, NULL, 'OUT', -1.8828, 3986.1172, 'Consumed in Grout production batch #GRT-20260713-0001', 2, '2026-07-13 11:04:08', '2026-07-13 11:04:08'),
+(45, 16, NULL, NULL, 4, NULL, 'OUT', -658.9958, 18682.0084, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
+(46, 14, NULL, NULL, 4, NULL, 'OUT', -235.3556, 14029.2888, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
+(47, 17, NULL, NULL, 4, NULL, 'OUT', -3.7657, 3974.4686, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
+(48, 18, NULL, NULL, 4, NULL, 'OUT', -1.8828, 3984.2344, 'Consumed in Grout production batch #GRT-20260713-0004', 2, '2026-07-13 15:38:39', '2026-07-13 15:38:39'),
+(49, 16, NULL, NULL, 5, NULL, 'OUT', -732.2176, 17949.7908, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
+(50, 14, NULL, NULL, 5, NULL, 'OUT', -261.5063, 13767.7825, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
+(51, 17, NULL, NULL, 5, NULL, 'OUT', -4.1841, 3970.2845, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
+(52, 18, NULL, NULL, 5, NULL, 'OUT', -2.0921, 3982.1423, 'Consumed in Grout production batch #GRT-20260713-0005', 5, '2026-07-13 16:15:52', '2026-07-13 16:15:52'),
+(53, 16, NULL, NULL, 6, NULL, 'OUT', -657.6200, 17292.1708, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
+(54, 14, NULL, NULL, 6, NULL, 'OUT', -234.8643, 13532.9182, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
+(55, 17, NULL, NULL, 6, NULL, 'OUT', -3.7578, 3966.5267, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
+(56, 18, NULL, NULL, 6, NULL, 'OUT', -1.8789, 3980.2634, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
+(57, 28, NULL, NULL, 6, NULL, 'OUT', -1.8789, 148.1211, 'Consumed in Grout production batch #GRT-20260713-0006', 5, '2026-07-13 16:46:53', '2026-07-13 16:46:53'),
+(58, 16, NULL, NULL, 7, NULL, 'OUT', -694.1545, 16598.0163, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
+(59, 14, NULL, NULL, 7, NULL, 'OUT', -247.9123, 13285.0059, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
+(60, 17, NULL, NULL, 7, NULL, 'OUT', -3.9666, 3962.5601, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
+(61, 18, NULL, NULL, 7, NULL, 'OUT', -1.9833, 3978.2801, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
+(62, 28, NULL, NULL, 7, NULL, 'OUT', -1.9833, 146.1378, 'Consumed in Grout production batch #GRT-20260713-0007', 5, '2026-07-13 16:55:21', '2026-07-13 16:55:21'),
+(63, 16, NULL, NULL, 8, NULL, 'OUT', -712.4217, 15885.5946, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
+(64, 14, NULL, NULL, 8, NULL, 'OUT', -254.4363, 13030.5696, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
+(65, 17, NULL, NULL, 8, NULL, 'OUT', -4.0710, 3958.4891, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
+(66, 18, NULL, NULL, 8, NULL, 'OUT', -2.0355, 3976.2446, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
+(67, 28, NULL, NULL, 8, NULL, 'OUT', -2.0355, 144.1023, 'Consumed in Grout production batch #GRT-20260713-0008', 5, '2026-07-13 17:24:59', '2026-07-13 17:24:59'),
+(68, 16, NULL, NULL, 9, NULL, 'OUT', -712.4217, 15173.1729, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
+(69, 14, NULL, NULL, 9, NULL, 'OUT', -254.4363, 12776.1333, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
+(70, 17, NULL, NULL, 9, NULL, 'OUT', -4.0710, 3954.4181, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
+(71, 18, NULL, NULL, 9, NULL, 'OUT', -2.0355, 3974.2091, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
+(72, 28, NULL, NULL, 9, NULL, 'OUT', -2.0355, 142.0668, 'Consumed in Grout production batch #GRT-20260713-0009', 5, '2026-07-13 18:08:35', '2026-07-13 18:08:35'),
+(73, 16, NULL, NULL, 10, NULL, 'OUT', -695.6067, 14477.5662, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
+(74, 14, NULL, NULL, 10, NULL, 'OUT', -248.4310, 12527.7023, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
+(75, 17, NULL, NULL, 10, NULL, 'OUT', -3.9749, 3950.4432, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
+(76, 18, NULL, NULL, 10, NULL, 'OUT', -1.9874, 3972.2217, 'Consumed in Grout production batch #GRT-20260713-0010', 5, '2026-07-14 03:02:37', '2026-07-14 03:02:37'),
+(77, NULL, 1, 4, NULL, NULL, 'OUT', -97.0000, 11705.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
+(78, 12, NULL, 4, NULL, NULL, 'OUT', -1280.0000, 344880.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
+(79, 13, NULL, 4, NULL, NULL, 'OUT', -500.0000, 47900.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
+(80, 15, NULL, 4, NULL, NULL, 'OUT', -200.0000, 49200.0000, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
+(81, 17, NULL, 4, NULL, NULL, 'OUT', -4.0000, 3946.4432, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
+(82, 18, NULL, 4, NULL, NULL, 'OUT', -4.0000, 3968.2217, 'Consumed in production batch #ADH-20260714-0001', 4, '2026-07-14 06:53:25', '2026-07-14 06:53:25'),
+(83, NULL, 1, 5, NULL, NULL, 'OUT', -107.0000, 11598.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
+(84, 12, NULL, 5, NULL, NULL, 'OUT', -1280.0000, 343600.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
+(85, 13, NULL, 5, NULL, NULL, 'OUT', -500.0000, 47400.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
+(86, 15, NULL, 5, NULL, NULL, 'OUT', -200.0000, 49000.0000, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
+(87, 17, NULL, 5, NULL, NULL, 'OUT', -4.0000, 3942.4432, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
+(88, 18, NULL, 5, NULL, NULL, 'OUT', -4.0000, 3964.2217, 'Consumed in production batch #ADH-20260714-0002', 4, '2026-07-14 06:54:08', '2026-07-14 06:54:08'),
+(89, NULL, 1, 6, NULL, NULL, 'OUT', -104.0000, 11494.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
+(90, 12, NULL, 6, NULL, NULL, 'OUT', -1280.0000, 342320.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
+(91, 13, NULL, 6, NULL, NULL, 'OUT', -500.0000, 46900.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
+(92, 15, NULL, 6, NULL, NULL, 'OUT', -200.0000, 48800.0000, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
+(93, 17, NULL, 6, NULL, NULL, 'OUT', -4.0000, 3938.4432, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
+(94, 18, NULL, 6, NULL, NULL, 'OUT', -4.0000, 3960.2217, 'Consumed in production batch #ADH-20260714-0003', 4, '2026-07-14 06:54:24', '2026-07-14 06:54:24'),
+(95, NULL, 2, 7, NULL, NULL, 'OUT', -101.0000, 11799.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
+(96, 12, NULL, 7, NULL, NULL, 'OUT', -1280.0000, 341040.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
+(97, 13, NULL, 7, NULL, NULL, 'OUT', -600.0000, 46300.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
+(98, 15, NULL, 7, NULL, NULL, 'OUT', -200.0000, 48600.0000, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
+(99, 17, NULL, 7, NULL, NULL, 'OUT', -10.0000, 3928.4432, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
+(100, 18, NULL, 7, NULL, NULL, 'OUT', -4.0000, 3956.2217, 'Consumed in production batch #ADH-20260714-0004', 4, '2026-07-14 06:54:51', '2026-07-14 06:54:51'),
+(101, NULL, 2, 8, NULL, NULL, 'OUT', -106.0000, 11693.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
+(102, 12, NULL, 8, NULL, NULL, 'OUT', -1280.0000, 339760.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
+(103, 13, NULL, 8, NULL, NULL, 'OUT', -600.0000, 45700.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
+(104, 15, NULL, 8, NULL, NULL, 'OUT', -200.0000, 48400.0000, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
+(105, 17, NULL, 8, NULL, NULL, 'OUT', -10.0000, 3918.4432, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
+(106, 18, NULL, 8, NULL, NULL, 'OUT', -4.0000, 3952.2217, 'Consumed in production batch #ADH-20260714-0005', 4, '2026-07-14 06:55:11', '2026-07-14 06:55:11'),
+(107, NULL, 2, 9, NULL, NULL, 'OUT', -106.0000, 11587.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
+(108, 12, NULL, 9, NULL, NULL, 'OUT', -1280.0000, 338480.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
+(109, 13, NULL, 9, NULL, NULL, 'OUT', -600.0000, 45100.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
+(110, 15, NULL, 9, NULL, NULL, 'OUT', -200.0000, 48200.0000, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
+(111, 17, NULL, 9, NULL, NULL, 'OUT', -10.0000, 3908.4432, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
+(112, 18, NULL, 9, NULL, NULL, 'OUT', -4.0000, 3948.2217, 'Consumed in production batch #ADH-20260714-0006', 4, '2026-07-14 06:55:28', '2026-07-14 06:55:28'),
+(113, NULL, 2, 10, NULL, NULL, 'OUT', -108.0000, 11479.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(114, 12, NULL, 10, NULL, NULL, 'OUT', -1280.0000, 337200.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(115, 13, NULL, 10, NULL, NULL, 'OUT', -600.0000, 44500.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(116, 15, NULL, 10, NULL, NULL, 'OUT', -200.0000, 48000.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(117, 17, NULL, 10, NULL, NULL, 'OUT', -10.0000, 3898.4432, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(118, 18, NULL, 10, NULL, NULL, 'OUT', -4.0000, 3944.2217, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(119, 10, NULL, 10, NULL, NULL, 'OUT', -108.0000, 2892.0000, 'Consumed in production batch #ADH-20260714-0007', 4, '2026-07-14 06:55:58', '2026-07-14 06:55:58'),
+(120, NULL, 2, 11, NULL, NULL, 'OUT', -108.0000, 11371.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(121, 12, NULL, 11, NULL, NULL, 'OUT', -1280.0000, 335920.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(122, 13, NULL, 11, NULL, NULL, 'OUT', -600.0000, 43900.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(123, 15, NULL, 11, NULL, NULL, 'OUT', -200.0000, 47800.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(124, 17, NULL, 11, NULL, NULL, 'OUT', -10.0000, 3888.4432, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(125, 18, NULL, 11, NULL, NULL, 'OUT', -4.0000, 3940.2217, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(126, 10, NULL, 11, NULL, NULL, 'OUT', -108.0000, 2784.0000, 'Consumed in production batch #ADH-20260714-0008', 4, '2026-07-14 06:56:18', '2026-07-14 06:56:18'),
+(127, NULL, 2, 12, NULL, NULL, 'OUT', -106.0000, 11265.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(128, 12, NULL, 12, NULL, NULL, 'OUT', -1280.0000, 334640.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(129, 13, NULL, 12, NULL, NULL, 'OUT', -600.0000, 43300.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(130, 15, NULL, 12, NULL, NULL, 'OUT', -200.0000, 47600.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(131, 17, NULL, 12, NULL, NULL, 'OUT', -10.0000, 3878.4432, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(132, 18, NULL, 12, NULL, NULL, 'OUT', -4.0000, 3936.2217, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(133, 10, NULL, 12, NULL, NULL, 'OUT', -106.0000, 2678.0000, 'Consumed in production batch #ADH-20260714-0009', 4, '2026-07-14 06:56:45', '2026-07-14 06:56:45'),
+(134, NULL, 2, 13, NULL, NULL, 'OUT', -107.0000, 11158.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
+(135, 12, NULL, 13, NULL, NULL, 'OUT', -1280.0000, 333360.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
+(136, 13, NULL, 13, NULL, NULL, 'OUT', -600.0000, 42700.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
+(137, 15, NULL, 13, NULL, NULL, 'OUT', -200.0000, 47400.0000, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
+(138, 17, NULL, 13, NULL, NULL, 'OUT', -10.0000, 3868.4432, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
+(139, 18, NULL, 13, NULL, NULL, 'OUT', -4.0000, 3932.2217, 'Consumed in production batch #ADH-20260714-0010', 4, '2026-07-14 06:57:08', '2026-07-14 06:57:08'),
+(140, NULL, 1, 14, NULL, NULL, 'OUT', -162.0000, 11332.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
+(141, 12, NULL, 14, NULL, NULL, 'OUT', -1280.0000, 332080.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
+(142, 13, NULL, 14, NULL, NULL, 'OUT', -500.0000, 42200.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
+(143, 15, NULL, 14, NULL, NULL, 'OUT', -200.0000, 47200.0000, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
+(144, 17, NULL, 14, NULL, NULL, 'OUT', -4.0000, 3864.4432, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
+(145, 18, NULL, 14, NULL, NULL, 'OUT', -4.0000, 3928.2217, 'Consumed in production batch #ADH-20260714-0011', 4, '2026-07-14 07:00:16', '2026-07-14 07:00:16'),
+(146, NULL, 1, 15, NULL, NULL, 'OUT', -102.0000, 11230.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
+(147, 12, NULL, 15, NULL, NULL, 'OUT', -1280.0000, 330800.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
+(148, 13, NULL, 15, NULL, NULL, 'OUT', -500.0000, 41700.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
+(149, 15, NULL, 15, NULL, NULL, 'OUT', -200.0000, 47000.0000, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
+(150, 17, NULL, 15, NULL, NULL, 'OUT', -4.0000, 3860.4432, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
+(151, 18, NULL, 15, NULL, NULL, 'OUT', -4.0000, 3924.2217, 'Consumed in production batch #ADH-20260714-0012', 4, '2026-07-14 07:00:36', '2026-07-14 07:00:36'),
+(152, NULL, 1, 16, NULL, NULL, 'OUT', -102.0000, 11128.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
+(153, 12, NULL, 16, NULL, NULL, 'OUT', -1280.0000, 329520.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
+(154, 13, NULL, 16, NULL, NULL, 'OUT', -500.0000, 41200.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
+(155, 15, NULL, 16, NULL, NULL, 'OUT', -200.0000, 46800.0000, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
+(156, 17, NULL, 16, NULL, NULL, 'OUT', -4.0000, 3856.4432, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
+(157, 18, NULL, 16, NULL, NULL, 'OUT', -4.0000, 3920.2217, 'Consumed in production batch #ADH-20260714-0013', 4, '2026-07-14 07:00:56', '2026-07-14 07:00:56'),
+(158, NULL, 1, 17, NULL, NULL, 'OUT', -103.0000, 11025.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
+(159, 12, NULL, 17, NULL, NULL, 'OUT', -1280.0000, 328240.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
+(160, 13, NULL, 17, NULL, NULL, 'OUT', -500.0000, 40700.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
+(161, 15, NULL, 17, NULL, NULL, 'OUT', -200.0000, 46600.0000, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
+(162, 17, NULL, 17, NULL, NULL, 'OUT', -4.0000, 3852.4432, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
+(163, 18, NULL, 17, NULL, NULL, 'OUT', -4.0000, 3916.2217, 'Consumed in production batch #ADH-20260714-0014', 4, '2026-07-14 07:01:16', '2026-07-14 07:01:16'),
+(164, NULL, 3, 18, NULL, NULL, 'OUT', -115.0000, 11885.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(165, 12, NULL, 18, NULL, NULL, 'OUT', -1280.0000, 326960.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(166, 13, NULL, 18, NULL, NULL, 'OUT', -700.0000, 40000.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(167, 15, NULL, 18, NULL, NULL, 'OUT', -200.0000, 46400.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(168, 17, NULL, 18, NULL, NULL, 'OUT', -28.0000, 3824.4432, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(169, 18, NULL, 18, NULL, NULL, 'OUT', -6.0000, 3910.2217, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(170, 19, NULL, 18, NULL, NULL, 'OUT', -2.0000, 1998.0000, 'Consumed in production batch #ADH-20260714-0015', 4, '2026-07-14 07:01:47', '2026-07-14 07:01:47'),
+(171, NULL, 3, 19, NULL, NULL, 'OUT', -112.0000, 11773.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(172, 12, NULL, 19, NULL, NULL, 'OUT', -1280.0000, 325680.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(173, 13, NULL, 19, NULL, NULL, 'OUT', -700.0000, 39300.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(174, 15, NULL, 19, NULL, NULL, 'OUT', -200.0000, 46200.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(175, 17, NULL, 19, NULL, NULL, 'OUT', -28.0000, 3796.4432, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(176, 18, NULL, 19, NULL, NULL, 'OUT', -6.0000, 3904.2217, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(177, 19, NULL, 19, NULL, NULL, 'OUT', -2.0000, 1996.0000, 'Consumed in production batch #ADH-20260714-0016', 4, '2026-07-14 07:02:07', '2026-07-14 07:02:07'),
+(178, 12, NULL, NULL, NULL, NULL, 'ADJUSTMENT', 350000.0000, 675680.0000, 'Adjustment: new', 2, '2026-07-22 11:21:59', '2026-07-22 11:21:59'),
+(179, NULL, 1, 20, NULL, NULL, 'OUT', -98.0000, 10927.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
+(180, 12, NULL, 20, NULL, NULL, 'OUT', -1280.0000, 674400.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
+(181, 13, NULL, 20, NULL, NULL, 'OUT', -500.0000, 38800.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
+(182, 15, NULL, 20, NULL, NULL, 'OUT', -200.0000, 46000.0000, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
+(183, 17, NULL, 20, NULL, NULL, 'OUT', -4.0000, 3792.4432, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
+(184, 18, NULL, 20, NULL, NULL, 'OUT', -4.0000, 3900.2217, 'Consumed in production batch #ADH-20260722-0001', 2, '2026-07-22 11:24:51', '2026-07-22 11:24:51'),
+(185, NULL, 21, NULL, NULL, NULL, 'ADJUSTMENT', 1000.0000, 1150.0000, 'Adjustment: sbc', 2, '2026-07-22 11:28:52', '2026-07-22 11:28:52'),
+(186, NULL, 21, NULL, NULL, NULL, 'OUT', -500.0000, 650.0000, 'Formula consumed to prepare 500 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
+(187, 81, NULL, NULL, NULL, NULL, 'OUT', -50.0000, 450.0000, 'Formula consumed to prepare 500 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
+(188, 79, NULL, NULL, NULL, NULL, 'IN', 500.0000, 500.0000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:38:20', '2026-07-22 11:38:20'),
+(189, 80, NULL, NULL, NULL, NULL, 'OUT', -20.0000, 480.0000, 'Formula consumed to prepare 100 units of component: 200GM RESIN BOTTLE FINISH', 2, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
+(190, NULL, 22, NULL, NULL, NULL, 'OUT', -100.0000, 50.0000, 'Formula consumed to prepare 100 units of component: 200GM RESIN BOTTLE FINISH', 2, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
+(191, 82, NULL, NULL, NULL, NULL, 'IN', 100.0000, 100.0000, 'Prepared component stock increment: 200GM RESIN BOTTLE FINISH', 2, '2026-07-22 11:41:05', '2026-07-22 11:41:05'),
+(192, NULL, 9, NULL, NULL, NULL, 'ADJUSTMENT', 50000.0000, 50050.0000, 'Adjustment: NEW', 2, '2026-07-22 11:46:45', '2026-07-22 11:46:45'),
+(193, 44, NULL, NULL, NULL, NULL, 'OUT', -70.0000, 860.0000, 'Formula consumed to prepare 100 units of component: 700gm Black Filler Pouch', 2, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
+(194, NULL, 9, NULL, NULL, NULL, 'OUT', -100.0000, 49950.0000, 'Formula consumed to prepare 100 units of component: 700gm Black Filler Pouch', 2, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
+(195, 45, NULL, NULL, NULL, NULL, 'IN', 100.0000, 110.0000, 'Prepared component stock increment: 700gm Black Filler Pouch', 2, '2026-07-22 11:47:04', '2026-07-22 11:47:04'),
+(196, NULL, 21, NULL, NULL, NULL, 'OUT', -100.0000, 550.0000, 'Formula consumed to prepare 100 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
+(197, 81, NULL, NULL, NULL, NULL, 'OUT', -10.0000, 440.0000, 'Formula consumed to prepare 100 units of component: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
+(198, 79, NULL, NULL, NULL, NULL, 'IN', 100.0000, 600.0000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE FINISH', 2, '2026-07-22 11:48:11', '2026-07-22 11:48:11'),
+(199, NULL, 24, NULL, NULL, NULL, 'ADJUSTMENT', 12.0000, 162.0000, 'Manual Stock Adjustment', 2, '2026-07-23 06:20:44', '2026-07-23 06:20:44'),
+(200, NULL, 14, NULL, NULL, NULL, 'ADJUSTMENT', 500.0000, 500.0000, 'Manual Stock Adjustment', 2, '2026-07-23 08:32:34', '2026-07-23 08:32:34'),
+(201, NULL, 46, NULL, NULL, NULL, 'ADJUSTMENT', 500.0000, 500.0000, 'Manual Stock Adjustment', 2, '2026-07-23 08:32:49', '2026-07-23 08:32:49'),
+(202, NULL, 46, NULL, NULL, NULL, 'OUT', -10.0000, 490.0000, 'Formula consumed to prepare 10 units of component: Clip Box 2MM', 2, '2026-07-23 08:33:21', '2026-07-23 08:33:21'),
+(203, NULL, 14, NULL, NULL, NULL, 'OUT', -250.0000, 250.0000, 'Formula consumed to prepare 10 units of component: Clip Box 2MM', 2, '2026-07-23 08:33:21', '2026-07-23 08:33:21');
 
 -- --------------------------------------------------------
 
@@ -2628,9 +2784,9 @@ CREATE TABLE IF NOT EXISTS `user_devices` (
 --
 
 INSERT INTO `user_devices` (`id`, `user_id`, `device_token`, `browser_name`, `platform`, `device_name`, `ip_address`, `last_seen_at`, `created_at`, `updated_at`) VALUES
-(11, 2, 'eWTgtqTgX8Dkh2kYVh0mAf:APA91bEPWso69iKVqxu8hq5KovBZ-vH9ldOn1_9hUD7bYPrnAAs4kPr9J-2mTz_Sgv4B5oA4EN4gqygkMYrilgA1hDTeulJtfNJe8XW-rbyEjZVvro-yylg', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-07-13 17:45:25', '2026-07-13 17:31:36', '2026-07-22 12:23:02'),
-(15, 5, 'fWxRteuaA-PujAMwj-Xg91:APA91bH9-2TtN04hCOiSZJ41PQvx5gd_fCapf-h_XMHoohQ4QUw7P7IuM1adTCrackhD3i0u5Y6CnhU3KR6otXBbBD_sYnAa54Mjequ9f-YScY4nvZENLIA', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 05:31:17', '2026-07-14 04:08:17', '2026-07-22 12:05:34'),
-(16, 2, 'fNt_KFUT6XNTOXVIVN-0GG:APA91bE65XShho_FVF0XHLtJQA_xzzaQTOzcRdp9Y6HqSg7sWviBBAemAx5mhzD_xqQo1ELaGpjYsJr6YdQqvK9JpsS1d66WE8tZUGl0bd0DA2uqPA2ZwrE', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-07-23 06:41:52', '2026-07-14 06:52:45', '2026-07-23 06:41:52'),
+(11, 2, 'eWTgtqTgX8Dkh2kYVh0mAf:APA91bEPWso69iKVqxu8hq5KovBZ-vH9ldOn1_9hUD7bYPrnAAs4kPr9J-2mTz_Sgv4B5oA4EN4gqygkMYrilgA1hDTeulJtfNJe8XW-rbyEjZVvro-yylg', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-07-13 17:45:25', '2026-07-13 17:31:36', '2026-07-23 10:26:52'),
+(15, 5, 'fWxRteuaA-PujAMwj-Xg91:APA91bH9-2TtN04hCOiSZJ41PQvx5gd_fCapf-h_XMHoohQ4QUw7P7IuM1adTCrackhD3i0u5Y6CnhU3KR6otXBbBD_sYnAa54Mjequ9f-YScY4nvZENLIA', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 05:31:17', '2026-07-14 04:08:17', '2026-07-23 10:26:16'),
+(16, 2, 'fNt_KFUT6XNTOXVIVN-0GG:APA91bE65XShho_FVF0XHLtJQA_xzzaQTOzcRdp9Y6HqSg7sWviBBAemAx5mhzD_xqQo1ELaGpjYsJr6YdQqvK9JpsS1d66WE8tZUGl0bd0DA2uqPA2ZwrE', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-07-23 10:41:49', '2026-07-14 06:52:45', '2026-07-23 10:41:49'),
 (17, 1, 'foB_yuuHGmg3DfZLjiMyzq:APA91bE7L0Vy50lBEMzxf5KAbnQnNG60r2fyNKNhCmLkRjfqikVSnqHI7glns7xBBa9XY4j4Bu5gxKaxHYojCJe7_7vLUokvw1QSLYSa1EDy0zLh-awDi5c', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 11:56:53', '2026-07-14 11:56:53', '2026-07-14 11:56:53'),
 (18, 1, 'foB_yuuHGmg3DfZLjiMyzq:APA91bF5dqYBWAgI5-j0kMQlqBggasoEf77uL8M5qWmaWuWgiUPvqLc-pcagHFjhzdY4rEtigKjTlpIG_bdX3qFHbC2X5srs_gXgsdFgJ4DjBP7e3-8jcv4', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 11:59:53', '2026-07-14 11:56:53', '2026-07-14 11:59:53');
 COMMIT;

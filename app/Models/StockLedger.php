@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
     'raw_material_id',
+    'packing_material_id',
     'batch_id',
     'grout_batch_id',
     'epoxy_assembly_id',
@@ -38,6 +39,14 @@ class StockLedger extends Model
     public function rawMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class);
+    }
+
+    /**
+     * Get the packing material associated with this ledger entry.
+     */
+    public function packingMaterial(): BelongsTo
+    {
+        return $this->belongsTo(PackingMaterial::class, 'packing_material_id');
     }
 
     /**

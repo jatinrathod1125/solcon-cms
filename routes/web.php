@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::get('raw-materials/export', [\App\Http\Controllers\Admin\RawMaterialController::class, 'exportCsv'])->name('admin.raw-materials.export');
         Route::post('raw-materials/import', [\App\Http\Controllers\Admin\RawMaterialController::class, 'importCsv'])->name('admin.raw-materials.import');
         Route::resource('raw-materials', \App\Http\Controllers\Admin\RawMaterialController::class)->names('admin.raw-materials');
+        Route::get('packing-materials/export', [\App\Http\Controllers\Admin\PackingMaterialController::class, 'exportCsv'])->name('admin.packing-materials.export');
+        Route::post('packing-materials/import', [\App\Http\Controllers\Admin\PackingMaterialController::class, 'importCsv'])->name('admin.packing-materials.import');
+        Route::resource('packing-materials', \App\Http\Controllers\Admin\PackingMaterialController::class)->names('admin.packing-materials');
         Route::resource('grades', \App\Http\Controllers\Admin\GradeController::class)->names('admin.grades');
         Route::resource('formulas', \App\Http\Controllers\Admin\FormulaController::class)->names('admin.formulas');
         Route::resource('grout-colors', \App\Http\Controllers\Admin\ColorController::class)->names('admin.grout-colors');
@@ -122,11 +125,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{batch}/timer', [\App\Http\Controllers\GroutProductionController::class, 'getTimerStatus'])->name('grout-production.timer-status');
     });
 
-    // Supervisor Protected Routes
-    Route::middleware(['role:supervisor', 'department.access'])->prefix('supervisor')->group(function () {
+    // Supervisor Protected Routes (Accessible by Admin and Supervisor)
+    Route::middleware(['role:admin,supervisor', 'department.access'])->prefix('supervisor')->group(function () {
         Route::get('/dashboard', [SupervisorDashboardController::class, 'index'])->name('supervisor.dashboard');
         Route::get('/dashboard/machines', [SupervisorDashboardController::class, 'liveMachines'])->name('supervisor.dashboard.machines');
         Route::get('/orders', [SupervisorDashboardController::class, 'orders'])->name('supervisor.orders');
+        Route::post('/orders/{order}/ready-to-dispatch', [SupervisorDashboardController::class, 'readyToDispatch'])->name('supervisor.orders.ready-to-dispatch');
     });
 
     // Epoxy Assembly Routes (Accessible by Admin and Supervisor)

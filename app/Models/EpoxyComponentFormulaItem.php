@@ -10,6 +10,7 @@ class EpoxyComponentFormulaItem extends Model
     protected $fillable = [
         'epoxy_component_formula_id',
         'raw_material_id',
+        'packing_material_id',
         'quantity',
         'unit_id',
     ];
@@ -35,6 +36,14 @@ class EpoxyComponentFormulaItem extends Model
     }
 
     /**
+     * Get the packing material.
+     */
+    public function packingMaterial(): BelongsTo
+    {
+        return $this->belongsTo(PackingMaterial::class, 'packing_material_id');
+    }
+
+    /**
      * Get the unit.
      */
     public function unit(): BelongsTo
@@ -42,3 +51,4 @@ class EpoxyComponentFormulaItem extends Model
         return $this->belongsTo(Unit::class, 'unit_id');
     }
 }
+

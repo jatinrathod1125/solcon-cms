@@ -28,7 +28,18 @@ class DispatchController extends Controller
     {
         $metrics = $this->dispatchService->getDashboardMetrics();
 
+        $user = auth()->user();
         $query = Dispatch::with(['items', 'creator', 'releaser', 'loader'])->orderByDesc('id');
+
+        // Non-admin users (Marketing role) only see dispatches created by or containing orders created by themselves
+        if (!$user->isAdmin()) {
+            $query->where(function ($q) use ($user) {
+                $q->where('created_by', $user->id)
+                  ->orWhereHas('items.order', function ($oq) use ($user) {
+                      $oq->where('created_by', $user->id);
+                  });
+            });
+        }
 
         // Search filter
         if ($search = $request->input('search')) {
@@ -416,7 +427,18 @@ class DispatchController extends Controller
      */
     public function reports(Request $request)
     {
+        $user = auth()->user();
         $query = Dispatch::with(['items', 'creator', 'releaser', 'loader'])->orderByDesc('id');
+
+        // Non-admin users (Marketing role) only see dispatch reports created by or containing orders created by themselves
+        if (!$user->isAdmin()) {
+            $query->where(function ($q) use ($user) {
+                $q->where('created_by', $user->id)
+                  ->orWhereHas('items.order', function ($oq) use ($user) {
+                      $oq->where('created_by', $user->id);
+                  });
+            });
+        }
 
         if ($vehicle = $request->input('vehicle')) {
             $query->where('vehicle_number', 'like', "%{$vehicle}%");

@@ -165,11 +165,19 @@ class DispatchLoadingService
                 break;
         }
 
-        if ($item->packing) {
-            $fgQuery->where('packing', $item->packing);
+        $finishedGood = null;
+        if ($item->orderItem) {
+            $finishedGood = $item->orderItem->findFinishedGood();
         }
 
-        $finishedGood = $fgQuery->first();
+        if (!$finishedGood) {
+            if ($item->packing) {
+                $exactMatch = (clone $fgQuery)->where('packing', $item->packing)->first();
+                $finishedGood = $exactMatch ?: $fgQuery->first();
+            } else {
+                $finishedGood = $fgQuery->first();
+            }
+        }
 
         if ($finishedGood) {
             $this->finishedGoodsService->adjustStock(

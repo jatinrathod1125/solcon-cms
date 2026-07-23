@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
     'raw_material_id',
+    'packing_material_id',
     'quantity',
     'remarks',
     'created_by',
@@ -32,6 +33,14 @@ class StockAdjustment extends Model
     public function rawMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class);
+    }
+
+    /**
+     * Get the packing material associated with this stock adjustment.
+     */
+    public function packingMaterial(): BelongsTo
+    {
+        return $this->belongsTo(PackingMaterial::class, 'packing_material_id');
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\EpoxyComponent;
 use App\Models\EpoxyComponentFormula;
 use App\Models\EpoxyComponentFormulaItem;
 use App\Models\RawMaterial;
+use App\Models\PackingMaterial;
 use App\Models\Department;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -36,10 +37,11 @@ class EpoxyComponentFormulaController extends Controller
                 ->get();
         }
 
+        $packingMaterials = PackingMaterial::where('status', 'active')->with('category')->orderBy('name')->get();
         $units = Unit::where('is_active', true)->orderBy('name')->get();
         $preselectedComponentId = $request->query('component_id');
 
-        return view('admin.epoxy_component_formulas.create', compact('components', 'rawMaterials', 'units', 'preselectedComponentId'));
+        return view('admin.epoxy_component_formulas.create', compact('components', 'rawMaterials', 'packingMaterials', 'units', 'preselectedComponentId'));
     }
 
     public function store(Request $request)
@@ -50,7 +52,9 @@ class EpoxyComponentFormulaController extends Controller
             'is_active' => 'boolean',
             'description' => 'nullable|string',
             'items' => 'required|array|min:1',
-            'items.*.raw_material_id' => 'required|exists:raw_materials,id',
+            'items.*.item_type' => 'required|in:raw,packing',
+            'items.*.raw_material_id' => 'required_if:items.*.item_type,raw|nullable|exists:raw_materials,id',
+            'items.*.packing_material_id' => 'required_if:items.*.item_type,packing|nullable|exists:packing_materials,id',
             'items.*.quantity' => 'required|numeric|min:0.0001',
             'items.*.unit_id' => 'required|exists:units,id',
         ]);
@@ -71,9 +75,11 @@ class EpoxyComponentFormulaController extends Controller
             ]);
 
             foreach ($request->items as $item) {
+                $isPacking = isset($item['item_type']) && $item['item_type'] === 'packing';
                 EpoxyComponentFormulaItem::create([
                     'epoxy_component_formula_id' => $formula->id,
-                    'raw_material_id' => $item['raw_material_id'],
+                    'raw_material_id' => !$isPacking ? ($item['raw_material_id'] ?? null) : null,
+                    'packing_material_id' => $isPacking ? ($item['packing_material_id'] ?? null) : null,
                     'quantity' => $item['quantity'],
                     'unit_id' => $item['unit_id'],
                 ]);
@@ -85,7 +91,7 @@ class EpoxyComponentFormulaController extends Controller
 
     public function show(EpoxyComponentFormula $epoxyComponentFormula)
     {
-        $epoxyComponentFormula->load(['component', 'items.rawMaterial', 'items.unit']);
+        $epoxyComponentFormula->load(['component', 'items.rawMaterial', 'items.packingMaterial', 'items.unit']);
         return view('admin.epoxy_component_formulas.show', compact('epoxyComponentFormula'));
     }
 
@@ -103,10 +109,11 @@ class EpoxyComponentFormulaController extends Controller
                 ->get();
         }
 
+        $packingMaterials = PackingMaterial::where('status', 'active')->with('category')->orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
-        $epoxyComponentFormula->load('items');
+        $epoxyComponentFormula->load(['items.rawMaterial', 'items.packingMaterial']);
 
-        return view('admin.epoxy_component_formulas.edit', compact('epoxyComponentFormula', 'components', 'rawMaterials', 'units'));
+        return view('admin.epoxy_component_formulas.edit', compact('epoxyComponentFormula', 'components', 'rawMaterials', 'packingMaterials', 'units'));
     }
 
     public function update(Request $request, EpoxyComponentFormula $epoxyComponentFormula)
@@ -117,7 +124,9 @@ class EpoxyComponentFormulaController extends Controller
             'is_active' => 'boolean',
             'description' => 'nullable|string',
             'items' => 'required|array|min:1',
-            'items.*.raw_material_id' => 'required|exists:raw_materials,id',
+            'items.*.item_type' => 'required|in:raw,packing',
+            'items.*.raw_material_id' => 'required_if:items.*.item_type,raw|nullable|exists:raw_materials,id',
+            'items.*.packing_material_id' => 'required_if:items.*.item_type,packing|nullable|exists:packing_materials,id',
             'items.*.quantity' => 'required|numeric|min:0.0001',
             'items.*.unit_id' => 'required|exists:units,id',
         ]);
@@ -141,9 +150,11 @@ class EpoxyComponentFormulaController extends Controller
             $epoxyComponentFormula->items()->delete();
 
             foreach ($request->items as $item) {
+                $isPacking = isset($item['item_type']) && $item['item_type'] === 'packing';
                 EpoxyComponentFormulaItem::create([
                     'epoxy_component_formula_id' => $epoxyComponentFormula->id,
-                    'raw_material_id' => $item['raw_material_id'],
+                    'raw_material_id' => !$isPacking ? ($item['raw_material_id'] ?? null) : null,
+                    'packing_material_id' => $isPacking ? ($item['packing_material_id'] ?? null) : null,
                     'quantity' => $item['quantity'],
                     'unit_id' => $item['unit_id'],
                 ]);
@@ -159,3 +170,4 @@ class EpoxyComponentFormulaController extends Controller
         return redirect()->route('admin.epoxy-component-formulas.index')->with('success', 'Component Formula deleted successfully.');
     }
 }
+
