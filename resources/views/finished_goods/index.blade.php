@@ -12,6 +12,11 @@
             <p class="text-xs font-semibold text-slate-400">Total list of products held in finished goods warehouse, mapped directly to production output.</p>
         </div>
         <div class="flex flex-wrap gap-2">
+            @if(auth()->user()->isAdmin())
+                <button onclick="openCreateModal()" class="erp-button bg-blue-650 text-white hover:bg-blue-600">
+                    <i data-lucide="plus" class="w-4 h-4"></i>Add Finished Good
+                </button>
+            @endif
             <button onclick="openImportModal()" class="erp-button border border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
                 <i data-lucide="upload-cloud" class="w-4 h-4"></i>Import CSV
             </button>
@@ -204,17 +209,139 @@
                 <span class="text-slate-400 text-[10px] mt-0.5">Maximum size 4MB</span>
             </div>
 
+        </form>
+    </div>
+</div>
+
+@if(auth()->user()->isAdmin())
+<!-- PREMIUM CREATE FINISHED GOOD MODAL (ADMIN ONLY) -->
+<div id="createModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-100 rounded-3xl p-6 w-full max-w-lg shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <button onclick="closeCreateModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition p-1.5 rounded-full hover:bg-slate-100">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="flex items-center gap-3 mb-4">
+            <div class="p-2.5 bg-blue-50 rounded-2xl">
+                <i data-lucide="package-plus" class="w-5 h-5 text-blue-650"></i>
+            </div>
+            <div>
+                <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest">Manual Creation</h3>
+                <p class="text-sm font-black text-slate-800">Add New Finished Good</p>
+            </div>
+        </div>
+
+        <form id="createForm" method="POST" action="{{ route('finished-goods.store') }}" class="space-y-4 text-xs">
+            @csrf
+
+            <!-- Department Selection -->
+            <div>
+                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Department <span class="text-rose-500">*</span></label>
+                <select name="department_id" id="createDepartmentId" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50" required onchange="handleDepartmentChange()">
+                    @foreach($departments as $dept)
+                        <option value="{{ $dept->id }}" data-code="{{ strtoupper($dept->code) }}" {{ strtoupper($dept->code) === 'TAD' ? 'selected' : '' }}>
+                            {{ $dept->name }} ({{ $dept->code }})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Select Existing Product Container -->
+            <div id="fieldGradeSelect">
+                <!-- Grade Select (Adhesive) -->
+                <div id="containerGradeSelect">
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Adhesive Product Grade <span class="text-rose-500">*</span></label>
+                    <select name="grade_id" id="createGradeId" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                        <option value="">Select Adhesive Product...</option>
+                        @foreach($grades as $grade)
+                            <option value="{{ $grade->id }}" data-bag-name="{{ $grade->bagSize ? $grade->bagSize->name : '20 KG Bag' }}">
+                                {{ $grade->name }} ({{ $grade->code }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Color Select (Grout) -->
+                <div id="containerColorSelect" class="hidden">
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Grout Product / Color <span class="text-rose-500">*</span></label>
+                    <select name="color_id" id="createColorId" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                        <option value="">Select Grout Color...</option>
+                        @foreach($colors as $color)
+                            <option value="{{ $color->id }}" data-bag-name="{{ $color->packing_size ?: '1 KG Pouch' }}">
+                                {{ $color->name }} ({{ $color->code }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Epoxy Product Select (Epoxy) -->
+                <div id="containerEpoxySelect" class="hidden">
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Epoxy Product <span class="text-rose-500">*</span></label>
+                    <select name="epoxy_product_id" id="createEpoxyProductId" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                        <option value="">Select Epoxy Product...</option>
+                        @foreach($epoxyProducts as $ep)
+                            <option value="{{ $ep->id }}">
+                                {{ $ep->name }} ({{ $ep->code }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Optional Coupon Raw Material (Adhesive only) -->
+            <div id="containerCouponSelect">
+                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Coupon Raw Material (Optional)</label>
+                <select name="coupon_raw_material_id" id="createCouponId" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option value="">No Coupon Attached</option>
+                    @foreach($couponMaterials as $coupon)
+                        <option value="{{ $coupon->id }}">{{ $coupon->name }} ({{ $coupon->code }})</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Packing & Minimum Stock Grid -->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Packing Size <span class="text-rose-500">*</span></label>
+                    <input type="text" name="packing" id="createPacking" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="e.g. 20 KG Bag" required>
+                </div>
+                <div>
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Min Stock Alert Limit</label>
+                    <input type="number" name="minimum_stock" value="20" min="0" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" required>
+                </div>
+            </div>
+
+            <!-- Quantity & Weight Grid -->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Initial Bags / Units <span class="text-rose-500">*</span></label>
+                    <input type="number" name="available_bags" id="createBags" min="0" value="0" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" required>
+                </div>
+                <div>
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Initial Weight (KG)</label>
+                    <input type="number" step="0.0001" name="available_weight" id="createWeight" min="0" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Auto-calculated">
+                </div>
+            </div>
+
+            <!-- Remarks -->
+            <div>
+                <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[9px]">Remarks / Log Notes</label>
+                <textarea name="remarks" rows="2" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Initial creation details (optional)..."></textarea>
+            </div>
+
+            <!-- Actions -->
             <div class="pt-2 border-t border-slate-100 flex justify-end gap-2">
-                <button type="button" onclick="closeImportModal()" class="erp-button border border-slate-200 text-slate-650 hover:bg-slate-50">
+                <button type="button" onclick="closeCreateModal()" class="erp-button border border-slate-200 text-slate-650 hover:bg-slate-50">
                     Cancel
                 </button>
-                <button type="submit" class="erp-button bg-slate-900 text-white hover:bg-slate-800">
-                    Upload & Import
+                <button type="submit" class="erp-button bg-blue-650 text-white hover:bg-blue-600">
+                    Create Finished Good
                 </button>
             </div>
         </form>
     </div>
 </div>
+@endif
 @endsection
 
 @section('scripts')
@@ -255,9 +382,50 @@ $(function() {
         reloadTable();
     });
 
+    $('#createGradeId, #createColorId').on('change', function() {
+        const selected = $(this).find('option:selected');
+        const bagName = selected.data('bag-name');
+        if (bagName && !$('#createPacking').val()) {
+            $('#createPacking').val(bagName);
+        }
+    });
+
     bindPagination();
     toggleTypeCards('increase'); // initial load state for cards
+    handleDepartmentChange();
 });
+
+function handleDepartmentChange() {
+    const selectedOption = $('#createDepartmentId').find('option:selected');
+    const code = (selectedOption.data('code') || '').toString().toUpperCase();
+
+    // Reset selects
+    $('#createGradeId, #createColorId, #createEpoxyProductId').val('').prop('required', false);
+
+    if (code === 'GRT') {
+        $('#containerGradeSelect, #containerEpoxySelect, #containerCouponSelect').addClass('hidden');
+        $('#containerColorSelect').removeClass('hidden');
+        $('#createColorId').prop('required', true);
+    } else if (code === 'EPX' || code === 'EP') {
+        $('#containerGradeSelect, #containerColorSelect, #containerCouponSelect').addClass('hidden');
+        $('#containerEpoxySelect').removeClass('hidden');
+        $('#createEpoxyProductId').prop('required', true);
+    } else { // TAD or default Adhesive
+        $('#containerColorSelect, #containerEpoxySelect').addClass('hidden');
+        $('#containerGradeSelect, #containerCouponSelect').removeClass('hidden');
+        $('#createGradeId').prop('required', true);
+    }
+}
+
+function openCreateModal() {
+    $('#createForm')[0].reset();
+    handleDepartmentChange();
+    $('#createModal').removeClass('hidden');
+}
+
+function closeCreateModal() {
+    $('#createModal').addClass('hidden');
+}
 
 function toggleTypeCards(type) {
     if (type === 'increase') {

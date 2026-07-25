@@ -118,11 +118,21 @@ class MarketingOrderItem extends Model
     }
 
     /**
-     * Get unit label: Buckets for Epoxy / Buckets, Bags for Adhesive & Grout.
+     * Get unit label: Box for Boxes, Bucket for Epoxy Buckets, Bag for Adhesive & Grout, Pcs/Pouch for components.
      */
     public function getUnitLabelAttribute(): string
     {
-        if ($this->department_code === 'EPX' || str_contains(strtolower($this->packing ?? ''), 'bucket')) {
+        $packing = strtolower($this->packing ?? '');
+        if (str_contains($packing, 'box')) {
+            return $this->quantity_bags == 1 ? 'Box' : 'Boxes';
+        }
+        if (str_contains($packing, 'pouch') || str_contains($packing, 'pckt') || str_contains($packing, 'packet')) {
+            return $this->quantity_bags == 1 ? 'Pouch' : 'Pouches';
+        }
+        if (str_contains($packing, 'pcs') || str_contains($packing, 'piece')) {
+            return $this->quantity_bags == 1 ? 'Pc' : 'Pcs';
+        }
+        if ($this->department_code === 'EPX' || str_contains($packing, 'bucket')) {
             return $this->quantity_bags == 1 ? 'Bucket' : 'Buckets';
         }
         return $this->quantity_bags == 1 ? 'Bag' : 'Bags';

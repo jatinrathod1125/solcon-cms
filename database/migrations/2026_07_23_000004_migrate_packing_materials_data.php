@@ -10,10 +10,35 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $unitPcs = DB::table('units')->where('code', 'PCS')->first()?->id
-            ?? DB::table('units')->first()?->id ?? 1;
+        $unitPcs = DB::table('units')->where('code', 'PCS')->first()?->id;
+        if (!$unitPcs) {
+            $unitPcs = DB::table('units')->insertGetId([
+                'name' => 'Pieces',
+                'code' => 'PCS',
+                'description' => 'Pieces unit',
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
-        $categories = DB::table('packing_material_categories')->pluck('id', 'name');
+        $categories = DB::table('packing_material_categories')->pluck('id', 'name')->toArray();
+        if (empty($categories)) {
+            $defaultCatNames = [
+                'Adhesive Bags', 'Pouches', 'Buckets', 'Bottles',
+                'Stickers', 'Boxes / Cartons', 'Barrels', 'Epoxy Accessories'
+            ];
+            foreach ($defaultCatNames as $idx => $cname) {
+                $cid = DB::table('packing_material_categories')->insertGetId([
+                    'name' => $cname,
+                    'sort_order' => $idx + 1,
+                    'is_active' => true,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                $categories[$cname] = $cid;
+            }
+        }
 
         $packingData = [
             'Adhesive Bags' => [

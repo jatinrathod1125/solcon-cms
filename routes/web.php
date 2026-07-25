@@ -155,6 +155,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/finished-goods/import', [\App\Http\Controllers\FinishedGoodsController::class, 'import'])->name('finished-goods.import');
     });
 
+    // Finished Goods Creation (Admin only)
+    Route::middleware(['role:admin'])->group(function () {
+        Route::post('/finished-goods', [\App\Http\Controllers\FinishedGoodsController::class, 'store'])->name('finished-goods.store');
+    });
+
     // Stock Adjustments (Admin & Supervisor accessible)
     Route::middleware(['role:admin,supervisor'])->prefix('admin')->group(function () {
         Route::get('/stock-adjustments', [\App\Http\Controllers\Admin\StockAdjustmentController::class, 'index'])->name('admin.stock-adjustments.index');

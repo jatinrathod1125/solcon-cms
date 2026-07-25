@@ -617,18 +617,27 @@
                                 <thead>
                                     <tr>
                                         <th class="text-left">Spacer</th>
-                                        <th class="w-20 text-center">Pckt</th>
+                                        <th class="w-20 text-center">Box</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach(['2MM', '3MM', '4MM', '5MM', '6MM'] as $size)
+                                    @php
+                                    $comp = $spacerComponents->first(fn($c) => str_contains(strtolower($c->name), strtolower($size)) || str_contains(strtolower($c->code), strtolower($size)));
+                                    @endphp
                                     <tr>
                                         <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $size }}</td>
                                         <td class="w-20">
                                             <input type="number" min="0" class="compact-input qty-input" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $spacerProduct->id ?? '' }}" 
-                                                   data-packing="{{ $size }}">
+                                                   @if($comp)
+                                                       data-component-id="{{ $comp->id }}"
+                                                       data-packing="Box"
+                                                   @else
+                                                       data-product-id="{{ $spacerProduct->id ?? '' }}" 
+                                                       data-packing="Box"
+                                                   @endif
+                                                   >
                                         </td>
                                     </tr>
                                     @endforeach
@@ -648,18 +657,28 @@
                                 <thead>
                                     <tr>
                                         <th class="text-left">Tiles Leveler</th>
-                                        <th class="w-20 text-center">Pckt</th>
+                                        <th class="w-20 text-center">Box</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach(['CLIP 2MM', 'CLIP 3MM', 'CLIP 4MM', 'WEDGE', 'LEVELLING JACK SPACER', 'TROWEL', 'PLIER', 'VACUUM'] as $type)
+                                    @php
+                                    $searchStr = str_replace('LEVELLING JACK SPACER', 'JACK LEVELLING', $type);
+                                    $comp = $levelerComponents->first(fn($c) => str_contains(strtolower($c->name), strtolower($searchStr)) || str_contains(strtolower($c->name), strtolower(explode(' ', $type)[0])));
+                                    @endphp
                                     <tr>
                                         <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">{{ $type }}</td>
                                         <td class="w-20">
                                             <input type="number" min="0" class="compact-input qty-input" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $levelerProduct->id ?? '' }}" 
-                                                   data-packing="{{ $type }}">
+                                                   @if($comp)
+                                                       data-component-id="{{ $comp->id }}"
+                                                       data-packing="Box"
+                                                   @else
+                                                       data-product-id="{{ $levelerProduct->id ?? '' }}" 
+                                                       data-packing="Box"
+                                                   @endif
+                                                   >
                                         </td>
                                     </tr>
                                     @endforeach

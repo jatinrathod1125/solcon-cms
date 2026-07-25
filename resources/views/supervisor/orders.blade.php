@@ -349,11 +349,13 @@
                                                         <th class="px-3 py-2 text-right">Weight (KG)</th>
                                                         <th class="px-3 py-2 text-right">Weight (Ton)</th>
                                                         <th class="px-3 py-2">Coupon</th>
+                                                        <th class="px-3 py-2">Stock Availability</th>
                                                         <th class="px-3 py-2">Remarks</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="divide-y divide-slate-50">
                                                     @forelse($order->items as $item)
+                                                    @php $st = $item->stock_info; @endphp
                                                     <tr class="{{ $item->is_edited ? 'bg-amber-50/80 border-l-4 border-l-amber-500 font-bold' : '' }}">
                                                         <td class="px-3 py-2 font-bold text-slate-600 whitespace-nowrap">{{ $item->department_label }}</td>
                                                         <td class="px-3 py-2 font-black text-slate-900">
@@ -378,11 +380,22 @@
                                                                 -
                                                             @endif
                                                         </td>
+                                                        <td class="px-3 py-2 whitespace-nowrap font-bold">
+                                                            @if($st['is_available'])
+                                                                <span class="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-700 border border-emerald-200">
+                                                                    ✅ Available ({{ $st['available_bags'] }} {{ $item->unit_label }} Stock)
+                                                                </span>
+                                                            @else
+                                                                <span class="inline-flex items-center gap-1 rounded bg-rose-50 px-2 py-0.5 text-xs font-bold text-rose-700 border border-rose-200">
+                                                                    ❌ Not Available ({{ $st['available_bags'] }} {{ $item->unit_label }} Stock)
+                                                                </span>
+                                                            @endif
+                                                        </td>
                                                         <td class="px-3 py-2 text-slate-500 text-xs">{{ $item->remarks ?? '-' }}</td>
                                                     </tr>
                                                     @empty
                                                     <tr>
-                                                        <td colspan="6" class="px-3 py-4 text-center text-xs font-bold text-slate-400">No items found for this order.</td>
+                                                        <td colspan="9" class="px-3 py-4 text-center text-xs font-bold text-slate-400">No items found for this order.</td>
                                                     </tr>
                                                     @endforelse
                                                 </tbody>

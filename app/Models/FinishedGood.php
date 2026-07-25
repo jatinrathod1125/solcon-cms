@@ -88,36 +88,37 @@ class FinishedGood extends Model
     }
 
     /**
-     * Accessor for Product Name based on department
+     * Accessor for Product Name based on relations
      */
     public function getProductNameAttribute(): string
     {
-        if ($this->department_id && $this->department) {
-            $deptCode = strtoupper($this->department->code);
-            if ($deptCode === 'TAD') {
-                $name = $this->grade ? $this->grade->name : 'N/A';
-                if ($this->coupon_raw_material_id && $this->couponMaterial) {
-                    return $name . ' (' . $this->couponMaterial->name . ')';
-                }
-                return $name . ' (No Coupon)';
+        if ($this->grade) {
+            $name = $this->grade->name;
+            if ($this->coupon_raw_material_id && $this->couponMaterial) {
+                return $name . ' (' . $this->couponMaterial->name . ')';
             }
-            if ($deptCode === 'GRT') {
-                return $this->color ? $this->color->name : 'N/A';
-            }
-            if ($deptCode === 'EPX' || $deptCode === 'EP') {
-                if ($this->epoxy_component_id) {
-                    return $this->epoxyComponent ? $this->epoxyComponent->name : 'N/A';
-                }
-                $prodName = $this->epoxyProduct ? $this->epoxyProduct->name : 'N/A';
-                if ($this->epoxy_filler_color_id && $this->epoxyFillerColor) {
-                    return $prodName . ' (' . $this->epoxyFillerColor->name . ')';
-                }
-                if ($this->color_id && $this->color) {
-                    return $prodName . ' (' . $this->color->name . ')';
-                }
-                return $prodName;
-            }
+            return $name;
         }
+
+        if ($this->epoxyComponent) {
+            return $this->epoxyComponent->name;
+        }
+
+        if ($this->epoxyProduct) {
+            $prodName = $this->epoxyProduct->name;
+            if ($this->epoxy_filler_color_id && $this->epoxyFillerColor) {
+                return $prodName . ' (' . $this->epoxyFillerColor->name . ')';
+            }
+            if ($this->color_id && $this->color) {
+                return $prodName . ' (' . $this->color->name . ')';
+            }
+            return $prodName;
+        }
+
+        if ($this->color) {
+            return $this->color->name;
+        }
+
         return 'N/A';
     }
 

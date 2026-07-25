@@ -7,10 +7,12 @@ use App\Models\Department;
 use App\Models\Grade;
 use App\Models\Color;
 use App\Models\EpoxyProduct;
+use App\Models\RawMaterial;
 use App\Services\FinishedGoodsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class FinishedGoodsController extends Controller
 {
@@ -85,11 +87,133 @@ class FinishedGoodsController extends Controller
         }
 
         $departments = Department::orderBy('name')->get();
+        $grades = Grade::with('bagSize')->where('is_active', true)->orderBy('name')->get();
+        $colors = Color::where('is_active', true)->orderBy('name')->get();
+        $epoxyProducts = EpoxyProduct::where('is_active', true)->orderBy('name')->get();
+        $couponMaterials = RawMaterial::where('is_coupon', true)->where('is_active', true)->orderBy('name')->get();
 
         // Get unique packing sizes for filter dropdown
         $packingSizes = FinishedGood::distinct()->pluck('packing')->filter()->values();
 
-        return view('finished_goods.index', compact('items', 'departments', 'packingSizes'));
+        return view('finished_goods.index', compact('items', 'departments', 'grades', 'colors', 'epoxyProducts', 'couponMaterials', 'packingSizes'));
+    }
+
+    /**
+     * Store a newly created Finished Good (Admin only).
+     */
+    public function store(Request $request)
+    {
+        if (!auth()->user()->isAdmin()) {
+            abort(403, 'Unauthorized action. Only administrators can manually create finished goods.');
+        }
+
+        $validated = $request->validate([
+            'department_id' => 'required|exists:departments,id',
+            'grade_id' => 'nullable|exists:grades,id',
+            'color_id' => 'nullable|exists:colors,id',
+            'epoxy_product_id' => 'nullable|exists:epoxy_products,id',
+            'coupon_raw_material_id' => 'nullable|exists:raw_materials,id',
+            'packing' => 'required|string|max:100',
+            'available_bags' => 'required|integer|min:0',
+            'available_weight' => 'nullable|numeric|min:0',
+            'minimum_stock' => 'nullable|integer|min:0',
+            'remarks' => 'nullable|string|max:500',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $dept = Department::findOrFail($validated['department_id']);
+            $deptCode = strtoupper($dept->code);
+
+            $gradeId = null;
+            $colorId = null;
+            $epoxyProductId = null;
+
+            if ($deptCode === 'GRT') {
+                $colorId = $validated['color_id'] ?? null;
+            } elseif ($deptCode === 'EPX' || $deptCode === 'EP') {
+                $epoxyProductId = $validated['epoxy_product_id'] ?? null;
+            } else {
+                $gradeId = $validated['grade_id'] ?? null;
+            }
+
+            $bags = (int) $validated['available_bags'];
+            $weight = $validated['available_weight'] !== null ? (float) $validated['available_weight'] : null;
+
+            if ($weight === null) {
+                $unitWeight = 1.0;
+                if (preg_match('/(\d+(?:\.\d+)?)\s*kg/i', $validated['packing'], $matches)) {
+                    $unitWeight = (float) $matches[1];
+                } elseif ($gradeId) {
+                    $g = Grade::find($gradeId);
+                    if ($g && $g->bagSize) {
+                        $unitWeight = (float) $g->bagSize->value;
+                    }
+                }
+                $weight = $bags * $unitWeight;
+            }
+
+            $couponId = $validated['coupon_raw_material_id'] ?? null;
+            $packing = trim($validated['packing']);
+            $minStock = isset($validated['minimum_stock']) ? (int) $validated['minimum_stock'] : 20;
+
+            // Check if FinishedGood with exact combination already exists
+            $existingFG = FinishedGood::where('department_id', $dept->id)
+                ->where('grade_id', $gradeId)
+                ->where('color_id', $colorId)
+                ->where('epoxy_product_id', $epoxyProductId)
+                ->where('coupon_raw_material_id', $couponId)
+                ->where('packing', $packing)
+                ->lockForUpdate()
+                ->first();
+
+            if ($existingFG) {
+                $newBags = $existingFG->available_bags + $bags;
+                $newWeight = $existingFG->available_weight + $weight;
+                $status = ($newBags <= 0) ? 'out_of_stock' : (($newBags <= $minStock) ? 'low_stock' : 'active');
+
+                $existingFG->update([
+                    'available_bags' => $newBags,
+                    'available_weight' => $newWeight,
+                    'minimum_stock' => $minStock,
+                    'status' => $status,
+                    'remarks' => $validated['remarks'] ?: $existingFG->remarks,
+                ]);
+                $finishedGood = $existingFG;
+            } else {
+                $status = ($bags <= 0) ? 'out_of_stock' : (($bags <= $minStock) ? 'low_stock' : 'active');
+
+                $finishedGood = FinishedGood::create([
+                    'department_id' => $dept->id,
+                    'grade_id' => $gradeId,
+                    'color_id' => $colorId,
+                    'epoxy_product_id' => $epoxyProductId,
+                    'coupon_raw_material_id' => $couponId,
+                    'packing' => $packing,
+                    'available_bags' => $bags,
+                    'available_weight' => $weight,
+                    'minimum_stock' => $minStock,
+                    'last_production_date' => now(),
+                    'status' => $status,
+                    'remarks' => $validated['remarks'] ?? null,
+                ]);
+            }
+
+            DB::commit();
+
+            \App\Services\ActivityLogService::log(
+                'FINISHED_GOOD_CREATED',
+                "Finished Good '{$finishedGood->product_name}' ({$finishedGood->packing}) created manually by admin with {$bags} units.",
+                auth()->id()
+            );
+
+            return redirect()->route('finished-goods.index')
+                ->with('success', "Finished Good '{$finishedGood->product_name}' created successfully.");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to create Finished Good: ' . $e->getMessage());
+        }
     }
 
     /**
