@@ -61,13 +61,14 @@
 
         <!-- Formula Items Table -->
         <div class="space-y-3">
-            <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Raw Material Composition</h4>
+            <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Formula Composition</h4>
             <div class="border border-slate-850 rounded-xl overflow-hidden">
                 <table class="w-full text-left border-collapse text-sm">
                     <thead>
                         <tr class="border-b border-slate-850 bg-slate-900/60 text-slate-400 font-semibold">
                             <th class="p-3 w-16 text-center">Seq</th>
-                            <th class="p-3 w-28">Material Code</th>
+                            <th class="p-3 w-28">Type</th>
+                            <th class="p-3 w-28">Code</th>
                             <th class="p-3">Material Name</th>
                             <th class="p-3 text-right">Quantity</th>
                             <th class="p-3 w-24">Unit</th>
@@ -77,15 +78,31 @@
                     <tbody class="divide-y divide-slate-850/50">
                         @php $totalQty = 0; @endphp
                         @forelse($formula->items as $item)
+                            @php
+                                $isPacking = ($item->item_type ?? 'raw') === 'packing' || (bool)$item->packing_material_id;
+                                $materialCode = $isPacking ? ($item->packingMaterial->code ?? 'PM') : ($item->rawMaterial->code ?? 'N/A');
+                                $materialName = $isPacking ? ($item->packingMaterial->name ?? 'Packing Material') : ($item->rawMaterial->name ?? 'Raw Material');
+                            @endphp
                             <tr class="hover:bg-slate-900/30 text-slate-200">
                                 <td class="p-3 text-center font-mono text-slate-500">
                                     {{ $item->sequence }}
                                 </td>
-                                <td class="p-3 font-mono font-semibold text-cyan-400">
-                                    {{ $item->rawMaterial->code }}
+                                <td class="p-3">
+                                    @if($isPacking)
+                                        <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                            Packing
+                                        </span>
+                                    @else
+                                        <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                                            Raw
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="p-3 font-mono font-semibold {{ $isPacking ? 'text-purple-400' : 'text-cyan-400' }}">
+                                    {{ $materialCode }}
                                 </td>
                                 <td class="p-3 font-semibold text-white">
-                                    {{ $item->rawMaterial->name }}
+                                    {{ $materialName }}
                                 </td>
                                 <td class="p-3 text-right font-mono font-bold text-white">
                                     {{ format_quantity($item->quantity) }}
@@ -108,16 +125,16 @@
                             @php $totalQty += $item->quantity; @endphp
                         @empty
                             <tr>
-                                <td colspan="6" class="p-6 text-center text-slate-500">
+                                <td colspan="7" class="p-6 text-center text-slate-500">
                                     No ingredients added.
                                 </td>
                             </tr>
                         @endforelse
                         <!-- Total Row -->
                         <tr class="bg-slate-900/40 font-bold border-t border-slate-800 text-white">
-                            <td colspan="3" class="p-3 text-right">Total Quantity:</td>
+                            <td colspan="4" class="p-3 text-right">Total Quantity:</td>
                             <td class="p-3 text-right font-mono text-cyan-400">{{ format_quantity($totalQty) }}</td>
-                            <td colspan="2" class="p-3 text-slate-400">KG</td>
+                            <td colspan="2" class="p-3 text-slate-400">KG / Units</td>
                         </tr>
                     </tbody>
                 </table>

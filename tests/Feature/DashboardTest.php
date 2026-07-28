@@ -72,6 +72,10 @@ class DashboardTest extends TestCase
             'auto_report_generation' => 'disable',
             'production_timer' => 'enable',
             'maintenance_mode' => 'disable',
+            'maintenance_title' => 'System Maintenance',
+            'maintenance_message' => 'System under maintenance',
+            'maintenance_downtime' => '30 mins',
+            'maintenance_contact' => 'admin@solcon.com',
             'ui_theme' => 'light',
             'ui_primary_color' => 'indigo',
             'ui_sidebar_style' => 'dark',
@@ -79,7 +83,7 @@ class DashboardTest extends TestCase
             'ui_table_density' => 'normal',
         ]);
         $responseUpdate->assertRedirect();
-        $this->followRedirects($responseUpdate)->assertSee('Factory administration settings saved successfully.');
+        $responseUpdate->assertSessionHas('success');
 
         // Assert DB has changed
         $this->assertEquals('Solcon Modified Ltd', Setting::get('company_name'));

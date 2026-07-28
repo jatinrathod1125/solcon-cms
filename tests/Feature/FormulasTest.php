@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Grade;
 use App\Models\RawMaterial;
+use App\Models\PackingMaterial;
 use App\Models\Unit;
 use App\Models\Formula;
 use App\Models\User;
@@ -52,12 +53,14 @@ class FormulasTest extends TestCase
             'is_active' => true,
             'items' => [
                 [
+                    'item_type' => 'raw',
                     'raw_material_id' => $matCement->id,
                     'quantity' => 200.0000,
                     'unit_id' => $unitKG->id,
                     'sequence' => 1,
                 ],
                 [
+                    'item_type' => 'raw',
                     'raw_material_id' => $matSand->id,
                     'quantity' => 800.0000,
                     'unit_id' => $unitKG->id,
@@ -96,12 +99,14 @@ class FormulasTest extends TestCase
             'is_active' => true,
             'items' => [
                 [
+                    'item_type' => 'raw',
                     'raw_material_id' => $matCement->id,
                     'quantity' => 210.0000,
                     'unit_id' => $unitKG->id,
                     'sequence' => 1,
                 ],
                 [
+                    'item_type' => 'raw',
                     'raw_material_id' => $matSand->id,
                     'quantity' => 790.0000,
                     'unit_id' => $unitKG->id,
@@ -123,34 +128,54 @@ class FormulasTest extends TestCase
         $this->assertDatabaseMissing('formulas', ['id' => $newFormula->id]);
     }
 
-    public function test_cannot_add_duplicate_raw_materials_to_formula(): void
+    public function test_admin_can_create_formula_with_packing_material(): void
     {
         $admin = User::where('email', 'admin@solcon.com')->first();
         $gradeF101 = Grade::where('code', 'F101')->first();
         $matCement = RawMaterial::where('code', 'OPC-53')->first();
+        $packingMat = PackingMaterial::first();
         $unitKG = Unit::where('code', 'KG')->first();
+        $unitPCS = Unit::where('code', 'PCS')->first() ?? $unitKG;
 
-        // Submit OPC-53 twice in items array
+        if (!$packingMat) {
+            $cat = \App\Models\PackingMaterialCategory::firstOrCreate(['name' => 'Bags']);
+            $packingMat = PackingMaterial::create([
+                'name' => 'Test Bag 20kg',
+                'code' => 'BAG-20',
+                'category_id' => $cat->id,
+                'unit_id' => $unitPCS->id,
+                'current_stock' => 100,
+            ]);
+        }
+
         $response = $this->actingAs($admin)->post('/admin/formulas', [
             'grade_id' => $gradeF101->id,
-            'remarks' => 'Duplicate item test',
+            'remarks' => 'Formula with packing material',
             'is_active' => true,
             'items' => [
                 [
+                    'item_type' => 'raw',
                     'raw_material_id' => $matCement->id,
-                    'quantity' => 100.0000,
+                    'quantity' => 1000.0000,
                     'unit_id' => $unitKG->id,
                     'sequence' => 1,
                 ],
                 [
-                    'raw_material_id' => $matCement->id, // Duplicate!
+                    'item_type' => 'packing',
+                    'packing_material_id' => $packingMat->id,
                     'quantity' => 50.0000,
-                    'unit_id' => $unitKG->id,
+                    'unit_id' => $unitPCS->id,
                     'sequence' => 2,
                 ]
             ]
         ]);
 
-        $response->assertSessionHasErrors('items.1.raw_material_id');
+        $response->assertRedirect('/admin/formulas');
+
+        $this->assertDatabaseHas('formula_items', [
+            'item_type' => 'packing',
+            'packing_material_id' => $packingMat->id,
+            'quantity' => 50.0000,
+        ]);
     }
 }

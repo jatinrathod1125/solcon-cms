@@ -57,11 +57,6 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Driver Name <span class="text-rose-500">*</span></label>
-                    <input type="text" name="driver_name" value="{{ $dispatch->driver_name }}" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800">
-                </div>
-
-                <div>
                     <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Driver Mobile <span class="text-rose-500">*</span></label>
                     <input type="text" name="driver_mobile" value="{{ $dispatch->driver_mobile }}" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800">
                 </div>
@@ -115,7 +110,7 @@
                 <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
                     <span class="text-xs font-extrabold text-slate-800">Payment Required?</span>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" name="payment_required" value="1" {{ $dispatch->payment_required ? 'checked' : '' }} class="sr-only peer" onchange="togglePaymentFields(this.checked)">
+                        <input type="checkbox" id="payment_required" name="payment_required" value="1" {{ $dispatch->payment_required ? 'checked' : '' }} class="sr-only peer" onchange="togglePaymentFields(this.checked)">
                         <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                 </div>
@@ -160,10 +155,9 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <span class="text-sm font-black text-slate-900 block">Release Goods for Loading?</span>
-                            <p class="text-xs font-bold text-slate-500">If set to NO, warehouse staff cannot load truck.</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="is_released" value="1" {{ $dispatch->is_released ? 'checked' : '' }} class="sr-only peer">
+                            <input type="checkbox" id="is_released" name="is_released" value="1" {{ $dispatch->is_released ? 'checked' : '' }} class="sr-only peer">
                             <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
                         </label>
                     </div>
@@ -188,6 +182,23 @@
 
 @section('scripts')
 <script>
+    $(document).ready(function() {
+        $('#payment_required').on('change', function() {
+            if (this.checked) {
+                $('#is_released').prop('checked', false);
+                togglePaymentFields(true);
+            } else {
+                togglePaymentFields(false);
+            }
+        });
+
+        $('#is_released').on('change', function() {
+            if (this.checked) {
+                $('#payment_required').prop('checked', false);
+                togglePaymentFields(false);
+            }
+        });
+    });
     function toggleCrossingFields(type) {
         if (type === 'crossing_delivery') {
             $('#crossingFields').slideDown(200);

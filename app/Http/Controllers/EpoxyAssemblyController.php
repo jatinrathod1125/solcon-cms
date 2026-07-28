@@ -91,7 +91,7 @@ class EpoxyAssemblyController extends Controller
         }
 
         $components = EpoxyComponent::where('is_active', true)
-            ->with('activeFormula')
+            ->with(['unit', 'color', 'parentComponent', 'rawMaterial', 'activeFormula'])
             ->orderBy('name')
             ->get();
 
@@ -99,7 +99,7 @@ class EpoxyAssemblyController extends Controller
     }
 
     /**
-     * Store Component Entry.
+     * Store Component Entry (Single).
      */
     public function storeComponentEntry(Request $request)
     {
@@ -121,6 +121,71 @@ class EpoxyAssemblyController extends Controller
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage())->withInput();
+        }
+    }
+
+    /**
+     * Store Bulk Component Entry (AJAX / Form Batch).
+     */
+    public function storeBulkComponentEntry(Request $request)
+    {
+        $request->validate([
+            'items' => 'required|array|min:1',
+            'items.*.epoxy_component_id' => 'required|exists:epoxy_components,id',
+            'items.*.quantity' => 'nullable|integer|min:0',
+            'items.*.remarks' => 'nullable|string|max:500',
+            'global_remarks' => 'nullable|string|max:1000',
+        ]);
+
+        try {
+            $processedCount = 0;
+            $items = $request->input('items', []);
+
+            DB::transaction(function () use ($items, $request, &$processedCount) {
+                foreach ($items as $item) {
+                    $qty = (int) ($item['quantity'] ?? 0);
+                    if ($qty <= 0) {
+                        continue;
+                    }
+
+                    $componentId = (int) $item['epoxy_component_id'];
+                    $remarks = !empty($item['remarks']) 
+                        ? trim($item['remarks']) 
+                        : (trim($request->input('global_remarks')) ?: null);
+
+                    EpoxyAssemblyService::prepareComponent(
+                        $componentId,
+                        $qty,
+                        $remarks
+                    );
+
+                    $processedCount++;
+                }
+            });
+
+            if ($processedCount === 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No valid component quantities were entered (quantity must be > 0).',
+                ], 422);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "Successfully logged preparation for {$processedCount} ready component(s). Stock deducted.",
+                'processed_count' => $processedCount,
+            ]);
+        } catch (ValidationException $e) {
+            $firstError = collect($e->errors())->flatten()->first() ?? 'Validation error occurred.';
+            return response()->json([
+                'success' => false,
+                'message' => $firstError,
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
 

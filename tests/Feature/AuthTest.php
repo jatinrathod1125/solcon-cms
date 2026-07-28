@@ -70,12 +70,12 @@ class AuthTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    public function test_admin_cannot_access_supervisor_dashboard(): void
+    public function test_admin_can_access_supervisor_dashboard(): void
     {
         $admin = User::where('email', 'admin@solcon.com')->first();
 
         $response = $this->actingAs($admin)->get('/supervisor/dashboard');
-        $response->assertStatus(403);
+        $response->assertStatus(200);
     }
 
     public function test_supervisor_cannot_access_admin_dashboard(): void

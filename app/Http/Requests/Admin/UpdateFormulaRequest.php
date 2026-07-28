@@ -26,7 +26,9 @@ class UpdateFormulaRequest extends FormRequest
             'remarks' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],
             'items' => ['required', 'array', 'min:1'],
-            'items.*.raw_material_id' => ['required', 'exists:raw_materials,id', 'distinct'],
+            'items.*.item_type' => ['nullable', 'in:raw,packing'],
+            'items.*.raw_material_id' => ['required_if:items.*.item_type,raw', 'nullable', 'exists:raw_materials,id', 'distinct'],
+            'items.*.packing_material_id' => ['required_if:items.*.item_type,packing', 'nullable', 'exists:packing_materials,id', 'distinct'],
             'items.*.quantity' => ['required', 'numeric', 'min:0.0001'],
             'items.*.unit_id' => ['required', 'exists:units,id'],
             'items.*.consumption_method' => ['nullable', 'in:formula,output'],
@@ -43,7 +45,10 @@ class UpdateFormulaRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'items.*.raw_material_id.required_if' => 'Please select a raw material.',
             'items.*.raw_material_id.distinct' => 'Each raw material can only be added once to the formula.',
+            'items.*.packing_material_id.required_if' => 'Please select a packing material.',
+            'items.*.packing_material_id.distinct' => 'Each packing material can only be added once to the formula.',
             'items.*.quantity.min' => 'Quantity must be greater than zero.',
         ];
     }

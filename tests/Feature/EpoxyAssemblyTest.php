@@ -246,4 +246,53 @@ class EpoxyAssemblyTest extends TestCase
         $this->assertCount(1, $reportData['epoxyProductSummary']);
         $this->assertEquals(3, $reportData['epoxyProductSummary']->first()->total_kits);
     }
+
+    /**
+     * Test bulk component entry AJAX submission.
+     */
+    public function test_bulk_component_entry_submission_via_ajax()
+    {
+        $compHardener = \App\Models\EpoxyComponent::where('code', 'EPX-HRD-100')->first();
+        $compResin = \App\Models\EpoxyComponent::where('code', 'EPX-RSN-200')->first();
+
+        $this->assertNotNull($compHardener);
+        $this->assertNotNull($compResin);
+
+        $response = $this->actingAs($this->supervisorUser)
+            ->postJson(route('epoxy.component-entry.bulk-store'), [
+                'global_remarks' => 'Morning shift batch preparation',
+                'items' => [
+                    [
+                        'epoxy_component_id' => $compHardener->id,
+                        'quantity' => 10,
+                        'remarks' => 'Batch 1 Hardener',
+                    ],
+                    [
+                        'epoxy_component_id' => $compResin->id,
+                        'quantity' => 15,
+                        'remarks' => '',
+                    ],
+                    [
+                        'epoxy_component_id' => $compHardener->id,
+                        'quantity' => 0, // Should be skipped
+                    ]
+                ],
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('processed_count', 2);
+
+        $this->assertDatabaseHas('epoxy_component_preparations', [
+            'epoxy_component_id' => $compHardener->id,
+            'quantity' => 10,
+            'remarks' => 'Batch 1 Hardener',
+        ]);
+
+        $this->assertDatabaseHas('epoxy_component_preparations', [
+            'epoxy_component_id' => $compResin->id,
+            'quantity' => 15,
+            'remarks' => 'Morning shift batch preparation',
+        ]);
+    }
 }

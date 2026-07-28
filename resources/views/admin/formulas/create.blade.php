@@ -50,12 +50,31 @@
             @endforeach
         ];
 
+        // Packing Material dropdown options
+        const packingMaterials = [
+            @foreach($packingMaterials as $pm)
+                { id: "{{ $pm->id }}", name: "{{ $pm->name }}", category: "{{ $pm->category->name ?? 'Packing' }}" },
+            @endforeach
+        ];
+
         // Unit dropdown options
         const units = [
             @foreach($units as $unit)
                 { id: "{{ $unit->id }}", code: "{{ $unit->code }}" },
             @endforeach
         ];
+
+        // Item type toggle handler
+        $(document).on('change', '.item-type-select', function() {
+            const row = $(this).closest('tr');
+            if ($(this).val() === 'packing') {
+                row.find('.raw-select-wrap').addClass('hidden').find('select').val('');
+                row.find('.packing-select-wrap').removeClass('hidden');
+            } else {
+                row.find('.packing-select-wrap').addClass('hidden').find('select').val('');
+                row.find('.raw-select-wrap').removeClass('hidden');
+            }
+        });
 
         // Add initial row on load
         addRow();
@@ -73,9 +92,14 @@
 
         function addRow() {
             rowCount++;
-            let materialOptions = '<option value="">Select Material</option>';
+            let rawMaterialOptions = '<option value="">Select Raw Material</option>';
             rawMaterials.forEach(function(mat) {
-                materialOptions += `<option value="${mat.id}">${mat.name} (${mat.code})</option>`;
+                rawMaterialOptions += `<option value="${mat.id}">${mat.name} (${mat.code})</option>`;
+            });
+
+            let packingMaterialOptions = '<option value="">Select Packing Material</option>';
+            packingMaterials.forEach(function(pm) {
+                packingMaterialOptions += `<option value="${pm.id}">${pm.name} (${pm.category})</option>`;
             });
 
             let unitOptions = '';
@@ -88,10 +112,24 @@
                 <tr class="hover:bg-slate-900/20 text-slate-200">
                     <td class="p-3 text-center font-mono text-slate-500 sequence-num">${rowCount}</td>
                     <td class="p-3">
-                        <select name="items[${rowCount}][raw_material_id]" required
-                            class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-sm focus:outline-none focus:border-cyan-500">
-                            ${materialOptions}
+                        <select name="items[${rowCount}][item_type]" class="item-type-select block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:border-cyan-500">
+                            <option value="raw" selected>Raw Material</option>
+                            <option value="packing">Packing Material</option>
                         </select>
+                    </td>
+                    <td class="p-3">
+                        <div class="raw-select-wrap">
+                            <select name="items[${rowCount}][raw_material_id]"
+                                class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-sm focus:outline-none focus:border-cyan-500">
+                                ${rawMaterialOptions}
+                            </select>
+                        </div>
+                        <div class="packing-select-wrap hidden">
+                            <select name="items[${rowCount}][packing_material_id]"
+                                class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-sm focus:outline-none focus:border-purple-500">
+                                ${packingMaterialOptions}
+                            </select>
+                        </div>
                     </td>
                     <td class="p-3">
                         <input type="number" step="0.0001" name="items[${rowCount}][quantity]" required min="0.0001"

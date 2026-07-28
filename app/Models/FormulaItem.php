@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
     'formula_id',
+    'item_type',
     'raw_material_id',
+    'packing_material_id',
     'quantity',
     'unit_id',
     'consumption_method',
@@ -45,6 +47,14 @@ class FormulaItem extends Model
     public function rawMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class);
+    }
+
+    /**
+     * Get the packing material referenced by this formula item.
+     */
+    public function packingMaterial(): BelongsTo
+    {
+        return $this->belongsTo(PackingMaterial::class);
     }
 
     /**

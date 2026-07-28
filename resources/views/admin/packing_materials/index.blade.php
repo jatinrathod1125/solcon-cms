@@ -51,17 +51,17 @@
 
         <!-- Buttons -->
         <div class="flex items-center gap-2 flex-wrap">
-            <button onclick="openImportModal()" 
+            <button onclick="openImportModal()"
                 class="inline-flex items-center px-4 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 font-semibold rounded-xl transition-all text-sm gap-2">
                 <i data-lucide="upload-cloud" class="w-4 h-4"></i>
                 <span>Import CSV</span>
             </button>
-            <a href="{{ route('admin.packing-materials.export') }}" 
+            <a href="{{ route('admin.packing-materials.export') }}"
                 class="inline-flex items-center px-4 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 font-semibold rounded-xl transition-all text-sm gap-2">
                 <i data-lucide="download-cloud" class="w-4 h-4"></i>
                 <span>Export CSV</span>
             </a>
-            <a href="{{ route('admin.packing-materials.create') }}" 
+            <a href="{{ route('admin.packing-materials.create') }}"
                 class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold rounded-xl transition-all duration-205 shadow-lg shadow-cyan-500/10 text-sm gap-2">
                 <i data-lucide="plus" class="w-4 h-4"></i>
                 <span>Add Packing Material</span>
@@ -92,7 +92,7 @@
                             <td class="p-4 font-mono font-bold text-cyan-400">
                                 {{ $material->code ?? '-' }}
                             </td>
-                            
+
                             <!-- Name -->
                             <td class="p-4">
                                 <div class="font-semibold text-white">{{ $material->name }}</div>
@@ -100,7 +100,7 @@
                                     <div class="text-xs text-slate-500 max-w-xs truncate">{{ $material->remarks }}</div>
                                 @endif
                             </td>
-                            
+
                             <!-- Category -->
                             <td class="p-4">
                                 <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-indigo-300">
@@ -146,12 +146,12 @@
                             <!-- Actions -->
                             <td class="p-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('admin.packing-materials.edit', $material) }}" 
+                                    <a href="{{ route('admin.packing-materials.edit', $material) }}"
                                         class="p-2 text-slate-400 hover:text-cyan-400 hover:bg-slate-900 rounded-lg transition-colors" title="Edit">
-                                        <i data-lucide="edit-3" class="w-4 h-4"></i>
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
                                     </a>
-                                    
-                                    <form method="POST" action="{{ route('admin.packing-materials.destroy', $material) }}" 
+
+                                    <form method="POST" action="{{ route('admin.packing-materials.destroy', $material) }}"
                                         onsubmit="return confirm('Are you sure you want to delete this packing material?')" class="inline">
                                         @csrf
                                         @method('DELETE')

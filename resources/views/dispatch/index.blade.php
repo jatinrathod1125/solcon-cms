@@ -231,7 +231,7 @@
                             <!-- Vehicle & Driver -->
                             <td>
                                 <div class="font-bold text-slate-800 text-xs">🚛 {{ $dispatch->vehicle_number ?: 'N/A' }}</div>
-                                <div class="text-[11px] font-bold text-slate-500">👤 {{ $dispatch->driver_name ?: 'N/A' }} ({{ $dispatch->driver_mobile ?: '-' }})</div>
+                                <div class="text-[11px] font-bold text-slate-500">📞 {{ $dispatch->driver_mobile ?: '-' }}</div>
                             </td>
 
                             <!-- Total Units -->

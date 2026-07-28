@@ -108,8 +108,8 @@
                     </div>
 
                     <div>
-                        <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Driver Details</span>
-                        <strong class="text-xs font-bold text-slate-800 block mt-1">👤 {{ $dispatch->driver_name ?: 'N/A' }} ({{ $dispatch->driver_mobile ?: '-' }})</strong>
+                        <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Driver Mobile</span>
+                        <strong class="text-xs font-bold text-slate-800 block mt-1">📞 {{ $dispatch->driver_mobile ?: '-' }}</strong>
                     </div>
 
                     <div>

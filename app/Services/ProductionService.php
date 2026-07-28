@@ -67,15 +67,18 @@ class ProductionService
                 }
 
                 foreach ($formula->items as $item) {
-                    $isItemCoupon = $item->rawMaterial->is_coupon;
+                    $isPacking = ($item->item_type ?? 'raw') === 'packing' || (bool)$item->packing_material_id;
+                    $isItemCoupon = !$isPacking && $item->rawMaterial && $item->rawMaterial->is_coupon;
 
                     if ($isItemCoupon) {
                         if ($newCoupon) {
                             // Replace coupon in formula with the chosen one
                             $snapshot[] = [
+                                'item_type' => 'raw',
                                 'raw_material_id' => $newCoupon->id,
                                 'raw_material_name' => $newCoupon->name,
                                 'raw_material_code' => $newCoupon->code,
+                                'packing_material_id' => null,
                                 'quantity' => (float) $item->quantity,
                                 'unit_code' => $newCoupon->stockUnit->code ?? 'PCS',
                                 'consumption_method' => $item->consumption_method ?? 'formula',
@@ -85,11 +88,13 @@ class ProductionService
                         }
                         // If no newCoupon requested, we skip (remove) the coupon from the snapshot
                     } else {
-                        // Standard raw material item
+                        // Standard raw or packing material item
                         $snapshot[] = [
-                            'raw_material_id' => $item->raw_material_id,
-                            'raw_material_name' => $item->rawMaterial->name,
-                            'raw_material_code' => $item->rawMaterial->code,
+                            'item_type' => $isPacking ? 'packing' : 'raw',
+                            'raw_material_id' => $isPacking ? null : $item->raw_material_id,
+                            'raw_material_name' => $isPacking ? ($item->packingMaterial->name ?? '') : ($item->rawMaterial->name ?? ''),
+                            'raw_material_code' => $isPacking ? ($item->packingMaterial->code ?? '') : ($item->rawMaterial->code ?? ''),
+                            'packing_material_id' => $isPacking ? $item->packing_material_id : null,
                             'quantity' => (float) $item->quantity,
                             'unit_code' => $item->unit->code,
                             'consumption_method' => $item->consumption_method ?? 'formula',
@@ -258,13 +263,16 @@ class ProductionService
                 // Load formula snapshot
                 $snapshot = $batch->formula_snapshot;
                 if (empty($snapshot)) {
-                    $formula = Formula::with('items.rawMaterial', 'items.unit')->findOrFail($batch->formula_id);
+                    $formula = Formula::with('items.rawMaterial', 'items.packingMaterial', 'items.unit')->findOrFail($batch->formula_id);
                     $snapshot = [];
                     foreach ($formula->items as $item) {
+                        $isPacking = ($item->item_type ?? 'raw') === 'packing' || (bool)$item->packing_material_id;
                         $snapshot[] = [
-                            'raw_material_id' => $item->raw_material_id,
-                            'raw_material_name' => $item->rawMaterial->name,
-                            'raw_material_code' => $item->rawMaterial->code,
+                            'item_type' => $isPacking ? 'packing' : 'raw',
+                            'raw_material_id' => $isPacking ? null : $item->raw_material_id,
+                            'raw_material_name' => $isPacking ? ($item->packingMaterial->name ?? '') : ($item->rawMaterial->name ?? ''),
+                            'raw_material_code' => $isPacking ? ($item->packingMaterial->code ?? '') : ($item->rawMaterial->code ?? ''),
+                            'packing_material_id' => $isPacking ? $item->packing_material_id : null,
                             'quantity' => (float) $item->quantity,
                             'unit_code' => $item->unit->code,
                             'consumption_method' => $item->consumption_method ?? 'formula',
@@ -286,27 +294,45 @@ class ProductionService
                 // 2. Validate stock before deduction
                 foreach ($snapshot as $itemData) {
                     $requiredQty = $getRequiredQty($itemData, $outputBags);
-                    $rawMaterial = RawMaterial::lockForUpdate()->findOrFail($itemData['raw_material_id']);
-                    if ((float) $rawMaterial->current_stock < $requiredQty) {
-                        // Log failed stock validation
-                        ActivityLogService::log(
-                            'FAILED_STOCK_VALIDATION',
-                            "Failed to complete batch #{$batch->batch_no} due to insufficient stock of {$rawMaterial->name}.",
-                            auth()->id() ?? $batch->supervisor_id
-                        );
-                        throw new \Exception("{$rawMaterial->name} Stock is insufficient.");
+                    $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+
+                    if ($isPacking) {
+                        $packingMaterial = PackingMaterial::lockForUpdate()->findOrFail($itemData['packing_material_id']);
+                        if ((float) $packingMaterial->current_stock < $requiredQty) {
+                            ActivityLogService::log(
+                                'FAILED_STOCK_VALIDATION',
+                                "Failed to complete batch #{$batch->batch_no} due to insufficient stock of packing material {$packingMaterial->name}.",
+                                auth()->id() ?? $batch->supervisor_id
+                            );
+                            throw new \Exception("{$packingMaterial->name} Stock is insufficient.");
+                        }
+                    } else {
+                        $rawMaterial = RawMaterial::lockForUpdate()->findOrFail($itemData['raw_material_id']);
+                        if ((float) $rawMaterial->current_stock < $requiredQty) {
+                            ActivityLogService::log(
+                                'FAILED_STOCK_VALIDATION',
+                                "Failed to complete batch #{$batch->batch_no} due to insufficient stock of {$rawMaterial->name}.",
+                                auth()->id() ?? $batch->supervisor_id
+                            );
+                            throw new \Exception("{$rawMaterial->name} Stock is insufficient.");
+                        }
                     }
                 }
 
                 // 3. Deduct stock & create ledger entries
                 foreach ($snapshot as $itemData) {
                     $deductQty = $getRequiredQty($itemData, $outputBags);
+                    $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+
                     StockService::recordMovement(
-                        $itemData['raw_material_id'],
+                        $isPacking ? null : $itemData['raw_material_id'],
                         $deductQty,
                         'OUT',
                         $batch->id,
-                        "Consumed in production batch #{$batch->batch_no}"
+                        "Consumed in production batch #{$batch->batch_no}",
+                        null,
+                        null,
+                        $isPacking ? $itemData['packing_material_id'] : null
                     );
                 }
 

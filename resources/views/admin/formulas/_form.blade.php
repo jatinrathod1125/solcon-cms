@@ -47,7 +47,8 @@
             <thead>
                 <tr class="border-b border-slate-850 bg-slate-900/60 text-slate-400 font-semibold">
                     <th class="p-3 w-16 text-center">Seq</th>
-                    <th class="p-3">Raw Material</th>
+                    <th class="p-3 w-36">Type</th>
+                    <th class="p-3">Material Name</th>
                     <th class="p-3 w-36 text-right">Quantity</th>
                     <th class="p-3 w-28">Unit</th>
                     <th class="p-3 w-40">Consumption</th>
@@ -57,18 +58,38 @@
             <tbody class="divide-y divide-slate-850/50" id="items-tbody">
                 @if(isset($formula))
                     @foreach($formula->items as $index => $item)
+                        @php
+                            $isPacking = ($item->item_type ?? 'raw') === 'packing' || (bool)$item->packing_material_id;
+                        @endphp
                         <tr class="hover:bg-slate-900/20 text-slate-200">
                             <td class="p-3 text-center font-mono text-slate-500 sequence-num">{{ $index + 1 }}</td>
                             <td class="p-3">
-                                <select name="items[{{ $index + 1 }}][raw_material_id]" required
-                                    class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-sm focus:outline-none focus:border-cyan-500">
-                                    <option value="">Select Material</option>
-                                    @foreach($rawMaterials as $mat)
-                                        <option value="{{ $mat->id }}" {{ $item->raw_material_id == $mat->id ? 'selected' : '' }}>
-                                            {{ $mat->name }} ({{ $mat->code }})
-                                        </option>
-                                    @endforeach
+                                <select name="items[{{ $index + 1 }}][item_type]" class="item-type-select block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:border-cyan-500">
+                                    <option value="raw" {{ !$isPacking ? 'selected' : '' }}>Raw Material</option>
+                                    <option value="packing" {{ $isPacking ? 'selected' : '' }}>Packing Material</option>
                                 </select>
+                            </td>
+                            <td class="p-3">
+                                <div class="raw-select-wrap {{ $isPacking ? 'hidden' : '' }}">
+                                    <select name="items[{{ $index + 1 }}][raw_material_id]" class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-sm focus:outline-none focus:border-cyan-500">
+                                        <option value="">Select Raw Material</option>
+                                        @foreach($rawMaterials as $mat)
+                                            <option value="{{ $mat->id }}" {{ $item->raw_material_id == $mat->id ? 'selected' : '' }}>
+                                                {{ $mat->name }} ({{ $mat->code }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="packing-select-wrap {{ !$isPacking ? 'hidden' : '' }}">
+                                    <select name="items[{{ $index + 1 }}][packing_material_id]" class="block w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-white text-sm focus:outline-none focus:border-purple-500">
+                                        <option value="">Select Packing Material</option>
+                                        @foreach($packingMaterials as $pm)
+                                            <option value="{{ $pm->id }}" {{ $item->packing_material_id == $pm->id ? 'selected' : '' }}>
+                                                {{ $pm->name }} ({{ $pm->category->name ?? 'Packing' }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </td>
                             <td class="p-3">
                                 <input type="number" step="0.0001" name="items[{{ $index + 1 }}][quantity]" value="{{ format_quantity($item->quantity) }}" required min="0.0001"

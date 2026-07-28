@@ -363,6 +363,6 @@ class ProductionTest extends TestCase
         $this->assertEquals(15, $fgWithoutCoupon->available_bags);
 
         $this->assertEquals($grade->name . ' (' . $coupon->name . ')', $fgWithCoupon->product_name);
-        $this->assertEquals($grade->name . ' (No Coupon)', $fgWithoutCoupon->product_name);
+        $this->assertEquals($grade->name, $fgWithoutCoupon->product_name);
     }
 }

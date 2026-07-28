@@ -84,7 +84,7 @@
         <div class="dispatch-card space-y-6">
             <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">2. Customer & Logistics Details</h3>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <!-- Vehicle Number -->
                 <div>
                     <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Vehicle Number <span class="text-rose-500">*</span></label>
@@ -95,12 +95,6 @@
                 <div>
                     <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Expected Arrival Date & Time</label>
                     <input type="datetime-local" id="expected_arrival_at" name="expected_arrival_at" value="{{ date('Y-m-d\TH:i') }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
-                </div>
-
-                <!-- Driver Name -->
-                <div>
-                    <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Driver Name <span class="text-rose-500">*</span></label>
-                    <input type="text" id="driver_name" name="driver_name" required placeholder="Driver Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
                 </div>
 
                 <!-- Driver Mobile -->
@@ -207,7 +201,6 @@
                 <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div>
                         <span class="text-sm font-black text-slate-900 block">Payment Required?</span>
-                        <p class="text-xs font-bold text-slate-500">Enable if payment is required before dispatch.</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="payment_required" name="payment_required" value="1" class="sr-only peer">
@@ -227,7 +220,6 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <span class="text-sm font-black text-slate-900 block">Release Goods for Loading?</span>
-                            <p class="text-xs font-bold text-slate-500">If set to NO, warehouse staff cannot load truck.</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="is_released" name="is_released" value="1" checked class="sr-only peer">
@@ -270,6 +262,18 @@
 
     $(document).ready(function() {
         setDispatchType('factory_pickup');
+
+        $('#payment_required').on('change', function() {
+            if (this.checked) {
+                $('#is_released').prop('checked', false);
+            }
+        });
+
+        $('#is_released').on('change', function() {
+            if (this.checked) {
+                $('#payment_required').prop('checked', false);
+            }
+        });
     });
 
     function togglePaymentFields(checked) {

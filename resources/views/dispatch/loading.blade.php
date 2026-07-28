@@ -76,9 +76,8 @@
             </div>
 
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Driver Details</span>
-                <strong class="text-sm font-black text-slate-900 block">👤 {{ $dispatch->driver_name ?: 'N/A' }}</strong>
-                <span class="text-xs font-bold text-slate-600 block mt-0.5">📞 {{ $dispatch->driver_mobile ?: '-' }}</span>
+                <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Driver Mobile</span>
+                <strong class="text-sm font-black text-slate-900 block">📞 {{ $dispatch->driver_mobile ?: '-' }}</strong>
             </div>
 
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">

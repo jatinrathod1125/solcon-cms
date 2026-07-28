@@ -66,8 +66,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-extrabold uppercase text-slate-500 mb-1">Driver Name</label>
-                    <input type="text" name="driver" value="{{ request('driver') }}" placeholder="Filter by driver..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+                    <label class="block text-[11px] font-extrabold uppercase text-slate-500 mb-1">Driver Mobile</label>
+                    <input type="text" name="driver_mobile" value="{{ request('driver_mobile') }}" placeholder="Filter by driver mobile..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
                 </div>
 
                 <div>
@@ -141,7 +141,7 @@
                         <th class="p-3">Type</th>
                         <th class="p-3">Customer</th>
                         <th class="p-3">Vehicle</th>
-                        <th class="p-3">Driver</th>
+                        <th class="p-3">Driver Mobile</th>
                         <th class="p-3 text-center">Total Units</th>
                         <th class="p-3 text-right">Weight (KG)</th>
                         <th class="p-3 text-right">Weight (Ton)</th>
@@ -159,7 +159,7 @@
                             <td class="p-3 font-extrabold text-slate-800">{{ $dispatch->type_info['label'] }}</td>
                             <td class="p-3 font-black text-slate-900">{{ $dispatch->party_name }}</td>
                             <td class="p-3 font-bold text-slate-700">{{ $dispatch->vehicle_number ?: '-' }}</td>
-                            <td class="p-3 font-bold text-slate-700">{{ $dispatch->driver_name ?: '-' }}</td>
+                            <td class="p-3 font-bold text-slate-700">{{ $dispatch->driver_mobile ?: '-' }}</td>
                             <td class="p-3 text-center font-black text-slate-900">{{ $dispatch->total_bags }}</td>
                             <td class="p-3 text-right font-bold text-slate-700">{{ number_format($dispatch->total_weight, 1) }}</td>
                             <td class="p-3 text-right font-black text-emerald-600">{{ number_format($dispatch->total_tons, 2) }}</td>

@@ -7,6 +7,7 @@ use App\Models\Formula;
 use App\Models\FormulaItem;
 use App\Models\Grade;
 use App\Models\RawMaterial;
+use App\Models\PackingMaterial;
 use App\Models\Unit;
 use App\Http\Requests\Admin\StoreFormulaRequest;
 use App\Http\Requests\Admin\UpdateFormulaRequest;
@@ -32,7 +33,7 @@ class FormulaController extends Controller
      */
     public function show(Formula $formula)
     {
-        $formula->load(['grade', 'creator', 'items.rawMaterial', 'items.unit']);
+        $formula->load(['grade', 'creator', 'items.rawMaterial', 'items.packingMaterial', 'items.unit']);
 
         return view('admin.formulas.show', compact('formula'));
     }
@@ -44,9 +45,10 @@ class FormulaController extends Controller
     {
         $grades = Grade::where('is_active', true)->get();
         $rawMaterials = RawMaterial::where('is_active', true)->get();
+        $packingMaterials = PackingMaterial::where('status', 'active')->orderBy('name')->get();
         $units = Unit::getActive();
 
-        return view('admin.formulas.create', compact('grades', 'rawMaterials', 'units'));
+        return view('admin.formulas.create', compact('grades', 'rawMaterials', 'packingMaterials', 'units'));
     }
 
     /**
@@ -70,9 +72,14 @@ class FormulaController extends Controller
             ]);
 
             foreach ($request->input('items') as $item) {
+                $itemType = $item['item_type'] ?? 'raw';
+                $isPacking = $itemType === 'packing';
+
                 FormulaItem::create([
                     'formula_id' => $formula->id,
-                    'raw_material_id' => $item['raw_material_id'],
+                    'item_type' => $itemType,
+                    'raw_material_id' => $isPacking ? null : ($item['raw_material_id'] ?? null),
+                    'packing_material_id' => $isPacking ? ($item['packing_material_id'] ?? null) : null,
                     'quantity' => $item['quantity'],
                     'unit_id' => $item['unit_id'],
                     'consumption_method' => $item['consumption_method'] ?? 'formula',
@@ -103,12 +110,13 @@ class FormulaController extends Controller
      */
     public function edit(Formula $formula)
     {
-        $formula->load('items');
+        $formula->load(['items.rawMaterial', 'items.packingMaterial']);
         $grades = Grade::where('is_active', true)->get();
         $rawMaterials = RawMaterial::where('is_active', true)->get();
+        $packingMaterials = PackingMaterial::where('status', 'active')->orderBy('name')->get();
         $units = Unit::getActive();
 
-        return view('admin.formulas.edit', compact('formula', 'grades', 'rawMaterials', 'units'));
+        return view('admin.formulas.edit', compact('formula', 'grades', 'rawMaterials', 'packingMaterials', 'units'));
     }
 
     /**
@@ -129,9 +137,14 @@ class FormulaController extends Controller
             $formula->items()->delete();
 
             foreach ($request->input('items') as $item) {
+                $itemType = $item['item_type'] ?? 'raw';
+                $isPacking = $itemType === 'packing';
+
                 FormulaItem::create([
                     'formula_id' => $formula->id,
-                    'raw_material_id' => $item['raw_material_id'],
+                    'item_type' => $itemType,
+                    'raw_material_id' => $isPacking ? null : ($item['raw_material_id'] ?? null),
+                    'packing_material_id' => $isPacking ? ($item['packing_material_id'] ?? null) : null,
                     'quantity' => $item['quantity'],
                     'unit_id' => $item['unit_id'],
                     'consumption_method' => $item['consumption_method'] ?? 'formula',
@@ -162,8 +175,6 @@ class FormulaController extends Controller
      */
     public function destroy(Formula $formula)
     {
-        // When production is added, we would check if this formula has been used in production.
-        // For now, standard delete is allowed.
         $formula->delete();
 
         return redirect()->route('admin.formulas.index')

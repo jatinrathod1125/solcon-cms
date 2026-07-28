@@ -223,13 +223,23 @@
     <form id="createOrderForm" action="{{ route('marketing.orders.store') }}" method="POST">
         @csrf
         <section class="bg-white border border-slate-200 rounded-[24px] p-5 shadow-sm space-y-5">
-            <header class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <header class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-3">
                 <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-blue-50 text-blue-600 rounded-xl">
                         <i data-lucide="plus-circle" class="w-5 h-5"></i>
                     </div>
                     <h2 class="text-base font-extrabold text-slate-900">Create Order</h2>
                 </div>
+
+                <!-- Live Summary Counter Badges -->
+                <div class="flex items-center gap-2.5 text-xs bg-slate-50 border border-slate-200 px-3.5 py-1.5 rounded-xl font-bold">
+                    <span class="text-slate-500">Bags/Units: <strong id="live_top_units" class="text-slate-900 font-black">0</strong></span>
+                    <span class="text-slate-300">|</span>
+                    <span class="text-slate-500">Weight: <strong id="live_top_kg" class="text-emerald-600 font-black">0.0 KG</strong></span>
+                    <span class="text-slate-300">|</span>
+                    <span class="text-slate-500">Total: <strong id="live_top_ton" class="text-blue-600 font-black">0.00 Ton</strong></span>
+                </div>
+
                 <a href="{{ route('marketing.orders.index') }}"
                     class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -817,6 +827,22 @@
                             class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"></textarea>
                     </div>
 
+                    <!-- Live Summary Card -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2.5 mt-2">
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Total Order Units</span>
+                            <span class="font-black text-slate-900 bg-white border border-slate-200 px-2.5 py-0.5 rounded-md text-xs" id="live_bottom_units">0</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Total Weight (KG)</span>
+                            <span class="font-black text-emerald-600 bg-white border border-slate-200 px-2.5 py-0.5 rounded-md text-xs" id="live_bottom_kg">0.0 KG</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs border-t border-slate-200 pt-2">
+                            <span class="font-extrabold text-slate-700 uppercase tracking-wider text-[10px]">Total Weight (Tons)</span>
+                            <span class="font-black text-blue-600 text-sm" id="live_bottom_ton">0.00 Ton</span>
+                        </div>
+                    </div>
+
                     <!-- Form Action Buttons -->
                     <div class="flex gap-3 justify-end pt-2">
                         <button type="submit"
@@ -834,6 +860,63 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
+        function parsePackingWeight(packing, deptCode) {
+            if (!packing) {
+                return deptCode === 'GRT' ? 25.0 : (deptCode === 'TAD' ? 20.0 : 1.0);
+            }
+            var str = packing.toString().toUpperCase().trim();
+
+            if (str.includes('500GM') || str.includes('500 GM')) return 0.5;
+            if (str.includes('200GM') || str.includes('200 GM')) return 0.2;
+            if (str.includes('100GM') || str.includes('100 GM')) return 0.1;
+            if (str.includes('50GM') || str.includes('50 GM')) return 0.05;
+
+            var match = str.match(/(\d+(?:\.\d+)?)/);
+            if (match) {
+                var num = parseFloat(match[1]);
+                if (!isNaN(num) && num > 0) {
+                    return num;
+                }
+            }
+
+            if (deptCode === 'GRT') return 25.0;
+            if (deptCode === 'TAD') return 20.0;
+            return 1.0;
+        }
+
+        function updateLiveTotals() {
+            var totalUnits = 0;
+            var totalWeightKg = 0;
+
+            $('.qty-input').each(function() {
+                var val = parseFloat($(this).val()) || 0;
+                if (val > 0) {
+                    totalUnits += val;
+                    var packing = $(this).data('packing') || '';
+                    var dept = $(this).data('dept') || '';
+
+                    var unitWeight = parsePackingWeight(packing, dept);
+                    totalWeightKg += (val * unitWeight);
+                }
+            });
+
+            var totalTon = totalWeightKg / 1000.0;
+
+            var formattedUnits = totalUnits.toLocaleString();
+            var formattedKg = totalWeightKg.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + ' KG';
+            var formattedTon = totalTon.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Ton';
+
+            $('#live_top_units, #live_bottom_units').text(formattedUnits);
+            $('#live_top_kg, #live_bottom_kg').text(formattedKg);
+            $('#live_top_ton, #live_bottom_ton').text(formattedTon);
+        }
+
+        $(document).on('input change', '.qty-input', function() {
+            updateLiveTotals();
+        });
+
+        // Initialize on load
+        updateLiveTotals();
         $('#createOrderForm').on('submit', function(e) {
             e.preventDefault();
 

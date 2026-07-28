@@ -327,9 +327,13 @@ class ProductionController extends Controller
 
         $items = [];
         foreach ($formula->items as $item) {
+            $isPacking = ($item->item_type ?? 'raw') === 'packing' || (bool)$item->packing_material_id;
             $items[] = [
-                'raw_material_code' => $item->rawMaterial->code,
-                'raw_material_name' => $item->rawMaterial->name,
+                'item_type' => $isPacking ? 'packing' : 'raw',
+                'raw_material_id' => $item->raw_material_id,
+                'raw_material_code' => $isPacking ? ($item->packingMaterial->code ?? 'PM') : ($item->rawMaterial->code ?? ''),
+                'raw_material_name' => $isPacking ? ($item->packingMaterial->name ?? '') : ($item->rawMaterial->name ?? ''),
+                'packing_material_id' => $item->packing_material_id,
                 'quantity' => (float) $item->quantity,
                 'unit_code' => $item->unit->code,
                 'consumption_method' => $item->consumption_method ?? 'formula',

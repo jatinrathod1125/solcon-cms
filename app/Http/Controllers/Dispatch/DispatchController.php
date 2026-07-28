@@ -443,8 +443,8 @@ class DispatchController extends Controller
         if ($vehicle = $request->input('vehicle')) {
             $query->where('vehicle_number', 'like', "%{$vehicle}%");
         }
-        if ($driver = $request->input('driver')) {
-            $query->where('driver_name', 'like', "%{$driver}%");
+        if ($driverMobile = $request->input('driver_mobile')) {
+            $query->where('driver_mobile', 'like', "%{$driverMobile}%");
         }
         if ($customer = $request->input('customer')) {
             $query->where('party_name', 'like', "%{$customer}%");
