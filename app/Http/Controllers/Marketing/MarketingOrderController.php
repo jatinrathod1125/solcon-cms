@@ -42,7 +42,7 @@ class MarketingOrderController extends Controller
 
         // Get orders query
         $ordersQuery = MarketingOrder::orderBy('sort_order', 'asc')
-            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator']);
+            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator']);
 
         // Non-admin users (Marketing role) only see orders created by themselves
         if (!$user->isAdmin()) {
@@ -331,6 +331,7 @@ class MarketingOrderController extends Controller
         $spacerProduct = EpoxyProduct::where('code', 'SP')->first();
         $levelerProduct = EpoxyProduct::where('code', 'TL')->first();
         $resinKitProduct = EpoxyProduct::where('code', 'RK')->first();
+        $resinKit15Product = EpoxyProduct::where('code', 'RK1')->first();
         
         $jariComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-JARI-%')->get();
         $sbPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SBP-%')->get();
@@ -728,16 +729,18 @@ class MarketingOrderController extends Controller
     {
         $validated = $request->validate([
             'department_code' => 'required|in:TAD,GRT,EPX',
-            'product_id' => 'required|integer',
+            'product_id' => 'nullable|integer|required_without:component_id|prohibited_with:component_id',
+            'component_id' => 'nullable|integer|exists:epoxy_components,id|required_without:product_id|prohibited_with:product_id',
             'packing' => 'nullable|string',
             'coupon_raw_material_id' => 'nullable|integer',
         ]);
 
         $stock = $this->orderService->getProductStock(
             $validated['department_code'],
-            $validated['product_id'],
+            isset($validated['product_id']) ? (int) $validated['product_id'] : null,
             $validated['packing'] ?? null,
-            $validated['coupon_raw_material_id'] ? (int) $validated['coupon_raw_material_id'] : null
+            !empty($validated['coupon_raw_material_id']) ? (int) $validated['coupon_raw_material_id'] : null,
+            isset($validated['component_id']) ? (int) $validated['component_id'] : null,
         );
 
         return response()->json([
@@ -756,7 +759,8 @@ class MarketingOrderController extends Controller
         $groutAdmixProduct = EpoxyProduct::firstOrCreate(['code' => 'GA'], ['name' => 'GROUT ADMIX', 'requires_color' => 0, 'is_active' => 1]);
         $spacerProduct = EpoxyProduct::firstOrCreate(['code' => 'SP'], ['name' => 'SPACER', 'requires_color' => 0, 'is_active' => 1]);
         $levelerProduct = EpoxyProduct::firstOrCreate(['code' => 'TL'], ['name' => 'TILES LEVELER', 'requires_color' => 0, 'is_active' => 1]);
-        $resinKitProduct = EpoxyProduct::firstOrCreate(['code' => 'RK'], ['name' => 'RESIN KIT 0.5KG', 'requires_color' => 0, 'is_active' => 1]);
+        $resinKitProduct = EpoxyProduct::firstOrCreate(['code' => 'RK'], ['name' => 'RESIN KIT 0.3KG', 'requires_color' => 0, 'is_active' => 1]);
+        $resinKit15Product = EpoxyProduct::firstOrCreate(['code' => 'RK1'], ['name' => 'RESIN KIT 1.5KG', 'requires_color' => 0, 'is_active' => 1]);
 
         // Ensure Jari Components exist
         $jariList = [
@@ -846,9 +850,32 @@ class MarketingOrderController extends Controller
               ->orWhere('name', 'like', '%STEEL%');
         })->get();
 
+        $groutAdmixComponent = EpoxyComponent::firstOrCreate(
+            ['code' => 'EPX-GA-200GM'],
+            ['name' => '200GM Admix', 'category' => 'Box', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]
+        );
+
+        $tilesCleanerComponents = collect([
+            ['code' => 'EPX-TC-1LTR', 'name' => 'Tiles Cleaner 1-LTR'],
+            ['code' => 'EPX-TC-5LTR', 'name' => 'Tiles Cleaner 5-LTR'],
+        ])->mapWithKeys(function (array $component) {
+            $model = EpoxyComponent::firstOrCreate(
+                ['code' => $component['code']],
+                [
+                    'name' => $component['name'],
+                    'category' => 'Box',
+                    'purpose' => 'Direct Finished Product',
+                    'unit_id' => 3,
+                    'is_active' => 1,
+                ]
+            );
+
+            return [$model->code => $model];
+        });
+
         return compact(
-            'solititeProduct', 'tilesCleanerProduct', 'groutAdmixProduct', 'spacerProduct',
-            'levelerProduct', 'resinKitProduct', 'jariComponents', 'sbPlusComponents',
+            'solititeProduct', 'tilesCleanerProduct', 'tilesCleanerComponents', 'groutAdmixProduct', 'groutAdmixComponent', 'spacerProduct',
+            'levelerProduct', 'resinKitProduct', 'resinKit15Product', 'jariComponents', 'sbPlusComponents',
             'sbPlusPlusComponents', 'skPlusComponents', 'spacerComponents', 'levelerComponents'
         );
     }

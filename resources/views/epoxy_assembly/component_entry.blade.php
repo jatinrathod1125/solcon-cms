@@ -75,7 +75,7 @@
                         @forelse($components as $index => $comp)
                             @php
                                 $hasFormula = (bool) $comp->activeFormula;
-                                $stock = $comp->rawMaterial ? (float)$comp->rawMaterial->current_stock : 0;
+                                $stock = $comp->available_stock;
                                 $unitCode = $comp->unit ? $comp->unit->code : 'PCS';
                             @endphp
                             <tr class="component-row hover:bg-slate-900/50 transition {{ !$hasFormula ? 'opacity-50' : '' }}" 

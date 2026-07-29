@@ -138,6 +138,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [\App\Http\Controllers\EpoxyAssemblyController::class, 'index'])->name('epoxy.index');
         Route::get('/component-entry', [\App\Http\Controllers\EpoxyAssemblyController::class, 'componentEntryForm'])->name('epoxy.component-entry');
         Route::post('/component-entry', [\App\Http\Controllers\EpoxyAssemblyController::class, 'storeComponentEntry'])->name('epoxy.component-entry.store');
+        Route::post('/component-entry/bulk', [\App\Http\Controllers\EpoxyAssemblyController::class, 'storeBulkComponentEntry'])->name('epoxy.component-entry.bulk-store');
         Route::get('/bucket-assembly', [\App\Http\Controllers\EpoxyAssemblyController::class, 'bucketAssemblyForm'])->name('epoxy.bucket-assembly');
         Route::post('/bucket-assembly', [\App\Http\Controllers\EpoxyAssemblyController::class, 'storeBucketAssembly'])->name('epoxy.bucket-assembly.store');
         Route::get('/products/{product}/formula-preview', [\App\Http\Controllers\EpoxyAssemblyController::class, 'previewFormula'])->name('epoxy.formula-preview');

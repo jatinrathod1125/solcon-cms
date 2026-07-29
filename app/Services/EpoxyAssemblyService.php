@@ -162,10 +162,18 @@ class EpoxyAssemblyService
             }
 
             // Update Finished Goods Stock
+            // Derive a proper packing value: for products whose name contains
+            // a weight suffix (e.g. "RESIN KIT 0.3KG"), use the weight portion
+            // so that it matches the packing value stored on order items.
+            $packing = $product->name;
+            if (preg_match('/(\d+(?:\.\d+)?\s*(?:KG|LTR|GM))/i', $product->name, $m)) {
+                $packing = strtoupper(preg_replace('/\s+/', '', $m[1]));
+            }
+
             app(\App\Services\FinishedGoodsService::class)->incrementEpoxyStock(
                 $productId,
                 $color ? $color->id : null,
-                $product->name,
+                $packing,
                 (int) $quantity,
                 $epoxyFillerColor ? $epoxyFillerColor->id : null
             );
@@ -266,13 +274,14 @@ class EpoxyAssemblyService
             // 3. Increment Destination Stock based on purpose
             if ($component->purpose === 'Direct Finished Product') {
                 $deptEPX = Department::where('code', 'EPX')->firstOrFail();
+                $packing = FinishedGoodsResolver::packingForComponent($component) ?? '1 Unit';
                 
                 // Find or create Finished Goods record
                 $finishedGood = FinishedGood::firstOrCreate([
                     'department_id' => $deptEPX->id,
                     'epoxy_component_id' => $component->id,
                 ], [
-                    'packing' => '1 Unit',
+                    'packing' => $packing,
                     'available_bags' => 0,
                     'available_weight' => 0.0000,
                     'minimum_stock' => 0,

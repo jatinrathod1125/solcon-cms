@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Services\FinishedGoodsResolver;
 
 class DispatchItem extends Model
 {
@@ -44,51 +45,7 @@ class DispatchItem extends Model
      */
     public function findFinishedGood(): ?FinishedGood
     {
-        $query = FinishedGood::query();
-
-        if ($this->department_code) {
-            $query->whereHas('department', function ($q) {
-                $q->where('code', $this->department_code);
-            });
-        }
-
-        switch ($this->department_code) {
-            case 'TAD':
-                if ($this->grade_id) {
-                    $query->where('grade_id', $this->grade_id);
-                }
-                break;
-            case 'GRT':
-                if ($this->color_id) {
-                    $query->where('color_id', $this->color_id);
-                }
-                break;
-            case 'EPX':
-                if ($this->epoxy_component_id) {
-                    $query->where('epoxy_component_id', $this->epoxy_component_id);
-                } else {
-                    if ($this->epoxy_product_id) {
-                        $query->where('epoxy_product_id', $this->epoxy_product_id);
-                    }
-                    if ($this->epoxy_filler_color_id) {
-                        $query->where('epoxy_filler_color_id', $this->epoxy_filler_color_id);
-                    }
-                }
-                break;
-        }
-
-        if ($this->coupon_raw_material_id) {
-            $query->where('coupon_raw_material_id', $this->coupon_raw_material_id);
-        }
-
-        if (!empty($this->packing)) {
-            $exactMatch = (clone $query)->where('packing', $this->packing)->first();
-            if ($exactMatch) {
-                return $exactMatch;
-            }
-        }
-
-        return $query->first();
+        return app(FinishedGoodsResolver::class)->findForDispatchItem($this);
     }
 
     /**
@@ -220,18 +177,47 @@ class DispatchItem extends Model
 
     public function getProductNameAttribute(): string
     {
-        return match ($this->department_code) {
-            'TAD' => $this->grade ? $this->grade->name : 'N/A',
-            'GRT' => $this->color ? $this->color->name : 'N/A',
-            'EPX' => $this->epoxyComponent 
-                ? $this->epoxyComponent->name 
-                : ($this->epoxyProduct 
+        $name = match ($this->department_code) {
+            'TAD' => $this->grade?->name,
+            'GRT' => $this->color?->name,
+            'EPX' => $this->epoxyComponent?->name 
+                ?? ($this->epoxyProduct 
                     ? ($this->epoxyFillerColor 
                         ? $this->epoxyProduct->name . ' (' . $this->epoxyFillerColor->name . ')' 
                         : $this->epoxyProduct->name) 
-                    : 'N/A'),
-            default => 'N/A',
+                    : null),
+            default => null,
         };
+
+        if ($name) {
+            return $name;
+        }
+
+        if ($this->epoxyComponent?->name) {
+            return $this->epoxyComponent->name;
+        }
+        if ($this->epoxyProduct?->name) {
+            return $this->epoxyProduct->name;
+        }
+        if ($this->grade?->name) {
+            return $this->grade->name;
+        }
+        if ($this->color?->name) {
+            return $this->color->name;
+        }
+
+        if (!empty($this->packing)) {
+            $packingUpper = strtoupper(trim($this->packing));
+            if (str_contains($packingUpper, 'ADMIX') || str_contains($packingUpper, '200GM')) {
+                return '200GM ADMIX';
+            }
+            if (str_contains($packingUpper, 'CLEANER') || str_contains($packingUpper, '1-LTR') || str_contains($packingUpper, '5-LTR')) {
+                return 'TILES CLEANER (' . $this->packing . ')';
+            }
+            return $this->packing;
+        }
+
+        return 'N/A';
     }
 
     public function getDepartmentLabelAttribute(): string

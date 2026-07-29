@@ -91,7 +91,7 @@ class EpoxyAssemblyController extends Controller
         }
 
         $components = EpoxyComponent::where('is_active', true)
-            ->with(['unit', 'color', 'parentComponent', 'rawMaterial', 'activeFormula'])
+            ->with(['unit', 'color', 'parentComponent', 'rawMaterial', 'activeFormula', 'finishedGoods'])
             ->orderBy('name')
             ->get();
 

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\MarketingOrder;
 use App\Models\MarketingOrderItem;
-use App\Models\FinishedGood;
 use App\Models\RawMaterial;
 use App\Models\Grade;
 use App\Models\Color;
@@ -16,10 +15,15 @@ use Carbon\Carbon;
 class MarketingOrderService
 {
     protected FinishedGoodsService $finishedGoodsService;
+    protected FinishedGoodsResolver $finishedGoodsResolver;
 
-    public function __construct(FinishedGoodsService $finishedGoodsService)
+    public function __construct(
+        FinishedGoodsService $finishedGoodsService,
+        FinishedGoodsResolver $finishedGoodsResolver,
+    )
     {
         $this->finishedGoodsService = $finishedGoodsService;
+        $this->finishedGoodsResolver = $finishedGoodsResolver;
     }
 
     /**
@@ -340,45 +344,24 @@ class MarketingOrderService
      */
     protected function deductFinishedGoods(MarketingOrderItem $item, string $orderNumber): void
     {
-        // Find matching finished good
-        $fgQuery = FinishedGood::query();
+        $finishedGood = $this->finishedGoodsResolver->findForOrderItem($item);
 
-        switch ($item->department_code) {
-            case 'TAD':
-                $fgQuery->where('grade_id', $item->grade_id)
-                        ->where('coupon_raw_material_id', $item->coupon_raw_material_id);
-                break;
-            case 'GRT':
-                $fgQuery->where('color_id', $item->color_id);
-                break;
-            case 'EPX':
-                if ($item->epoxy_component_id) {
-                    $fgQuery->where('epoxy_component_id', $item->epoxy_component_id);
-                } else {
-                    $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
-                    if ($item->epoxy_filler_color_id) {
-                        $fgQuery->where('epoxy_filler_color_id', $item->epoxy_filler_color_id);
-                    }
-                }
-                break;
+        if (!$finishedGood) {
+            throw new \RuntimeException("No finished-goods stock record matches {$item->product_name} ({$item->packing}).");
         }
 
-        if ($item->packing) {
-            $fgQuery->where('packing', $item->packing);
+        if ($finishedGood->available_bags < $item->quantity_bags) {
+            throw new \RuntimeException("Insufficient finished-goods stock for {$item->product_name}. Available: {$finishedGood->available_bags}.");
         }
 
-        $finishedGood = $fgQuery->first();
-
-        if ($finishedGood && $finishedGood->available_bags >= $item->quantity_bags) {
-            $this->finishedGoodsService->adjustStock(
-                $finishedGood->id,
-                'decrease',
-                $item->quantity_bags,
-                $item->quantity_kg,
-                "Marketing Order {$orderNumber}",
-                "Auto-deducted for order {$orderNumber}, Party: {$item->order->party_name}"
-            );
-        }
+        $this->finishedGoodsService->adjustStock(
+            $finishedGood->id,
+            'decrease',
+            $item->quantity_bags,
+            $item->quantity_kg,
+            "Marketing Order {$orderNumber}",
+            "Auto-deducted for order {$orderNumber}, Party: {$item->order->party_name}"
+        );
     }
 
     /**
@@ -386,34 +369,7 @@ class MarketingOrderService
      */
     public function checkItemAvailability(MarketingOrderItem $item): array
     {
-        // Check product availability in finished goods
-        $fgQuery = FinishedGood::query();
-
-        switch ($item->department_code) {
-            case 'TAD':
-                $fgQuery->where('grade_id', $item->grade_id)
-                        ->where('coupon_raw_material_id', $item->coupon_raw_material_id);
-                break;
-            case 'GRT':
-                $fgQuery->where('color_id', $item->color_id);
-                break;
-            case 'EPX':
-                if ($item->epoxy_component_id) {
-                    $fgQuery->where('epoxy_component_id', $item->epoxy_component_id);
-                } else {
-                    $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
-                    if ($item->epoxy_filler_color_id) {
-                        $fgQuery->where('epoxy_filler_color_id', $item->epoxy_filler_color_id);
-                    }
-                }
-                break;
-        }
-
-        if ($item->packing) {
-            $fgQuery->where('packing', $item->packing);
-        }
-
-        $fg = $fgQuery->first();
+        $fg = $this->finishedGoodsResolver->findForOrderItem($item);
         $fgStock = $fg ? (int) $fg->available_bags : 0;
         $productAvailable = $fgStock >= $item->quantity_bags;
 
@@ -534,28 +490,24 @@ class MarketingOrderService
     /**
      * Get finished goods stock for a specific product.
      */
-    public function getProductStock(string $deptCode, int $productId, ?string $packing = null, ?int $couponRawMaterialId = null): array
+    public function getProductStock(
+        string $deptCode,
+        ?int $productId,
+        ?string $packing = null,
+        ?int $couponRawMaterialId = null,
+        ?int $epoxyComponentId = null,
+    ): array
     {
-        $query = FinishedGood::query();
-
-        switch ($deptCode) {
-            case 'TAD':
-                $query->where('grade_id', $productId)
-                      ->where('coupon_raw_material_id', $couponRawMaterialId);
-                break;
-            case 'GRT':
-                $query->where('color_id', $productId);
-                break;
-            case 'EPX':
-                $query->where('epoxy_product_id', $productId);
-                break;
-        }
-
-        if ($packing) {
-            $query->where('packing', $packing);
-        }
-
-        $fg = $query->first();
+        $fg = $this->finishedGoodsResolver->findForAttributes(
+            $deptCode,
+            strtoupper($deptCode) === 'TAD' ? $productId : null,
+            strtoupper($deptCode) === 'GRT' ? $productId : null,
+            strtoupper($deptCode) === 'EPX' ? $productId : null,
+            null,
+            $epoxyComponentId,
+            $couponRawMaterialId,
+            $packing,
+        );
 
         return [
             'available_bags' => $fg ? (int) $fg->available_bags : 0,

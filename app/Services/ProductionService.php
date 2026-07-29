@@ -7,6 +7,7 @@ use App\Models\Formula;
 use App\Models\Machine;
 use App\Models\Grade;
 use App\Models\RawMaterial;
+use App\Models\PackingMaterial;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 

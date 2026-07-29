@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Dispatch;
 use App\Models\DispatchItem;
-use App\Models\FinishedGood;
 use App\Models\MarketingOrder;
 use App\Models\MarketingOrderItem;
 use Illuminate\Support\Facades\DB;
@@ -141,53 +140,23 @@ class DispatchLoadingService
      */
     protected function deductFinishedGoodsStock(DispatchItem $item, string $dispatchNumber, string $partyName): void
     {
-        $fgQuery = FinishedGood::query();
-
-        switch ($item->department_code) {
-            case 'TAD':
-                $fgQuery->where('grade_id', $item->grade_id);
-                if ($item->coupon_raw_material_id) {
-                    $fgQuery->where('coupon_raw_material_id', $item->coupon_raw_material_id);
-                }
-                break;
-            case 'GRT':
-                $fgQuery->where('color_id', $item->color_id);
-                break;
-            case 'EPX':
-                if ($item->epoxy_component_id) {
-                    $fgQuery->where('epoxy_component_id', $item->epoxy_component_id);
-                } else {
-                    $fgQuery->where('epoxy_product_id', $item->epoxy_product_id);
-                    if ($item->epoxy_filler_color_id) {
-                        $fgQuery->where('epoxy_filler_color_id', $item->epoxy_filler_color_id);
-                    }
-                }
-                break;
-        }
-
-        $finishedGood = null;
-        if ($item->orderItem) {
-            $finishedGood = $item->orderItem->findFinishedGood();
-        }
+        $finishedGood = $item->findFinishedGood();
 
         if (!$finishedGood) {
-            if ($item->packing) {
-                $exactMatch = (clone $fgQuery)->where('packing', $item->packing)->first();
-                $finishedGood = $exactMatch ?: $fgQuery->first();
-            } else {
-                $finishedGood = $fgQuery->first();
-            }
+            throw new \RuntimeException("No finished-goods stock record matches {$item->product_name} ({$item->packing}).");
         }
 
-        if ($finishedGood) {
-            $this->finishedGoodsService->adjustStock(
-                $finishedGood->id,
-                'decrease',
-                $item->quantity_bags,
-                $item->quantity_kg,
-                "Dispatch {$dispatchNumber}",
-                "Dispatched to {$partyName} via Dispatch #{$dispatchNumber}"
-            );
+        if ($finishedGood->available_bags < $item->quantity_bags) {
+            throw new \RuntimeException("Insufficient finished-goods stock for {$item->product_name}. Available: {$finishedGood->available_bags}.");
         }
+
+        $this->finishedGoodsService->adjustStock(
+            $finishedGood->id,
+            'decrease',
+            $item->quantity_bags,
+            $item->quantity_kg,
+            "Dispatch {$dispatchNumber}",
+            "Dispatched to {$partyName} via Dispatch #{$dispatchNumber}"
+        );
     }
 }

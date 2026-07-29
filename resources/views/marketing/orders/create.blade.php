@@ -362,13 +362,21 @@
                                 </thead>
                                 <tbody>
                                     @foreach(['1-LTR', '5-LTR'] as $prod)
+                                    @php
+                                        $componentCode = $prod === '1-LTR' ? 'EPX-TC-1LTR' : 'EPX-TC-5LTR';
+                                        $tilesCleanerComponent = $tilesCleanerComponents->get($componentCode);
+                                    @endphp
                                     <tr>
                                         <td
                                             class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
                                             {{ $prod }}</td>
                                         <td class="w-20">
                                             <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $tilesCleanerProduct->id ?? '' }}"
+                                                @if($tilesCleanerComponent)
+                                                    data-component-id="{{ $tilesCleanerComponent->id }}"
+                                                @else
+                                                    data-product-id="{{ $tilesCleanerProduct->id ?? '' }}"
+                                                @endif
                                                 data-packing="{{ $prod }}">
                                         </td>
                                     </tr>
@@ -400,7 +408,11 @@
                                             200GM Admix</td>
                                         <td class="w-20">
                                             <input type="number" min="0" class="compact-input qty-input" data-dept="EPX"
-                                                data-product-id="{{ $groutAdmixProduct->id ?? '' }}"
+                                                @if(isset($groutAdmixComponent) && $groutAdmixComponent)
+                                                    data-component-id="{{ $groutAdmixComponent->id }}"
+                                                @else
+                                                    data-product-id="{{ $groutAdmixProduct->id ?? '' }}"
+                                                @endif
                                                 data-packing="200GM">
                                         </td>
                                     </tr>
@@ -501,7 +513,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(['0.3KG', '1.5KG'] as $size)
+                                    @php
+                                        $resinKitSizes = [
+                                            '0.3KG' => $resinKitProduct->id ?? '',
+                                            '1.5KG' => $resinKit15Product->id ?? '',
+                                        ];
+                                    @endphp
+                                    @foreach($resinKitSizes as $size => $productId)
                                     <tr>
                                         <td
                                             class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
@@ -509,13 +527,13 @@
                                         <td class="w-16">
                                             <input type="number" min="0" class="compact-input qty-input"
                                                 data-dept="EPX"
-                                                data-product-id="{{ $resinKitProduct->id ?? '' }}"
+                                                data-product-id="{{ $productId }}"
                                                 data-packing="{{ $size }}">
                                         </td>
                                         <td class="w-24">
                                             <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase"
                                                 placeholder="Coupon" data-dept="EPX"
-                                                data-product-id="{{ $resinKitProduct->id ?? '' }}"
+                                                data-product-id="{{ $productId }}"
                                                 data-packing="{{ $size }}">
                                         </td>
                                     </tr>

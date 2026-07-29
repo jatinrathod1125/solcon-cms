@@ -81,4 +81,24 @@ class EpoxyComponent extends Model
     {
         return $this->hasOne(EpoxyComponentFormula::class, 'epoxy_component_id')->where('is_active', true);
     }
+
+    /**
+     * Get finished goods stock entries.
+     */
+    public function finishedGoods(): HasMany
+    {
+        return $this->hasMany(FinishedGood::class, 'epoxy_component_id');
+    }
+
+    /**
+     * Get total available ready stock across finished goods & raw material.
+     */
+    public function getAvailableStockAttribute(): float
+    {
+        $fgStock = (float) $this->finishedGoods->sum('available_bags');
+        if ($fgStock > 0) {
+            return $fgStock;
+        }
+        return $this->rawMaterial ? (float) $this->rawMaterial->current_stock : 0.0;
+    }
 }

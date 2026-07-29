@@ -4,7 +4,14 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Grade;
+use App\Models\RawMaterial;
+use App\Models\FinishedGood;
+use App\Models\EpoxyComponent;
+use App\Models\Department;
 use App\Models\MarketingOrder;
+use App\Models\MarketingOrderItem;
+use App\Services\MarketingOrderService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,6 +21,7 @@ class MarketingOrderTest extends TestCase
 
     protected $admin;
     protected $marketingUser;
+    protected $supervisorUser;
     protected $orderPending;
     protected $orderInProgress;
     protected $orderCompleted;
@@ -155,5 +163,143 @@ class MarketingOrderTest extends TestCase
 
         $response->assertStatus(403);
         $this->assertEquals('pending', $this->orderPending->fresh()->status);
+    }
+
+    public function test_order_item_without_token_does_not_match_token_finished_good_stock(): void
+    {
+        $grade = Grade::where('code', 'F101')->first();
+        $coupon = RawMaterial::where('is_coupon', true)->first();
+        $deptAdhesive = \App\Models\Department::where('code', 'TAD')->first();
+
+        // 1. Create a FinishedGood record WITH token and 100 bags stock
+        $fgWithToken = FinishedGood::create([
+            'department_id' => $deptAdhesive->id,
+            'grade_id' => $grade->id,
+            'coupon_raw_material_id' => $coupon->id,
+            'packing' => '20KG',
+            'available_bags' => 100,
+            'available_weight' => 2000,
+            'minimum_stock' => 10,
+            'status' => 'active',
+        ]);
+
+        // 2. Create an order item WITHOUT token (coupon_raw_material_id is null)
+        $noTokenItem = MarketingOrderItem::create([
+            'marketing_order_id' => $this->orderPending->id,
+            'department_code' => 'TAD',
+            'grade_id' => $grade->id,
+            'quantity_bags' => 50,
+            'packing' => '20KG',
+            'coupon_raw_material_id' => null, // NO TOKEN
+        ]);
+
+        // 3. findFinishedGood() on noTokenItem should NOT match $fgWithToken!
+        $foundFg = $noTokenItem->findFinishedGood();
+        $this->assertNull($foundFg);
+        $this->assertEquals(0, $noTokenItem->stock_info['available_bags']);
+
+        // 4. Create a FinishedGood record WITHOUT token and 80 bags stock
+        $fgWithoutToken = FinishedGood::create([
+            'department_id' => $deptAdhesive->id,
+            'grade_id' => $grade->id,
+            'coupon_raw_material_id' => null, // NO TOKEN
+            'packing' => '20KG',
+            'available_bags' => 80,
+            'available_weight' => 1600,
+            'minimum_stock' => 10,
+            'status' => 'active',
+        ]);
+
+        $foundFgNoToken = $noTokenItem->findFinishedGood();
+        $this->assertNotNull($foundFgNoToken);
+        $this->assertEquals($fgWithoutToken->id, $foundFgNoToken->id);
+        $this->assertEquals(80, $noTokenItem->stock_info['available_bags']);
+    }
+
+    public function test_admix_component_stock_is_consistent_for_order_availability_and_stock_api(): void
+    {
+        $epoxyDepartment = Department::where('code', 'EPX')->firstOrFail();
+        $component = EpoxyComponent::firstOrCreate(
+            ['code' => 'EPX-GA-200GM'],
+            [
+                'name' => 'Grout Admix 200GM',
+                'category' => 'Bottle',
+                'purpose' => 'Direct Finished Product',
+                'is_active' => true,
+            ]
+        );
+
+        $finishedGood = FinishedGood::create([
+            'department_id' => $epoxyDepartment->id,
+            'epoxy_component_id' => $component->id,
+            // Existing production records used this generic packing value.
+            'packing' => 'Box',
+            'available_bags' => 17,
+            'available_weight' => 3.4,
+            'minimum_stock' => 0,
+            'status' => 'active',
+        ]);
+
+        $item = MarketingOrderItem::create([
+            'marketing_order_id' => $this->orderPending->id,
+            'department_code' => 'EPX',
+            'epoxy_component_id' => $component->id,
+            'quantity_bags' => 1,
+            'packing' => '200GM',
+        ]);
+
+        $availability = app(MarketingOrderService::class)->checkItemAvailability($item);
+
+        $this->assertSame($finishedGood->id, $item->findFinishedGood()?->id);
+        $this->assertSame(17, $availability['fg_stock']);
+        $this->assertTrue($availability['product_available']);
+
+        $response = $this->actingAs($this->admin)->getJson(route('marketing.api.product_stock', [
+            'department_code' => 'EPX',
+            'component_id' => $component->id,
+            'packing' => '200GM',
+        ]));
+
+        $response->assertOk()->assertJsonPath('stock.available_bags', 17);
+    }
+
+    public function test_tile_cleaner_packings_resolve_to_their_own_component_stock(): void
+    {
+        $epoxyDepartment = Department::where('code', 'EPX')->firstOrFail();
+
+        foreach ([
+            ['code' => 'EPX-TC-1LTR', 'packing' => '1-LTR', 'stock' => 9],
+            ['code' => 'EPX-TC-5LTR', 'packing' => '5-LTR', 'stock' => 4],
+        ] as $definition) {
+            $component = EpoxyComponent::firstOrCreate(
+                ['code' => $definition['code']],
+                [
+                    'name' => $definition['code'],
+                    'category' => 'Box',
+                    'purpose' => 'Direct Finished Product',
+                    'is_active' => true,
+                ]
+            );
+
+            FinishedGood::create([
+                'department_id' => $epoxyDepartment->id,
+                'epoxy_component_id' => $component->id,
+                'packing' => 'Box',
+                'available_bags' => $definition['stock'],
+                'available_weight' => $definition['stock'],
+                'minimum_stock' => 0,
+                'status' => 'active',
+            ]);
+
+            $item = MarketingOrderItem::create([
+                'marketing_order_id' => $this->orderPending->id,
+                'department_code' => 'EPX',
+                'epoxy_component_id' => $component->id,
+                'quantity_bags' => 1,
+                'packing' => $definition['packing'],
+            ]);
+
+            $this->assertSame($definition['stock'], $item->stock_info['available_bags']);
+        }
     }
 }
