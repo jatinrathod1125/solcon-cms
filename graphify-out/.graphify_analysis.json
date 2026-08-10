@@ -1,0 +1,2690 @@
+{
+  "communities": {
+    "0": [
+      "app_http_controllers_admin_usercontroller_usercontroller",
+      "app_http_controllers_admin_usercontroller_usercontroller_create",
+      "app_http_controllers_admin_usercontroller_usercontroller_destroy",
+      "app_http_controllers_admin_usercontroller_usercontroller_edit",
+      "app_http_controllers_admin_usercontroller_usercontroller_index",
+      "app_http_controllers_admin_usercontroller_usercontroller_store",
+      "app_http_controllers_admin_usercontroller_usercontroller_update",
+      "app_models_user_php_belongsto",
+      "app_models_user_php_collection",
+      "app_models_user_php_hasmany",
+      "app_models_user_user",
+      "app_models_user_user_canaccessdepartment",
+      "app_models_user_user_canskiptimer",
+      "app_models_user_user_casts",
+      "app_models_user_user_department",
+      "app_models_user_user_departmentids",
+      "app_models_user_user_departments",
+      "app_models_user_user_devices",
+      "app_models_user_user_getdepartmentattribute",
+      "app_models_user_user_getdepartmentidattribute",
+      "app_models_user_user_hasdepartment",
+      "app_models_user_user_haspermission",
+      "app_models_user_user_hasrole",
+      "app_models_user_user_isadmin",
+      "app_models_user_user_isdispatch",
+      "app_models_user_user_ismarketing",
+      "app_models_user_user_issuperadmin",
+      "app_models_user_user_issupervisor",
+      "app_models_user_user_notifications",
+      "app_models_user_user_roles",
+      "illuminate_foundation_auth_user",
+      "tests_feature_dashboardtest_dashboardtest",
+      "tests_feature_dashboardtest_dashboardtest_setup",
+      "tests_feature_dashboardtest_dashboardtest_test_admin_can_access_dashboard",
+      "tests_feature_dashboardtest_dashboardtest_test_admin_can_access_settings_and_update",
+      "tests_feature_dashboardtest_dashboardtest_test_calendar_details_ajax_endpoint",
+      "tests_feature_dashboardtest_dashboardtest_test_guest_is_redirected_to_login",
+      "tests_feature_dashboardtest_dashboardtest_test_live_machines_ajax_endpoint",
+      "tests_feature_dashboardtest_dashboardtest_test_production_history_filters_and_csv_export",
+      "tests_feature_dashboardtest_dashboardtest_test_supervisor_cannot_access_settings",
+      "tests_feature_dashboardtest_dashboardtest_test_supervisor_dashboard_access_and_ajax_endpoints",
+      "tests_feature_dashboardtest_dashboardtest_test_whatsapp_pdf_export",
+      "tests_feature_factoryadmintest",
+      "tests_feature_factoryadmintest_factoryadmintest",
+      "tests_feature_factoryadmintest_factoryadmintest_setup",
+      "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_access_and_save_factory_settings",
+      "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_access_diagnostics_and_clear_cache",
+      "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_manage_database_backups",
+      "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_update_profile_and_password",
+      "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_view_activity_logs_and_export_csv",
+      "tests_feature_factoryadmintest_factoryadmintest_test_guests_are_redirected_to_login",
+      "tests_feature_factoryadmintest_factoryadmintest_test_supervisors_are_forbidden_from_admin_modules",
+      "tests_feature_productionplanningtest_productionplanningtest",
+      "tests_feature_productionplanningtest_productionplanningtest_setup",
+      "tests_feature_productionplanningtest_productionplanningtest_test_admin_can_access_production_planning_page",
+      "tests_feature_productionplanningtest_productionplanningtest_test_get_orders_drawer_api_returns_formatted_orders",
+      "tests_feature_productionplanningtest_productionplanningtest_test_production_planning_calculates_need_production_correctly",
+      "tests_feature_productionplanningtest_productionplanningtest_test_supervisor_can_access_production_planning_page",
+      "tests_feature_productionplanningtest_productionplanningtest_test_unauthorized_roles_cannot_access_production_planning"
+    ],
+    "1": [
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_apiapprovedorders",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_create",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_approve",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_complete",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_construct",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_create",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_destroy",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_edit",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_getepoxyproductsandcomponents",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_index",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_productstock",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_refresh",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_reorder",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_resolvecouponrawmaterialid",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_show",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_status",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_store",
+      "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_update",
+      "app_models_marketingorder_marketingorder",
+      "app_models_marketingorder_marketingorder_approver",
+      "app_models_marketingorder_marketingorder_creator",
+      "app_models_marketingorder_marketingorder_getavailabilitybadgeattribute",
+      "app_models_marketingorder_marketingorder_getitemssummaryattribute",
+      "app_models_marketingorder_marketingorder_getpriorityinfoattribute",
+      "app_models_marketingorder_marketingorder_getstatusinfoattribute",
+      "app_models_marketingorder_marketingorder_isproductionready",
+      "app_models_marketingorder_marketingorder_items",
+      "app_models_marketingorder_marketingorder_scopeapproved",
+      "app_models_marketingorder_marketingorder_scopecancelled",
+      "app_models_marketingorder_marketingorder_scopecompleted",
+      "app_models_marketingorder_marketingorder_scopeinprogress",
+      "app_models_marketingorder_marketingorder_scopepending",
+      "app_services_marketingorderservice_marketingorderservice",
+      "app_services_marketingorderservice_marketingorderservice_approveorder",
+      "app_services_marketingorderservice_marketingorderservice_cancelorder",
+      "app_services_marketingorderservice_marketingorderservice_changestatus",
+      "app_services_marketingorderservice_marketingorderservice_checkitemavailability",
+      "app_services_marketingorderservice_marketingorderservice_completeorder",
+      "app_services_marketingorderservice_marketingorderservice_createorder",
+      "app_services_marketingorderservice_marketingorderservice_deductfinishedgoods",
+      "app_services_marketingorderservice_marketingorderservice_generateordernumber",
+      "app_services_marketingorderservice_marketingorderservice_getavailablecoupons",
+      "app_services_marketingorderservice_marketingorderservice_getdashboardmarketingtodos",
+      "app_services_marketingorderservice_marketingorderservice_getproductsbydepartment",
+      "app_services_marketingorderservice_marketingorderservice_getproductstock",
+      "app_services_marketingorderservice_marketingorderservice_refreshallavailability",
+      "app_services_marketingorderservice_marketingorderservice_refreshorderavailability",
+      "app_services_marketingorderservice_marketingorderservice_updateorder",
+      "illuminate_support_collection"
+    ],
+    "2": [
+      "app_http_controllers_admin_bagsizecontroller",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller_create",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller_destroy",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller_edit",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller_index",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller_store",
+      "app_http_controllers_admin_bagsizecontroller_bagsizecontroller_update",
+      "app_http_requests_admin_storebagsizerequest",
+      "app_http_requests_admin_storebagsizerequest_storebagsizerequest",
+      "app_http_requests_admin_storebagsizerequest_storebagsizerequest_authorize",
+      "app_http_requests_admin_storebagsizerequest_storebagsizerequest_rules",
+      "app_http_requests_admin_updatebagsizerequest",
+      "app_http_requests_admin_updatebagsizerequest_updatebagsizerequest",
+      "app_http_requests_admin_updatebagsizerequest_updatebagsizerequest_authorize",
+      "app_http_requests_admin_updatebagsizerequest_updatebagsizerequest_rules",
+      "app_models_bagsize",
+      "app_models_bagsize_bagsize",
+      "app_models_bagsize_bagsize_booted",
+      "app_models_bagsize_bagsize_casts",
+      "app_models_department_department_booted",
+      "app_models_dispatch_dispatch_getembedgooglemapurlattribute",
+      "app_models_machine_machine_booted",
+      "app_models_unit_unit_booted",
+      "app_services_dailyreportservice_dailyreportservice_getdailyreportdata",
+      "database_factories_userfactory",
+      "database_factories_userfactory_userfactory",
+      "database_factories_userfactory_userfactory_definition",
+      "database_factories_userfactory_userfactory_unverified",
+      "illuminate_database_eloquent_factories_factory",
+      "static",
+      "tests_feature_gradestest_gradestest",
+      "tests_feature_gradestest_gradestest_setup",
+      "tests_feature_gradestest_gradestest_test_admin_can_perform_grade_crud",
+      "tests_feature_gradestest_gradestest_test_grade_validation_rules",
+      "tests_feature_gradestest_gradestest_test_guest_is_redirected_to_login",
+      "tests_feature_gradestest_gradestest_test_supervisor_cannot_access_grades"
+    ],
+    "3": [
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_settingsindex",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_settingsupdate",
+      "app_http_controllers_admin_settingscontroller_settingscontroller",
+      "app_http_controllers_admin_settingscontroller_settingscontroller_edit",
+      "app_http_controllers_admin_settingscontroller_settingscontroller_update",
+      "app_http_controllers_maintenancecontroller",
+      "app_http_controllers_maintenancecontroller_maintenancecontroller",
+      "app_http_controllers_maintenancecontroller_maintenancecontroller_bypass",
+      "app_http_controllers_maintenancecontroller_maintenancecontroller_update",
+      "app_http_controllers_shared_maintenanceunlockcontroller",
+      "app_http_controllers_shared_maintenanceunlockcontroller_maintenanceunlockcontroller",
+      "app_http_controllers_shared_maintenanceunlockcontroller_maintenanceunlockcontroller_showunlockform",
+      "app_http_controllers_shared_maintenanceunlockcontroller_maintenanceunlockcontroller_unlock",
+      "app_http_requests_unlockrequest",
+      "app_http_requests_unlockrequest_unlockrequest",
+      "app_http_requests_unlockrequest_unlockrequest_authorize",
+      "app_http_requests_unlockrequest_unlockrequest_rules",
+      "app_models_setting",
+      "app_models_setting_setting",
+      "app_models_setting_setting_get",
+      "app_models_setting_setting_set",
+      "app_services_settingservice",
+      "app_services_settingservice_settingservice",
+      "app_services_settingservice_settingservice_all",
+      "app_services_settingservice_settingservice_get",
+      "app_services_settingservice_settingservice_set",
+      "app_services_settingservice_settingservice_updatebulk",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_setup",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_maintenance_is_off_by_default_and_access_is_allowed",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_secret_url_deactivates_and_bypasses_maintenance",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_unlock_brute_force_is_rate_limited",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_unlock_page_is_accessible_during_maintenance",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_unlock_with_correct_password_sets_session",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_unlock_with_incorrect_password_fails",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_unlocked_session_bypasses_maintenance",
+      "tests_feature_enterprisemaintenancemodetest_enterprisemaintenancemodetest_test_when_maintenance_is_on_normal_users_get_503"
+    ],
+    "4": [
+      "app_http_controllers_dispatch_dispatchcontroller",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_destroy",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_edit",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_finishloading",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_index",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_loadingscreen",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_previewmap",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_reports",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_show",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_startloading",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_store",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_togglerelease",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_update",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_updatepayment",
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_updatestatus",
+      "app_models_dispatch_dispatch",
+      "app_models_dispatch_dispatch_getproductsummaryattribute",
+      "app_models_dispatch_dispatch_getstatusinfoattribute",
+      "app_models_dispatch_dispatch_gettotalbagsattribute",
+      "app_models_dispatch_dispatch_gettotaltonsattribute",
+      "app_models_dispatch_dispatch_gettotalweightattribute",
+      "app_models_dispatch_dispatch_gettypeinfoattribute",
+      "app_models_dispatch_dispatch_resolvegooglemapembedurl",
+      "app_services_dispatchservice_dispatchservice",
+      "app_services_dispatchservice_dispatchservice_changestatus",
+      "app_services_dispatchservice_dispatchservice_construct",
+      "app_services_dispatchservice_dispatchservice_createdispatch",
+      "app_services_dispatchservice_dispatchservice_deletedispatch",
+      "app_services_dispatchservice_dispatchservice_generatedispatchnumber",
+      "app_services_dispatchservice_dispatchservice_getdashboardmetrics",
+      "app_services_dispatchservice_dispatchservice_togglerelease",
+      "app_services_dispatchservice_dispatchservice_updatedispatch",
+      "app_services_dispatchservice_dispatchservice_updatepayment",
+      "illuminate_http_request"
+    ],
+    "5": [
+      "app_models_permission_permission_roles",
+      "app_models_role",
+      "app_models_role_role",
+      "app_models_role_role_permissions",
+      "app_models_role_role_users",
+      "app_models_user",
+      "database_migrations_2026_07_10_160003_seed_marketing_role",
+      "database_migrations_2026_07_10_160003_seed_marketing_role_down",
+      "database_migrations_2026_07_10_160003_seed_marketing_role_up",
+      "database_migrations_2026_07_21_180000_create_dispatch_management_system_tables",
+      "database_migrations_2026_07_21_180000_create_dispatch_management_system_tables_down",
+      "database_migrations_2026_07_21_180000_create_dispatch_management_system_tables_up",
+      "database_seeders_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder_run",
+      "illuminate_database_eloquent_relations_belongstomany",
+      "illuminate_notifications_notifiable",
+      "tests_feature_authtest",
+      "tests_feature_departmentaccesstest",
+      "tests_feature_departmentaccesstest_departmentaccesstest",
+      "tests_feature_departmentaccesstest_departmentaccesstest_setup",
+      "tests_feature_departmentaccesstest_departmentaccesstest_test_department_switching",
+      "tests_feature_departmentaccesstest_departmentaccesstest_test_dynamic_department_attribute_accessor",
+      "tests_feature_departmentaccesstest_departmentaccesstest_test_middleware_restricts_access",
+      "tests_feature_departmentaccesstest_departmentaccesstest_test_unauthorized_department_switch_fails",
+      "tests_feature_departmentaccesstest_departmentaccesstest_test_user_creation_requires_at_least_one_department",
+      "tests_feature_departmentaccesstest_departmentaccesstest_test_user_department_relationships_and_helpers",
+      "tests_feature_enterprisemaintenancemodetest",
+      "tests_feature_firebasenotificationtest",
+      "tests_feature_firebasenotificationtest_firebasenotificationtest",
+      "tests_feature_firebasenotificationtest_firebasenotificationtest_setup",
+      "tests_feature_firebasenotificationtest_firebasenotificationtest_test_check_mixing_timers_console_command",
+      "tests_feature_firebasenotificationtest_firebasenotificationtest_test_device_registration_and_deregistration",
+      "tests_feature_firebasenotificationtest_firebasenotificationtest_test_granular_department_notifications",
+      "tests_feature_marketingordertest_marketingordertest_setup"
+    ],
+    "6": [
+      "app_models_groutproductionbatch",
+      "app_services_dailyreportservice",
+      "illuminate_foundation_testing_refreshdatabase",
+      "illuminate_foundation_testing_testcase",
+      "tests_feature_exampletest",
+      "tests_feature_exampletest_exampletest",
+      "tests_feature_exampletest_exampletest_setup",
+      "tests_feature_exampletest_exampletest_test_the_application_returns_a_successful_response",
+      "tests_feature_formulastest_formulastest",
+      "tests_feature_formulastest_formulastest_setup",
+      "tests_feature_formulastest_formulastest_test_admin_can_create_formula_with_packing_material",
+      "tests_feature_formulastest_formulastest_test_admin_can_perform_formula_crud",
+      "tests_feature_formulastest_formulastest_test_guest_is_redirected_to_login",
+      "tests_feature_formulastest_formulastest_test_supervisor_cannot_access_formulas",
+      "tests_feature_gradestest",
+      "tests_feature_groutcolortest",
+      "tests_feature_groutcolortest_groutcolortest",
+      "tests_feature_groutcolortest_groutcolortest_setup",
+      "tests_feature_groutcolortest_groutcolortest_test_admin_can_access_grout_colors_list",
+      "tests_feature_groutcolortest_groutcolortest_test_admin_can_create_grout_color",
+      "tests_feature_groutcolortest_groutcolortest_test_admin_can_edit_grout_color",
+      "tests_feature_groutcolortest_groutcolortest_test_color_filtering",
+      "tests_feature_groutcolortest_groutcolortest_test_guest_and_supervisor_cannot_access_grout_colors",
+      "tests_feature_groutproductiontest",
+      "tests_feature_groutproductiontest_groutproductiontest",
+      "tests_feature_groutproductiontest_groutproductiontest_setup",
+      "tests_feature_groutproductiontest_groutproductiontest_test_machine_m01_color_restriction",
+      "tests_feature_groutproductiontest_groutproductiontest_test_manual_machine_timer_and_proportional_deduction_workflow",
+      "tests_feature_groutproductiontest_groutproductiontest_test_supervisor_access_and_department_boundary",
+      "tests_feature_todotest",
+      "tests_testcase_testcase",
+      "tests_testcase_testcase_seed",
+      "tests_testcase_testcase_setup"
+    ],
+    "7": [
+      "ag_grid_community",
+      "concurrently",
+      "firebase",
+      "formkit_auto_animate",
+      "laravel_vite_plugin",
+      "package",
+      "package_dependencies",
+      "package_dependencies_ag_grid_community",
+      "package_dependencies_firebase",
+      "package_dependencies_formkit_auto_animate",
+      "package_dependencies_sortablejs",
+      "package_devdependencies",
+      "package_devdependencies_concurrently",
+      "package_devdependencies_laravel_vite_plugin",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tailwindcss_vite",
+      "package_devdependencies_vite",
+      "package_private",
+      "package_schema",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_type",
+      "sortablejs",
+      "tailwindcss",
+      "tailwindcss_vite",
+      "tests_testcase",
+      "vite"
+    ],
+    "8": [
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_construct",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_create",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_destroy",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_edit",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_index",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_show",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_store",
+      "app_http_controllers_admin_groutformulacontroller_groutformulacontroller_update",
+      "app_models_groutformula_groutformula",
+      "app_models_groutformula_groutformula_casts",
+      "app_models_groutformula_groutformula_color",
+      "app_models_groutformula_groutformula_creator",
+      "app_models_groutformula_groutformula_items",
+      "app_models_groutformula_groutformula_updater",
+      "app_services_groutformulaservice_groutformulaservice",
+      "app_services_groutformulaservice_groutformulaservice_incrementversion",
+      "app_services_groutformulaservice_groutformulaservice_loadactiveformula",
+      "app_services_groutformulaservice_groutformulaservice_validateformula",
+      "app_services_groutproductionservice_groutproductionservice_construct",
+      "tests_feature_groutformulatest_groutformulatest",
+      "tests_feature_groutformulatest_groutformulatest_setup",
+      "tests_feature_groutformulatest_groutformulatest_test_admin_can_create_valid_grout_formula",
+      "tests_feature_groutformulatest_groutformulatest_test_formula_validation_duplicate_material_restricted",
+      "tests_feature_groutformulatest_groutformulatest_test_formula_validation_rules_via_service",
+      "tests_feature_groutformulatest_groutformulatest_test_formula_validation_stage_1_required",
+      "tests_feature_groutformulatest_groutformulatest_test_grout_formula_supports_multiple_pigment_raw_materials",
+      "tests_feature_groutformulatest_groutformulatest_test_version_increments_and_only_one_formula_is_active"
+    ],
+    "9": [
+      "app_http_controllers_admin_epoxyformulacontroller",
+      "app_http_controllers_admin_groutformulacontroller",
+      "app_http_controllers_epoxyassemblycontroller",
+      "app_http_controllers_finishedgoodscontroller",
+      "app_http_controllers_marketing_marketingordercontroller",
+      "app_models_color",
+      "app_models_color_color",
+      "app_models_color_color_activeformula",
+      "app_models_color_color_casts",
+      "app_models_epoxycomponent",
+      "app_models_epoxycomponent_epoxycomponent_activeformula",
+      "app_models_epoxycomponentpreparation",
+      "app_models_epoxyformulaitem",
+      "app_models_epoxyproduct",
+      "app_models_epoxyproduct_epoxyproduct_activeformula",
+      "app_models_grade_grade_activeformula",
+      "app_models_groutformula",
+      "app_models_groutformulaitem",
+      "app_services_epoxyassemblyservice",
+      "app_services_finishedgoodsservice",
+      "app_services_groutformulaservice",
+      "app_services_marketingorderservice",
+      "database_seeders_finishedgoodscomprehensiveseeder",
+      "database_seeders_testfixtureseeder",
+      "illuminate_database_eloquent_relations_hasone",
+      "tests_feature_epoxyassemblytest",
+      "tests_feature_groutformulatest"
+    ],
+    "10": [
+      "app_http_controllers_admin_departmentcontroller",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller_create",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller_destroy",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller_edit",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller_index",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller_store",
+      "app_http_controllers_admin_departmentcontroller_departmentcontroller_update",
+      "app_http_controllers_admin_machinecontroller_machinecontroller",
+      "app_http_controllers_admin_machinecontroller_machinecontroller_create",
+      "app_http_controllers_admin_machinecontroller_machinecontroller_destroy",
+      "app_http_controllers_admin_machinecontroller_machinecontroller_edit",
+      "app_http_controllers_admin_machinecontroller_machinecontroller_index",
+      "app_http_controllers_shared_departmentcontroller_departmentcontroller_switch",
+      "app_http_requests_admin_storedepartmentrequest",
+      "app_http_requests_admin_storedepartmentrequest_storedepartmentrequest",
+      "app_http_requests_admin_storedepartmentrequest_storedepartmentrequest_authorize",
+      "app_http_requests_admin_storedepartmentrequest_storedepartmentrequest_rules",
+      "app_http_requests_admin_updatedepartmentrequest",
+      "app_http_requests_admin_updatedepartmentrequest_updatedepartmentrequest",
+      "app_http_requests_admin_updatedepartmentrequest_updatedepartmentrequest_authorize",
+      "app_http_requests_admin_updatedepartmentrequest_updatedepartmentrequest_rules",
+      "app_models_department_department",
+      "app_models_department_department_users",
+      "app_models_department_php_belongstomany",
+      "tests_feature_finishedgoodstest_finishedgoodstest_setup"
+    ],
+    "11": [
+      "app_http_controllers_admin_rawmaterialcontroller",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_destroy",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_edit",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_exportcsv",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_importcsv",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_index",
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_update",
+      "app_http_controllers_admin_stockadjustmentcontroller",
+      "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller",
+      "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller_index",
+      "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller_store",
+      "app_models_rawmaterial_rawmaterial",
+      "app_models_rawmaterial_rawmaterial_casts",
+      "app_services_epoxyassemblyservice_epoxyassemblyservice_assembleproduct",
+      "app_services_groutproductionservice",
+      "app_services_productionservice_productionservice_completebatch",
+      "app_services_stockservice",
+      "app_services_stockservice_stockservice",
+      "database_migrations_2026_07_10_160004_seed_all_coupons",
+      "database_migrations_2026_07_10_160004_seed_all_coupons_down",
+      "database_migrations_2026_07_10_160004_seed_all_coupons_up",
+      "tests_feature_enterprisetest_enterprisetest_test_stock_adjustment_without_remarks_is_allowed"
+    ],
+    "12": [
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_complete",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_create",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_finishmixing",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_gettimerstatus",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_index",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_proceedtostage2",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_running",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_show",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_skiptimer",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_startpacking",
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_starttimer",
+      "app_models_groutproductionbatch_groutproductionbatch",
+      "app_models_groutproductionbatch_groutproductionbatch_casts",
+      "app_models_groutproductionbatch_groutproductionbatch_color",
+      "app_models_groutproductionbatch_groutproductionbatch_formula",
+      "app_models_groutproductionbatch_groutproductionbatch_machine",
+      "app_models_groutproductionbatch_groutproductionbatch_operator",
+      "app_models_groutproductionbatch_groutproductionbatch_skippedby",
+      "app_services_mixtimerservice",
+      "app_services_mixtimerservice_mixtimerservice",
+      "app_services_mixtimerservice_mixtimerservice_getremainingseconds",
+      "app_services_mixtimerservice_mixtimerservice_istimercompleted"
+    ],
+    "13": [
+      "app_http_controllers_productioncontroller_productioncontroller",
+      "app_http_controllers_productioncontroller_productioncontroller_cancel",
+      "app_http_controllers_productioncontroller_productioncontroller_completeform",
+      "app_http_controllers_productioncontroller_productioncontroller_ledger",
+      "app_http_controllers_productioncontroller_productioncontroller_pause",
+      "app_http_controllers_productioncontroller_productioncontroller_resume",
+      "app_http_controllers_productioncontroller_productioncontroller_runningactive",
+      "app_http_controllers_productioncontroller_productioncontroller_show",
+      "app_http_controllers_productioncontroller_productioncontroller_updatecoupon",
+      "app_models_productionbatch_productionbatch",
+      "app_models_productionbatch_productionbatch_casts",
+      "app_models_productionbatch_productionbatch_formula",
+      "app_models_productionbatch_productionbatch_grade",
+      "app_models_productionbatch_productionbatch_machine",
+      "app_models_productionbatch_productionbatch_supervisor",
+      "app_services_dashboardservice_dashboardservice_getcalendardatedetails",
+      "app_services_productionservice_productionservice",
+      "app_services_productionservice_productionservice_cancelbatch",
+      "app_services_productionservice_productionservice_pausebatch",
+      "app_services_productionservice_productionservice_resumebatch",
+      "app_services_productionservice_productionservice_updatebatchcoupon",
+      "app_services_reportservice_reportservice",
+      "app_services_reportservice_reportservice_getdailyreportdata"
+    ],
+    "14": [
+      "app_models_machine_machine",
+      "database_migrations_2026_06_29_000004_create_grout_production_batches_table",
+      "database_migrations_2026_06_29_000004_create_grout_production_batches_table_down",
+      "database_migrations_2026_06_29_000004_create_grout_production_batches_table_up",
+      "tests_feature_enterprisetest_enterprisetest",
+      "tests_feature_enterprisetest_enterprisetest_setup",
+      "tests_feature_enterprisetest_enterprisetest_test_production_service_completes_batch",
+      "tests_feature_enterprisetest_enterprisetest_test_production_service_manages_batch_lifecycle",
+      "tests_feature_enterprisetest_enterprisetest_test_report_service_computes_daily_summaries",
+      "tests_feature_enterprisetest_enterprisetest_test_stock_service_handles_adjustments_and_movement",
+      "tests_feature_productiontest",
+      "tests_feature_productiontest_productiontest",
+      "tests_feature_productiontest_productiontest_setup",
+      "tests_feature_productiontest_productiontest_test_can_start_and_complete_production_batch",
+      "tests_feature_productiontest_productiontest_test_cancel_production_batch",
+      "tests_feature_productiontest_productiontest_test_cannot_start_batch_for_grade_without_active_formula",
+      "tests_feature_productiontest_productiontest_test_cannot_start_multiple_running_batches_on_same_machine",
+      "tests_feature_productiontest_productiontest_test_complete_batch_stores_coupon_finished_goods_separately",
+      "tests_feature_productiontest_productiontest_test_guest_is_redirected_to_login",
+      "tests_feature_productiontest_productiontest_test_output_based_material_consumption_deducts_actual_output_bags",
+      "tests_feature_productiontest_productiontest_test_pause_and_resume_production_batch",
+      "tests_feature_productiontest_productiontest_test_supervisor_and_admin_can_access_production_create_form",
+      "tests_feature_productiontest_productiontest_test_supervisor_and_admin_can_access_production_index"
+    ],
+    "15": [
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_create",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_destroy",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_edit",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_index",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_show",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_store",
+      "app_http_controllers_admin_epoxyformulacontroller_epoxyformulacontroller_update",
+      "app_models_epoxyformula",
+      "app_models_epoxyformula_epoxyformula",
+      "app_models_epoxyformula_epoxyformula_casts",
+      "app_models_epoxyformula_epoxyformula_creator",
+      "app_models_epoxyformula_epoxyformula_items",
+      "app_models_epoxyformula_epoxyformula_product",
+      "app_models_epoxyformulaitem_epoxyformulaitem",
+      "app_models_epoxyformulaitem_epoxyformulaitem_casts",
+      "app_models_epoxyformulaitem_epoxyformulaitem_formula",
+      "app_models_epoxyformulaitem_epoxyformulaitem_rawmaterial",
+      "app_models_epoxyformulaitem_epoxyformulaitem_unit",
+      "database_seeders_epoxymoduleseeder_epoxymoduleseeder_run",
+      "database_seeders_testfixtureseeder_testfixtureseeder",
+      "database_seeders_testfixtureseeder_testfixtureseeder_run"
+    ],
+    "16": [
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_index",
+      "app_models_epoxyassembly",
+      "app_models_epoxyassembly_epoxyassembly",
+      "app_models_epoxyassembly_epoxyassembly_casts",
+      "app_models_epoxyassembly_epoxyassembly_color",
+      "app_models_epoxyassembly_epoxyassembly_epoxyfillercolor",
+      "app_models_epoxyassembly_epoxyassembly_ledgers",
+      "app_models_epoxyassembly_epoxyassembly_operator",
+      "app_models_epoxyassembly_epoxyassembly_product",
+      "app_models_epoxycomponentpreparation_epoxycomponentpreparation",
+      "app_models_epoxycomponentpreparation_epoxycomponentpreparation_color",
+      "app_models_epoxycomponentpreparation_epoxycomponentpreparation_component",
+      "app_models_epoxycomponentpreparation_epoxycomponentpreparation_operator",
+      "app_services_dailyreportservice_dailyreportservice_getproductionreportdata",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_setup",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_test_ajax_formula_scaling_preview",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_test_assembly_failed_due_to_insufficient_stock",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_test_bulk_component_entry_submission_via_ajax",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_test_daily_report_integration_for_epoxy",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_test_successful_manual_assembly_and_stock_deduction",
+      "tests_feature_epoxyassemblytest_epoxyassemblytest_test_supervisor_access_boundaries_on_epoxy_floor"
+    ],
+    "17": [
+      "app_http_controllers_groutproductioncontroller",
+      "app_http_controllers_productioncontroller",
+      "app_http_controllers_productionplanningcontroller",
+      "app_models_finishedgood",
+      "app_models_formula",
+      "app_models_grade",
+      "app_models_marketingorder",
+      "app_models_marketingorderitem",
+      "app_models_productionbatch",
+      "app_services_batchnumberservice",
+      "app_services_dashboardservice",
+      "app_services_dispatchloadingservice",
+      "app_services_dispatchservice",
+      "app_services_formulaservice",
+      "app_services_productionservice",
+      "app_services_reportservice",
+      "tests_feature_dashboardtest",
+      "tests_feature_enterprisetest",
+      "tests_feature_finishedgoodstest",
+      "tests_feature_formulastest",
+      "tests_feature_marketingordertest",
+      "tests_feature_productionplanningtest"
+    ],
+    "18": [
+      "app_models_color_color_creator",
+      "app_models_color_color_department",
+      "app_models_color_color_updater",
+      "app_models_dispatch_dispatch_creator",
+      "app_models_dispatch_dispatch_loader",
+      "app_models_dispatch_dispatch_releaser",
+      "app_models_dispatchstatushistory",
+      "app_models_dispatchstatushistory_dispatchstatushistory",
+      "app_models_dispatchstatushistory_dispatchstatushistory_changer",
+      "app_models_dispatchstatushistory_dispatchstatushistory_dispatch",
+      "app_models_epoxycomponentmapping",
+      "app_models_epoxycomponentmapping_epoxycomponentmapping",
+      "app_models_epoxycomponentmapping_epoxycomponentmapping_color",
+      "app_models_epoxycomponentmapping_epoxycomponentmapping_component",
+      "app_models_epoxycomponentmapping_epoxycomponentmapping_rawmaterial",
+      "app_models_epoxyfillercolor_epoxyfillercolor_creator",
+      "app_models_epoxyfillercolor_epoxyfillercolor_updater",
+      "app_models_machine_machine_department",
+      "app_models_rawmaterial_rawmaterial_department",
+      "app_models_rawmaterial_rawmaterial_purchaseunit",
+      "app_models_rawmaterial_rawmaterial_stockunit",
+      "illuminate_database_eloquent_relations_belongsto"
+    ],
+    "19": [
+      "app_console_commands_checkmixingtimers",
+      "app_console_commands_checkmixingtimers_checkmixingtimers",
+      "app_console_commands_checkmixingtimers_checkmixingtimers_handle",
+      "app_models_notification",
+      "app_models_todo",
+      "app_models_userdevice",
+      "app_models_userdevice_userdevice",
+      "app_models_userdevice_userdevice_user",
+      "app_services_notificationservice",
+      "app_services_notificationservice_notificationservice",
+      "app_services_notificationservice_notificationservice_checkcompletedtimers",
+      "app_services_notificationservice_notificationservice_lognotification",
+      "app_services_notificationservice_notificationservice_registerdevice",
+      "app_services_notificationservice_notificationservice_removedevice",
+      "app_services_notificationservice_notificationservice_sendtoadmins",
+      "app_services_notificationservice_notificationservice_sendtodepartment",
+      "app_services_notificationservice_notificationservice_sendtouser",
+      "app_services_notificationservice_notificationservice_touchdevice",
+      "app_services_notificationservice_php_collection",
+      "illuminate_console_command",
+      "illuminate_database_eloquent_factories_hasfactory"
+    ],
+    "20": [
+      "app_http_controllers_admin_factoryadmincontroller",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_activitylogs",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_backupdownload",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_backupgenerate",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_clearcache",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_passwordupdate",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_profileedit",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_profileupdate",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_sendtestemail",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_systemhealth",
+      "app_models_activitylog",
+      "app_models_activitylog_activitylog",
+      "app_models_activitylog_activitylog_user",
+      "app_services_backupservice",
+      "app_services_dashboardservice_dashboardservice_getactivitytimeline",
+      "app_services_systemservice_systemservice",
+      "app_services_systemservice_systemservice_clearcache",
+      "app_services_systemservice_systemservice_getsystemhealth",
+      "app_services_systemservice_systemservice_sendtestemail"
+    ],
+    "21": [
+      "app_models_finishedgood_finishedgood",
+      "app_models_finishedgood_finishedgood_color",
+      "app_models_finishedgood_finishedgood_couponmaterial",
+      "app_models_finishedgood_finishedgood_department",
+      "app_models_finishedgood_finishedgood_epoxycomponent",
+      "app_models_finishedgood_finishedgood_epoxyfillercolor",
+      "app_models_finishedgood_finishedgood_epoxyproduct",
+      "app_models_finishedgood_finishedgood_getformattedstatusattribute",
+      "app_models_finishedgood_finishedgood_getproductnameattribute",
+      "app_models_finishedgood_finishedgood_grade",
+      "tests_feature_finishedgoodstest_finishedgoodstest",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_adhesive_production_completion_auto_logs_finished_goods",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_admin_can_create_grout_and_epoxy_finished_goods",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_admin_can_manually_create_finished_good_with_existing_adhesive_grade",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_csv_export",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_csv_import",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_manual_stock_adjustment_decrease",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_manual_stock_adjustment_fails_to_decrease_below_zero",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_manual_stock_adjustment_increase",
+      "tests_feature_finishedgoodstest_finishedgoodstest_test_non_admin_cannot_create_finished_good"
+    ],
+    "22": [
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_create",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_destroy",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_edit",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_index",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_show",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_store",
+      "app_http_controllers_admin_epoxycomponentformulacontroller_epoxycomponentformulacontroller_update",
+      "app_models_epoxycomponentformula",
+      "app_models_epoxycomponentformula_epoxycomponentformula",
+      "app_models_epoxycomponentformula_epoxycomponentformula_component",
+      "app_models_epoxycomponentformula_epoxycomponentformula_creator",
+      "app_models_epoxycomponentformula_epoxycomponentformula_items",
+      "app_models_epoxycomponentformula_epoxycomponentformula_updater",
+      "app_models_epoxycomponentformulaitem_epoxycomponentformulaitem",
+      "app_models_epoxycomponentformulaitem_epoxycomponentformulaitem_formula",
+      "app_models_epoxycomponentformulaitem_epoxycomponentformulaitem_packingmaterial",
+      "app_models_epoxycomponentformulaitem_epoxycomponentformulaitem_rawmaterial",
+      "app_models_epoxycomponentformulaitem_epoxycomponentformulaitem_unit"
+    ],
+    "23": [
+      "app_http_controllers_productionplanningcontroller_productionplanningcontroller",
+      "app_http_controllers_productionplanningcontroller_productionplanningcontroller_getorders",
+      "app_http_controllers_productionplanningcontroller_productionplanningcontroller_index",
+      "app_models_marketingorderitem_marketingorderitem",
+      "app_models_marketingorderitem_marketingorderitem_color",
+      "app_models_marketingorderitem_marketingorderitem_couponmaterial",
+      "app_models_marketingorderitem_marketingorderitem_epoxycomponent",
+      "app_models_marketingorderitem_marketingorderitem_epoxyfillercolor",
+      "app_models_marketingorderitem_marketingorderitem_epoxyproduct",
+      "app_models_marketingorderitem_marketingorderitem_findfinishedgood",
+      "app_models_marketingorderitem_marketingorderitem_getavailabilitytextattribute",
+      "app_models_marketingorderitem_marketingorderitem_getcalculatedweightkgattribute",
+      "app_models_marketingorderitem_marketingorderitem_getcouponnameattribute",
+      "app_models_marketingorderitem_marketingorderitem_getdepartmentlabelattribute",
+      "app_models_marketingorderitem_marketingorderitem_getproductnameattribute",
+      "app_models_marketingorderitem_marketingorderitem_getstockinfoattribute",
+      "app_models_marketingorderitem_marketingorderitem_getunitlabelattribute",
+      "app_models_marketingorderitem_marketingorderitem_grade",
+      "app_models_marketingorderitem_marketingorderitem_order"
+    ],
+    "24": [
+      "app_models_dispatchitem",
+      "app_models_dispatchloadinglog",
+      "app_models_dispatchloadinglog_dispatchloadinglog",
+      "app_models_dispatchloadinglog_dispatchloadinglog_dispatch",
+      "app_models_dispatchloadinglog_dispatchloadinglog_user",
+      "app_models_epoxyfillercolor",
+      "app_models_machine",
+      "app_models_permission",
+      "app_models_permission_permission",
+      "app_models_rawmaterial",
+      "app_models_stockadjustment",
+      "app_models_stockadjustment_stockadjustment",
+      "app_models_stockadjustment_stockadjustment_casts",
+      "app_models_stockadjustment_stockadjustment_creator",
+      "app_models_stockadjustment_stockadjustment_packingmaterial",
+      "app_models_stockadjustment_stockadjustment_rawmaterial",
+      "app_services_stockservice_stockservice_adjuststock",
+      "illuminate_database_eloquent_model"
+    ],
+    "25": [
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller",
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller_create",
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller_destroy",
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller_edit",
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller_index",
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller_store",
+      "app_http_controllers_admin_epoxycomponentcontroller_epoxycomponentcontroller_update",
+      "app_models_epoxycomponent_epoxycomponent",
+      "app_models_epoxycomponent_epoxycomponent_childcomponents",
+      "app_models_epoxycomponent_epoxycomponent_color",
+      "app_models_epoxycomponent_epoxycomponent_finishedgoods",
+      "app_models_epoxycomponent_epoxycomponent_formulas",
+      "app_models_epoxycomponent_epoxycomponent_getavailablestockattribute",
+      "app_models_epoxycomponent_epoxycomponent_parentcomponent",
+      "app_models_epoxycomponent_epoxycomponent_rawmaterial",
+      "app_models_epoxycomponent_epoxycomponent_unit",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_packingforcomponent"
+    ],
+    "26": [
+      "app_http_controllers_shared_todocontroller_todocontroller",
+      "app_http_controllers_shared_todocontroller_todocontroller_destroy",
+      "app_http_controllers_shared_todocontroller_todocontroller_reorder",
+      "app_http_controllers_shared_todocontroller_todocontroller_status",
+      "app_http_controllers_shared_todocontroller_todocontroller_store",
+      "app_http_controllers_shared_todocontroller_todocontroller_toggle",
+      "app_http_controllers_shared_todocontroller_todocontroller_update",
+      "app_models_todo_todo",
+      "app_models_todo_todo_assignee",
+      "app_models_todo_todo_creator",
+      "app_models_todo_todo_department",
+      "tests_feature_todotest_todotest",
+      "tests_feature_todotest_todotest_setup",
+      "tests_feature_todotest_todotest_test_admin_can_crud_and_assign_todos",
+      "tests_feature_todotest_todotest_test_guest_is_unauthorized_for_todos",
+      "tests_feature_todotest_todotest_test_supervisor_permissions_and_limits",
+      "tests_feature_todotest_todotest_test_todo_visibility_rules"
+    ],
+    "27": [
+      "app_http_requests_admin_storeunitrequest",
+      "app_http_requests_admin_storeunitrequest_storeunitrequest",
+      "app_http_requests_admin_storeunitrequest_storeunitrequest_authorize",
+      "app_http_requests_admin_storeunitrequest_storeunitrequest_rules",
+      "app_http_requests_admin_updaterawmaterialrequest",
+      "app_http_requests_admin_updaterawmaterialrequest_updaterawmaterialrequest",
+      "app_http_requests_admin_updaterawmaterialrequest_updaterawmaterialrequest_authorize",
+      "app_http_requests_admin_updaterawmaterialrequest_updaterawmaterialrequest_rules",
+      "app_http_requests_admin_updateunitrequest",
+      "app_http_requests_admin_updateunitrequest_updateunitrequest",
+      "app_http_requests_admin_updateunitrequest_updateunitrequest_authorize",
+      "app_http_requests_admin_updateunitrequest_updateunitrequest_rules",
+      "app_http_requests_storeproductionbatchrequest",
+      "app_http_requests_storeproductionbatchrequest_storeproductionbatchrequest",
+      "app_http_requests_storeproductionbatchrequest_storeproductionbatchrequest_authorize",
+      "app_http_requests_storeproductionbatchrequest_storeproductionbatchrequest_rules",
+      "illuminate_foundation_http_formrequest"
+    ],
+    "28": [
+      "app_models_dispatchitem_dispatchitem",
+      "app_models_dispatchitem_dispatchitem_color",
+      "app_models_dispatchitem_dispatchitem_couponmaterial",
+      "app_models_dispatchitem_dispatchitem_dispatch",
+      "app_models_dispatchitem_dispatchitem_epoxycomponent",
+      "app_models_dispatchitem_dispatchitem_epoxyfillercolor",
+      "app_models_dispatchitem_dispatchitem_epoxyproduct",
+      "app_models_dispatchitem_dispatchitem_findfinishedgood",
+      "app_models_dispatchitem_dispatchitem_getcalculatedweightkgattribute",
+      "app_models_dispatchitem_dispatchitem_getcouponnameattribute",
+      "app_models_dispatchitem_dispatchitem_getdepartmentlabelattribute",
+      "app_models_dispatchitem_dispatchitem_getproductnameattribute",
+      "app_models_dispatchitem_dispatchitem_getstockinfoattribute",
+      "app_models_dispatchitem_dispatchitem_getunitlabelattribute",
+      "app_models_dispatchitem_dispatchitem_grade",
+      "app_models_dispatchitem_dispatchitem_order",
+      "app_models_dispatchitem_dispatchitem_orderitem"
+    ],
+    "29": [
+      "app_http_controllers_admin_colorcontroller",
+      "app_http_controllers_admin_epoxycomponentcontroller",
+      "app_http_controllers_admin_epoxycomponentformulacontroller",
+      "app_http_controllers_admin_gradecontroller",
+      "app_http_controllers_admin_machinecontroller",
+      "app_http_controllers_admin_reportcontroller",
+      "app_http_controllers_admin_settingscontroller",
+      "app_http_controllers_admin_usercontroller",
+      "app_http_controllers_controller",
+      "app_http_controllers_controller_controller",
+      "app_http_controllers_shared_departmentcontroller",
+      "app_http_controllers_shared_departmentcontroller_departmentcontroller",
+      "app_http_controllers_shared_todocontroller",
+      "app_models_department",
+      "app_models_epoxycomponentformulaitem",
+      "app_services_activitylogservice"
+    ],
+    "30": [
+      "app_http_controllers_admin_gradecontroller_gradecontroller",
+      "app_http_controllers_admin_gradecontroller_gradecontroller_create",
+      "app_http_controllers_admin_gradecontroller_gradecontroller_destroy",
+      "app_http_controllers_admin_gradecontroller_gradecontroller_edit",
+      "app_http_controllers_admin_gradecontroller_gradecontroller_index",
+      "app_http_controllers_productioncontroller_productioncontroller_getformula",
+      "app_models_grade_grade",
+      "app_models_grade_grade_bagsize",
+      "app_models_grade_grade_casts",
+      "app_models_grade_grade_creator",
+      "app_models_grade_grade_department",
+      "app_models_grade_grade_outputunit",
+      "app_models_grade_grade_updater",
+      "app_services_formulaservice_formulaservice",
+      "app_services_formulaservice_formulaservice_getactiveformula",
+      "tests_feature_enterprisetest_enterprisetest_test_formula_service_resolves_active_recipe"
+    ],
+    "31": [
+      "public_manifest",
+      "public_manifest_background_color",
+      "public_manifest_categories",
+      "public_manifest_description",
+      "public_manifest_display",
+      "public_manifest_icons",
+      "public_manifest_name",
+      "public_manifest_orientation",
+      "public_manifest_scope",
+      "public_manifest_short_name",
+      "public_manifest_shortcuts",
+      "public_manifest_start_url",
+      "public_manifest_theme_color",
+      "ref_business",
+      "ref_productivity",
+      "ref_utilities"
+    ],
+    "32": [
+      "app_http_controllers_admin_colorcontroller_colorcontroller",
+      "app_http_controllers_admin_colorcontroller_colorcontroller_create",
+      "app_http_controllers_admin_colorcontroller_colorcontroller_destroy",
+      "app_http_controllers_admin_colorcontroller_colorcontroller_edit",
+      "app_http_controllers_admin_colorcontroller_colorcontroller_index",
+      "app_http_controllers_admin_colorcontroller_colorcontroller_store",
+      "app_http_controllers_admin_colorcontroller_colorcontroller_update",
+      "app_http_requests_admin_storecolorrequest",
+      "app_http_requests_admin_storecolorrequest_storecolorrequest",
+      "app_http_requests_admin_storecolorrequest_storecolorrequest_authorize",
+      "app_http_requests_admin_storecolorrequest_storecolorrequest_rules",
+      "app_http_requests_admin_updatecolorrequest",
+      "app_http_requests_admin_updatecolorrequest_updatecolorrequest",
+      "app_http_requests_admin_updatecolorrequest_updatecolorrequest_authorize",
+      "app_http_requests_admin_updatecolorrequest_updatecolorrequest_rules"
+    ],
+    "33": [
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_backupdestroy",
+      "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_backupsindex",
+      "app_models_bagsize_bagsize_getactive",
+      "app_models_color_color_getactive",
+      "app_models_department_department_getactive",
+      "app_models_epoxyfillercolor_epoxyfillercolor_getactive",
+      "app_models_machine_machine_getactive",
+      "app_models_unit_unit_getactive",
+      "app_services_backupservice_backupservice",
+      "app_services_backupservice_backupservice_deletebackup",
+      "app_services_backupservice_backupservice_downloadbackuppath",
+      "app_services_backupservice_backupservice_generatebackup",
+      "app_services_backupservice_backupservice_getbackuphistory",
+      "app_services_backupservice_backupservice_getbackuppath",
+      "self"
+    ],
+    "34": [
+      "app_http_controllers_notificationcontroller",
+      "app_http_controllers_notificationcontroller_notificationcontroller",
+      "app_http_controllers_notificationcontroller_notificationcontroller_construct",
+      "app_http_controllers_notificationcontroller_notificationcontroller_getunread",
+      "app_http_controllers_notificationcontroller_notificationcontroller_index",
+      "app_http_controllers_notificationcontroller_notificationcontroller_markallread",
+      "app_http_controllers_notificationcontroller_notificationcontroller_markasread",
+      "app_http_controllers_notificationcontroller_notificationcontroller_registerdevice",
+      "app_http_controllers_notificationcontroller_notificationcontroller_removedevice",
+      "app_http_controllers_shared_logincontroller",
+      "app_models_notification_notification",
+      "app_models_notification_notification_department",
+      "app_models_notification_notification_user",
+      "config_auth",
+      "routes_web"
+    ],
+    "35": [
+      "composer_scripts",
+      "composer_scripts_dev",
+      "composer_scripts_post_create_project_cmd",
+      "composer_scripts_post_update_cmd",
+      "composer_scripts_pre_package_uninstall",
+      "composer_scripts_test",
+      "ref_composer_config_disableprocesstimeout",
+      "ref_illuminate_foundation_composerscripts_prepackageuninstall",
+      "ref_npx_concurrently_c_93c5fd_c4b5fd_fb7185_fdba74_php_artisan_serve_npm_run_dev",
+      "ref_php_artisan_config_clear_ansi_no_additional_args",
+      "ref_php_artisan_key_generate_ansi",
+      "ref_php_artisan_migrate_graceful_ansi",
+      "ref_php_artisan_test",
+      "ref_php_artisan_vendor_publish_tag_laravel_assets_ansi_force",
+      "ref_php_r_file_exists_database_database_sqlite_touch_database_database_sqlite"
+    ],
+    "36": [
+      "app_http_middleware_departmentaccessmiddleware",
+      "app_http_middleware_departmentaccessmiddleware_departmentaccessmiddleware",
+      "app_http_middleware_departmentaccessmiddleware_departmentaccessmiddleware_handle",
+      "app_http_middleware_maintenancemiddleware",
+      "app_http_middleware_maintenancemiddleware_maintenancemiddleware",
+      "app_http_middleware_maintenancemiddleware_maintenancemiddleware_handle",
+      "app_http_middleware_permissionmiddleware",
+      "app_http_middleware_permissionmiddleware_permissionmiddleware",
+      "app_http_middleware_permissionmiddleware_permissionmiddleware_handle",
+      "app_http_middleware_rolemiddleware",
+      "app_http_middleware_rolemiddleware_rolemiddleware",
+      "app_http_middleware_rolemiddleware_rolemiddleware_handle",
+      "closure",
+      "symfony_component_httpfoundation_response"
+    ],
+    "37": [
+      "app_models_color_color_formulas",
+      "app_models_department_department_grades",
+      "app_models_department_department_machines",
+      "app_models_department_department_rawmaterials",
+      "app_models_dispatch",
+      "app_models_dispatch_dispatch_items",
+      "app_models_dispatch_dispatch_loadinglogs",
+      "app_models_dispatch_dispatch_statushistory",
+      "app_models_epoxyproduct_epoxyproduct_formulas",
+      "app_models_formula_formula_items",
+      "app_models_grade_grade_formulas",
+      "app_models_groutproductionbatch_groutproductionbatch_ledgers",
+      "app_models_packingmaterial_packingmaterial_stockledgers",
+      "illuminate_database_eloquent_relations_hasmany"
+    ],
+    "38": [
+      "app_services_activitylogservice_activitylogservice",
+      "app_services_activitylogservice_activitylogservice_detectmodule",
+      "app_services_batchnumberservice_batchnumberservice",
+      "app_services_batchnumberservice_batchnumberservice_generate",
+      "app_services_groutproductionservice_groutproductionservice",
+      "app_services_groutproductionservice_groutproductionservice_completebatch",
+      "app_services_groutproductionservice_groutproductionservice_finishmixing",
+      "app_services_groutproductionservice_groutproductionservice_proceedtostage2",
+      "app_services_groutproductionservice_groutproductionservice_skiptimer",
+      "app_services_groutproductionservice_groutproductionservice_startbatch",
+      "app_services_groutproductionservice_groutproductionservice_startpacking",
+      "app_services_groutproductionservice_groutproductionservice_starttimer",
+      "app_services_productionservice_productionservice_startbatch",
+      "tests_feature_enterprisetest_enterprisetest_test_batch_number_service_generates_adh_code"
+    ],
+    "39": [
+      "composer",
+      "composer_autoload_dev",
+      "composer_autoload_dev_psr_4",
+      "composer_description",
+      "composer_keywords",
+      "composer_license",
+      "composer_minimum_stability",
+      "composer_name",
+      "composer_prefer_stable",
+      "composer_psr_4_tests",
+      "composer_schema",
+      "composer_type",
+      "ref_framework",
+      "ref_laravel"
+    ],
+    "40": [
+      "app_http_controllers_admin_epoxyfillercolorcontroller",
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller",
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_create",
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_destroy",
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_edit",
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_index",
+      "app_models_epoxyfillercolor_epoxyfillercolor",
+      "app_models_epoxyfillercolor_epoxyfillercolor_casts",
+      "database_seeders_epoxymoduleseeder",
+      "database_seeders_epoxymoduleseeder_epoxymoduleseeder",
+      "database_seeders_finishedgoodscomprehensiveseeder_finishedgoodscomprehensiveseeder",
+      "database_seeders_finishedgoodscomprehensiveseeder_finishedgoodscomprehensiveseeder_run",
+      "illuminate_database_seeder"
+    ],
+    "41": [
+      "app_http_controllers_admin_dashboardcontroller",
+      "app_http_controllers_admin_dashboardcontroller_dashboardcontroller",
+      "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_calendardetails",
+      "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_index",
+      "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_livemachines",
+      "app_services_dashboardservice_dashboardservice",
+      "app_services_dashboardservice_dashboardservice_getcalendardata",
+      "app_services_dashboardservice_dashboardservice_getchartdata",
+      "app_services_dashboardservice_dashboardservice_getdashboardalerts",
+      "app_services_dashboardservice_dashboardservice_getkpistats",
+      "app_services_dashboardservice_dashboardservice_getlivemachinestatus",
+      "app_services_dashboardservice_dashboardservice_getlowstockwidgetdata"
+    ],
+    "42": [
+      "app_http_controllers_admin_formulacontroller",
+      "app_http_controllers_admin_formulacontroller_formulacontroller",
+      "app_http_controllers_admin_formulacontroller_formulacontroller_destroy",
+      "app_http_controllers_admin_formulacontroller_formulacontroller_edit",
+      "app_http_controllers_admin_formulacontroller_formulacontroller_index",
+      "app_http_controllers_admin_formulacontroller_formulacontroller_show",
+      "app_http_controllers_admin_formulacontroller_formulacontroller_store",
+      "app_http_controllers_admin_formulacontroller_formulacontroller_update",
+      "app_models_formula_formula",
+      "app_models_formula_formula_casts",
+      "app_models_formula_formula_creator",
+      "app_models_formula_formula_grade"
+    ],
+    "43": [
+      "app_services_finishedgoodsresolver",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_extractweight",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_findforattributes",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_findfordispatchitem",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_findfororderitem",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_legacycomponentcode",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_matchpacking",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_normalisepacking",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_resolveepoxycomponentid",
+      "app_services_finishedgoodsresolver_finishedgoodsresolver_tilescleanercomponentcode",
+      "illuminate_database_eloquent_builder"
+    ],
+    "44": [
+      "app_http_controllers_admin_epoxyproductcontroller",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller_create",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller_destroy",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller_edit",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller_index",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller_store",
+      "app_http_controllers_admin_epoxyproductcontroller_epoxyproductcontroller_update",
+      "app_models_epoxyproduct_epoxyproduct",
+      "app_models_epoxyproduct_epoxyproduct_casts",
+      "app_models_epoxyproduct_epoxyproduct_creator"
+    ],
+    "45": [
+      "app_http_controllers_admin_formulacontroller_formulacontroller_create",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_destroy",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_update",
+      "app_models_packingmaterial",
+      "app_models_packingmaterial_packingmaterial",
+      "app_models_packingmaterial_packingmaterial_casts",
+      "app_models_packingmaterial_packingmaterial_category",
+      "app_models_packingmaterial_packingmaterial_getisactiveattribute",
+      "app_models_packingmaterial_packingmaterial_islowstock",
+      "app_models_packingmaterial_packingmaterial_setisactiveattribute",
+      "app_models_packingmaterial_packingmaterial_unit"
+    ],
+    "46": [
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_create",
+      "app_http_controllers_admin_unitcontroller",
+      "app_http_controllers_admin_unitcontroller_unitcontroller",
+      "app_http_controllers_admin_unitcontroller_unitcontroller_create",
+      "app_http_controllers_admin_unitcontroller_unitcontroller_destroy",
+      "app_http_controllers_admin_unitcontroller_unitcontroller_edit",
+      "app_http_controllers_admin_unitcontroller_unitcontroller_index",
+      "app_http_controllers_admin_unitcontroller_unitcontroller_store",
+      "app_http_controllers_admin_unitcontroller_unitcontroller_update",
+      "app_models_unit",
+      "app_models_unit_unit"
+    ],
+    "47": [
+      "tests_feature_marketingordertest_marketingordertest",
+      "tests_feature_marketingordertest_marketingordertest_test_admin_can_delete_completed_order",
+      "tests_feature_marketingordertest_marketingordertest_test_admix_component_stock_is_consistent_for_order_availability_and_stock_api",
+      "tests_feature_marketingordertest_marketingordertest_test_marketing_staff_can_delete_in_progress_order",
+      "tests_feature_marketingordertest_marketingordertest_test_marketing_staff_can_delete_pending_order",
+      "tests_feature_marketingordertest_marketingordertest_test_marketing_staff_cannot_delete_completed_order",
+      "tests_feature_marketingordertest_marketingordertest_test_order_item_without_token_does_not_match_token_finished_good_stock",
+      "tests_feature_marketingordertest_marketingordertest_test_supervisor_cannot_create_order",
+      "tests_feature_marketingordertest_marketingordertest_test_supervisor_cannot_delete_order",
+      "tests_feature_marketingordertest_marketingordertest_test_supervisor_cannot_update_order",
+      "tests_feature_marketingordertest_marketingordertest_test_tile_cleaner_packings_resolve_to_their_own_component_stock"
+    ],
+    "48": [
+      "app_http_controllers_admin_packingmaterialcontroller",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_create",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_edit",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_exportcsv",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_importcsv",
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_index",
+      "app_models_packingmaterialcategory",
+      "app_models_packingmaterialcategory_packingmaterialcategory",
+      "app_models_packingmaterialcategory_packingmaterialcategory_packingmaterials"
+    ],
+    "49": [
+      "app_models_stockledger",
+      "app_models_stockledger_stockledger",
+      "app_models_stockledger_stockledger_batch",
+      "app_models_stockledger_stockledger_casts",
+      "app_models_stockledger_stockledger_creator",
+      "app_models_stockledger_stockledger_epoxyassembly",
+      "app_models_stockledger_stockledger_getpreviousstockattribute",
+      "app_models_stockledger_stockledger_groutbatch",
+      "app_models_stockledger_stockledger_packingmaterial",
+      "app_models_stockledger_stockledger_rawmaterial"
+    ],
+    "50": [
+      "tests_feature_authtest_authtest",
+      "tests_feature_authtest_authtest_setup",
+      "tests_feature_authtest_authtest_test_admin_can_access_supervisor_dashboard",
+      "tests_feature_authtest_authtest_test_admin_is_redirected_to_admin_dashboard",
+      "tests_feature_authtest_authtest_test_guest_is_redirected_to_login",
+      "tests_feature_authtest_authtest_test_login_screen_can_be_rendered",
+      "tests_feature_authtest_authtest_test_supervisor_cannot_access_admin_dashboard",
+      "tests_feature_authtest_authtest_test_supervisor_is_redirected_to_supervisor_dashboard",
+      "tests_feature_authtest_authtest_test_user_can_logout",
+      "tests_feature_authtest_authtest_test_user_cannot_authenticate_with_invalid_password"
+    ],
+    "51": [
+      "tests_feature_masterstest",
+      "tests_feature_masterstest_masterstest",
+      "tests_feature_masterstest_masterstest_setup",
+      "tests_feature_masterstest_masterstest_test_admin_can_perform_bag_size_crud",
+      "tests_feature_masterstest_masterstest_test_admin_can_perform_department_crud",
+      "tests_feature_masterstest_masterstest_test_admin_can_perform_machine_crud",
+      "tests_feature_masterstest_masterstest_test_admin_can_perform_unit_crud",
+      "tests_feature_masterstest_masterstest_test_admin_cannot_delete_department_with_machines",
+      "tests_feature_masterstest_masterstest_test_guest_is_redirected_to_login",
+      "tests_feature_masterstest_masterstest_test_supervisor_cannot_access_masters"
+    ],
+    "52": [
+      "app_helpers_helpers",
+      "app_helpers_helpers_availabledepartments",
+      "app_helpers_helpers_currentdepartment",
+      "app_helpers_helpers_format_quantity",
+      "app_helpers_helpers_userdepartmentids",
+      "app_http_controllers_productioncontroller_productioncontroller_create",
+      "app_http_controllers_productioncontroller_productioncontroller_history",
+      "app_http_controllers_productioncontroller_productioncontroller_index",
+      "app_services_stockservice_stockservice_recordmovement"
+    ],
+    "53": [
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller",
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_bucketassemblyform",
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_componententryform",
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_previewformula",
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_storebucketassembly",
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_storebulkcomponententry",
+      "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_storecomponententry",
+      "app_services_epoxyassemblyservice_epoxyassemblyservice",
+      "app_services_epoxyassemblyservice_epoxyassemblyservice_preparecomponent"
+    ],
+    "54": [
+      "app_services_activitylogservice_activitylogservice_log",
+      "app_services_backupservice_backupservice_formatbytes",
+      "app_services_firebaseservice_firebaseservice",
+      "app_services_firebaseservice_firebaseservice_base64urlencode",
+      "app_services_firebaseservice_firebaseservice_getaccesstoken",
+      "app_services_firebaseservice_firebaseservice_getprojectidfromcredentials",
+      "app_services_firebaseservice_firebaseservice_sendnotification",
+      "app_services_notificationservice_notificationservice_construct",
+      "app_services_systemservice_systemservice_formatbytes"
+    ],
+    "55": [
+      "tests_feature_rawmaterialstest",
+      "tests_feature_rawmaterialstest_rawmaterialstest",
+      "tests_feature_rawmaterialstest_rawmaterialstest_setup",
+      "tests_feature_rawmaterialstest_rawmaterialstest_test_admin_can_export_raw_materials_csv",
+      "tests_feature_rawmaterialstest_rawmaterialstest_test_admin_can_import_raw_materials_csv",
+      "tests_feature_rawmaterialstest_rawmaterialstest_test_admin_can_perform_raw_material_crud",
+      "tests_feature_rawmaterialstest_rawmaterialstest_test_guest_is_redirected_to_login",
+      "tests_feature_rawmaterialstest_rawmaterialstest_test_raw_material_validation_rules",
+      "tests_feature_rawmaterialstest_rawmaterialstest_test_supervisor_cannot_access_raw_materials"
+    ],
+    "56": [
+      "app_services_finishedgoodsservice_finishedgoodsservice",
+      "app_services_finishedgoodsservice_finishedgoodsservice_adjuststock",
+      "app_services_finishedgoodsservice_finishedgoodsservice_calculateepoxyweight",
+      "app_services_finishedgoodsservice_finishedgoodsservice_determinestatus",
+      "app_services_finishedgoodsservice_finishedgoodsservice_incrementadhesivestock",
+      "app_services_finishedgoodsservice_finishedgoodsservice_incrementepoxystock",
+      "app_services_finishedgoodsservice_finishedgoodsservice_incrementgroutstock",
+      "app_services_marketingorderservice_marketingorderservice_construct"
+    ],
+    "57": [
+      "composer_allow_plugins_pestphp_pest_plugin",
+      "composer_allow_plugins_php_http_discovery",
+      "composer_config",
+      "composer_config_allow_plugins",
+      "composer_config_optimize_autoloader",
+      "composer_config_preferred_install",
+      "composer_config_process_timeout",
+      "composer_config_sort_packages"
+    ],
+    "58": [
+      "composer_require_dev",
+      "composer_require_dev_fakerphp_faker",
+      "composer_require_dev_laravel_pail",
+      "composer_require_dev_laravel_pao",
+      "composer_require_dev_laravel_pint",
+      "composer_require_dev_mockery_mockery",
+      "composer_require_dev_nunomaduro_collision",
+      "composer_require_dev_phpunit_phpunit"
+    ],
+    "59": [
+      "composer_scripts_post_root_package_install",
+      "composer_scripts_setup",
+      "ref_composer_install",
+      "ref_npm_install_ignore_scripts",
+      "ref_npm_run_build",
+      "ref_php_artisan_key_generate",
+      "ref_php_artisan_migrate_force",
+      "ref_php_r_file_exists_env_copy_env_example_env"
+    ],
+    "60": [
+      "app_http_controllers_admin_reportcontroller_reportcontroller",
+      "app_http_controllers_admin_reportcontroller_reportcontroller_dailysummary",
+      "app_http_controllers_admin_reportcontroller_reportcontroller_exportexcel",
+      "app_http_controllers_admin_reportcontroller_reportcontroller_exportpdf",
+      "app_http_controllers_admin_reportcontroller_reportcontroller_exportwhatsapppdf",
+      "app_services_dailyreportservice_dailyreportservice",
+      "app_services_dailyreportservice_dailyreportservice_resolvedaterange"
+    ],
+    "61": [
+      "app_http_controllers_admin_usercontroller_usercontroller_construct",
+      "app_services_departmentaccessservice_departmentaccessservice",
+      "app_services_departmentaccessservice_departmentaccessservice_checkaccess",
+      "app_services_departmentaccessservice_departmentaccessservice_clearusercache",
+      "app_services_departmentaccessservice_departmentaccessservice_getavailabledepartments",
+      "app_services_departmentaccessservice_departmentaccessservice_getuserdepartmentids",
+      "app_services_departmentaccessservice_php_collection"
+    ],
+    "62": [
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller",
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller_adjust",
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller_construct",
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller_export",
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller_import",
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller_index",
+      "app_http_controllers_finishedgoodscontroller_finishedgoodscontroller_store"
+    ],
+    "63": [
+      "app_models_formulaitem",
+      "app_models_formulaitem_formulaitem",
+      "app_models_formulaitem_formulaitem_casts",
+      "app_models_formulaitem_formulaitem_formula",
+      "app_models_formulaitem_formulaitem_packingmaterial",
+      "app_models_formulaitem_formulaitem_rawmaterial",
+      "app_models_formulaitem_formulaitem_unit"
+    ],
+    "64": [
+      "app_services_departmentaccessservice",
+      "app_services_firebaseservice",
+      "app_services_systemservice",
+      "artisan",
+      "config_cache",
+      "config_mail",
+      "routes_console"
+    ],
+    "65": [
+      "composer_autoload",
+      "composer_autoload_files",
+      "composer_autoload_psr_4",
+      "composer_psr_4_app",
+      "composer_psr_4_database_factories",
+      "composer_psr_4_database_seeders",
+      "ref_app_helpers_helpers_php"
+    ],
+    "66": [
+      "tests_feature_reportstest",
+      "tests_feature_reportstest_reportstest",
+      "tests_feature_reportstest_reportstest_setup",
+      "tests_feature_reportstest_reportstest_test_admin_can_access_daily_report_and_export_pdf",
+      "tests_feature_reportstest_reportstest_test_daily_report_includes_epoxy_component_preparations",
+      "tests_feature_reportstest_reportstest_test_guest_is_redirected_to_login",
+      "tests_feature_reportstest_reportstest_test_supervisor_can_access_reports"
+    ],
+    "67": [
+      "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_construct",
+      "app_services_dispatchloadingservice_dispatchloadingservice",
+      "app_services_dispatchloadingservice_dispatchloadingservice_construct",
+      "app_services_dispatchloadingservice_dispatchloadingservice_deductfinishedgoodsstock",
+      "app_services_dispatchloadingservice_dispatchloadingservice_finishloading",
+      "app_services_dispatchloadingservice_dispatchloadingservice_startloading"
+    ],
+    "68": [
+      "app_http_controllers_productioncontroller_productioncontroller_complete",
+      "app_http_requests_completeproductionrequest",
+      "app_http_requests_completeproductionrequest_completeproductionrequest",
+      "app_http_requests_completeproductionrequest_completeproductionrequest_authorize",
+      "app_http_requests_completeproductionrequest_completeproductionrequest_messages",
+      "app_http_requests_completeproductionrequest_completeproductionrequest_rules"
+    ],
+    "69": [
+      "app_http_controllers_productioncontroller_productioncontroller_store",
+      "app_http_requests_storeproductionrequest",
+      "app_http_requests_storeproductionrequest_storeproductionrequest",
+      "app_http_requests_storeproductionrequest_storeproductionrequest_authorize",
+      "app_http_requests_storeproductionrequest_storeproductionrequest_messages",
+      "app_http_requests_storeproductionrequest_storeproductionrequest_rules"
+    ],
+    "70": [
+      "app_http_controllers_supervisor_dashboardcontroller",
+      "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller",
+      "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_index",
+      "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_livemachines",
+      "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_orders",
+      "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_readytodispatch"
+    ],
+    "71": [
+      "app_providers_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider_boot",
+      "app_providers_appserviceprovider_appserviceprovider_register",
+      "bootstrap_providers",
+      "illuminate_support_serviceprovider"
+    ],
+    "72": [
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_store",
+      "app_http_requests_admin_storeepoxycolorrequest",
+      "app_http_requests_admin_storeepoxycolorrequest_storeepoxycolorrequest",
+      "app_http_requests_admin_storeepoxycolorrequest_storeepoxycolorrequest_authorize",
+      "app_http_requests_admin_storeepoxycolorrequest_storeepoxycolorrequest_rules"
+    ],
+    "73": [
+      "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_update",
+      "app_http_requests_admin_updateepoxycolorrequest",
+      "app_http_requests_admin_updateepoxycolorrequest_updateepoxycolorrequest",
+      "app_http_requests_admin_updateepoxycolorrequest_updateepoxycolorrequest_authorize",
+      "app_http_requests_admin_updateepoxycolorrequest_updateepoxycolorrequest_rules"
+    ],
+    "74": [
+      "app_http_controllers_admin_gradecontroller_gradecontroller_store",
+      "app_http_requests_admin_storegraderequest",
+      "app_http_requests_admin_storegraderequest_storegraderequest",
+      "app_http_requests_admin_storegraderequest_storegraderequest_authorize",
+      "app_http_requests_admin_storegraderequest_storegraderequest_rules"
+    ],
+    "75": [
+      "app_http_controllers_admin_gradecontroller_gradecontroller_update",
+      "app_http_requests_admin_updategraderequest",
+      "app_http_requests_admin_updategraderequest_updategraderequest",
+      "app_http_requests_admin_updategraderequest_updategraderequest_authorize",
+      "app_http_requests_admin_updategraderequest_updategraderequest_rules"
+    ],
+    "76": [
+      "app_http_controllers_admin_machinecontroller_machinecontroller_store",
+      "app_http_requests_admin_storemachinerequest",
+      "app_http_requests_admin_storemachinerequest_storemachinerequest",
+      "app_http_requests_admin_storemachinerequest_storemachinerequest_authorize",
+      "app_http_requests_admin_storemachinerequest_storemachinerequest_rules"
+    ],
+    "77": [
+      "app_http_controllers_admin_machinecontroller_machinecontroller_update",
+      "app_http_requests_admin_updatemachinerequest",
+      "app_http_requests_admin_updatemachinerequest_updatemachinerequest",
+      "app_http_requests_admin_updatemachinerequest_updatemachinerequest_authorize",
+      "app_http_requests_admin_updatemachinerequest_updatemachinerequest_rules"
+    ],
+    "78": [
+      "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_store",
+      "app_http_requests_admin_storepackingmaterialrequest",
+      "app_http_requests_admin_storepackingmaterialrequest_storepackingmaterialrequest",
+      "app_http_requests_admin_storepackingmaterialrequest_storepackingmaterialrequest_authorize",
+      "app_http_requests_admin_storepackingmaterialrequest_storepackingmaterialrequest_rules"
+    ],
+    "79": [
+      "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_store",
+      "app_http_requests_admin_storerawmaterialrequest",
+      "app_http_requests_admin_storerawmaterialrequest_storerawmaterialrequest",
+      "app_http_requests_admin_storerawmaterialrequest_storerawmaterialrequest_authorize",
+      "app_http_requests_admin_storerawmaterialrequest_storerawmaterialrequest_rules"
+    ],
+    "80": [
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_construct",
+      "app_services_packingservice",
+      "app_services_packingservice_packingservice",
+      "app_services_packingservice_packingservice_calculatepouchcount",
+      "app_services_packingservice_packingservice_calculatetotalweight"
+    ],
+    "81": [
+      "app_http_controllers_groutproductioncontroller_groutproductioncontroller_store",
+      "app_http_requests_storegroutproductionrequest",
+      "app_http_requests_storegroutproductionrequest_storegroutproductionrequest",
+      "app_http_requests_storegroutproductionrequest_storegroutproductionrequest_authorize",
+      "app_http_requests_storegroutproductionrequest_storegroutproductionrequest_rules"
+    ],
+    "82": [
+      "app_http_controllers_shared_logincontroller_logincontroller",
+      "app_http_controllers_shared_logincontroller_logincontroller_login",
+      "app_http_controllers_shared_logincontroller_logincontroller_logout",
+      "app_http_controllers_shared_logincontroller_logincontroller_redirectbasedonrole",
+      "app_http_controllers_shared_logincontroller_logincontroller_showloginform"
+    ],
+    "83": [
+      "app_http_requests_admin_storeformularequest",
+      "app_http_requests_admin_storeformularequest_storeformularequest",
+      "app_http_requests_admin_storeformularequest_storeformularequest_authorize",
+      "app_http_requests_admin_storeformularequest_storeformularequest_messages",
+      "app_http_requests_admin_storeformularequest_storeformularequest_rules"
+    ],
+    "84": [
+      "app_http_requests_admin_storegroutformularequest",
+      "app_http_requests_admin_storegroutformularequest_storegroutformularequest",
+      "app_http_requests_admin_storegroutformularequest_storegroutformularequest_authorize",
+      "app_http_requests_admin_storegroutformularequest_storegroutformularequest_messages",
+      "app_http_requests_admin_storegroutformularequest_storegroutformularequest_rules"
+    ],
+    "85": [
+      "app_http_requests_admin_updateformularequest",
+      "app_http_requests_admin_updateformularequest_updateformularequest",
+      "app_http_requests_admin_updateformularequest_updateformularequest_authorize",
+      "app_http_requests_admin_updateformularequest_updateformularequest_messages",
+      "app_http_requests_admin_updateformularequest_updateformularequest_rules"
+    ],
+    "86": [
+      "app_http_requests_admin_updategroutformularequest",
+      "app_http_requests_admin_updategroutformularequest_updategroutformularequest",
+      "app_http_requests_admin_updategroutformularequest_updategroutformularequest_authorize",
+      "app_http_requests_admin_updategroutformularequest_updategroutformularequest_messages",
+      "app_http_requests_admin_updategroutformularequest_updategroutformularequest_rules"
+    ],
+    "87": [
+      "app_http_requests_completegroutproductionrequest",
+      "app_http_requests_completegroutproductionrequest_completegroutproductionrequest",
+      "app_http_requests_completegroutproductionrequest_completegroutproductionrequest_authorize",
+      "app_http_requests_completegroutproductionrequest_completegroutproductionrequest_messages",
+      "app_http_requests_completegroutproductionrequest_completegroutproductionrequest_rules"
+    ],
+    "88": [
+      "app_http_requests_completeproductionbatchrequest",
+      "app_http_requests_completeproductionbatchrequest_completeproductionbatchrequest",
+      "app_http_requests_completeproductionbatchrequest_completeproductionbatchrequest_authorize",
+      "app_http_requests_completeproductionbatchrequest_completeproductionbatchrequest_messages",
+      "app_http_requests_completeproductionbatchrequest_completeproductionbatchrequest_rules"
+    ],
+    "89": [
+      "app_models_groutformulaitem_groutformulaitem",
+      "app_models_groutformulaitem_groutformulaitem_casts",
+      "app_models_groutformulaitem_groutformulaitem_formula",
+      "app_models_groutformulaitem_groutformulaitem_rawmaterial",
+      "app_models_groutformulaitem_groutformulaitem_unit"
+    ],
+    "90": [
+      "composer_require",
+      "composer_require_barryvdh_laravel_dompdf",
+      "composer_require_laravel_framework",
+      "composer_require_laravel_tinker",
+      "composer_require_php"
+    ],
+    "91": [
+      "resources_js_app",
+      "resources_js_firebase",
+      "resources_js_firebase_getbrowserandos",
+      "resources_js_firebase_registertokenonserver",
+      "resources_js_firebase_requestpermissionandgettoken"
+    ],
+    "92": [
+      "app_http_requests_admin_updatepackingmaterialrequest",
+      "app_http_requests_admin_updatepackingmaterialrequest_updatepackingmaterialrequest",
+      "app_http_requests_admin_updatepackingmaterialrequest_updatepackingmaterialrequest_authorize",
+      "app_http_requests_admin_updatepackingmaterialrequest_updatepackingmaterialrequest_rules"
+    ],
+    "93": [
+      "phpunit_framework_testcase",
+      "tests_unit_exampletest",
+      "tests_unit_exampletest_exampletest",
+      "tests_unit_exampletest_exampletest_test_that_true_is_true"
+    ],
+    "94": [
+      "public_sw",
+      "public_sw_firebaseconfig",
+      "public_sw_precache_assets",
+      "public_sw_urlparams"
+    ],
+    "95": [
+      "composer_extra",
+      "composer_extra_laravel",
+      "composer_laravel_dont_discover"
+    ],
+    "96": [
+      "composer_scripts_post_autoload_dump",
+      "ref_illuminate_foundation_composerscripts_postautoloaddump",
+      "ref_php_artisan_package_discover_ansi"
+    ],
+    "97": [
+      "database_migrations_0001_01_01_000000_create_users_table",
+      "database_migrations_0001_01_01_000000_create_users_table_down",
+      "database_migrations_0001_01_01_000000_create_users_table_up"
+    ],
+    "98": [
+      "database_migrations_0001_01_01_000001_create_cache_table",
+      "database_migrations_0001_01_01_000001_create_cache_table_down",
+      "database_migrations_0001_01_01_000001_create_cache_table_up"
+    ],
+    "99": [
+      "database_migrations_0001_01_01_000002_create_jobs_table",
+      "database_migrations_0001_01_01_000002_create_jobs_table_down",
+      "database_migrations_0001_01_01_000002_create_jobs_table_up"
+    ],
+    "100": [
+      "database_migrations_2026_06_27_000000_create_roles_and_permissions_tables",
+      "database_migrations_2026_06_27_000000_create_roles_and_permissions_tables_down",
+      "database_migrations_2026_06_27_000000_create_roles_and_permissions_tables_up"
+    ],
+    "101": [
+      "database_migrations_2026_06_27_000001_create_departments_table",
+      "database_migrations_2026_06_27_000001_create_departments_table_down",
+      "database_migrations_2026_06_27_000001_create_departments_table_up"
+    ],
+    "102": [
+      "database_migrations_2026_06_27_000002_create_machines_table",
+      "database_migrations_2026_06_27_000002_create_machines_table_down",
+      "database_migrations_2026_06_27_000002_create_machines_table_up"
+    ],
+    "103": [
+      "database_migrations_2026_06_27_000003_create_units_table",
+      "database_migrations_2026_06_27_000003_create_units_table_down",
+      "database_migrations_2026_06_27_000003_create_units_table_up"
+    ],
+    "104": [
+      "database_migrations_2026_06_27_000004_create_bag_sizes_table",
+      "database_migrations_2026_06_27_000004_create_bag_sizes_table_down",
+      "database_migrations_2026_06_27_000004_create_bag_sizes_table_up"
+    ],
+    "105": [
+      "database_migrations_2026_06_27_000005_create_raw_materials_table",
+      "database_migrations_2026_06_27_000005_create_raw_materials_table_down",
+      "database_migrations_2026_06_27_000005_create_raw_materials_table_up"
+    ],
+    "106": [
+      "database_migrations_2026_06_27_000006_create_grades_table",
+      "database_migrations_2026_06_27_000006_create_grades_table_down",
+      "database_migrations_2026_06_27_000006_create_grades_table_up"
+    ],
+    "107": [
+      "database_migrations_2026_06_27_000007_create_formulas_table",
+      "database_migrations_2026_06_27_000007_create_formulas_table_down",
+      "database_migrations_2026_06_27_000007_create_formulas_table_up"
+    ],
+    "108": [
+      "database_migrations_2026_06_27_000008_create_formula_items_table",
+      "database_migrations_2026_06_27_000008_create_formula_items_table_down",
+      "database_migrations_2026_06_27_000008_create_formula_items_table_up"
+    ],
+    "109": [
+      "database_migrations_2026_06_27_000009_create_production_batches_table",
+      "database_migrations_2026_06_27_000009_create_production_batches_table_down",
+      "database_migrations_2026_06_27_000009_create_production_batches_table_up"
+    ],
+    "110": [
+      "database_migrations_2026_06_27_000010_create_stock_ledgers_table",
+      "database_migrations_2026_06_27_000010_create_stock_ledgers_table_down",
+      "database_migrations_2026_06_27_000010_create_stock_ledgers_table_up"
+    ],
+    "111": [
+      "database_migrations_2026_06_27_000011_create_stock_adjustments_table",
+      "database_migrations_2026_06_27_000011_create_stock_adjustments_table_down",
+      "database_migrations_2026_06_27_000011_create_stock_adjustments_table_up"
+    ],
+    "112": [
+      "database_migrations_2026_06_27_000012_create_activity_logs_table",
+      "database_migrations_2026_06_27_000012_create_activity_logs_table_down",
+      "database_migrations_2026_06_27_000012_create_activity_logs_table_up"
+    ],
+    "113": [
+      "database_migrations_2026_06_28_000000_add_formula_snapshot_to_production_batches_table",
+      "database_migrations_2026_06_28_000000_add_formula_snapshot_to_production_batches_table_down",
+      "database_migrations_2026_06_28_000000_add_formula_snapshot_to_production_batches_table_up"
+    ],
+    "114": [
+      "database_migrations_2026_06_28_000002_create_settings_table",
+      "database_migrations_2026_06_28_000002_create_settings_table_down",
+      "database_migrations_2026_06_28_000002_create_settings_table_up"
+    ],
+    "115": [
+      "database_migrations_2026_06_28_000004_add_profile_fields_to_users_table",
+      "database_migrations_2026_06_28_000004_add_profile_fields_to_users_table_down",
+      "database_migrations_2026_06_28_000004_add_profile_fields_to_users_table_up"
+    ],
+    "116": [
+      "database_migrations_2026_06_28_000005_add_module_to_activity_logs_table",
+      "database_migrations_2026_06_28_000005_add_module_to_activity_logs_table_down",
+      "database_migrations_2026_06_28_000005_add_module_to_activity_logs_table_up"
+    ],
+    "117": [
+      "database_migrations_2026_06_29_000000_create_user_departments_table",
+      "database_migrations_2026_06_29_000000_create_user_departments_table_down",
+      "database_migrations_2026_06_29_000000_create_user_departments_table_up"
+    ],
+    "118": [
+      "database_migrations_2026_06_29_000001_create_colors_table",
+      "database_migrations_2026_06_29_000001_create_colors_table_down",
+      "database_migrations_2026_06_29_000001_create_colors_table_up"
+    ],
+    "119": [
+      "database_migrations_2026_06_29_000002_create_grout_formulas_table",
+      "database_migrations_2026_06_29_000002_create_grout_formulas_table_down",
+      "database_migrations_2026_06_29_000002_create_grout_formulas_table_up"
+    ],
+    "120": [
+      "database_migrations_2026_06_29_000003_create_grout_formula_items_table",
+      "database_migrations_2026_06_29_000003_create_grout_formula_items_table_down",
+      "database_migrations_2026_06_29_000003_create_grout_formula_items_table_up"
+    ],
+    "121": [
+      "database_migrations_2026_06_29_000005_add_grout_batch_id_to_stock_ledgers_table",
+      "database_migrations_2026_06_29_000005_add_grout_batch_id_to_stock_ledgers_table_down",
+      "database_migrations_2026_06_29_000005_add_grout_batch_id_to_stock_ledgers_table_up"
+    ],
+    "122": [
+      "database_migrations_2026_06_30_000000_add_skip_timer_fields_to_grout_production_batches_table",
+      "database_migrations_2026_06_30_000000_add_skip_timer_fields_to_grout_production_batches_table_down",
+      "database_migrations_2026_06_30_000000_add_skip_timer_fields_to_grout_production_batches_table_up"
+    ],
+    "123": [
+      "database_migrations_2026_07_01_000000_create_epoxy_products_table",
+      "database_migrations_2026_07_01_000000_create_epoxy_products_table_down",
+      "database_migrations_2026_07_01_000000_create_epoxy_products_table_up"
+    ],
+    "124": [
+      "database_migrations_2026_07_01_000001_create_epoxy_formulas_table",
+      "database_migrations_2026_07_01_000001_create_epoxy_formulas_table_down",
+      "database_migrations_2026_07_01_000001_create_epoxy_formulas_table_up"
+    ],
+    "125": [
+      "database_migrations_2026_07_01_000002_create_epoxy_formula_items_table",
+      "database_migrations_2026_07_01_000002_create_epoxy_formula_items_table_down",
+      "database_migrations_2026_07_01_000002_create_epoxy_formula_items_table_up"
+    ],
+    "126": [
+      "database_migrations_2026_07_01_000003_create_epoxy_assemblies_table",
+      "database_migrations_2026_07_01_000003_create_epoxy_assemblies_table_down",
+      "database_migrations_2026_07_01_000003_create_epoxy_assemblies_table_up"
+    ],
+    "127": [
+      "database_migrations_2026_07_01_000004_add_epoxy_assembly_id_to_stock_ledgers_table",
+      "database_migrations_2026_07_01_000004_add_epoxy_assembly_id_to_stock_ledgers_table_down",
+      "database_migrations_2026_07_01_000004_add_epoxy_assembly_id_to_stock_ledgers_table_up"
+    ],
+    "128": [
+      "database_migrations_2026_07_02_000001_create_finished_goods_table",
+      "database_migrations_2026_07_02_000001_create_finished_goods_table_down",
+      "database_migrations_2026_07_02_000001_create_finished_goods_table_up"
+    ],
+    "129": [
+      "database_migrations_2026_07_05_000000_add_consumption_method_to_formula_items_table",
+      "database_migrations_2026_07_05_000000_add_consumption_method_to_formula_items_table_down",
+      "database_migrations_2026_07_05_000000_add_consumption_method_to_formula_items_table_up"
+    ],
+    "130": [
+      "database_migrations_2026_07_05_000001_remove_dual_color_from_colors_table",
+      "database_migrations_2026_07_05_000001_remove_dual_color_from_colors_table_down",
+      "database_migrations_2026_07_05_000001_remove_dual_color_from_colors_table_up"
+    ],
+    "131": [
+      "database_migrations_2026_07_06_000000_create_epoxy_filler_colors_table",
+      "database_migrations_2026_07_06_000000_create_epoxy_filler_colors_table_down",
+      "database_migrations_2026_07_06_000000_create_epoxy_filler_colors_table_up"
+    ],
+    "132": [
+      "database_migrations_2026_07_06_000001_create_epoxy_components_table",
+      "database_migrations_2026_07_06_000001_create_epoxy_components_table_down",
+      "database_migrations_2026_07_06_000001_create_epoxy_components_table_up"
+    ],
+    "133": [
+      "database_migrations_2026_07_06_000002_add_epoxy_color_to_tables",
+      "database_migrations_2026_07_06_000002_add_epoxy_color_to_tables_down",
+      "database_migrations_2026_07_06_000002_add_epoxy_color_to_tables_up"
+    ],
+    "134": [
+      "database_migrations_2026_07_06_000003_upgrade_epoxy_components_table",
+      "database_migrations_2026_07_06_000003_upgrade_epoxy_components_table_down",
+      "database_migrations_2026_07_06_000003_upgrade_epoxy_components_table_up"
+    ],
+    "135": [
+      "database_migrations_2026_07_06_000004_create_user_devices_table",
+      "database_migrations_2026_07_06_000004_create_user_devices_table_down",
+      "database_migrations_2026_07_06_000004_create_user_devices_table_up"
+    ],
+    "136": [
+      "database_migrations_2026_07_06_000005_create_notifications_table",
+      "database_migrations_2026_07_06_000005_create_notifications_table_down",
+      "database_migrations_2026_07_06_000005_create_notifications_table_up"
+    ],
+    "137": [
+      "database_migrations_2026_07_09_000000_change_production_batches_status_to_string",
+      "database_migrations_2026_07_09_000000_change_production_batches_status_to_string_down",
+      "database_migrations_2026_07_09_000000_change_production_batches_status_to_string_up"
+    ],
+    "138": [
+      "database_migrations_2026_07_09_000001_create_todos_table",
+      "database_migrations_2026_07_09_000001_create_todos_table_down",
+      "database_migrations_2026_07_09_000001_create_todos_table_up"
+    ],
+    "139": [
+      "database_migrations_2026_07_10_160000_add_is_coupon_to_raw_materials_table",
+      "database_migrations_2026_07_10_160000_add_is_coupon_to_raw_materials_table_down",
+      "database_migrations_2026_07_10_160000_add_is_coupon_to_raw_materials_table_up"
+    ],
+    "140": [
+      "database_migrations_2026_07_10_160001_create_marketing_orders_table",
+      "database_migrations_2026_07_10_160001_create_marketing_orders_table_down",
+      "database_migrations_2026_07_10_160001_create_marketing_orders_table_up"
+    ],
+    "141": [
+      "database_migrations_2026_07_10_160002_create_marketing_order_items_table",
+      "database_migrations_2026_07_10_160002_create_marketing_order_items_table_down",
+      "database_migrations_2026_07_10_160002_create_marketing_order_items_table_up"
+    ],
+    "142": [
+      "database_migrations_2026_07_13_000000_add_coupon_raw_material_id_to_finished_goods_table",
+      "database_migrations_2026_07_13_000000_add_coupon_raw_material_id_to_finished_goods_table_down",
+      "database_migrations_2026_07_13_000000_add_coupon_raw_material_id_to_finished_goods_table_up"
+    ],
+    "143": [
+      "database_migrations_2026_07_14_000000_create_super_admin_role_and_maintenance_settings",
+      "database_migrations_2026_07_14_000000_create_super_admin_role_and_maintenance_settings_down",
+      "database_migrations_2026_07_14_000000_create_super_admin_role_and_maintenance_settings_up"
+    ],
+    "144": [
+      "database_migrations_2026_07_14_000000_seed_maintenance_settings",
+      "database_migrations_2026_07_14_000000_seed_maintenance_settings_down",
+      "database_migrations_2026_07_14_000000_seed_maintenance_settings_up"
+    ],
+    "145": [
+      "database_migrations_2026_07_21_000000_add_city_and_delivery_date_to_marketing_orders_table",
+      "database_migrations_2026_07_21_000000_add_city_and_delivery_date_to_marketing_orders_table_down",
+      "database_migrations_2026_07_21_000000_add_city_and_delivery_date_to_marketing_orders_table_up"
+    ],
+    "146": [
+      "database_migrations_2026_07_21_000001_update_marketing_orders_table_remove_delivery_date_add_coupon",
+      "database_migrations_2026_07_21_000001_update_marketing_orders_table_remove_delivery_date_add_coupon_down",
+      "database_migrations_2026_07_21_000001_update_marketing_orders_table_remove_delivery_date_add_coupon_up"
+    ],
+    "147": [
+      "database_migrations_2026_07_21_190000_remove_payment_fields_from_dispatches_table",
+      "database_migrations_2026_07_21_190000_remove_payment_fields_from_dispatches_table_down",
+      "database_migrations_2026_07_21_190000_remove_payment_fields_from_dispatches_table_up"
+    ],
+    "148": [
+      "database_migrations_2026_07_22_190000_add_is_edited_to_marketing_orders_and_items_tables",
+      "database_migrations_2026_07_22_190000_add_is_edited_to_marketing_orders_and_items_tables_down",
+      "database_migrations_2026_07_22_190000_add_is_edited_to_marketing_orders_and_items_tables_up"
+    ],
+    "149": [
+      "database_migrations_2026_07_22_200000_remove_driver_name_from_dispatches_table",
+      "database_migrations_2026_07_22_200000_remove_driver_name_from_dispatches_table_down",
+      "database_migrations_2026_07_22_200000_remove_driver_name_from_dispatches_table_up"
+    ],
+    "150": [
+      "database_migrations_2026_07_22_210000_make_remarks_nullable_in_stock_adjustments_table",
+      "database_migrations_2026_07_22_210000_make_remarks_nullable_in_stock_adjustments_table_down",
+      "database_migrations_2026_07_22_210000_make_remarks_nullable_in_stock_adjustments_table_up"
+    ],
+    "151": [
+      "database_migrations_2026_07_23_000001_create_packing_material_categories_table",
+      "database_migrations_2026_07_23_000001_create_packing_material_categories_table_down",
+      "database_migrations_2026_07_23_000001_create_packing_material_categories_table_up"
+    ],
+    "152": [
+      "database_migrations_2026_07_23_000002_create_packing_materials_table",
+      "database_migrations_2026_07_23_000002_create_packing_materials_table_down",
+      "database_migrations_2026_07_23_000002_create_packing_materials_table_up"
+    ],
+    "153": [
+      "database_migrations_2026_07_23_000003_add_packing_material_id_to_stock_tables",
+      "database_migrations_2026_07_23_000003_add_packing_material_id_to_stock_tables_down",
+      "database_migrations_2026_07_23_000003_add_packing_material_id_to_stock_tables_up"
+    ],
+    "154": [
+      "database_migrations_2026_07_23_000004_migrate_packing_materials_data",
+      "database_migrations_2026_07_23_000004_migrate_packing_materials_data_down",
+      "database_migrations_2026_07_23_000004_migrate_packing_materials_data_up"
+    ],
+    "155": [
+      "database_migrations_2026_07_23_000005_add_packing_material_id_to_epoxy_component_formula_items_table",
+      "database_migrations_2026_07_23_000005_add_packing_material_id_to_epoxy_component_formula_items_table_down",
+      "database_migrations_2026_07_23_000005_add_packing_material_id_to_epoxy_component_formula_items_table_up"
+    ],
+    "156": [
+      "database_migrations_2026_07_28_000001_add_packing_material_id_to_formula_items_table",
+      "database_migrations_2026_07_28_000001_add_packing_material_id_to_formula_items_table_down",
+      "database_migrations_2026_07_28_000001_add_packing_material_id_to_formula_items_table_up"
+    ],
+    "157": [
+      "admin_stock_adjustments_table",
+      "resources_views_admin_stock_adjustments_index_blade"
+    ],
+    "158": [
+      "app_models_productionbatch_php_hasmany",
+      "app_models_productionbatch_productionbatch_ledgers"
+    ],
+    "159": [
+      "finished_goods_table",
+      "resources_views_finished_goods_index_blade"
+    ],
+    "160": [
+      "resources_views_admin_bag_sizes_create_blade",
+      "resources_views_admin_bag_sizes_create_blade_php_admin_bag_sizes_form"
+    ],
+    "161": [
+      "resources_views_admin_bag_sizes_edit_blade",
+      "resources_views_admin_bag_sizes_edit_blade_php_admin_bag_sizes_form"
+    ],
+    "162": [
+      "resources_views_admin_colors_create_blade",
+      "resources_views_admin_colors_create_blade_php_admin_colors_form"
+    ],
+    "163": [
+      "resources_views_admin_colors_edit_blade",
+      "resources_views_admin_colors_edit_blade_php_admin_colors_form"
+    ],
+    "164": [
+      "resources_views_admin_dashboard_blade",
+      "resources_views_admin_dashboard_blade_php_admin_dashboard_partials_machines"
+    ],
+    "165": [
+      "resources_views_admin_departments_create_blade",
+      "resources_views_admin_departments_create_blade_php_admin_departments_form"
+    ],
+    "166": [
+      "resources_views_admin_departments_edit_blade",
+      "resources_views_admin_departments_edit_blade_php_admin_departments_form"
+    ],
+    "167": [
+      "resources_views_admin_epoxy_formulas_create_blade",
+      "resources_views_admin_epoxy_formulas_create_blade_php_admin_epoxy_formulas_form"
+    ],
+    "168": [
+      "resources_views_admin_epoxy_formulas_edit_blade",
+      "resources_views_admin_epoxy_formulas_edit_blade_php_admin_epoxy_formulas_form"
+    ],
+    "169": [
+      "resources_views_admin_epoxy_products_create_blade",
+      "resources_views_admin_epoxy_products_create_blade_php_admin_epoxy_products_form"
+    ],
+    "170": [
+      "resources_views_admin_epoxy_products_edit_blade",
+      "resources_views_admin_epoxy_products_edit_blade_php_admin_epoxy_products_form"
+    ],
+    "171": [
+      "resources_views_admin_formulas_create_blade",
+      "resources_views_admin_formulas_create_blade_php_admin_formulas_form"
+    ],
+    "172": [
+      "resources_views_admin_formulas_edit_blade",
+      "resources_views_admin_formulas_edit_blade_php_admin_formulas_form"
+    ],
+    "173": [
+      "resources_views_admin_grades_create_blade",
+      "resources_views_admin_grades_create_blade_php_admin_grades_form"
+    ],
+    "174": [
+      "resources_views_admin_grades_edit_blade",
+      "resources_views_admin_grades_edit_blade_php_admin_grades_form"
+    ],
+    "175": [
+      "resources_views_admin_grout_formulas_create_blade",
+      "resources_views_admin_grout_formulas_create_blade_php_admin_grout_formulas_form"
+    ],
+    "176": [
+      "resources_views_admin_grout_formulas_edit_blade",
+      "resources_views_admin_grout_formulas_edit_blade_php_admin_grout_formulas_form"
+    ],
+    "177": [
+      "resources_views_admin_machines_create_blade",
+      "resources_views_admin_machines_create_blade_php_admin_machines_form"
+    ],
+    "178": [
+      "resources_views_admin_machines_edit_blade",
+      "resources_views_admin_machines_edit_blade_php_admin_machines_form"
+    ],
+    "179": [
+      "resources_views_admin_packing_materials_create_blade",
+      "resources_views_admin_packing_materials_create_blade_php_admin_packing_materials_form"
+    ],
+    "180": [
+      "resources_views_admin_packing_materials_edit_blade",
+      "resources_views_admin_packing_materials_edit_blade_php_admin_packing_materials_form"
+    ],
+    "181": [
+      "resources_views_admin_raw_materials_create_blade",
+      "resources_views_admin_raw_materials_create_blade_php_admin_raw_materials_form"
+    ],
+    "182": [
+      "resources_views_admin_raw_materials_edit_blade",
+      "resources_views_admin_raw_materials_edit_blade_php_admin_raw_materials_form"
+    ],
+    "183": [
+      "resources_views_admin_units_create_blade",
+      "resources_views_admin_units_create_blade_php_admin_units_form"
+    ],
+    "184": [
+      "resources_views_admin_units_edit_blade",
+      "resources_views_admin_units_edit_blade_php_admin_units_form"
+    ],
+    "185": [
+      "resources_views_admin_users_create_blade",
+      "resources_views_admin_users_create_blade_php_admin_users_form"
+    ],
+    "186": [
+      "resources_views_admin_users_edit_blade",
+      "resources_views_admin_users_edit_blade_php_admin_users_form"
+    ],
+    "187": [
+      "resources_views_layouts_app_blade",
+      "resources_views_layouts_app_blade_php_partials_pwa"
+    ],
+    "188": [
+      "resources_views_layouts_auth_blade",
+      "resources_views_layouts_auth_blade_php_partials_pwa"
+    ],
+    "189": [
+      "resources_views_supervisor_dashboard_blade",
+      "resources_views_supervisor_dashboard_blade_php_admin_dashboard_partials_machines"
+    ],
+    "190": [
+      "bootstrap_app"
+    ],
+    "191": [
+      "config_app"
+    ],
+    "192": [
+      "config_database"
+    ],
+    "193": [
+      "config_filesystems"
+    ],
+    "194": [
+      "config_logging"
+    ],
+    "195": [
+      "config_queue"
+    ],
+    "196": [
+      "config_services"
+    ],
+    "197": [
+      "config_session"
+    ],
+    "198": [
+      "public_index"
+    ],
+    "199": [
+      "public_phpinfo"
+    ],
+    "200": [
+      "resources_views_admin_activity_logs_index_blade"
+    ],
+    "201": [
+      "resources_views_admin_admin_settings_index_blade"
+    ],
+    "202": [
+      "resources_views_admin_backups_index_blade"
+    ],
+    "203": [
+      "resources_views_admin_bag_sizes_form_blade"
+    ],
+    "204": [
+      "resources_views_admin_bag_sizes_index_blade"
+    ],
+    "205": [
+      "resources_views_admin_colors_form_blade"
+    ],
+    "206": [
+      "resources_views_admin_colors_index_blade"
+    ],
+    "207": [
+      "resources_views_admin_dashboard_partials_calendar_details_blade"
+    ],
+    "208": [
+      "resources_views_admin_dashboard_partials_machines_blade"
+    ],
+    "209": [
+      "resources_views_admin_departments_form_blade"
+    ],
+    "210": [
+      "resources_views_admin_departments_index_blade"
+    ],
+    "211": [
+      "resources_views_admin_epoxy_colors_create_blade"
+    ],
+    "212": [
+      "resources_views_admin_epoxy_colors_edit_blade"
+    ],
+    "213": [
+      "resources_views_admin_epoxy_colors_index_blade"
+    ],
+    "214": [
+      "resources_views_admin_epoxy_component_formulas_create_blade"
+    ],
+    "215": [
+      "resources_views_admin_epoxy_component_formulas_edit_blade"
+    ],
+    "216": [
+      "resources_views_admin_epoxy_component_formulas_index_blade"
+    ],
+    "217": [
+      "resources_views_admin_epoxy_component_formulas_show_blade"
+    ],
+    "218": [
+      "resources_views_admin_epoxy_components_create_blade"
+    ],
+    "219": [
+      "resources_views_admin_epoxy_components_edit_blade"
+    ],
+    "220": [
+      "resources_views_admin_epoxy_components_index_blade"
+    ],
+    "221": [
+      "resources_views_admin_epoxy_formulas_form_blade"
+    ],
+    "222": [
+      "resources_views_admin_epoxy_formulas_index_blade"
+    ],
+    "223": [
+      "resources_views_admin_epoxy_formulas_show_blade"
+    ],
+    "224": [
+      "resources_views_admin_epoxy_products_form_blade"
+    ],
+    "225": [
+      "resources_views_admin_epoxy_products_index_blade"
+    ],
+    "226": [
+      "resources_views_admin_formulas_form_blade"
+    ],
+    "227": [
+      "resources_views_admin_formulas_index_blade"
+    ],
+    "228": [
+      "resources_views_admin_formulas_show_blade"
+    ],
+    "229": [
+      "resources_views_admin_grades_form_blade"
+    ],
+    "230": [
+      "resources_views_admin_grades_index_blade"
+    ],
+    "231": [
+      "resources_views_admin_grout_formulas_form_blade"
+    ],
+    "232": [
+      "resources_views_admin_grout_formulas_index_blade"
+    ],
+    "233": [
+      "resources_views_admin_grout_formulas_show_blade"
+    ],
+    "234": [
+      "resources_views_admin_machines_form_blade"
+    ],
+    "235": [
+      "resources_views_admin_machines_index_blade"
+    ],
+    "236": [
+      "resources_views_admin_packing_materials_form_blade"
+    ],
+    "237": [
+      "resources_views_admin_packing_materials_index_blade"
+    ],
+    "238": [
+      "resources_views_admin_profile_edit_blade"
+    ],
+    "239": [
+      "resources_views_admin_raw_materials_form_blade"
+    ],
+    "240": [
+      "resources_views_admin_raw_materials_index_blade"
+    ],
+    "241": [
+      "resources_views_admin_reports_daily_blade"
+    ],
+    "242": [
+      "resources_views_admin_reports_pdf_blade"
+    ],
+    "243": [
+      "resources_views_admin_reports_whatsapp_blade"
+    ],
+    "244": [
+      "resources_views_admin_settings_edit_blade"
+    ],
+    "245": [
+      "resources_views_admin_settings_unlock_blade"
+    ],
+    "246": [
+      "resources_views_admin_stock_adjustments_table_blade"
+    ],
+    "247": [
+      "resources_views_admin_system_health_blade"
+    ],
+    "248": [
+      "resources_views_admin_units_form_blade"
+    ],
+    "249": [
+      "resources_views_admin_units_index_blade"
+    ],
+    "250": [
+      "resources_views_admin_users_form_blade"
+    ],
+    "251": [
+      "resources_views_admin_users_index_blade"
+    ],
+    "252": [
+      "resources_views_components_dashboard_action_center_blade"
+    ],
+    "253": [
+      "resources_views_components_sidebar_blade"
+    ],
+    "254": [
+      "resources_views_components_todo_widget_blade"
+    ],
+    "255": [
+      "resources_views_dispatch_create_blade"
+    ],
+    "256": [
+      "resources_views_dispatch_edit_blade"
+    ],
+    "257": [
+      "resources_views_dispatch_index_blade"
+    ],
+    "258": [
+      "resources_views_dispatch_loading_blade"
+    ],
+    "259": [
+      "resources_views_dispatch_reports_blade"
+    ],
+    "260": [
+      "resources_views_dispatch_show_blade"
+    ],
+    "261": [
+      "resources_views_epoxy_assembly_component_entry_blade"
+    ],
+    "262": [
+      "resources_views_epoxy_assembly_create_blade"
+    ],
+    "263": [
+      "resources_views_epoxy_assembly_index_blade"
+    ],
+    "264": [
+      "resources_views_errors_503_blade"
+    ],
+    "265": [
+      "resources_views_finished_goods_table_blade"
+    ],
+    "266": [
+      "resources_views_grout_production_create_blade"
+    ],
+    "267": [
+      "resources_views_grout_production_index_blade"
+    ],
+    "268": [
+      "resources_views_grout_production_running_blade"
+    ],
+    "269": [
+      "resources_views_grout_production_show_blade"
+    ],
+    "270": [
+      "resources_views_maintenance_blade"
+    ],
+    "271": [
+      "resources_views_marketing_orders_card_blade"
+    ],
+    "272": [
+      "resources_views_marketing_orders_create_blade"
+    ],
+    "273": [
+      "resources_views_marketing_orders_edit_blade"
+    ],
+    "274": [
+      "resources_views_marketing_orders_index_blade"
+    ],
+    "275": [
+      "resources_views_marketing_orders_show_blade"
+    ],
+    "276": [
+      "resources_views_notifications_index_blade"
+    ],
+    "277": [
+      "resources_views_partials_pwa_blade"
+    ],
+    "278": [
+      "resources_views_production_complete_blade"
+    ],
+    "279": [
+      "resources_views_production_create_blade"
+    ],
+    "280": [
+      "resources_views_production_epoxy_placeholder_blade"
+    ],
+    "281": [
+      "resources_views_production_history_blade"
+    ],
+    "282": [
+      "resources_views_production_index_blade"
+    ],
+    "283": [
+      "resources_views_production_ledger_blade"
+    ],
+    "284": [
+      "resources_views_production_planning_blade"
+    ],
+    "285": [
+      "resources_views_production_running_blade"
+    ],
+    "286": [
+      "resources_views_production_show_blade"
+    ],
+    "287": [
+      "resources_views_shared_login_blade"
+    ],
+    "288": [
+      "resources_views_supervisor_orders_blade"
+    ],
+    "289": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.055523085914669784,
+    "1": 0.06693877551020408,
+    "2": 0.06906906906906907,
+    "3": 0.08108108108108109,
+    "4": 0.11260504201680673,
+    "5": 0.08403361344537816,
+    "6": 0.08143939393939394,
+    "7": 0.07142857142857142,
+    "8": 0.09523809523809523,
+    "9": 0.13105413105413105,
+    "10": 0.10461538461538461,
+    "11": 0.15019762845849802,
+    "12": 0.13438735177865613,
+    "13": 0.1383399209486166,
+    "14": 0.12648221343873517,
+    "15": 0.12987012987012986,
+    "16": 0.1038961038961039,
+    "17": 0.16883116883116883,
+    "18": 0.11255411255411256,
+    "19": 0.14285714285714285,
+    "20": 0.12105263157894737,
+    "21": 0.1368421052631579,
+    "22": 0.14619883040935672,
+    "23": 0.11695906432748537,
+    "24": 0.13071895424836602,
+    "25": 0.16911764705882354,
+    "26": 0.18382352941176472,
+    "27": 0.14705882352941177,
+    "28": 0.125,
+    "29": 0.20833333333333334,
+    "30": 0.15,
+    "31": 0.125,
+    "32": 0.13333333333333333,
+    "33": 0.1619047619047619,
+    "34": 0.18095238095238095,
+    "35": 0.13333333333333333,
+    "36": 0.26373626373626374,
+    "37": 0.14285714285714285,
+    "38": 0.21978021978021978,
+    "39": 0.14285714285714285,
+    "40": 0.21794871794871795,
+    "41": 0.19696969696969696,
+    "42": 0.2727272727272727,
+    "43": 0.3333333333333333,
+    "44": 0.2727272727272727,
+    "45": 0.2,
+    "46": 0.2727272727272727,
+    "47": 0.18181818181818182,
+    "48": 0.28888888888888886,
+    "49": 0.2,
+    "50": 0.2,
+    "51": 0.2,
+    "52": 0.25,
+    "53": 0.2777777777777778,
+    "54": 0.3333333333333333,
+    "55": 0.2222222222222222,
+    "56": 0.4642857142857143,
+    "57": 0.25,
+    "58": 0.25,
+    "59": 0.25,
+    "60": 0.42857142857142855,
+    "61": 0.42857142857142855,
+    "62": 0.2857142857142857,
+    "63": 0.2857142857142857,
+    "64": 0.2857142857142857,
+    "65": 0.2857142857142857,
+    "66": 0.2857142857142857,
+    "67": 0.4,
+    "68": 0.3333333333333333,
+    "69": 0.3333333333333333,
+    "70": 0.3333333333333333,
+    "71": 0.4,
+    "72": 0.4,
+    "73": 0.4,
+    "74": 0.4,
+    "75": 0.4,
+    "76": 0.4,
+    "77": 0.4,
+    "78": 0.4,
+    "79": 0.4,
+    "80": 0.4,
+    "81": 0.4,
+    "82": 0.6,
+    "83": 0.4,
+    "84": 0.4,
+    "85": 0.4,
+    "86": 0.4,
+    "87": 0.4,
+    "88": 0.4,
+    "89": 0.4,
+    "90": 0.4,
+    "91": 0.6,
+    "92": 0.5,
+    "93": 0.6666666666666666,
+    "94": 0.5,
+    "95": 0.6666666666666666,
+    "96": 0.6666666666666666,
+    "97": 0.6666666666666666,
+    "98": 0.6666666666666666,
+    "99": 0.6666666666666666,
+    "100": 0.6666666666666666,
+    "101": 0.6666666666666666,
+    "102": 0.6666666666666666,
+    "103": 0.6666666666666666,
+    "104": 0.6666666666666666,
+    "105": 0.6666666666666666,
+    "106": 0.6666666666666666,
+    "107": 0.6666666666666666,
+    "108": 0.6666666666666666,
+    "109": 0.6666666666666666,
+    "110": 0.6666666666666666,
+    "111": 0.6666666666666666,
+    "112": 0.6666666666666666,
+    "113": 0.6666666666666666,
+    "114": 0.6666666666666666,
+    "115": 0.6666666666666666,
+    "116": 0.6666666666666666,
+    "117": 0.6666666666666666,
+    "118": 0.6666666666666666,
+    "119": 0.6666666666666666,
+    "120": 0.6666666666666666,
+    "121": 0.6666666666666666,
+    "122": 0.6666666666666666,
+    "123": 0.6666666666666666,
+    "124": 0.6666666666666666,
+    "125": 0.6666666666666666,
+    "126": 0.6666666666666666,
+    "127": 0.6666666666666666,
+    "128": 0.6666666666666666,
+    "129": 0.6666666666666666,
+    "130": 0.6666666666666666,
+    "131": 0.6666666666666666,
+    "132": 0.6666666666666666,
+    "133": 0.6666666666666666,
+    "134": 0.6666666666666666,
+    "135": 0.6666666666666666,
+    "136": 0.6666666666666666,
+    "137": 0.6666666666666666,
+    "138": 0.6666666666666666,
+    "139": 0.6666666666666666,
+    "140": 0.6666666666666666,
+    "141": 0.6666666666666666,
+    "142": 0.6666666666666666,
+    "143": 0.6666666666666666,
+    "144": 0.6666666666666666,
+    "145": 0.6666666666666666,
+    "146": 0.6666666666666666,
+    "147": 0.6666666666666666,
+    "148": 0.6666666666666666,
+    "149": 0.6666666666666666,
+    "150": 0.6666666666666666,
+    "151": 0.6666666666666666,
+    "152": 0.6666666666666666,
+    "153": 0.6666666666666666,
+    "154": 0.6666666666666666,
+    "155": 0.6666666666666666,
+    "156": 0.6666666666666666,
+    "157": 1.0,
+    "158": 1.0,
+    "159": 1.0,
+    "160": 1.0,
+    "161": 1.0,
+    "162": 1.0,
+    "163": 1.0,
+    "164": 1.0,
+    "165": 1.0,
+    "166": 1.0,
+    "167": 1.0,
+    "168": 1.0,
+    "169": 1.0,
+    "170": 1.0,
+    "171": 1.0,
+    "172": 1.0,
+    "173": 1.0,
+    "174": 1.0,
+    "175": 1.0,
+    "176": 1.0,
+    "177": 1.0,
+    "178": 1.0,
+    "179": 1.0,
+    "180": 1.0,
+    "181": 1.0,
+    "182": 1.0,
+    "183": 1.0,
+    "184": 1.0,
+    "185": 1.0,
+    "186": 1.0,
+    "187": 1.0,
+    "188": 1.0,
+    "189": 1.0,
+    "190": 1.0,
+    "191": 1.0,
+    "192": 1.0,
+    "193": 1.0,
+    "194": 1.0,
+    "195": 1.0,
+    "196": 1.0,
+    "197": 1.0,
+    "198": 1.0,
+    "199": 1.0,
+    "200": 1.0,
+    "201": 1.0,
+    "202": 1.0,
+    "203": 1.0,
+    "204": 1.0,
+    "205": 1.0,
+    "206": 1.0,
+    "207": 1.0,
+    "208": 1.0,
+    "209": 1.0,
+    "210": 1.0,
+    "211": 1.0,
+    "212": 1.0,
+    "213": 1.0,
+    "214": 1.0,
+    "215": 1.0,
+    "216": 1.0,
+    "217": 1.0,
+    "218": 1.0,
+    "219": 1.0,
+    "220": 1.0,
+    "221": 1.0,
+    "222": 1.0,
+    "223": 1.0,
+    "224": 1.0,
+    "225": 1.0,
+    "226": 1.0,
+    "227": 1.0,
+    "228": 1.0,
+    "229": 1.0,
+    "230": 1.0,
+    "231": 1.0,
+    "232": 1.0,
+    "233": 1.0,
+    "234": 1.0,
+    "235": 1.0,
+    "236": 1.0,
+    "237": 1.0,
+    "238": 1.0,
+    "239": 1.0,
+    "240": 1.0,
+    "241": 1.0,
+    "242": 1.0,
+    "243": 1.0,
+    "244": 1.0,
+    "245": 1.0,
+    "246": 1.0,
+    "247": 1.0,
+    "248": 1.0,
+    "249": 1.0,
+    "250": 1.0,
+    "251": 1.0,
+    "252": 1.0,
+    "253": 1.0,
+    "254": 1.0,
+    "255": 1.0,
+    "256": 1.0,
+    "257": 1.0,
+    "258": 1.0,
+    "259": 1.0,
+    "260": 1.0,
+    "261": 1.0,
+    "262": 1.0,
+    "263": 1.0,
+    "264": 1.0,
+    "265": 1.0,
+    "266": 1.0,
+    "267": 1.0,
+    "268": 1.0,
+    "269": 1.0,
+    "270": 1.0,
+    "271": 1.0,
+    "272": 1.0,
+    "273": 1.0,
+    "274": 1.0,
+    "275": 1.0,
+    "276": 1.0,
+    "277": 1.0,
+    "278": 1.0,
+    "279": 1.0,
+    "280": 1.0,
+    "281": 1.0,
+    "282": 1.0,
+    "283": 1.0,
+    "284": 1.0,
+    "285": 1.0,
+    "286": 1.0,
+    "287": 1.0,
+    "288": 1.0,
+    "289": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_models_user_user",
+      "label": "User",
+      "degree": 123
+    },
+    {
+      "id": "app_models_rawmaterial_rawmaterial",
+      "label": "RawMaterial",
+      "degree": 95
+    },
+    {
+      "id": "app_models_department_department",
+      "label": "Department",
+      "degree": 75
+    },
+    {
+      "id": "app_http_controllers_controller_controller",
+      "label": "Controller",
+      "degree": 65
+    },
+    {
+      "id": "app_models_grade_grade",
+      "label": "Grade",
+      "degree": 60
+    },
+    {
+      "id": "app_models_unit_unit",
+      "label": "Unit",
+      "degree": 58
+    },
+    {
+      "id": "app_models_machine_machine",
+      "label": "Machine",
+      "degree": 55
+    },
+    {
+      "id": "app_services_activitylogservice_activitylogservice",
+      "label": "ActivityLogService",
+      "degree": 50
+    },
+    {
+      "id": "tests_testcase_testcase",
+      "label": "TestCase",
+      "degree": 48
+    },
+    {
+      "id": "app_models_finishedgood_finishedgood",
+      "label": "FinishedGood",
+      "degree": 44
+    }
+  ],
+  "surprises": [
+    {
+      "source": "up()",
+      "target": "Department",
+      "source_files": [
+        "database/migrations/2026_06_29_000004_create_grout_production_batches_table.php",
+        "app/Models/Department.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "up()",
+      "target": "Department",
+      "source_files": [
+        "database/migrations/2026_07_10_160004_seed_all_coupons.php",
+        "app/Models/Department.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "down()",
+      "target": "User",
+      "source_files": [
+        "database/migrations/2026_07_10_160003_seed_marketing_role.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "up()",
+      "target": "User",
+      "source_files": [
+        "database/migrations/2026_07_10_160003_seed_marketing_role.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "down()",
+      "target": "User",
+      "source_files": [
+        "database/migrations/2026_07_21_180000_create_dispatch_management_system_tables.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `User` connect `User` to `BagSize`, `SettingService`, `Illuminate\\Http\\Request`, `User.php`, `TestCase`, `GroutFormula`, `Department`, `RawMaterial`, `Machine`, `EpoxyFormula`, `EpoxyAssembly`, `NotificationService`, `FactoryAdminController`, `FinishedGood`, `Illuminate\\Database\\Eloquent\\Model`, `Todo`, `Controller`, `AuthTest`, `MastersTest`, `currentDepartment`, `.prepareComponent`, `RawMaterialsTest`, `DepartmentAccessService`, `SystemService.php`, `ReportsTest.php`?",
+      "why": "High betweenness centrality (0.064) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `RawMaterial` connect `RawMaterial` to `MarketingOrder`, `TestCase`, `GroutFormula`, `Color`, `ProductionBatch`, `Machine`, `EpoxyFormula`, `EpoxyAssembly`, `Grade.php`, `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo`, `EpoxyComponentFormula`, `MarketingOrderItem`, `Illuminate\\Database\\Eloquent\\Model`, `EpoxyComponent`, `Controller`, `ActivityLogService`, `EpoxyFillerColor`, `DashboardService`, `Formula`, `PackingMaterial`, `MarketingOrderTest`, `currentDepartment`, `.prepareComponent`, `RawMaterialsTest`, `FinishedGoodsController`, `ReportsTest.php`, `StoreRawMaterialRequest`?",
+      "why": "High betweenness centrality (0.050) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `TestCase` connect `TestCase` to `User`, `BagSize`, `SettingService`, `ReportsTest.php`, `User.php`, `package.json`, `GroutFormula`, `Color`, `Machine`, `MarketingOrderTest`, `EpoxyAssembly`, `Grade.php`, `AuthTest`, `MastersTest`, `FinishedGood`, `RawMaterialsTest`, `Todo`?",
+      "why": "High betweenness centrality (0.049) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 81 inferred relationships involving `User` (e.g. with `.activityLogs()` and `.create()`) actually correct?",
+      "why": "`User` has 81 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `$schema`, `name`, `type` to the rest of the system?",
+      "why": "110 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `User` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.055523085914669784 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `MarketingOrder` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.06693877551020408 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
