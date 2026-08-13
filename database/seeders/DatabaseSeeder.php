@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(BrandSeeder::class);
+
         // Create basic departments if they don't exist
         $deptTAD = \App\Models\Department::updateOrCreate(['code' => 'TAD'], ['name' => 'Tile Adhesive Dept', 'description' => 'Tile Adhesive Department', 'is_active' => true]);
         $deptGRT = \App\Models\Department::updateOrCreate(['code' => 'GRT'], ['name' => 'Grout Dept', 'description' => 'Production department for Grout products', 'is_active' => true]);

@@ -15,6 +15,8 @@ Route::middleware('guest')->group(function () {
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    // Brand switching
+    Route::post('/brand/switch', [\App\Http\Controllers\Shared\BrandController::class, 'switch'])->name('brand.switch');
     Route::post('/department/switch', [\App\Http\Controllers\Shared\DepartmentController::class, 'switch'])->name('department.switch');
 
     // Admin Protected Routes
@@ -23,6 +25,10 @@ Route::middleware('auth')->group(function () {
 
         // User Management CRUD
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->names('admin.users');
+
+        // Brand Management
+        Route::resource('brands', \App\Http\Controllers\Admin\BrandController::class)->except('show', 'destroy');
+        Route::resource('brand-products', \App\Http\Controllers\Admin\BrandProductController::class)->except('show', 'destroy');
 
         // Master Modules CRUD
         Route::resource('departments', \App\Http\Controllers\Admin\DepartmentController::class)->names('admin.departments');

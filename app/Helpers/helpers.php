@@ -89,3 +89,28 @@ if (!function_exists('format_quantity')) {
     }
 }
 
+if (!function_exists('currentBrand')) {
+    /**
+     * Get the currently selected brand for the logged-in user.
+     * Defaults to Solcon when no brand is selected.
+     *
+     * @return \App\Models\Brand
+     */
+    function currentBrand()
+    {
+        return app(\App\Services\BrandContextService::class)->current();
+    }
+}
+
+if (!function_exists('availableBrands')) {
+    /**
+     * Get all active brands.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    function availableBrands()
+    {
+        return app(\App\Services\BrandContextService::class)->available();
+    }
+}
+

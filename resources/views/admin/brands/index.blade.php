@@ -1,0 +1,85 @@
+@extends('layouts.app')
+
+@section('title', 'Brands')
+@section('header-title', 'Brand Master')
+
+@section('content')
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <form method="GET" action="{{ route('brands.index') }}" class="flex items-center w-full sm:max-w-xl gap-2">
+            <div class="relative flex-1">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </span>
+                <input type="text" name="search" value="{{ request('search') }}" 
+                    class="block w-full pl-10 pr-4 py-2 bg-slate-955 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm"
+                    placeholder="Search by name or code...">
+            </div>
+            <button type="submit" class="px-4 py-2 bg-slate-955 border border-slate-800 hover:bg-slate-900 rounded-xl text-sm font-medium transition-colors text-slate-300">
+                Filter
+            </button>
+            @if(request('search'))
+                <a href="{{ route('brands.index') }}" class="px-3 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-sm transition-colors" title="Clear Search">
+                    Clear
+                </a>
+            @endif
+        </form>
+
+        <a href="{{ route('brands.create') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold rounded-xl transition-all duration-205 transform active:scale-[0.98] shadow-lg shadow-cyan-500/10 text-sm gap-2 shrink-0">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Brand</span>
+        </a>
+    </div>
+
+    <div class="bg-slate-955 border border-slate-850 rounded-2xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                    <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
+                        <th class="p-4 w-24">Code</th>
+                        <th class="p-4">Name</th>
+                        <th class="p-4">Slug</th>
+                        <th class="p-4 w-32">Status</th>
+                        <th class="p-4 w-32 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-850/50">
+                    @forelse($brands as $brand)
+                        <tr class="hover:bg-slate-900/30 text-slate-200 transition-colors">
+                            <td class="p-4 font-mono font-bold text-cyan-400">{{ $brand->code }}</td>
+                            <td class="p-4 font-semibold text-white">{{ $brand->name }}</td>
+                            <td class="p-4 text-slate-400">{{ $brand->slug }}</td>
+                            <td class="p-4">
+                                @if($brand->is_active ?? true)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-800 text-slate-400 border border-slate-700/50">Inactive</span>
+                                @endif
+                            </td>
+                            <td class="p-4 text-right">
+                                <a href="{{ route('brands.edit', $brand) }}" class="p-1.5 inline-block bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-400 rounded-lg transition-all" title="Edit">
+                                    <i data-lucide="edit-2" class="w-4 h-4"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="p-12 text-center text-slate-500">
+                                <div class="flex flex-col items-center justify-center space-y-2">
+                                    <i data-lucide="folder-open" class="w-8 h-8 text-slate-700"></i>
+                                    <span>No brands found.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        @if($brands->hasPages())
+            <div class="px-6 py-4 border-t border-slate-850 bg-slate-900/20">
+                {{ $brands->links() }}
+            </div>
+        @endif
+    </div>
+</div>
+@endsection

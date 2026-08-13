@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="firebase-config" content="{{ json_encode(config('services.firebase')) }}">
     <meta name="theme-color" content="#0f172a">
-    <title>@yield('title', 'Dashboard') | Solcon Industries</title>
+    <title>@yield('title', 'Dashboard') | {{ currentBrand()->name }} Industries</title>
 
     <!-- PWA Primary Meta & App Icons -->
     <link rel="manifest" href="/manifest.json">
@@ -62,7 +62,7 @@
 
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-                            <span>Solcon</span><span class="text-slate-300">/</span><span class="truncate">@yield('title', 'Dashboard')</span>
+                            <span>{{ currentBrand()->name }}</span><span class="text-slate-300">/</span><span class="truncate">@yield('title', 'Dashboard')</span>
                         </div>
                         <h1 class="mt-0.5 truncate text-lg font-extrabold tracking-tight text-slate-950 sm:text-xl">@yield('header-title', 'Production Management System')</h1>
                     </div>
@@ -73,6 +73,27 @@
                         <span class="h-1 w-1 rounded-full bg-slate-300"></span>
                         <div id="liveClock" class="min-w-[70px] text-sm font-medium tabular-nums text-slate-500">{{ now()->format('h:i A') }}</div>
                     </div>
+
+                    @if(Auth::check() && availableBrands()->count() > 1)
+                        <form action="{{ route('brand.switch') }}" method="POST" id="brandSwitchForm" class="mr-1">
+                            @csrf
+                            <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
+                                <i data-lucide="tag" class="h-3.5 w-3.5 text-slate-500"></i>
+                                <select name="brand_id" onchange="document.getElementById('brandSwitchForm').submit()" class="bg-transparent border-0 text-xs font-bold text-slate-700 focus:outline-none cursor-pointer py-0.5">
+                                    @foreach(availableBrands() as $brand)
+                                        <option value="{{ $brand->id }}" {{ currentBrand()->id == $brand->id ? 'selected' : '' }}>
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </form>
+                    @elseif(Auth::check())
+                        <div class="hidden sm:flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl mr-1">
+                            <i data-lucide="tag" class="h-3.5 w-3.5 text-slate-500"></i>
+                            <span class="text-xs font-bold text-slate-700">{{ currentBrand()->name }}</span>
+                        </div>
+                    @endif
 
                     @if(Auth::check() && Auth::user()->isSupervisor() && availableDepartments()->count() > 1)
                         <form action="{{ route('department.switch') }}" method="POST" id="deptSwitchForm" class="mr-1">
