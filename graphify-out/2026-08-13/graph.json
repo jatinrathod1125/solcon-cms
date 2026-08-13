@@ -200,7 +200,7 @@
       "source_file": "app/Http/Controllers/Admin/ColorController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 9,
       "norm_label": "colorcontroller.php",
       "community_name": "Controller",
       "id": "app_http_controllers_admin_colorcontroller"
@@ -452,7 +452,7 @@
       "source_file": "app/Http/Controllers/Admin/EpoxyComponentController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": "epoxycomponentcontroller.php",
       "community_name": "Controller",
       "id": "app_http_controllers_admin_epoxycomponentcontroller"
@@ -548,7 +548,7 @@
       "source_file": "app/Http/Controllers/Admin/EpoxyComponentFormulaController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 9,
       "norm_label": "epoxycomponentformulacontroller.php",
       "community_name": "Controller",
       "id": "app_http_controllers_admin_epoxycomponentformulacontroller"
@@ -956,9 +956,9 @@
       "source_file": "app/Http/Controllers/Admin/FactoryAdminController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 64,
+      "community": 19,
       "norm_label": "factoryadmincontroller.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "FactoryAdminController",
       "id": "app_http_controllers_admin_factoryadmincontroller"
     },
     {
@@ -1005,9 +1005,9 @@
       "source_location": "L159",
       "_callable": true,
       "_origin": "ast",
-      "community": 290,
+      "community": 19,
       "norm_label": ".profileedit()",
-      "community_name": "ActivityLog",
+      "community_name": "FactoryAdminController",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_profileedit"
     },
     {
@@ -1041,9 +1041,9 @@
       "source_location": "L245",
       "_callable": true,
       "_origin": "ast",
-      "community": 290,
+      "community": 19,
       "norm_label": ".activitylogs()",
-      "community_name": "ActivityLog",
+      "community_name": "FactoryAdminController",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_activitylogs"
     },
     {
@@ -1340,7 +1340,7 @@
       "source_file": "app/Http/Controllers/Admin/GroutFormulaController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 9,
+      "community": 40,
       "norm_label": "groutformulacontroller.php",
       "community_name": "Color",
       "id": "app_http_controllers_admin_groutformulacontroller"
@@ -1916,7 +1916,7 @@
       "source_file": "app/Http/Controllers/Admin/StockAdjustmentController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 41,
+      "community": 26,
       "norm_label": "stockadjustmentcontroller.php",
       "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller"
@@ -1929,7 +1929,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 26,
       "norm_label": "stockadjustmentcontroller",
       "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller"
@@ -1941,7 +1941,7 @@
       "source_location": "L17",
       "_callable": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 26,
       "norm_label": ".index()",
       "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller_index"
@@ -1953,7 +1953,7 @@
       "source_location": "L58",
       "_callable": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 26,
       "norm_label": ".store()",
       "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller_store"
@@ -5372,9 +5372,9 @@
       "source_file": "app/Models/ActivityLog.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 290,
+      "community": 19,
       "norm_label": "activitylog.php",
-      "community_name": "ActivityLog",
+      "community_name": "FactoryAdminController",
       "id": "app_models_activitylog"
     },
     {
@@ -5385,9 +5385,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 290,
+      "community": 19,
       "norm_label": "activitylog",
-      "community_name": "ActivityLog",
+      "community_name": "FactoryAdminController",
       "id": "app_models_activitylog_activitylog"
     },
     {
@@ -5397,9 +5397,9 @@
       "source_location": "L22",
       "_callable": true,
       "_origin": "ast",
-      "community": 290,
+      "community": 19,
       "norm_label": ".user()",
-      "community_name": "ActivityLog",
+      "community_name": "FactoryAdminController",
       "id": "app_models_activitylog_activitylog_user"
     },
     {
@@ -5468,7 +5468,7 @@
       "source_file": "app/Models/Color.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 9,
+      "community": 25,
       "norm_label": "color.php",
       "community_name": "Color",
       "id": "app_models_color"
@@ -5553,7 +5553,7 @@
       "source_location": "L71",
       "_callable": true,
       "_origin": "ast",
-      "community": 9,
+      "community": 25,
       "norm_label": ".activeformula()",
       "community_name": "Color",
       "id": "app_models_color_color_activeformula"
@@ -5576,7 +5576,7 @@
       "source_file": "app/Models/Department.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 9,
       "norm_label": "department.php",
       "community_name": "Controller",
       "id": "app_models_department"
@@ -6380,7 +6380,7 @@
       "source_location": "L80",
       "_callable": true,
       "_origin": "ast",
-      "community": 9,
+      "community": 25,
       "norm_label": ".activeformula()",
       "community_name": "Color",
       "id": "app_models_epoxycomponent_epoxycomponent_activeformula"
@@ -6487,7 +6487,7 @@
       "source_file": "app/Models/EpoxyComponentFormulaItem.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 9,
       "norm_label": "epoxycomponentformulaitem.php",
       "community_name": "Controller",
       "id": "app_models_epoxycomponentformulaitem"
@@ -6944,7 +6944,7 @@
       "source_location": "L41",
       "_callable": true,
       "_origin": "ast",
-      "community": 9,
+      "community": 25,
       "norm_label": ".activeformula()",
       "community_name": "Color",
       "id": "app_models_epoxyproduct_epoxyproduct_activeformula"
@@ -7364,7 +7364,7 @@
       "source_location": "L87",
       "_callable": true,
       "_origin": "ast",
-      "community": 9,
+      "community": 25,
       "norm_label": ".activeformula()",
       "community_name": "Color",
       "id": "app_models_grade_grade_activeformula"
@@ -7459,7 +7459,7 @@
       "source_file": "app/Models/GroutFormulaItem.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 9,
+      "community": 40,
       "norm_label": "groutformulaitem.php",
       "community_name": "Color",
       "id": "app_models_groutformulaitem"
@@ -9314,9 +9314,9 @@
       "source_file": "app/Services/BackupService.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 64,
+      "community": 19,
       "norm_label": "backupservice.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "FactoryAdminController",
       "id": "app_services_backupservice"
     },
     {
@@ -9615,9 +9615,9 @@
       "source_location": "L704",
       "_callable": true,
       "_origin": "ast",
-      "community": 290,
+      "community": 19,
       "norm_label": ".getactivitytimeline()",
-      "community_name": "ActivityLog",
+      "community_name": "FactoryAdminController",
       "id": "app_services_dashboardservice_dashboardservice_getactivitytimeline"
     },
     {
@@ -9628,7 +9628,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "departmentaccessservice.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "app_services_departmentaccessservice"
     },
     {
@@ -9938,7 +9938,7 @@
       "source_location": "L24",
       "_callable": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 42,
       "norm_label": ".assembleproduct()",
       "community_name": "RawMaterial",
       "id": "app_services_epoxyassemblyservice_epoxyassemblyservice_assembleproduct"
@@ -10203,7 +10203,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "firebaseservice.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "app_services_firebaseservice"
     },
     {
@@ -10369,7 +10369,7 @@
       "source_file": "app/Services/GroutProductionService.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 41,
+      "community": 26,
       "norm_label": "groutproductionservice.php",
       "community_name": "RawMaterial",
       "id": "app_services_groutproductionservice"
@@ -10993,7 +10993,7 @@
       "source_location": "L241",
       "_callable": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 42,
       "norm_label": ".completebatch()",
       "community_name": "RawMaterial",
       "id": "app_services_productionservice_productionservice_completebatch"
@@ -11148,7 +11148,7 @@
       "source_file": "app/Services/StockService.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 41,
+      "community": 26,
       "norm_label": "stockservice.php",
       "community_name": "RawMaterial",
       "id": "app_services_stockservice"
@@ -11161,7 +11161,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 42,
       "norm_label": "stockservice",
       "community_name": "RawMaterial",
       "id": "app_services_stockservice_stockservice"
@@ -11198,7 +11198,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "systemservice.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "app_services_systemservice"
     },
     {
@@ -11270,7 +11270,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "artisan",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "artisan"
     },
     {
@@ -12106,7 +12106,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "cache.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "config_cache"
     },
     {
@@ -12150,7 +12150,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "mail.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "config_mail"
     },
     {
@@ -14527,7 +14527,7 @@
       "source_file": "database/seeders/EpoxyModuleSeeder.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 48,
+      "community": 9,
       "norm_label": "epoxymoduleseeder.php",
       "community_name": "EpoxyFillerColor",
       "id": "database_seeders_epoxymoduleseeder"
@@ -14540,7 +14540,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 48,
+      "community": 9,
       "norm_label": "epoxymoduleseeder",
       "community_name": "EpoxyFillerColor",
       "id": "database_seeders_epoxymoduleseeder_epoxymoduleseeder"
@@ -16884,7 +16884,7 @@
       "_origin": "ast",
       "community": 64,
       "norm_label": "console.php",
-      "community_name": "FactoryAdminController.php",
+      "community_name": "SystemService.php",
       "id": "routes_console"
     },
     {
@@ -17493,7 +17493,7 @@
       "source_location": "L78",
       "_callable": true,
       "_origin": "ast",
-      "community": 41,
+      "community": 42,
       "norm_label": ".test_stock_adjustment_without_remarks_is_allowed()",
       "community_name": "RawMaterial",
       "id": "tests_feature_enterprisetest_enterprisetest_test_stock_adjustment_without_remarks_is_allowed"
@@ -19463,7 +19463,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 9,
+      "community": 25,
       "norm_label": "illuminate\\database\\eloquent\\relations\\hasone",
       "community_name": "Color",
       "id": "illuminate_database_eloquent_relations_hasone"
@@ -19562,7 +19562,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 48,
+      "community": 9,
       "norm_label": "illuminate\\database\\seeder",
       "community_name": "EpoxyFillerColor",
       "id": "illuminate_database_seeder"
@@ -19606,10 +19606,9 @@
       "source_file": "resources/views/components/sidebar.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 253,
-      "norm_label": "sidebar.blade.php",
       "id": "resources_views_components_sidebar_blade",
-      "community_name": "sidebar.blade.php"
+      "community": 253,
+      "norm_label": "sidebar.blade.php"
     },
     {
       "label": "app.blade.php",
@@ -19617,10 +19616,9 @@
       "source_file": "resources/views/layouts/app.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 160,
-      "norm_label": "app.blade.php",
       "id": "resources_views_layouts_app_blade",
-      "community_name": "partials.pwa"
+      "community": 160,
+      "norm_label": "app.blade.php"
     },
     {
       "label": "partials.pwa",
@@ -19628,10 +19626,9 @@
       "source_file": "resources/views/layouts/app.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 160,
-      "norm_label": "partials.pwa",
       "id": "partials_pwa",
-      "community_name": "partials.pwa"
+      "community": 160,
+      "norm_label": "partials.pwa"
     }
   ],
   "links": [

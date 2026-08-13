@@ -67,10 +67,7 @@
                         <h1 class="mt-0.5 truncate text-lg font-extrabold tracking-tight text-slate-950 sm:text-xl">@yield('header-title', 'Production Management System')</h1>
                     </div>
 
-                    <button type="button" id="globalSearchButton" class="hidden h-10 min-w-[220px] items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 text-left text-sm text-slate-400 transition hover:border-slate-300 hover:bg-white md:flex">
-                        <i data-lucide="search" class="h-4 w-4"></i><span class="flex-1">Search workspace</span><kbd class="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-bold text-slate-400">⌘ K</kbd>
-                    </button>
-
+            
                     <div class="hidden items-center gap-2 text-right xl:flex">
                         <div class="text-sm font-bold text-slate-800">{{ now()->format('D, d M') }}</div>
                         <span class="h-1 w-1 rounded-full bg-slate-300"></span>
@@ -102,9 +99,9 @@
                         @php
                             $maintenanceMode = \App\Models\Setting::get('maintenance_mode', 'off');
                         @endphp
-                        <button type="button" id="maintenanceModeToggleBtn" 
-                                data-status="{{ $maintenanceMode }}" 
-                                class="relative flex h-10 w-10 items-center justify-center rounded-xl border transition focus:outline-none {{ $maintenanceMode === 'on' ? 'text-rose-650 border-rose-200 bg-rose-50 hover:bg-rose-100' : 'text-slate-500 border-slate-200 bg-white hover:bg-slate-50' }}" 
+                        <button type="button" id="maintenanceModeToggleBtn"
+                                data-status="{{ $maintenanceMode }}"
+                                class="relative flex h-10 w-10 items-center justify-center rounded-xl border transition focus:outline-none {{ $maintenanceMode === 'on' ? 'text-rose-650 border-rose-200 bg-rose-50 hover:bg-rose-100' : 'text-slate-500 border-slate-200 bg-white hover:bg-slate-50' }}"
                                 title="Maintenance Mode Settings">
                             <i data-lucide="wrench" class="h-5 w-5"></i>
                             @if($maintenanceMode === 'on')
@@ -185,12 +182,7 @@
         </nav>
     @endif
 
-    <div id="searchPalette" class="fixed inset-0 z-[70] hidden items-start justify-center bg-slate-950/30 px-4 pt-[12vh] backdrop-blur-sm">
-        <div class="w-full max-w-xl overflow-hidden rounded-3xl border border-white/70 bg-white shadow-2xl">
-            <div class="flex items-center gap-3 border-b border-slate-100 p-4"><i data-lucide="search" class="h-5 w-5 text-slate-400"></i><input id="globalSearchInput" type="search" class="h-10 flex-1 border-0 text-base outline-none placeholder:text-slate-400" placeholder="Search pages and actions…"><button type="button" data-close-search class="rounded-lg bg-slate-100 px-2 py-1 text-xs font-bold text-slate-500">ESC</button></div>
-            <div class="p-3 text-sm"><p class="px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Quick access</p><a href="{{ route('production.create') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-slate-700 hover:bg-slate-50"><i data-lucide="play"></i>Start a production batch</a><a href="{{ route('production.history') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-slate-700 hover:bg-slate-50"><i data-lucide="history"></i>Open production history</a></div>
-        </div>
-    </div>
+
 
     <script>
         window.formatQuantity = function(val, maxDecimals = 4) {
@@ -320,9 +312,9 @@
             });
         };
         window.lucide = { createIcons: function(){ window.renderHeroicons(); } };
-        document.addEventListener('DOMContentLoaded', function(){ 
-            window.renderHeroicons(); 
-            
+        document.addEventListener('DOMContentLoaded', function(){
+            window.renderHeroicons();
+
             function escapeHtml(text) {
                 return text ? $('<div>').text(text).html() : '';
             }
@@ -347,7 +339,7 @@
                     data.notifications.forEach(function(item) {
                         const readClass = item.is_read ? 'bg-white opacity-60' : 'bg-blue-50/10 font-semibold';
                         const unreadIndicator = item.is_read ? '' : '<span class="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600"></span>';
-                        
+
                         const notifHtml = `
                             <div class="p-3.5 flex items-start gap-3 hover:bg-slate-50 transition-colors text-xs ${readClass}">
                                 <div class="flex-1 space-y-0.5 min-w-0">
@@ -418,13 +410,13 @@
             $('#maintenanceModeToggleBtn').click(function() {
                 const btn = $(this);
                 const currentStatus = btn.data('status');
-                
+
                 Swal.fire({
                     title: 'System Maintenance Control',
                     html: `
                         <div class="text-left font-sans space-y-4">
                             <p class="text-xs text-slate-500 mb-4">Manage system access. Active maintenance blocks all non-admin users.</p>
-                            
+
                             <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200">
                                 <div>
                                     <span class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider">Maintenance Mode</span>
@@ -436,7 +428,7 @@
                                     ${currentStatus === 'on' ? 'Deactivate' : 'Activate'}
                                 </button>
                             </div>
-                            
+
                             <div>
                                 <label for="swal-unlock-password" class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1.5">Set / Update Unlock Password</label>
                                 <div class="relative">
@@ -459,12 +451,12 @@
                         let tempStatus = currentStatus;
                         $('#swal-toggle-status-btn').click(function() {
                             tempStatus = tempStatus === 'on' ? 'off' : 'on';
-                            
+
                             // Ask for confirmation
                             Swal.fire({
                                 title: tempStatus === 'on' ? 'Activate Maintenance Mode?' : 'Deactivate Maintenance Mode?',
-                                text: tempStatus === 'on' 
-                                    ? 'This will block all non-admin users and show the maintenance screen.' 
+                                text: tempStatus === 'on'
+                                    ? 'This will block all non-admin users and show the maintenance screen.'
                                     : 'This will restore public access to the ERP.',
                                 icon: 'warning',
                                 showCancelButton: true,
@@ -495,12 +487,12 @@
                                         });
                                     })
                                     .fail(function(xhr) {
-                                        const msg = xhr.responseJSON && xhr.responseJSON.message 
-                                            ? xhr.responseJSON.message 
-                                            : (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.unlock_password 
-                                                ? xhr.responseJSON.errors.unlock_password[0] 
+                                        const msg = xhr.responseJSON && xhr.responseJSON.message
+                                            ? xhr.responseJSON.message
+                                            : (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.unlock_password
+                                                ? xhr.responseJSON.errors.unlock_password[0]
                                                 : 'Failed to update settings.');
-                                                
+
                                         Swal.fire('Error', msg, 'error');
                                         tempStatus = tempStatus === 'on' ? 'off' : 'on'; // revert tempStatus
                                     });
@@ -520,7 +512,7 @@
                             Swal.fire('Error', 'Unlock password must be at least 4 characters long.', 'error');
                             return;
                         }
-                        
+
                         $.post('/admin/maintenance/update', {
                             _token: $('meta[name="csrf-token"]').attr('content'),
                             maintenance_mode: currentStatus,

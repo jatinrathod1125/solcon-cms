@@ -1,15 +1,15 @@
-# Graph Report - .  (2026-08-13)
+# Graph Report - .  (2026-08-10)
 
 ## Corpus Check
 - cluster-only mode — file stats not available
 
 ## Summary
-- 1668 nodes · 3347 edges · 291 communities (202 shown, 89 thin omitted)
+- 1668 nodes · 3347 edges · 290 communities (203 shown, 87 thin omitted)
 - Extraction: 87% EXTRACTED · 13% INFERRED · 0% AMBIGUOUS · INFERRED: 440 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d076587e`
+- Built from commit: `aef94e61`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,6 +25,7 @@
 - GroutFormula
 - Color
 - Department
+- RawMaterial
 - GroutProductionBatch
 - ProductionBatch
 - Machine
@@ -36,13 +37,12 @@
 - FinishedGood
 - EpoxyComponentFormula
 - MarketingOrderItem
-- EpoxyComponent
 - Illuminate\Database\Eloquent\Model
-- EpoxyProduct
-- Controller
+- EpoxyComponent
 - Todo
 - Illuminate\Foundation\Http\FormRequest
 - DispatchItem
+- Controller
 - Grade
 - manifest.json
 - ColorController
@@ -53,20 +53,20 @@
 - Illuminate\Database\Eloquent\Relations\HasMany
 - ActivityLogService
 - composer.json
-- Unit
-- RawMaterial
-- .prepareComponent
+- EpoxyFillerColor
 - DashboardService
 - Formula
 - FinishedGoodsResolver
+- EpoxyProduct
 - PackingMaterial
+- Unit
 - MarketingOrderTest
-- EpoxyFillerColor
 - PackingMaterialController
 - StockLedger
 - AuthTest
 - MastersTest
 - currentDepartment
+- .prepareComponent
 - .log
 - RawMaterialsTest
 - FinishedGoodsService
@@ -112,7 +112,6 @@
 - admin.stock_adjustments._table
 - .ledgers
 - finished_goods._table
-- partials.pwa
 - bag_sizes/create.blade.php
 - bag_sizes/edit.blade.php
 - colors/create.blade.php
@@ -140,9 +139,9 @@
 - units/edit.blade.php
 - users/create.blade.php
 - users/edit.blade.php
+- app.blade.php
 - auth.blade.php
 - supervisor/dashboard.blade.php
-- ActivityLog
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 123 edges
@@ -171,7 +170,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (291 total, 89 thin omitted)
+## Communities (290 total, 87 thin omitted)
 
 ### Community 0 - "User"
 Cohesion: 0.06
@@ -213,35 +212,43 @@ Nodes (4): GroutFormulaController, GroutFormula, GroutFormulaService, GroutFormu
 Cohesion: 0.10
 Nodes (6): DepartmentController, MachineController, StoreDepartmentRequest, UpdateDepartmentRequest, Department, BelongsToMany
 
-### Community 11 - "GroutProductionBatch"
+### Community 11 - "RawMaterial"
+Cohesion: 0.15
+Nodes (6): RawMaterialController, StockAdjustmentController, RawMaterial, StockService, down(), up()
+
+### Community 12 - "GroutProductionBatch"
 Cohesion: 0.13
 Nodes (3): GroutProductionController, GroutProductionBatch, MixTimerService
 
-### Community 12 - "ProductionBatch"
+### Community 13 - "ProductionBatch"
 Cohesion: 0.14
 Nodes (4): ProductionController, ProductionBatch, ProductionService, ReportService
 
-### Community 13 - "Machine"
+### Community 14 - "Machine"
 Cohesion: 0.13
 Nodes (4): Machine, up(), EnterpriseTest, ProductionTest
 
-### Community 14 - "EpoxyFormula"
+### Community 15 - "EpoxyFormula"
 Cohesion: 0.13
 Nodes (4): EpoxyFormulaController, EpoxyFormula, EpoxyFormulaItem, TestFixtureSeeder
 
-### Community 15 - "EpoxyAssembly"
+### Community 16 - "EpoxyAssembly"
 Cohesion: 0.10
 Nodes (3): EpoxyAssembly, EpoxyComponentPreparation, EpoxyAssemblyTest
 
-### Community 17 - "Illuminate\Database\Eloquent\Relations\BelongsTo"
+### Community 18 - "Illuminate\Database\Eloquent\Relations\BelongsTo"
 Cohesion: 0.11
 Nodes (3): DispatchStatusHistory, EpoxyComponentMapping, Illuminate\Database\Eloquent\Relations\BelongsTo
 
-### Community 18 - "NotificationService"
+### Community 19 - "NotificationService"
 Cohesion: 0.14
 Nodes (6): CheckMixingTimers, UserDevice, NotificationService, Collection, Illuminate\Console\Command, Illuminate\Database\Eloquent\Factories\HasFactory
 
-### Community 21 - "EpoxyComponentFormula"
+### Community 20 - "FactoryAdminController"
+Cohesion: 0.12
+Nodes (3): FactoryAdminController, ActivityLog, SystemService
+
+### Community 22 - "EpoxyComponentFormula"
 Cohesion: 0.15
 Nodes (3): EpoxyComponentFormulaController, EpoxyComponentFormula, EpoxyComponentFormulaItem
 
@@ -249,11 +256,11 @@ Nodes (3): EpoxyComponentFormulaController, EpoxyComponentFormula, EpoxyComponen
 Cohesion: 0.13
 Nodes (4): DispatchLoadingLog, Permission, StockAdjustment, Illuminate\Database\Eloquent\Model
 
-### Community 27 - "Todo"
+### Community 26 - "Todo"
 Cohesion: 0.18
 Nodes (3): TodoController, Todo, TodoTest
 
-### Community 28 - "Illuminate\Foundation\Http\FormRequest"
+### Community 27 - "Illuminate\Foundation\Http\FormRequest"
 Cohesion: 0.15
 Nodes (5): StoreUnitRequest, UpdateRawMaterialRequest, UpdateUnitRequest, StoreProductionBatchRequest, Illuminate\Foundation\Http\FormRequest
 
@@ -285,15 +292,11 @@ Nodes (3): ActivityLogService, BatchNumberService, GroutProductionService
 Cohesion: 0.14
 Nodes (13): autoload-dev, psr-4, description, keywords, license, minimum-stability, name, prefer-stable (+5 more)
 
-### Community 41 - "RawMaterial"
-Cohesion: 0.15
-Nodes (6): RawMaterialController, StockAdjustmentController, RawMaterial, StockService, down(), up()
-
-### Community 48 - "EpoxyFillerColor"
+### Community 40 - "EpoxyFillerColor"
 Cohesion: 0.22
 Nodes (5): EpoxyFillerColorController, EpoxyFillerColor, EpoxyModuleSeeder, FinishedGoodsComprehensiveSeeder, Illuminate\Database\Seeder
 
-### Community 53 - "currentDepartment"
+### Community 52 - "currentDepartment"
 Cohesion: 0.25
 Nodes (3): availableDepartments(), currentDepartment(), format_quantity()
 
@@ -336,17 +339,17 @@ Nodes (3): post-autoload-dump, Illuminate\\Foundation\\ComposerScripts::postAuto
 ## Knowledge Gaps
 - **110 isolated node(s):** `$schema`, `name`, `type`, `description`, `laravel` (+105 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **89 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **87 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User` to `BagSize`, `SettingService`, `Illuminate\Http\Request`, `User.php`, `TestCase`, `GroutFormula`, `Department`, `Machine`, `EpoxyFormula`, `EpoxyAssembly`, `NotificationService`, `FinishedGood`, `Illuminate\Database\Eloquent\Model`, `Controller`, `Todo`, `ActivityLog`, `RawMaterial`, `.prepareComponent`, `AuthTest`, `MastersTest`, `currentDepartment`, `RawMaterialsTest`, `DepartmentAccessService`, `FactoryAdminController.php`, `ReportsTest.php`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
-- **Why does `RawMaterial` connect `RawMaterial` to `MarketingOrder`, `TestCase`, `GroutFormula`, `Color`, `ProductionBatch`, `Machine`, `EpoxyFormula`, `EpoxyAssembly`, `Grade.php`, `Illuminate\Database\Eloquent\Relations\BelongsTo`, `EpoxyComponentFormula`, `MarketingOrderItem`, `EpoxyComponent`, `Illuminate\Database\Eloquent\Model`, `Controller`, `ActivityLogService`, `.prepareComponent`, `DashboardService`, `Formula`, `PackingMaterial`, `MarketingOrderTest`, `EpoxyFillerColor`, `currentDepartment`, `RawMaterialsTest`, `FinishedGoodsController`, `ReportsTest.php`, `StoreRawMaterialRequest`?**
-  _High betweenness centrality (0.052) - this node is a cross-community bridge._
-- **Why does `TestCase` connect `TestCase` to `User`, `BagSize`, `SettingService`, `ReportsTest.php`, `User.php`, `package.json`, `GroutFormula`, `Color`, `Machine`, `EpoxyAssembly`, `Grade.php`, `MarketingOrderTest`, `AuthTest`, `FinishedGood`, `MastersTest`, `RawMaterialsTest`, `Todo`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
+- **Why does `User` connect `User` to `BagSize`, `SettingService`, `Illuminate\Http\Request`, `User.php`, `TestCase`, `GroutFormula`, `Department`, `RawMaterial`, `Machine`, `EpoxyFormula`, `EpoxyAssembly`, `NotificationService`, `FactoryAdminController`, `FinishedGood`, `Illuminate\Database\Eloquent\Model`, `Todo`, `Controller`, `AuthTest`, `MastersTest`, `currentDepartment`, `.prepareComponent`, `RawMaterialsTest`, `DepartmentAccessService`, `SystemService.php`, `ReportsTest.php`?**
+  _High betweenness centrality (0.064) - this node is a cross-community bridge._
+- **Why does `RawMaterial` connect `RawMaterial` to `MarketingOrder`, `TestCase`, `GroutFormula`, `Color`, `ProductionBatch`, `Machine`, `EpoxyFormula`, `EpoxyAssembly`, `Grade.php`, `Illuminate\Database\Eloquent\Relations\BelongsTo`, `EpoxyComponentFormula`, `MarketingOrderItem`, `Illuminate\Database\Eloquent\Model`, `EpoxyComponent`, `Controller`, `ActivityLogService`, `EpoxyFillerColor`, `DashboardService`, `Formula`, `PackingMaterial`, `MarketingOrderTest`, `currentDepartment`, `.prepareComponent`, `RawMaterialsTest`, `FinishedGoodsController`, `ReportsTest.php`, `StoreRawMaterialRequest`?**
+  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+- **Why does `TestCase` connect `TestCase` to `User`, `BagSize`, `SettingService`, `ReportsTest.php`, `User.php`, `package.json`, `GroutFormula`, `Color`, `Machine`, `MarketingOrderTest`, `EpoxyAssembly`, `Grade.php`, `AuthTest`, `MastersTest`, `FinishedGood`, `RawMaterialsTest`, `Todo`?**
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
 - **Are the 81 inferred relationships involving `User` (e.g. with `.activityLogs()` and `.create()`) actually correct?**
   _`User` has 81 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `$schema`, `name`, `type` to the rest of the system?**

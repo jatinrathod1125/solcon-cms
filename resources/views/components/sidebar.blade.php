@@ -94,7 +94,7 @@ $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispat
                 <a href="{{ route('dispatch.reports') }}"
                     class="{{ $navClass(request()->routeIs('dispatch.reports')) }}"
                     title="Dispatch Reports">
-                    <i data-lucide="bar-chart"></i>
+                    <i data-lucide="bar-chart-3"></i>
                     <span class="sidebar-label">Dispatch Reports</span>
                 </a>
             </div>
@@ -175,7 +175,7 @@ $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispat
                 <a href="{{ route('epoxy.bucket-assembly') }}"
                     class="{{ $navClass(request()->routeIs('epoxy.bucket-assembly')) }}"
                     title="Bucket Assembly">
-                    <i data-lucide="package"></i>
+                    <i data-lucide="package-open"></i>
                     <span class="sidebar-label">Bucket Assembly</span>
                 </a>
             </div>
@@ -195,7 +195,7 @@ $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispat
                 </a>
                 <a href="{{ route('admin.packing-materials.index') }}"
                     class="{{ $navClass(request()->routeIs('admin.packing-materials.*')) }}" title="Packing Materials">
-                    <i data-lucide="package-search"></i>
+                    <i data-lucide="package-open"></i>
                     <span class="sidebar-label">Packing Materials</span>
                 </a>
                 @endif
@@ -345,3 +345,4 @@ $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispat
         </div>
     </div>
 </aside>
+
