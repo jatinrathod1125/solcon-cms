@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
+    'brand_id',
     'category_id',
     'name',
     'code',
@@ -36,6 +37,14 @@ class PackingMaterial extends Model
     }
 
     /**
+     * Get the brand that owns this packing material.
+     */
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
+    /**
      * Get the category that owns this packing material.
      */
     public function category(): BelongsTo
@@ -49,6 +58,39 @@ class PackingMaterial extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    /**
+     * Scope a query to include packing materials for a specific brand or common materials (brand_id IS NULL).
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+
+        if (!$brandId) {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($brandId) {
+            $q->where('brand_id', $brandId)
+              ->orWhereNull('brand_id');
+        });
+    }
+
+    /**
+     * Scope a query to include packing materials for the current session brand or common materials.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
     }
 
     /**

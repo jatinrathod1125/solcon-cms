@@ -1,4 +1,19 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Brand -->
+    <div>
+        <label for="brand_id" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Brand</label>
+        <select name="brand_id" id="brand_id"
+            class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 text-sm">
+            <option value="" {{ old('brand_id', $packingMaterial->brand_id ?? '') == '' ? 'selected' : '' }}></option>
+            @foreach($brands as $brand)
+                <option value="{{ $brand->id }}" {{ old('brand_id', $packingMaterial->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
+                    {{ $brand->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('brand_id') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
+    </div>
+
     <!-- Category -->
     <div>
         <label for="category_id" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Category <span class="text-rose-500">*</span></label>

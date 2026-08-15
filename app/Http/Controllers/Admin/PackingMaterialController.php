@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\PackingMaterial;
 use App\Models\PackingMaterialCategory;
 use App\Models\Unit;
@@ -20,7 +21,11 @@ class PackingMaterialController extends Controller
      */
     public function index(Request $request)
     {
-        $query = PackingMaterial::with(['category', 'unit']);
+        $query = PackingMaterial::with(['category', 'unit', 'brand']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -57,8 +62,9 @@ class PackingMaterialController extends Controller
     {
         $categories = PackingMaterialCategory::orderBy('name')->get();
         $units = Unit::where('is_active', true)->get();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.packing_materials.create', compact('categories', 'units'));
+        return view('admin.packing_materials.create', compact('categories', 'units', 'brands'));
     }
 
     /**
@@ -97,8 +103,9 @@ class PackingMaterialController extends Controller
     {
         $categories = PackingMaterialCategory::orderBy('name')->get();
         $units = Unit::where('is_active', true)->get();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.packing_materials.edit', compact('packingMaterial', 'categories', 'units'));
+        return view('admin.packing_materials.edit', compact('packingMaterial', 'categories', 'units', 'brands'));
     }
 
     /**

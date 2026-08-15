@@ -93,11 +93,18 @@
                                 {{ $material->code ?? '-' }}
                             </td>
 
-                            <!-- Name -->
+                            <!-- Name & Brand -->
                             <td class="p-4">
-                                <div class="font-semibold text-white">{{ $material->name }}</div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-semibold text-white">{{ $material->name }}</span>
+                                    @if($material->brand)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
+                                            {{ $material->brand->name }}
+                                        </span>
+                                    @endif
+                                </div>
                                 @if($material->remarks)
-                                    <div class="text-xs text-slate-500 max-w-xs truncate">{{ $material->remarks }}</div>
+                                    <div class="text-xs text-slate-500 max-w-xs truncate mt-0.5">{{ $material->remarks }}</div>
                                 @endif
                             </td>
 

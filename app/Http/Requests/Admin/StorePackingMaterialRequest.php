@@ -14,6 +14,7 @@ class StorePackingMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'brand_id' => ['nullable', \Illuminate\Validation\Rule::exists('brands', 'id')->where('is_active', true)],
             'category_id' => ['required', 'exists:packing_material_categories,id'],
             'name' => ['required', 'string', 'max:255'],
             'code' => ['nullable', 'string', 'max:50', 'unique:packing_materials,code'],
