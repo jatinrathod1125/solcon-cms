@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRawMaterialRequest extends FormRequest
 {
@@ -17,7 +19,7 @@ class UpdateRawMaterialRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -25,7 +27,8 @@ class UpdateRawMaterialRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
-            'code' => ['required', 'string', 'max:50', 'unique:raw_materials,code,' . $rawMaterialId],
+            'code' => ['required', 'string', 'max:50', 'unique:raw_materials,code,'.$rawMaterialId],
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'department_id' => ['required', 'exists:departments,id'],
             'stock_unit_id' => ['required', 'exists:units,id'],
             'purchase_unit_id' => ['nullable', 'exists:units,id'],

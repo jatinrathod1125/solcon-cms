@@ -81,10 +81,17 @@
                                 {{ $material->code }}
                             </td>
                             
-                            <!-- Name -->
+                            <!-- Name & Brand -->
                             <td class="p-4">
-                                <div class="font-semibold text-white">{{ $material->name }}</div>
-                                <div class="text-xs text-slate-500 max-w-xs truncate">{{ $material->description ?? 'No description' }}</div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-semibold text-white">{{ $material->name }}</span>
+                                    @if($material->brand)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
+                                            {{ $material->brand->name }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="text-xs text-slate-500 max-w-xs truncate mt-0.5">{{ $material->description ?? 'No description' }}</div>
                             </td>
                             
                             <!-- Department -->
@@ -205,6 +212,35 @@
 
 @section('scripts')
 <script>
+    $(document).ready(function() {
+        $('.delete-btn').on('click', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+            
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Deleting this raw material cannot be undone.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#f43f5e',
+                    cancelButtonColor: '#475569',
+                    confirmButtonText: 'Yes, delete it!',
+                    background: '#090d16',
+                    color: '#f1f5f9'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            } else {
+                if (confirm('Are you sure you want to delete this raw material?')) {
+                    form.submit();
+                }
+            }
+        });
+    });
+
     function openImportModal() {
         $('#importModal').removeClass('hidden');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\RawMaterial;
 use App\Models\Department;
 use App\Models\Unit;
@@ -17,7 +18,12 @@ class RawMaterialController extends Controller
      */
     public function index(Request $request)
     {
-        $query = RawMaterial::with(['department', 'stockUnit', 'purchaseUnit']);
+        $query = RawMaterial::with(['brand', 'department', 'stockUnit', 'purchaseUnit']);
+
+        // Filter by current header brand context (Current brand + Common brand_id IS NULL)
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -44,8 +50,9 @@ class RawMaterialController extends Controller
     {
         $departments = Department::getActive();
         $units = Unit::getActive();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.raw_materials.create', compact('departments', 'units'));
+        return view('admin.raw_materials.create', compact('departments', 'units', 'brands'));
     }
 
     /**
@@ -74,8 +81,9 @@ class RawMaterialController extends Controller
     {
         $departments = Department::getActive();
         $units = Unit::getActive();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.raw_materials.edit', compact('rawMaterial', 'departments', 'units'));
+        return view('admin.raw_materials.edit', compact('rawMaterial', 'departments', 'units', 'brands'));
     }
 
     /**

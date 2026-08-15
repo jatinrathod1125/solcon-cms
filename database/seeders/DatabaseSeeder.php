@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(BrandSeeder::class);
+        $solconBrandId = Brand::where('code', Brand::CODE_SOLCON)->valueOrFail('id');
 
         // Create basic departments if they don't exist
         $deptTAD = \App\Models\Department::updateOrCreate(['code' => 'TAD'], ['name' => 'Tile Adhesive Dept', 'description' => 'Tile Adhesive Department', 'is_active' => true]);
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
             \App\Models\RawMaterial::updateOrCreate(
                 ['code' => "COUPON-{$val}"],
                 [
+                    'brand_id' => $solconBrandId,
                     'name' => "₹{$val} Solcon Coupon",
                     'department_id' => $deptTAD->id,
                     'stock_unit_id' => $unitPCS->id,
@@ -51,6 +54,7 @@ class DatabaseSeeder extends Seeder
             \App\Models\RawMaterial::updateOrCreate(
                 ['code' => "CUSTOM-COUPON-{$val}"],
                 [
+                    'brand_id' => $solconBrandId,
                     'name' => "₹{$val} Custom Party Coupon",
                     'department_id' => $deptTAD->id,
                     'stock_unit_id' => $unitPCS->id,
@@ -117,7 +121,6 @@ class DatabaseSeeder extends Seeder
             $permissionModels['view-reports']->id,
         ]);
 
-
         // 5. Create Users
         $adminUser = User::updateOrCreate(
             ['email' => 'admin@solcon.com'],
@@ -140,7 +143,5 @@ class DatabaseSeeder extends Seeder
         );
         $supervisorUser->roles()->sync([$supervisorRole->id]);
         $supervisorUser->departments()->sync([$deptTAD->id]);
-
-
     }
 }

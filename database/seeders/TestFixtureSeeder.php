@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -32,6 +33,7 @@ class TestFixtureSeeder extends Seeder
         $this->call(DatabaseSeeder::class);
 
         $adminUser = User::where('email', 'admin@solcon.com')->first();
+        $solconBrandId = Brand::where('code', Brand::CODE_SOLCON)->valueOrFail('id');
         $deptTAD = Department::where('code', 'TAD')->first();
         $deptGRT = Department::where('code', 'GRT')->first();
         $deptEPX = Department::where('code', 'EPX')->first();
@@ -56,6 +58,7 @@ class TestFixtureSeeder extends Seeder
         $matCement = RawMaterial::updateOrCreate(
             ['code' => 'OPC-53'],
             [
+                'brand_id' => $solconBrandId,
                 'name' => 'Ordinary Portland Cement 53 Grade',
                 'department_id' => $deptTAD->id,
                 'stock_unit_id' => $unitKG->id,
@@ -72,6 +75,7 @@ class TestFixtureSeeder extends Seeder
         $matSand = RawMaterial::updateOrCreate(
             ['code' => 'QZ-SAND'],
             [
+                'brand_id' => $solconBrandId,
                 'name' => 'Quartz Sand 30-80 Mesh',
                 'department_id' => $deptTAD->id,
                 'stock_unit_id' => $unitKG->id,
@@ -94,6 +98,7 @@ class TestFixtureSeeder extends Seeder
         $matGroutPoly = RawMaterial::updateOrCreate(
             ['code' => 'GRT-POLY'],
             [
+                'brand_id' => $solconBrandId,
                 'name' => 'Grout Polymer Powder',
                 'department_id' => $deptGRT->id,
                 'stock_unit_id' => $unitKG->id,
@@ -150,6 +155,7 @@ class TestFixtureSeeder extends Seeder
         $epxHardener = RawMaterial::updateOrCreate(
             ['code' => 'EPX-HRD-100'],
             [
+                'brand_id' => $solconBrandId,
                 'name' => '100gm Hardener Bottle',
                 'department_id' => $deptEPX->id,
                 'stock_unit_id' => $unitPCS->id,
@@ -165,6 +171,7 @@ class TestFixtureSeeder extends Seeder
         $epxResin = RawMaterial::updateOrCreate(
             ['code' => 'EPX-RSN-200'],
             [
+                'brand_id' => $solconBrandId,
                 'name' => '200gm Resin Bottle',
                 'department_id' => $deptEPX->id,
                 'stock_unit_id' => $unitPCS->id,
@@ -180,6 +187,7 @@ class TestFixtureSeeder extends Seeder
         $epxFiller = RawMaterial::updateOrCreate(
             ['code' => 'EPX-FIL-700'],
             [
+                'brand_id' => $solconBrandId,
                 'name' => '700gm Filler Pouch',
                 'department_id' => $deptEPX->id,
                 'stock_unit_id' => $unitPCS->id,

@@ -22,7 +22,7 @@ class BrandController extends Controller
 
         try {
             app(BrandContextService::class)->switch($brand);
-            return redirect()->back()->with('success', "Switched to {$brand->name}.");
+            return redirect()->back()->with('brand_switched', $brand->name);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

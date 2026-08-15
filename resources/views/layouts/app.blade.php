@@ -167,6 +167,45 @@
             </header>
 
             <main class="page-content px-4 py-5 pb-28 sm:px-6 sm:py-7 lg:px-8 lg:pb-10">
+                @if(session('brand_switched'))
+                    <div id="brandSwitchToast" class="fixed top-5 right-5 z-[9999] max-w-sm w-full transition-all duration-300 transform translate-y-0 opacity-100">
+                        <div class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3.5 shadow-xl shadow-slate-900/10">
+                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700 border border-slate-200/80">
+                                <i data-lucide="tag" class="h-4 w-4 text-slate-700"></i>
+                            </div>
+                            
+                            <div class="flex-1 min-w-0">
+                                <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Active Brand Context</div>
+                                <div class="text-xs font-bold text-slate-800 truncate">
+                                    Switched to <span class="text-slate-950 font-extrabold">{{ session('brand_switched') }}</span>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="dismissBrandToast()" class="shrink-0 p-1 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition" aria-label="Close notification">
+                                <i data-lucide="x" class="h-4 w-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            setTimeout(function() {
+                                dismissBrandToast();
+                            }, 3500);
+                        });
+
+                        function dismissBrandToast() {
+                            var toast = document.getElementById('brandSwitchToast');
+                            if (toast) {
+                                toast.classList.add('opacity-0', '-translate-y-2');
+                                setTimeout(function() {
+                                    toast.remove();
+                                }, 300);
+                            }
+                        }
+                    </script>
+                @endif
+
                 @if(session('success'))
                     <div class="flash-message mb-5 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-semibold text-emerald-800 shadow-sm">
                         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600"><i data-lucide="check-circle" class="h-5 w-5"></i></span>

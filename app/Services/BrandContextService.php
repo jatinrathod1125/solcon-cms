@@ -61,10 +61,10 @@ class BrandContextService
     }
 
     /**
-     * Get the default brand (Solcon).
+     * Get the default brand (first active brand in database).
      */
     public function defaultBrand(): Brand
     {
-        return Brand::where('code', Brand::CODE_SOLCON)->firstOrFail();
+        return Brand::active()->first() ?? Brand::firstOrFail();
     }
 }
