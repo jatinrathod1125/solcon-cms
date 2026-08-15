@@ -143,7 +143,7 @@
       "_origin": "ast",
       "community": 27,
       "norm_label": "colorcontroller.php",
-      "community_name": "ColorController",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_colorcontroller"
     },
     {
@@ -239,7 +239,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": "admin/dashboardcontroller.php",
-      "community_name": "Controller",
+      "community_name": "DashboardService",
       "id": "app_http_controllers_admin_dashboardcontroller"
     },
     {
@@ -252,7 +252,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": "dashboardcontroller",
-      "community_name": "Controller",
+      "community_name": "DashboardService",
       "id": "app_http_controllers_admin_dashboardcontroller_dashboardcontroller"
     },
     {
@@ -264,7 +264,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": ".index()",
-      "community_name": "Controller",
+      "community_name": "DashboardService",
       "id": "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_index"
     },
     {
@@ -276,7 +276,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": ".livemachines()",
-      "community_name": "Controller",
+      "community_name": "DashboardService",
       "id": "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_livemachines"
     },
     {
@@ -288,7 +288,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": ".calendardetails()",
-      "community_name": "Controller",
+      "community_name": "DashboardService",
       "id": "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_calendardetails"
     },
     {
@@ -395,7 +395,7 @@
       "_origin": "ast",
       "community": 23,
       "norm_label": "epoxycomponentcontroller.php",
-      "community_name": "EpoxyComponent",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_epoxycomponentcontroller"
     },
     {
@@ -491,7 +491,7 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "epoxycomponentformulacontroller.php",
-      "community_name": "EpoxyComponentFormula",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_epoxycomponentformulacontroller"
     },
     {
@@ -599,7 +599,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "epoxyfillercolorcontroller.php",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "EpoxyFillerColor",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller"
     },
     {
@@ -612,7 +612,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "epoxyfillercolorcontroller",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "EpoxyFillerColor",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller"
     },
     {
@@ -624,7 +624,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".index()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "EpoxyFillerColor",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_index"
     },
     {
@@ -636,7 +636,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".create()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "EpoxyFillerColor",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_create"
     },
     {
@@ -648,7 +648,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".store()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "StoreEpoxyColorRequest",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_store"
     },
     {
@@ -660,7 +660,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".edit()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "EpoxyFillerColor",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_edit"
     },
     {
@@ -672,7 +672,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".update()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "UpdateEpoxyColorRequest",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_update"
     },
     {
@@ -684,7 +684,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".destroy()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "EpoxyFillerColor",
       "id": "app_http_controllers_admin_epoxyfillercolorcontroller_epoxyfillercolorcontroller_destroy"
     },
     {
@@ -695,7 +695,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "epoxyformulacontroller.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "Color",
       "id": "app_http_controllers_admin_epoxyformulacontroller"
     },
     {
@@ -899,7 +899,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "factoryadmincontroller.php",
-      "community_name": "FactoryAdminController",
+      "community_name": "FactoryAdminController.php",
       "id": "app_http_controllers_admin_factoryadmincontroller"
     },
     {
@@ -924,7 +924,7 @@
       "_origin": "ast",
       "community": 15,
       "norm_label": ".settingsindex()",
-      "community_name": "BagSize",
+      "community_name": "SettingService",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_settingsindex"
     },
     {
@@ -936,7 +936,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": ".settingsupdate()",
-      "community_name": "FactoryAdminController",
+      "community_name": "SettingService",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_settingsupdate"
     },
     {
@@ -948,7 +948,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": ".profileedit()",
-      "community_name": "FactoryAdminController",
+      "community_name": "ActivityLog",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_profileedit"
     },
     {
@@ -984,7 +984,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": ".activitylogs()",
-      "community_name": "FactoryAdminController",
+      "community_name": "ActivityLog",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_activitylogs"
     },
     {
@@ -1020,7 +1020,7 @@
       "_origin": "ast",
       "community": 35,
       "norm_label": ".backupdownload()",
-      "community_name": "self",
+      "community_name": "FactoryAdminController",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_backupdownload"
     },
     {
@@ -1032,7 +1032,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": ".backupdestroy()",
-      "community_name": "FactoryAdminController",
+      "community_name": "self",
       "id": "app_http_controllers_admin_factoryadmincontroller_factoryadmincontroller_backupdestroy"
     },
     {
@@ -1079,7 +1079,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": "formulacontroller.php",
-      "community_name": "FormulaController.php",
+      "community_name": "Formula",
       "id": "app_http_controllers_admin_formulacontroller"
     },
     {
@@ -1128,7 +1128,7 @@
       "_origin": "ast",
       "community": 45,
       "norm_label": ".create()",
-      "community_name": "Formula",
+      "community_name": "PackingMaterial",
       "id": "app_http_controllers_admin_formulacontroller_formulacontroller_create"
     },
     {
@@ -1187,7 +1187,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": "gradecontroller.php",
-      "community_name": "GradeController.php",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_gradecontroller"
     },
     {
@@ -1200,7 +1200,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": "gradecontroller",
-      "community_name": "GradeController.php",
+      "community_name": "Grade",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller"
     },
     {
@@ -1212,7 +1212,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".index()",
-      "community_name": "GradeController.php",
+      "community_name": "Grade",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller_index"
     },
     {
@@ -1224,7 +1224,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".create()",
-      "community_name": "GradeController.php",
+      "community_name": "Grade",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller_create"
     },
     {
@@ -1236,7 +1236,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".store()",
-      "community_name": "GradeController.php",
+      "community_name": "StoreGradeRequest",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller_store"
     },
     {
@@ -1248,7 +1248,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".edit()",
-      "community_name": "GradeController.php",
+      "community_name": "Grade",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller_edit"
     },
     {
@@ -1260,7 +1260,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".update()",
-      "community_name": "GradeController.php",
+      "community_name": "UpdateGradeRequest",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller_update"
     },
     {
@@ -1272,7 +1272,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".destroy()",
-      "community_name": "GradeController.php",
+      "community_name": "Grade",
       "id": "app_http_controllers_admin_gradecontroller_gradecontroller_destroy"
     },
     {
@@ -1283,7 +1283,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "groutformulacontroller.php",
-      "community_name": "GroutFormula",
+      "community_name": "Color",
       "id": "app_http_controllers_admin_groutformulacontroller"
     },
     {
@@ -1403,7 +1403,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": "machinecontroller.php",
-      "community_name": "MachineController",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_machinecontroller"
     },
     {
@@ -1416,7 +1416,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": "machinecontroller",
-      "community_name": "MachineController",
+      "community_name": "Department",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller"
     },
     {
@@ -1428,7 +1428,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".index()",
-      "community_name": "MachineController",
+      "community_name": "Department",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller_index"
     },
     {
@@ -1440,7 +1440,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".create()",
-      "community_name": "MachineController",
+      "community_name": "Department",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller_create"
     },
     {
@@ -1452,7 +1452,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".store()",
-      "community_name": "MachineController",
+      "community_name": "StoreMachineRequest",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller_store"
     },
     {
@@ -1464,7 +1464,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".edit()",
-      "community_name": "MachineController",
+      "community_name": "Department",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller_edit"
     },
     {
@@ -1476,7 +1476,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".update()",
-      "community_name": "MachineController",
+      "community_name": "UpdateMachineRequest",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller_update"
     },
     {
@@ -1488,7 +1488,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".destroy()",
-      "community_name": "MachineController",
+      "community_name": "Department",
       "id": "app_http_controllers_admin_machinecontroller_machinecontroller_destroy"
     },
     {
@@ -1499,7 +1499,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": "packingmaterialcontroller.php",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller"
     },
     {
@@ -1512,7 +1512,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": "packingmaterialcontroller",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller"
     },
     {
@@ -1524,7 +1524,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".index()",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_index"
     },
     {
@@ -1536,7 +1536,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".create()",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_create"
     },
     {
@@ -1548,7 +1548,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": ".store()",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "StorePackingMaterialRequest",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_store"
     },
     {
@@ -1560,7 +1560,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".edit()",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_edit"
     },
     {
@@ -1596,7 +1596,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".exportcsv()",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_exportcsv"
     },
     {
@@ -1608,7 +1608,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".importcsv()",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_http_controllers_admin_packingmaterialcontroller_packingmaterialcontroller_importcsv"
     },
     {
@@ -1668,7 +1668,7 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": ".store()",
-      "community_name": "RawMaterial",
+      "community_name": "StoreRawMaterialRequest",
       "id": "app_http_controllers_admin_rawmaterialcontroller_rawmaterialcontroller_store"
     },
     {
@@ -1739,7 +1739,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "reportcontroller.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_reportcontroller"
     },
     {
@@ -1811,7 +1811,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": "settingscontroller.php",
-      "community_name": "Setting",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_settingscontroller"
     },
     {
@@ -1824,7 +1824,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": "settingscontroller",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_http_controllers_admin_settingscontroller_settingscontroller"
     },
     {
@@ -1836,7 +1836,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".edit()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_http_controllers_admin_settingscontroller_settingscontroller_edit"
     },
     {
@@ -1848,7 +1848,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".update()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_http_controllers_admin_settingscontroller_settingscontroller_update"
     },
     {
@@ -1859,7 +1859,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": "stockadjustmentcontroller.php",
-      "community_name": "Controller",
+      "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller"
     },
     {
@@ -1872,7 +1872,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": "stockadjustmentcontroller",
-      "community_name": "Controller",
+      "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller"
     },
     {
@@ -1884,7 +1884,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": ".index()",
-      "community_name": "Controller",
+      "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller_index"
     },
     {
@@ -1896,7 +1896,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": ".store()",
-      "community_name": "Controller",
+      "community_name": "RawMaterial",
       "id": "app_http_controllers_admin_stockadjustmentcontroller_stockadjustmentcontroller_store"
     },
     {
@@ -2003,7 +2003,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "usercontroller.php",
-      "community_name": "Role",
+      "community_name": "Controller",
       "id": "app_http_controllers_admin_usercontroller"
     },
     {
@@ -2016,7 +2016,7 @@
       "_origin": "ast",
       "community": 36,
       "norm_label": "usercontroller",
-      "community_name": "ActivityLogService",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller"
     },
     {
@@ -2028,7 +2028,7 @@
       "_origin": "ast",
       "community": 36,
       "norm_label": ".__construct()",
-      "community_name": "ActivityLogService",
+      "community_name": "DepartmentAccessService",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_construct"
     },
     {
@@ -2040,7 +2040,7 @@
       "_origin": "ast",
       "community": 36,
       "norm_label": ".index()",
-      "community_name": "ActivityLogService",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_index"
     },
     {
@@ -2052,7 +2052,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".create()",
-      "community_name": "Role",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_create"
     },
     {
@@ -2064,7 +2064,7 @@
       "_origin": "ast",
       "community": 36,
       "norm_label": ".store()",
-      "community_name": "ActivityLogService",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_store"
     },
     {
@@ -2076,7 +2076,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".edit()",
-      "community_name": "Role",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_edit"
     },
     {
@@ -2088,7 +2088,7 @@
       "_origin": "ast",
       "community": 36,
       "norm_label": ".update()",
-      "community_name": "ActivityLogService",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_update"
     },
     {
@@ -2100,7 +2100,7 @@
       "_origin": "ast",
       "community": 36,
       "norm_label": ".destroy()",
-      "community_name": "ActivityLogService",
+      "community_name": "User",
       "id": "app_http_controllers_admin_usercontroller_usercontroller_destroy"
     },
     {
@@ -2111,7 +2111,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "controller.php",
-      "community_name": "Brand",
+      "community_name": "Controller",
       "id": "app_http_controllers_controller"
     },
     {
@@ -2208,7 +2208,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".show()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_show"
     },
     {
@@ -2220,7 +2220,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".edit()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_edit"
     },
     {
@@ -2280,7 +2280,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".loadingscreen()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_loadingscreen"
     },
     {
@@ -2316,7 +2316,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".destroy()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_http_controllers_dispatch_dispatchcontroller_dispatchcontroller_destroy"
     },
     {
@@ -2376,7 +2376,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "epoxyassemblycontroller",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller"
     },
     {
@@ -2388,7 +2388,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".index()",
-      "community_name": "EpoxyProduct",
+      "community_name": "EpoxyAssembly",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_index"
     },
     {
@@ -2400,7 +2400,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".componententryform()",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_componententryform"
     },
     {
@@ -2412,7 +2412,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".storecomponententry()",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_storecomponententry"
     },
     {
@@ -2424,7 +2424,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".storebulkcomponententry()",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_storebulkcomponententry"
     },
     {
@@ -2436,7 +2436,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".bucketassemblyform()",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_bucketassemblyform"
     },
     {
@@ -2448,7 +2448,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".storebucketassembly()",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_storebucketassembly"
     },
     {
@@ -2460,7 +2460,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".previewformula()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": ".prepareComponent",
       "id": "app_http_controllers_epoxyassemblycontroller_epoxyassemblycontroller_previewformula"
     },
     {
@@ -2567,7 +2567,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": "groutproductioncontroller.php",
-      "community_name": "GroutProductionController.php",
+      "community_name": "Grade.php",
       "id": "app_http_controllers_groutproductioncontroller"
     },
     {
@@ -2592,7 +2592,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": ".__construct()",
-      "community_name": "GroutProductionController.php",
+      "community_name": ".__construct",
       "id": "app_http_controllers_groutproductioncontroller_groutproductioncontroller_construct"
     },
     {
@@ -2712,7 +2712,7 @@
       "_origin": "ast",
       "community": 77,
       "norm_label": ".complete()",
-      "community_name": "CompleteGroutProductionRequest",
+      "community_name": "GroutProductionBatch",
       "id": "app_http_controllers_groutproductioncontroller_groutproductioncontroller_complete"
     },
     {
@@ -2747,7 +2747,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": "maintenancecontroller.php",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_http_controllers_maintenancecontroller"
     },
     {
@@ -2832,7 +2832,7 @@
       "_origin": "ast",
       "community": 54,
       "norm_label": ".index()",
-      "community_name": ".log",
+      "community_name": "MarketingOrder",
       "id": "app_http_controllers_marketing_marketingordercontroller_marketingordercontroller_index"
     },
     {
@@ -3119,7 +3119,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": "productioncontroller.php",
-      "community_name": "ProductionController.php",
+      "community_name": "Grade.php",
       "id": "app_http_controllers_productioncontroller"
     },
     {
@@ -3168,7 +3168,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": ".store()",
-      "community_name": "ProductionBatch",
+      "community_name": "StoreProductionRequest",
       "id": "app_http_controllers_productioncontroller_productioncontroller_store"
     },
     {
@@ -3204,7 +3204,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": ".complete()",
-      "community_name": "ProductionBatch",
+      "community_name": "CompleteProductionRequest",
       "id": "app_http_controllers_productioncontroller_productioncontroller_complete"
     },
     {
@@ -3216,7 +3216,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": ".getformula()",
-      "community_name": "ProductionController.php",
+      "community_name": "Grade",
       "id": "app_http_controllers_productioncontroller_productioncontroller_getformula"
     },
     {
@@ -3311,7 +3311,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "productionplanningcontroller.php",
-      "community_name": "Color",
+      "community_name": "Grade.php",
       "id": "app_http_controllers_productionplanningcontroller"
     },
     {
@@ -3384,7 +3384,7 @@
       "_origin": "ast",
       "community": 44,
       "norm_label": ".switch()",
-      "community_name": "Controller",
+      "community_name": "Department",
       "id": "app_http_controllers_shared_departmentcontroller_departmentcontroller_switch"
     },
     {
@@ -3467,7 +3467,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": "maintenanceunlockcontroller.php",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_controllers_shared_maintenanceunlockcontroller"
     },
     {
@@ -3480,7 +3480,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": "maintenanceunlockcontroller",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_controllers_shared_maintenanceunlockcontroller_maintenanceunlockcontroller"
     },
     {
@@ -3492,7 +3492,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": ".showunlockform()",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_controllers_shared_maintenanceunlockcontroller_maintenanceunlockcontroller_showunlockform"
     },
     {
@@ -3504,7 +3504,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": ".unlock()",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_controllers_shared_maintenanceunlockcontroller_maintenanceunlockcontroller_unlock"
     },
     {
@@ -3515,7 +3515,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "todocontroller.php",
-      "community_name": "TestCase",
+      "community_name": "Controller",
       "id": "app_http_controllers_shared_todocontroller"
     },
     {
@@ -3540,7 +3540,7 @@
       "_origin": "ast",
       "community": 54,
       "norm_label": ".store()",
-      "community_name": ".log",
+      "community_name": "Todo",
       "id": "app_http_controllers_shared_todocontroller_todocontroller_store"
     },
     {
@@ -3611,7 +3611,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": "supervisor/dashboardcontroller.php",
-      "community_name": "DashboardService",
+      "community_name": "DashboardController",
       "id": "app_http_controllers_supervisor_dashboardcontroller"
     },
     {
@@ -3624,7 +3624,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": "dashboardcontroller",
-      "community_name": "DashboardService",
+      "community_name": "DashboardController",
       "id": "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller"
     },
     {
@@ -3636,7 +3636,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": ".index()",
-      "community_name": "DashboardService",
+      "community_name": "DashboardController",
       "id": "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_index"
     },
     {
@@ -3648,7 +3648,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": ".livemachines()",
-      "community_name": "DashboardService",
+      "community_name": "DashboardController",
       "id": "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_livemachines"
     },
     {
@@ -3660,7 +3660,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": ".orders()",
-      "community_name": "DashboardService",
+      "community_name": "DashboardController",
       "id": "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_orders"
     },
     {
@@ -3672,7 +3672,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": ".readytodispatch()",
-      "community_name": "DashboardService",
+      "community_name": "DashboardController",
       "id": "app_http_controllers_supervisor_dashboardcontroller_dashboardcontroller_readytodispatch"
     },
     {
@@ -3971,7 +3971,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "storeepoxycolorrequest.php",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "StoreEpoxyColorRequest",
       "id": "app_http_requests_admin_storeepoxycolorrequest"
     },
     {
@@ -3984,7 +3984,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "storeepoxycolorrequest",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "StoreEpoxyColorRequest",
       "id": "app_http_requests_admin_storeepoxycolorrequest_storeepoxycolorrequest"
     },
     {
@@ -3996,7 +3996,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".authorize()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "StoreEpoxyColorRequest",
       "id": "app_http_requests_admin_storeepoxycolorrequest_storeepoxycolorrequest_authorize"
     },
     {
@@ -4008,7 +4008,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".rules()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "StoreEpoxyColorRequest",
       "id": "app_http_requests_admin_storeepoxycolorrequest_storeepoxycolorrequest_rules"
     },
     {
@@ -4019,7 +4019,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": "storeformularequest.php",
-      "community_name": "FormulaController.php",
+      "community_name": "StoreFormulaRequest",
       "id": "app_http_requests_admin_storeformularequest"
     },
     {
@@ -4032,7 +4032,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": "storeformularequest",
-      "community_name": "FormulaController.php",
+      "community_name": "StoreFormulaRequest",
       "id": "app_http_requests_admin_storeformularequest_storeformularequest"
     },
     {
@@ -4044,7 +4044,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": ".authorize()",
-      "community_name": "FormulaController.php",
+      "community_name": "StoreFormulaRequest",
       "id": "app_http_requests_admin_storeformularequest_storeformularequest_authorize"
     },
     {
@@ -4056,7 +4056,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": ".rules()",
-      "community_name": "FormulaController.php",
+      "community_name": "StoreFormulaRequest",
       "id": "app_http_requests_admin_storeformularequest_storeformularequest_rules"
     },
     {
@@ -4068,7 +4068,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": ".messages()",
-      "community_name": "FormulaController.php",
+      "community_name": "StoreFormulaRequest",
       "id": "app_http_requests_admin_storeformularequest_storeformularequest_messages"
     },
     {
@@ -4079,7 +4079,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": "storegraderequest.php",
-      "community_name": "GradeController.php",
+      "community_name": "StoreGradeRequest",
       "id": "app_http_requests_admin_storegraderequest"
     },
     {
@@ -4092,7 +4092,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": "storegraderequest",
-      "community_name": "GradeController.php",
+      "community_name": "StoreGradeRequest",
       "id": "app_http_requests_admin_storegraderequest_storegraderequest"
     },
     {
@@ -4104,7 +4104,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".authorize()",
-      "community_name": "GradeController.php",
+      "community_name": "StoreGradeRequest",
       "id": "app_http_requests_admin_storegraderequest_storegraderequest_authorize"
     },
     {
@@ -4116,7 +4116,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".rules()",
-      "community_name": "GradeController.php",
+      "community_name": "StoreGradeRequest",
       "id": "app_http_requests_admin_storegraderequest_storegraderequest_rules"
     },
     {
@@ -4127,7 +4127,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "storegroutformularequest.php",
-      "community_name": "GroutFormula",
+      "community_name": "StoreGroutFormulaRequest",
       "id": "app_http_requests_admin_storegroutformularequest"
     },
     {
@@ -4140,7 +4140,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "storegroutformularequest",
-      "community_name": "GroutFormula",
+      "community_name": "StoreGroutFormulaRequest",
       "id": "app_http_requests_admin_storegroutformularequest_storegroutformularequest"
     },
     {
@@ -4152,7 +4152,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".authorize()",
-      "community_name": "GroutFormula",
+      "community_name": "StoreGroutFormulaRequest",
       "id": "app_http_requests_admin_storegroutformularequest_storegroutformularequest_authorize"
     },
     {
@@ -4164,7 +4164,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".rules()",
-      "community_name": "GroutFormula",
+      "community_name": "StoreGroutFormulaRequest",
       "id": "app_http_requests_admin_storegroutformularequest_storegroutformularequest_rules"
     },
     {
@@ -4176,7 +4176,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".messages()",
-      "community_name": "GroutFormula",
+      "community_name": "StoreGroutFormulaRequest",
       "id": "app_http_requests_admin_storegroutformularequest_storegroutformularequest_messages"
     },
     {
@@ -4187,7 +4187,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": "storemachinerequest.php",
-      "community_name": "MachineController",
+      "community_name": "StoreMachineRequest",
       "id": "app_http_requests_admin_storemachinerequest"
     },
     {
@@ -4200,7 +4200,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": "storemachinerequest",
-      "community_name": "MachineController",
+      "community_name": "StoreMachineRequest",
       "id": "app_http_requests_admin_storemachinerequest_storemachinerequest"
     },
     {
@@ -4212,7 +4212,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".authorize()",
-      "community_name": "MachineController",
+      "community_name": "StoreMachineRequest",
       "id": "app_http_requests_admin_storemachinerequest_storemachinerequest_authorize"
     },
     {
@@ -4224,7 +4224,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".rules()",
-      "community_name": "MachineController",
+      "community_name": "StoreMachineRequest",
       "id": "app_http_requests_admin_storemachinerequest_storemachinerequest_rules"
     },
     {
@@ -4235,7 +4235,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": "storepackingmaterialrequest.php",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "StorePackingMaterialRequest",
       "id": "app_http_requests_admin_storepackingmaterialrequest"
     },
     {
@@ -4248,7 +4248,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": "storepackingmaterialrequest",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "StorePackingMaterialRequest",
       "id": "app_http_requests_admin_storepackingmaterialrequest_storepackingmaterialrequest"
     },
     {
@@ -4260,7 +4260,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": ".authorize()",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "StorePackingMaterialRequest",
       "id": "app_http_requests_admin_storepackingmaterialrequest_storepackingmaterialrequest_authorize"
     },
     {
@@ -4272,7 +4272,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": ".rules()",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "StorePackingMaterialRequest",
       "id": "app_http_requests_admin_storepackingmaterialrequest_storepackingmaterialrequest_rules"
     },
     {
@@ -4283,7 +4283,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "storerawmaterialrequest.php",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreRawMaterialRequest",
       "id": "app_http_requests_admin_storerawmaterialrequest"
     },
     {
@@ -4296,7 +4296,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "storerawmaterialrequest",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreRawMaterialRequest",
       "id": "app_http_requests_admin_storerawmaterialrequest_storerawmaterialrequest"
     },
     {
@@ -4308,7 +4308,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".authorize()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreRawMaterialRequest",
       "id": "app_http_requests_admin_storerawmaterialrequest_storerawmaterialrequest_authorize"
     },
     {
@@ -4320,7 +4320,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".rules()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreRawMaterialRequest",
       "id": "app_http_requests_admin_storerawmaterialrequest_storerawmaterialrequest_rules"
     },
     {
@@ -4331,7 +4331,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "storeunitrequest.php",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_storeunitrequest"
     },
     {
@@ -4344,7 +4344,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "storeunitrequest",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_storeunitrequest_storeunitrequest"
     },
     {
@@ -4356,7 +4356,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": ".authorize()",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_storeunitrequest_storeunitrequest_authorize"
     },
     {
@@ -4368,7 +4368,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": ".rules()",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_storeunitrequest_storeunitrequest_rules"
     },
     {
@@ -4523,7 +4523,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "updateepoxycolorrequest.php",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "UpdateEpoxyColorRequest",
       "id": "app_http_requests_admin_updateepoxycolorrequest"
     },
     {
@@ -4536,7 +4536,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "updateepoxycolorrequest",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "UpdateEpoxyColorRequest",
       "id": "app_http_requests_admin_updateepoxycolorrequest_updateepoxycolorrequest"
     },
     {
@@ -4548,7 +4548,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".authorize()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "UpdateEpoxyColorRequest",
       "id": "app_http_requests_admin_updateepoxycolorrequest_updateepoxycolorrequest_authorize"
     },
     {
@@ -4560,7 +4560,7 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": ".rules()",
-      "community_name": "EpoxyFillerColorController",
+      "community_name": "UpdateEpoxyColorRequest",
       "id": "app_http_requests_admin_updateepoxycolorrequest_updateepoxycolorrequest_rules"
     },
     {
@@ -4571,7 +4571,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": "updateformularequest.php",
-      "community_name": "FormulaController.php",
+      "community_name": "UpdateFormulaRequest",
       "id": "app_http_requests_admin_updateformularequest"
     },
     {
@@ -4584,7 +4584,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": "updateformularequest",
-      "community_name": "FormulaController.php",
+      "community_name": "UpdateFormulaRequest",
       "id": "app_http_requests_admin_updateformularequest_updateformularequest"
     },
     {
@@ -4596,7 +4596,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": ".authorize()",
-      "community_name": "FormulaController.php",
+      "community_name": "UpdateFormulaRequest",
       "id": "app_http_requests_admin_updateformularequest_updateformularequest_authorize"
     },
     {
@@ -4608,7 +4608,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": ".rules()",
-      "community_name": "FormulaController.php",
+      "community_name": "UpdateFormulaRequest",
       "id": "app_http_requests_admin_updateformularequest_updateformularequest_rules"
     },
     {
@@ -4620,7 +4620,7 @@
       "_origin": "ast",
       "community": 53,
       "norm_label": ".messages()",
-      "community_name": "FormulaController.php",
+      "community_name": "UpdateFormulaRequest",
       "id": "app_http_requests_admin_updateformularequest_updateformularequest_messages"
     },
     {
@@ -4631,7 +4631,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": "updategraderequest.php",
-      "community_name": "GradeController.php",
+      "community_name": "UpdateGradeRequest",
       "id": "app_http_requests_admin_updategraderequest"
     },
     {
@@ -4644,7 +4644,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": "updategraderequest",
-      "community_name": "GradeController.php",
+      "community_name": "UpdateGradeRequest",
       "id": "app_http_requests_admin_updategraderequest_updategraderequest"
     },
     {
@@ -4656,7 +4656,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".authorize()",
-      "community_name": "GradeController.php",
+      "community_name": "UpdateGradeRequest",
       "id": "app_http_requests_admin_updategraderequest_updategraderequest_authorize"
     },
     {
@@ -4668,7 +4668,7 @@
       "_origin": "ast",
       "community": 29,
       "norm_label": ".rules()",
-      "community_name": "GradeController.php",
+      "community_name": "UpdateGradeRequest",
       "id": "app_http_requests_admin_updategraderequest_updategraderequest_rules"
     },
     {
@@ -4679,7 +4679,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "updategroutformularequest.php",
-      "community_name": "GroutFormula",
+      "community_name": "UpdateGroutFormulaRequest",
       "id": "app_http_requests_admin_updategroutformularequest"
     },
     {
@@ -4692,7 +4692,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "updategroutformularequest",
-      "community_name": "GroutFormula",
+      "community_name": "UpdateGroutFormulaRequest",
       "id": "app_http_requests_admin_updategroutformularequest_updategroutformularequest"
     },
     {
@@ -4704,7 +4704,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".authorize()",
-      "community_name": "GroutFormula",
+      "community_name": "UpdateGroutFormulaRequest",
       "id": "app_http_requests_admin_updategroutformularequest_updategroutformularequest_authorize"
     },
     {
@@ -4716,7 +4716,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".rules()",
-      "community_name": "GroutFormula",
+      "community_name": "UpdateGroutFormulaRequest",
       "id": "app_http_requests_admin_updategroutformularequest_updategroutformularequest_rules"
     },
     {
@@ -4728,7 +4728,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".messages()",
-      "community_name": "GroutFormula",
+      "community_name": "UpdateGroutFormulaRequest",
       "id": "app_http_requests_admin_updategroutformularequest_updategroutformularequest_messages"
     },
     {
@@ -4739,7 +4739,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": "updatemachinerequest.php",
-      "community_name": "MachineController",
+      "community_name": "UpdateMachineRequest",
       "id": "app_http_requests_admin_updatemachinerequest"
     },
     {
@@ -4752,7 +4752,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": "updatemachinerequest",
-      "community_name": "MachineController",
+      "community_name": "UpdateMachineRequest",
       "id": "app_http_requests_admin_updatemachinerequest_updatemachinerequest"
     },
     {
@@ -4764,7 +4764,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".authorize()",
-      "community_name": "MachineController",
+      "community_name": "UpdateMachineRequest",
       "id": "app_http_requests_admin_updatemachinerequest_updatemachinerequest_authorize"
     },
     {
@@ -4776,7 +4776,7 @@
       "_origin": "ast",
       "community": 30,
       "norm_label": ".rules()",
-      "community_name": "MachineController",
+      "community_name": "UpdateMachineRequest",
       "id": "app_http_requests_admin_updatemachinerequest_updatemachinerequest_rules"
     },
     {
@@ -4787,7 +4787,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "updatepackingmaterialrequest.php",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "UpdatePackingMaterialRequest",
       "id": "app_http_requests_admin_updatepackingmaterialrequest"
     },
     {
@@ -4800,7 +4800,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "updatepackingmaterialrequest",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "UpdatePackingMaterialRequest",
       "id": "app_http_requests_admin_updatepackingmaterialrequest_updatepackingmaterialrequest"
     },
     {
@@ -4812,7 +4812,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".authorize()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "UpdatePackingMaterialRequest",
       "id": "app_http_requests_admin_updatepackingmaterialrequest_updatepackingmaterialrequest_authorize"
     },
     {
@@ -4824,7 +4824,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".rules()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "UpdatePackingMaterialRequest",
       "id": "app_http_requests_admin_updatepackingmaterialrequest_updatepackingmaterialrequest_rules"
     },
     {
@@ -4883,7 +4883,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "updateunitrequest.php",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_updateunitrequest"
     },
     {
@@ -4896,7 +4896,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "updateunitrequest",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_updateunitrequest_updateunitrequest"
     },
     {
@@ -4908,7 +4908,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": ".authorize()",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_updateunitrequest_updateunitrequest_authorize"
     },
     {
@@ -4920,7 +4920,7 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": ".rules()",
-      "community_name": "Unit",
+      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
       "id": "app_http_requests_admin_updateunitrequest_updateunitrequest_rules"
     },
     {
@@ -5051,7 +5051,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "completeproductionrequest.php",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "CompleteProductionRequest",
       "id": "app_http_requests_completeproductionrequest"
     },
     {
@@ -5064,7 +5064,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "completeproductionrequest",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "CompleteProductionRequest",
       "id": "app_http_requests_completeproductionrequest_completeproductionrequest"
     },
     {
@@ -5076,7 +5076,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".authorize()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "CompleteProductionRequest",
       "id": "app_http_requests_completeproductionrequest_completeproductionrequest_authorize"
     },
     {
@@ -5088,7 +5088,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".rules()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "CompleteProductionRequest",
       "id": "app_http_requests_completeproductionrequest_completeproductionrequest_rules"
     },
     {
@@ -5100,7 +5100,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".messages()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "CompleteProductionRequest",
       "id": "app_http_requests_completeproductionrequest_completeproductionrequest_messages"
     },
     {
@@ -5207,7 +5207,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "storeproductionrequest.php",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreProductionRequest",
       "id": "app_http_requests_storeproductionrequest"
     },
     {
@@ -5220,7 +5220,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "storeproductionrequest",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreProductionRequest",
       "id": "app_http_requests_storeproductionrequest_storeproductionrequest"
     },
     {
@@ -5232,7 +5232,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".authorize()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreProductionRequest",
       "id": "app_http_requests_storeproductionrequest_storeproductionrequest_authorize"
     },
     {
@@ -5244,7 +5244,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".rules()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreProductionRequest",
       "id": "app_http_requests_storeproductionrequest_storeproductionrequest_rules"
     },
     {
@@ -5256,7 +5256,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": ".messages()",
-      "community_name": "Illuminate\\Foundation\\Http\\FormRequest",
+      "community_name": "StoreProductionRequest",
       "id": "app_http_requests_storeproductionrequest_storeproductionrequest_messages"
     },
     {
@@ -5267,7 +5267,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": "unlockrequest.php",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_requests_unlockrequest"
     },
     {
@@ -5280,7 +5280,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": "unlockrequest",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_requests_unlockrequest_unlockrequest"
     },
     {
@@ -5292,7 +5292,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": ".authorize()",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_requests_unlockrequest_unlockrequest_authorize"
     },
     {
@@ -5304,7 +5304,7 @@
       "_origin": "ast",
       "community": 63,
       "norm_label": ".rules()",
-      "community_name": "MaintenanceUnlockController.php",
+      "community_name": "SettingService",
       "id": "app_http_requests_unlockrequest_unlockrequest_rules"
     },
     {
@@ -5315,7 +5315,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "activitylog.php",
-      "community_name": "FactoryAdminController",
+      "community_name": "ActivityLog",
       "id": "app_models_activitylog"
     },
     {
@@ -5328,7 +5328,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "activitylog",
-      "community_name": "FactoryAdminController",
+      "community_name": "ActivityLog",
       "id": "app_models_activitylog_activitylog"
     },
     {
@@ -5340,7 +5340,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": ".user()",
-      "community_name": "FactoryAdminController",
+      "community_name": "ActivityLog",
       "id": "app_models_activitylog_activitylog_user"
     },
     {
@@ -5376,7 +5376,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".booted()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "app_models_bagsize_bagsize_booted"
     },
     {
@@ -5388,7 +5388,7 @@
       "_origin": "ast",
       "community": 15,
       "norm_label": ".getactive()",
-      "community_name": "BagSize",
+      "community_name": "self",
       "id": "app_models_bagsize_bagsize_getactive"
     },
     {
@@ -5448,7 +5448,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".department()",
-      "community_name": "Color",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_color_color_department"
     },
     {
@@ -5460,7 +5460,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".creator()",
-      "community_name": "Color",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_color_color_creator"
     },
     {
@@ -5472,7 +5472,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".updater()",
-      "community_name": "Color",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_color_color_updater"
     },
     {
@@ -5519,7 +5519,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "department.php",
-      "community_name": "TestCase",
+      "community_name": "Controller",
       "id": "app_models_department"
     },
     {
@@ -5544,7 +5544,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".booted()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "app_models_department_department_booted"
     },
     {
@@ -5639,7 +5639,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "dispatch",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch"
     },
     {
@@ -5723,7 +5723,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".getstatusinfoattribute()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_getstatusinfoattribute"
     },
     {
@@ -5735,7 +5735,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".gettypeinfoattribute()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_gettypeinfoattribute"
     },
     {
@@ -5747,7 +5747,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".gettotalbagsattribute()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_gettotalbagsattribute"
     },
     {
@@ -5759,7 +5759,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".gettotalweightattribute()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_gettotalweightattribute"
     },
     {
@@ -5771,7 +5771,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".gettotaltonsattribute()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_gettotaltonsattribute"
     },
     {
@@ -5783,7 +5783,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".getproductsummaryattribute()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_getproductsummaryattribute"
     },
     {
@@ -5795,7 +5795,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".getembedgooglemapurlattribute()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "app_models_dispatch_dispatch_getembedgooglemapurlattribute"
     },
     {
@@ -5807,7 +5807,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".resolvegooglemapembedurl()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_models_dispatch_dispatch_resolvegooglemapembedurl"
     },
     {
@@ -5818,7 +5818,7 @@
       "_origin": "ast",
       "community": 26,
       "norm_label": "dispatchitem.php",
-      "community_name": "DispatchItem",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_dispatchitem"
     },
     {
@@ -6034,7 +6034,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "dispatchloadinglog.php",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_dispatchloadinglog"
     },
     {
@@ -6047,7 +6047,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "dispatchloadinglog",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_dispatchloadinglog_dispatchloadinglog"
     },
     {
@@ -6059,7 +6059,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".dispatch()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_dispatchloadinglog_dispatchloadinglog_dispatch"
     },
     {
@@ -6071,7 +6071,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".user()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_dispatchloadinglog_dispatchloadinglog_user"
     },
     {
@@ -6358,7 +6358,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "epoxycomponentformula.php",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "EpoxyComponentFormula",
       "id": "app_models_epoxycomponentformula"
     },
     {
@@ -6430,7 +6430,7 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "epoxycomponentformulaitem.php",
-      "community_name": "EpoxyComponentFormula",
+      "community_name": "Controller",
       "id": "app_models_epoxycomponentformulaitem"
     },
     {
@@ -6575,7 +6575,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "epoxycomponentpreparation",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "EpoxyAssembly",
       "id": "app_models_epoxycomponentpreparation_epoxycomponentpreparation"
     },
     {
@@ -6587,7 +6587,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".component()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "EpoxyAssembly",
       "id": "app_models_epoxycomponentpreparation_epoxycomponentpreparation_component"
     },
     {
@@ -6599,7 +6599,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".color()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "EpoxyAssembly",
       "id": "app_models_epoxycomponentpreparation_epoxycomponentpreparation_color"
     },
     {
@@ -6611,7 +6611,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".operator()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "EpoxyAssembly",
       "id": "app_models_epoxycomponentpreparation_epoxycomponentpreparation_operator"
     },
     {
@@ -6622,7 +6622,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "epoxyfillercolor.php",
-      "community_name": "Color",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_epoxyfillercolor"
     },
     {
@@ -6635,7 +6635,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "epoxyfillercolor",
-      "community_name": "Color",
+      "community_name": "EpoxyFillerColor",
       "id": "app_models_epoxyfillercolor_epoxyfillercolor"
     },
     {
@@ -6647,7 +6647,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".casts()",
-      "community_name": "Color",
+      "community_name": "EpoxyFillerColor",
       "id": "app_models_epoxyfillercolor_epoxyfillercolor_casts"
     },
     {
@@ -6659,7 +6659,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".creator()",
-      "community_name": "Color",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_epoxyfillercolor_epoxyfillercolor_creator"
     },
     {
@@ -6671,7 +6671,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".updater()",
-      "community_name": "Color",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_epoxyfillercolor_epoxyfillercolor_updater"
     },
     {
@@ -6766,7 +6766,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "epoxyformulaitem.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "Color",
       "id": "app_models_epoxyformulaitem"
     },
     {
@@ -6875,7 +6875,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".formulas()",
-      "community_name": "EpoxyProduct",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\HasMany",
       "id": "app_models_epoxyproduct_epoxyproduct_formulas"
     },
     {
@@ -6910,7 +6910,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "finishedgood.php",
-      "community_name": "Color",
+      "community_name": "Grade.php",
       "id": "app_models_finishedgood"
     },
     {
@@ -7091,7 +7091,7 @@
       "_origin": "ast",
       "community": 45,
       "norm_label": ".items()",
-      "community_name": "Formula",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\HasMany",
       "id": "app_models_formula_formula_items"
     },
     {
@@ -7114,7 +7114,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "formulaitem.php",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem"
     },
     {
@@ -7127,7 +7127,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "formulaitem",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem_formulaitem"
     },
     {
@@ -7139,7 +7139,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".casts()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem_formulaitem_casts"
     },
     {
@@ -7151,7 +7151,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".formula()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem_formulaitem_formula"
     },
     {
@@ -7163,7 +7163,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".rawmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem_formulaitem_rawmaterial"
     },
     {
@@ -7175,7 +7175,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".packingmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem_formulaitem_packingmaterial"
     },
     {
@@ -7187,7 +7187,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".unit()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "FormulaItem",
       "id": "app_models_formulaitem_formulaitem_unit"
     },
     {
@@ -7235,7 +7235,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".department()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Grade",
       "id": "app_models_grade_grade_department"
     },
     {
@@ -7247,7 +7247,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".bagsize()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Grade",
       "id": "app_models_grade_grade_bagsize"
     },
     {
@@ -7259,7 +7259,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".outputunit()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Grade",
       "id": "app_models_grade_grade_outputunit"
     },
     {
@@ -7271,7 +7271,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".creator()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Grade",
       "id": "app_models_grade_grade_creator"
     },
     {
@@ -7283,7 +7283,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".updater()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Grade",
       "id": "app_models_grade_grade_updater"
     },
     {
@@ -7318,7 +7318,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "groutformula.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "Color",
       "id": "app_models_groutformula"
     },
     {
@@ -7367,7 +7367,7 @@
       "_origin": "ast",
       "community": 49,
       "norm_label": ".items()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\HasMany",
+      "community_name": "GroutFormula",
       "id": "app_models_groutformula_groutformula_items"
     },
     {
@@ -7402,7 +7402,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "groutformulaitem.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "Color",
       "id": "app_models_groutformulaitem"
     },
     {
@@ -7415,7 +7415,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "groutformulaitem",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "GroutFormulaItem",
       "id": "app_models_groutformulaitem_groutformulaitem"
     },
     {
@@ -7427,7 +7427,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".casts()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "GroutFormulaItem",
       "id": "app_models_groutformulaitem_groutformulaitem_casts"
     },
     {
@@ -7439,7 +7439,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".formula()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "GroutFormulaItem",
       "id": "app_models_groutformulaitem_groutformulaitem_formula"
     },
     {
@@ -7451,7 +7451,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".rawmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "GroutFormulaItem",
       "id": "app_models_groutformulaitem_groutformulaitem_rawmaterial"
     },
     {
@@ -7463,7 +7463,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".unit()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "GroutFormulaItem",
       "id": "app_models_groutformulaitem_groutformulaitem_unit"
     },
     {
@@ -7474,7 +7474,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "groutproductionbatch.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "app_models_groutproductionbatch"
     },
     {
@@ -7582,7 +7582,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "machine.php",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_machine"
     },
     {
@@ -7595,7 +7595,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "machine",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "app_models_machine_machine"
     },
     {
@@ -7607,7 +7607,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".booted()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "app_models_machine_machine_booted"
     },
     {
@@ -7642,7 +7642,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "marketingorder.php",
-      "community_name": "TestCase",
+      "community_name": "Grade.php",
       "id": "app_models_marketingorder"
     },
     {
@@ -7667,7 +7667,7 @@
       "_origin": "ast",
       "community": 49,
       "norm_label": ".items()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\HasMany",
+      "community_name": "MarketingOrder",
       "id": "app_models_marketingorder_marketingorder_items"
     },
     {
@@ -7822,7 +7822,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "marketingorderitem.php",
-      "community_name": "Color",
+      "community_name": "Grade.php",
       "id": "app_models_marketingorderitem"
     },
     {
@@ -8026,7 +8026,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": "notification.php",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_models_notification"
     },
     {
@@ -8135,7 +8135,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".stockledgers()",
-      "community_name": "PackingMaterial",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\HasMany",
       "id": "app_models_packingmaterial_packingmaterial_stockledgers"
     },
     {
@@ -8182,7 +8182,7 @@
       "_origin": "ast",
       "community": 68,
       "norm_label": "packingmaterialcategory.php",
-      "community_name": "PackingMaterialController.php",
+      "community_name": "PackingMaterialController",
       "id": "app_models_packingmaterialcategory"
     },
     {
@@ -8195,7 +8195,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": "packingmaterialcategory",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_models_packingmaterialcategory_packingmaterialcategory"
     },
     {
@@ -8207,7 +8207,7 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": ".packingmaterials()",
-      "community_name": "PackingMaterial",
+      "community_name": "PackingMaterialController",
       "id": "app_models_packingmaterialcategory_packingmaterialcategory_packingmaterials"
     },
     {
@@ -8218,7 +8218,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "permission.php",
-      "community_name": "Role",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_permission"
     },
     {
@@ -8231,7 +8231,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "permission",
-      "community_name": "Role",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_permission_permission"
     },
     {
@@ -8243,7 +8243,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".roles()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "app_models_permission_permission_roles"
     },
     {
@@ -8361,7 +8361,7 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": "rawmaterial.php",
-      "community_name": "RawMaterial",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_rawmaterial"
     },
     {
@@ -8398,7 +8398,7 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": ".department()",
-      "community_name": "RawMaterial",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_rawmaterial_rawmaterial_department"
     },
     {
@@ -8410,7 +8410,7 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": ".stockunit()",
-      "community_name": "RawMaterial",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_rawmaterial_rawmaterial_stockunit"
     },
     {
@@ -8422,7 +8422,7 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": ".purchaseunit()",
-      "community_name": "RawMaterial",
+      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
       "id": "app_models_rawmaterial_rawmaterial_purchaseunit"
     },
     {
@@ -8433,7 +8433,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "role.php",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "app_models_role"
     },
     {
@@ -8446,7 +8446,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "role",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "app_models_role_role"
     },
     {
@@ -8458,7 +8458,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".users()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "app_models_role_role_users"
     },
     {
@@ -8470,7 +8470,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".permissions()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "app_models_role_role_permissions"
     },
     {
@@ -8481,7 +8481,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": "setting.php",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_models_setting"
     },
     {
@@ -8494,7 +8494,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": "setting",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_models_setting_setting"
     },
     {
@@ -8506,7 +8506,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".get()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_models_setting_setting_get"
     },
     {
@@ -8518,7 +8518,7 @@
       "_origin": "ast",
       "community": 35,
       "norm_label": ".set()",
-      "community_name": "self",
+      "community_name": "SettingService",
       "id": "app_models_setting_setting_set"
     },
     {
@@ -8540,7 +8540,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "stockadjustment.php",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_stockadjustment"
     },
     {
@@ -8553,7 +8553,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "stockadjustment",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_stockadjustment_stockadjustment"
     },
     {
@@ -8565,7 +8565,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".casts()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_stockadjustment_stockadjustment_casts"
     },
     {
@@ -8577,7 +8577,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".rawmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_stockadjustment_stockadjustment_rawmaterial"
     },
     {
@@ -8589,7 +8589,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".packingmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_stockadjustment_stockadjustment_packingmaterial"
     },
     {
@@ -8601,7 +8601,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".creator()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_models_stockadjustment_stockadjustment_creator"
     },
     {
@@ -8612,7 +8612,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "stockledger.php",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger"
     },
     {
@@ -8625,7 +8625,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "stockledger",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger"
     },
     {
@@ -8637,7 +8637,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".casts()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_casts"
     },
     {
@@ -8649,7 +8649,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".rawmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_rawmaterial"
     },
     {
@@ -8661,7 +8661,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".packingmaterial()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_packingmaterial"
     },
     {
@@ -8673,7 +8673,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".batch()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_batch"
     },
     {
@@ -8685,7 +8685,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".groutbatch()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_groutbatch"
     },
     {
@@ -8697,7 +8697,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".epoxyassembly()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_epoxyassembly"
     },
     {
@@ -8709,7 +8709,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".getpreviousstockattribute()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_getpreviousstockattribute"
     },
     {
@@ -8721,7 +8721,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".creator()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "StockLedger",
       "id": "app_models_stockledger_stockledger_creator"
     },
     {
@@ -8732,7 +8732,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": "todo.php",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_models_todo"
     },
     {
@@ -8817,7 +8817,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".booted()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "app_models_unit_unit_booted"
     },
     {
@@ -8840,7 +8840,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "user.php",
-      "community_name": "TestCase",
+      "community_name": "User.php",
       "id": "app_models_user"
     },
     {
@@ -8877,7 +8877,7 @@
       "_origin": "ast",
       "community": 90,
       "norm_label": ".department()",
-      "community_name": ".department",
+      "community_name": "User",
       "id": "app_models_user_user_department"
     },
     {
@@ -8888,7 +8888,7 @@
       "_origin": "ast",
       "community": 90,
       "norm_label": "belongsto",
-      "community_name": ".department",
+      "community_name": "User",
       "id": "app_models_user_php_belongsto"
     },
     {
@@ -8900,7 +8900,7 @@
       "_origin": "ast",
       "community": 90,
       "norm_label": ".departments()",
-      "community_name": ".department",
+      "community_name": "User",
       "id": "app_models_user_user_departments"
     },
     {
@@ -9079,7 +9079,7 @@
       "_origin": "ast",
       "community": 91,
       "norm_label": ".devices()",
-      "community_name": "HasMany",
+      "community_name": "User",
       "id": "app_models_user_user_devices"
     },
     {
@@ -9090,7 +9090,7 @@
       "_origin": "ast",
       "community": 91,
       "norm_label": "hasmany",
-      "community_name": "HasMany",
+      "community_name": "User",
       "id": "app_models_user_php_hasmany"
     },
     {
@@ -9102,7 +9102,7 @@
       "_origin": "ast",
       "community": 91,
       "norm_label": ".notifications()",
-      "community_name": "HasMany",
+      "community_name": "User",
       "id": "app_models_user_user_notifications"
     },
     {
@@ -9125,7 +9125,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": "userdevice.php",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_models_userdevice"
     },
     {
@@ -9138,7 +9138,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": "userdevice",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_models_userdevice_userdevice"
     },
     {
@@ -9150,7 +9150,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".user()",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_models_userdevice_userdevice_user"
     },
     {
@@ -9209,7 +9209,7 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "activitylogservice.php",
-      "community_name": "Grade.php",
+      "community_name": "Controller",
       "id": "app_services_activitylogservice"
     },
     {
@@ -9257,7 +9257,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "backupservice.php",
-      "community_name": "FactoryAdminController",
+      "community_name": "FactoryAdminController.php",
       "id": "app_services_backupservice"
     },
     {
@@ -9366,7 +9366,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": "batchnumberservice",
-      "community_name": "ProductionController.php",
+      "community_name": "ActivityLogService",
       "id": "app_services_batchnumberservice_batchnumberservice"
     },
     {
@@ -9378,7 +9378,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": ".generate()",
-      "community_name": "ProductionController.php",
+      "community_name": "ActivityLogService",
       "id": "app_services_batchnumberservice_batchnumberservice_generate"
     },
     {
@@ -9389,7 +9389,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "dailyreportservice.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "app_services_dailyreportservice"
     },
     {
@@ -9426,7 +9426,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".getdailyreportdata()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "app_services_dailyreportservice_dailyreportservice_getdailyreportdata"
     },
     {
@@ -9438,7 +9438,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".getproductionreportdata()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "EpoxyAssembly",
       "id": "app_services_dailyreportservice_dailyreportservice_getproductionreportdata"
     },
     {
@@ -9510,7 +9510,7 @@
       "_origin": "ast",
       "community": 48,
       "norm_label": ".getcalendardatedetails()",
-      "community_name": "DashboardService",
+      "community_name": "ProductionBatch",
       "id": "app_services_dashboardservice_dashboardservice_getcalendardatedetails"
     },
     {
@@ -9546,7 +9546,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".getdashboardalerts()",
-      "community_name": "Grade",
+      "community_name": "DashboardService",
       "id": "app_services_dashboardservice_dashboardservice_getdashboardalerts"
     },
     {
@@ -9558,7 +9558,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": ".getactivitytimeline()",
-      "community_name": "FactoryAdminController",
+      "community_name": "ActivityLog",
       "id": "app_services_dashboardservice_dashboardservice_getactivitytimeline"
     },
     {
@@ -9569,7 +9569,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "departmentaccessservice.php",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "app_services_departmentaccessservice"
     },
     {
@@ -9652,7 +9652,7 @@
       "_origin": "ast",
       "community": 70,
       "norm_label": "dispatchloadingservice.php",
-      "community_name": "DispatchLoadingService",
+      "community_name": "Grade.php",
       "id": "app_services_dispatchloadingservice"
     },
     {
@@ -9724,7 +9724,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "dispatchservice.php",
-      "community_name": "TestCase",
+      "community_name": "Grade.php",
       "id": "app_services_dispatchservice"
     },
     {
@@ -9737,7 +9737,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "dispatchservice",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice"
     },
     {
@@ -9749,7 +9749,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".__construct()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_construct"
     },
     {
@@ -9761,7 +9761,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".generatedispatchnumber()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_generatedispatchnumber"
     },
     {
@@ -9773,7 +9773,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".createdispatch()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_createdispatch"
     },
     {
@@ -9785,7 +9785,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".updatedispatch()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_updatedispatch"
     },
     {
@@ -9797,7 +9797,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".togglerelease()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_togglerelease"
     },
     {
@@ -9809,7 +9809,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".updatepayment()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_updatepayment"
     },
     {
@@ -9821,7 +9821,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".changestatus()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_changestatus"
     },
     {
@@ -9833,7 +9833,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".deletedispatch()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_deletedispatch"
     },
     {
@@ -9845,7 +9845,7 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": ".getdashboardmetrics()",
-      "community_name": "Dispatch",
+      "community_name": "Illuminate\\Http\\Request",
       "id": "app_services_dispatchservice_dispatchservice_getdashboardmetrics"
     },
     {
@@ -9869,7 +9869,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "epoxyassemblyservice",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_services_epoxyassemblyservice_epoxyassemblyservice"
     },
     {
@@ -9881,7 +9881,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".assembleproduct()",
-      "community_name": "EpoxyProduct",
+      "community_name": "RawMaterial",
       "id": "app_services_epoxyassemblyservice_epoxyassemblyservice_assembleproduct"
     },
     {
@@ -9893,7 +9893,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": ".preparecomponent()",
-      "community_name": "EpoxyProduct",
+      "community_name": ".prepareComponent",
       "id": "app_services_epoxyassemblyservice_epoxyassemblyservice_preparecomponent"
     },
     {
@@ -10048,7 +10048,7 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "finishedgoodsservice.php",
-      "community_name": "Grade.php",
+      "community_name": "Color",
       "id": "app_services_finishedgoodsservice"
     },
     {
@@ -10144,7 +10144,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "firebaseservice.php",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "app_services_firebaseservice"
     },
     {
@@ -10216,7 +10216,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": "formulaservice.php",
-      "community_name": "ProductionController.php",
+      "community_name": "Grade.php",
       "id": "app_services_formulaservice"
     },
     {
@@ -10229,7 +10229,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": "formulaservice",
-      "community_name": "ProductionController.php",
+      "community_name": "Grade",
       "id": "app_services_formulaservice_formulaservice"
     },
     {
@@ -10241,7 +10241,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": ".getactiveformula()",
-      "community_name": "ProductionController.php",
+      "community_name": "Grade",
       "id": "app_services_formulaservice_formulaservice_getactiveformula"
     },
     {
@@ -10252,7 +10252,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "groutformulaservice.php",
-      "community_name": "GroutFormula",
+      "community_name": "Color",
       "id": "app_services_groutformulaservice"
     },
     {
@@ -10312,7 +10312,7 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "groutproductionservice.php",
-      "community_name": "Grade.php",
+      "community_name": "RawMaterial",
       "id": "app_services_groutproductionservice"
     },
     {
@@ -10409,7 +10409,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": ".completebatch()",
-      "community_name": "EnterpriseTest",
+      "community_name": "ActivityLogService",
       "id": "app_services_groutproductionservice_groutproductionservice_completebatch"
     },
     {
@@ -10457,7 +10457,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": ".__construct()",
-      "community_name": "MarketingOrder",
+      "community_name": "FinishedGoodsService",
       "id": "app_services_marketingorderservice_marketingorderservice_construct"
     },
     {
@@ -10648,7 +10648,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": "mixtimerservice.php",
-      "community_name": "GroutProductionController.php",
+      "community_name": "GroutProductionBatch",
       "id": "app_services_mixtimerservice"
     },
     {
@@ -10661,7 +10661,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": "mixtimerservice",
-      "community_name": "GroutProductionController.php",
+      "community_name": "GroutProductionBatch",
       "id": "app_services_mixtimerservice_mixtimerservice"
     },
     {
@@ -10673,7 +10673,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": ".getremainingseconds()",
-      "community_name": "GroutProductionController.php",
+      "community_name": "GroutProductionBatch",
       "id": "app_services_mixtimerservice_mixtimerservice_getremainingseconds"
     },
     {
@@ -10685,7 +10685,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": ".istimercompleted()",
-      "community_name": "GroutProductionController.php",
+      "community_name": "GroutProductionBatch",
       "id": "app_services_mixtimerservice_mixtimerservice_istimercompleted"
     },
     {
@@ -10696,7 +10696,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "notificationservice.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "NotificationService",
       "id": "app_services_notificationservice"
     },
     {
@@ -10756,7 +10756,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".registerdevice()",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_services_notificationservice_notificationservice_registerdevice"
     },
     {
@@ -10768,7 +10768,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".removedevice()",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_services_notificationservice_notificationservice_removedevice"
     },
     {
@@ -10780,7 +10780,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".touchdevice()",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "app_services_notificationservice_notificationservice_touchdevice"
     },
     {
@@ -10839,7 +10839,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": "packingservice.php",
-      "community_name": "GroutProductionController.php",
+      "community_name": ".__construct",
       "id": "app_services_packingservice"
     },
     {
@@ -10852,7 +10852,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": "packingservice",
-      "community_name": "GroutProductionController.php",
+      "community_name": ".__construct",
       "id": "app_services_packingservice_packingservice"
     },
     {
@@ -10864,7 +10864,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": ".calculatetotalweight()",
-      "community_name": "GroutProductionController.php",
+      "community_name": ".__construct",
       "id": "app_services_packingservice_packingservice_calculatetotalweight"
     },
     {
@@ -10876,7 +10876,7 @@
       "_origin": "ast",
       "community": 56,
       "norm_label": ".calculatepouchcount()",
-      "community_name": "GroutProductionController.php",
+      "community_name": ".__construct",
       "id": "app_services_packingservice_packingservice_calculatepouchcount"
     },
     {
@@ -10912,7 +10912,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": ".startbatch()",
-      "community_name": "ProductionController.php",
+      "community_name": "ActivityLogService",
       "id": "app_services_productionservice_productionservice_startbatch"
     },
     {
@@ -10936,7 +10936,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": ".completebatch()",
-      "community_name": "EnterpriseTest",
+      "community_name": "RawMaterial",
       "id": "app_services_productionservice_productionservice_completebatch"
     },
     {
@@ -10996,7 +10996,7 @@
       "_origin": "ast",
       "community": 157,
       "norm_label": "reportservice",
-      "community_name": ".getDailyReportData",
+      "community_name": "ProductionBatch",
       "id": "app_services_reportservice_reportservice"
     },
     {
@@ -11008,7 +11008,7 @@
       "_origin": "ast",
       "community": 157,
       "norm_label": ".getdailyreportdata()",
-      "community_name": ".getDailyReportData",
+      "community_name": "ProductionBatch",
       "id": "app_services_reportservice_reportservice_getdailyreportdata"
     },
     {
@@ -11019,7 +11019,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": "settingservice.php",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_services_settingservice"
     },
     {
@@ -11044,7 +11044,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".get()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_services_settingservice_settingservice_get"
     },
     {
@@ -11056,7 +11056,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".set()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_services_settingservice_settingservice_set"
     },
     {
@@ -11068,7 +11068,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".all()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_services_settingservice_settingservice_all"
     },
     {
@@ -11080,7 +11080,7 @@
       "_origin": "ast",
       "community": 46,
       "norm_label": ".updatebulk()",
-      "community_name": "Setting",
+      "community_name": "SettingService",
       "id": "app_services_settingservice_settingservice_updatebulk"
     },
     {
@@ -11091,7 +11091,7 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "stockservice.php",
-      "community_name": "Grade.php",
+      "community_name": "RawMaterial",
       "id": "app_services_stockservice"
     },
     {
@@ -11104,7 +11104,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": "stockservice",
-      "community_name": "EnterpriseTest",
+      "community_name": "RawMaterial",
       "id": "app_services_stockservice_stockservice"
     },
     {
@@ -11116,7 +11116,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": ".recordmovement()",
-      "community_name": "EnterpriseTest",
+      "community_name": "currentDepartment",
       "id": "app_services_stockservice_stockservice_recordmovement"
     },
     {
@@ -11128,7 +11128,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": ".adjuststock()",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "app_services_stockservice_stockservice_adjuststock"
     },
     {
@@ -11139,7 +11139,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "systemservice.php",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "app_services_systemservice"
     },
     {
@@ -11211,7 +11211,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "artisan",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "artisan"
     },
     {
@@ -12047,7 +12047,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "cache.php",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "config_cache"
     },
     {
@@ -12091,7 +12091,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "mail.php",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "config_mail"
     },
     {
@@ -12135,7 +12135,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": "userfactory.php",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "database_factories_userfactory"
     },
     {
@@ -12148,7 +12148,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": "userfactory",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "database_factories_userfactory_userfactory"
     },
     {
@@ -12160,7 +12160,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".definition()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "database_factories_userfactory_userfactory_definition"
     },
     {
@@ -12172,7 +12172,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": ".unverified()",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "database_factories_userfactory_userfactory_unverified"
     },
     {
@@ -12183,7 +12183,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": "static",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "static"
     },
     {
@@ -13034,7 +13034,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "2026_06_29_000004_create_grout_production_batches_table.php",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "database_migrations_2026_06_29_000004_create_grout_production_batches_table"
     },
     {
@@ -13046,7 +13046,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "up()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "database_migrations_2026_06_29_000004_create_grout_production_batches_table_up"
     },
     {
@@ -13058,7 +13058,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "down()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "database_migrations_2026_06_29_000004_create_grout_production_batches_table_down"
     },
     {
@@ -13804,7 +13804,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "2026_07_10_160003_seed_marketing_role.php",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "database_migrations_2026_07_10_160003_seed_marketing_role"
     },
     {
@@ -13816,7 +13816,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "up()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "database_migrations_2026_07_10_160003_seed_marketing_role_up"
     },
     {
@@ -13828,7 +13828,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "down()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "database_migrations_2026_07_10_160003_seed_marketing_role_down"
     },
     {
@@ -14049,7 +14049,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "2026_07_21_180000_create_dispatch_management_system_tables.php",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "database_migrations_2026_07_21_180000_create_dispatch_management_system_tables"
     },
     {
@@ -14061,7 +14061,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "up()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "database_migrations_2026_07_21_180000_create_dispatch_management_system_tables_up"
     },
     {
@@ -14073,7 +14073,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "down()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "database_migrations_2026_07_21_180000_create_dispatch_management_system_tables_down"
     },
     {
@@ -14434,7 +14434,7 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "epoxymoduleseeder.php",
-      "community_name": "EpoxyComponentFormula",
+      "community_name": "EpoxyFillerColor",
       "id": "database_seeders_epoxymoduleseeder"
     },
     {
@@ -14447,7 +14447,7 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "epoxymoduleseeder",
-      "community_name": "EpoxyComponentFormula",
+      "community_name": "EpoxyFillerColor",
       "id": "database_seeders_epoxymoduleseeder_epoxymoduleseeder"
     },
     {
@@ -14459,7 +14459,7 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": ".run()",
-      "community_name": "EpoxyComponentFormula",
+      "community_name": "EpoxyFormula",
       "id": "database_seeders_epoxymoduleseeder_epoxymoduleseeder_run"
     },
     {
@@ -14483,7 +14483,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "finishedgoodscomprehensiveseeder",
-      "community_name": "Color",
+      "community_name": "EpoxyFillerColor",
       "id": "database_seeders_finishedgoodscomprehensiveseeder_finishedgoodscomprehensiveseeder"
     },
     {
@@ -14495,7 +14495,7 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": ".run()",
-      "community_name": "Color",
+      "community_name": "EpoxyFillerColor",
       "id": "database_seeders_finishedgoodscomprehensiveseeder_finishedgoodscomprehensiveseeder_run"
     },
     {
@@ -14506,7 +14506,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "testfixtureseeder.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "Color",
       "id": "database_seeders_testfixtureseeder"
     },
     {
@@ -14519,7 +14519,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "testfixtureseeder",
-      "community_name": "Brand",
+      "community_name": "EpoxyFormula",
       "id": "database_seeders_testfixtureseeder_testfixtureseeder"
     },
     {
@@ -14531,7 +14531,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".run()",
-      "community_name": "Grade",
+      "community_name": "EpoxyFormula",
       "id": "database_seeders_testfixtureseeder_testfixtureseeder_run"
     },
     {
@@ -16789,7 +16789,7 @@
       "_origin": "ast",
       "community": 72,
       "norm_label": "console.php",
-      "community_name": "SystemService.php",
+      "community_name": "FactoryAdminController.php",
       "id": "routes_console"
     },
     {
@@ -16800,7 +16800,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "authtest.php",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_authtest"
     },
     {
@@ -17076,7 +17076,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "departmentaccesstest.php",
-      "community_name": "TestCase",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest"
     },
     {
@@ -17089,7 +17089,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "departmentaccesstest",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest"
     },
     {
@@ -17101,7 +17101,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".setup()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_setup"
     },
     {
@@ -17113,7 +17113,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".test_user_department_relationships_and_helpers()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_test_user_department_relationships_and_helpers"
     },
     {
@@ -17125,7 +17125,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".test_dynamic_department_attribute_accessor()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_test_dynamic_department_attribute_accessor"
     },
     {
@@ -17137,7 +17137,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".test_department_switching()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_test_department_switching"
     },
     {
@@ -17149,7 +17149,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".test_unauthorized_department_switch_fails()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_test_unauthorized_department_switch_fails"
     },
     {
@@ -17161,7 +17161,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".test_middleware_restricts_access()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_test_middleware_restricts_access"
     },
     {
@@ -17173,7 +17173,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".test_user_creation_requires_at_least_one_department()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_departmentaccesstest_departmentaccesstest_test_user_creation_requires_at_least_one_department"
     },
     {
@@ -17184,7 +17184,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "enterprisemaintenancemodetest.php",
-      "community_name": "TestCase",
+      "community_name": "User.php",
       "id": "tests_feature_enterprisemaintenancemodetest"
     },
     {
@@ -17329,7 +17329,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": "enterprisetest",
-      "community_name": "EnterpriseTest",
+      "community_name": "Machine",
       "id": "tests_feature_enterprisetest_enterprisetest"
     },
     {
@@ -17341,7 +17341,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": ".setup()",
-      "community_name": "EnterpriseTest",
+      "community_name": "Machine",
       "id": "tests_feature_enterprisetest_enterprisetest_setup"
     },
     {
@@ -17353,7 +17353,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": ".test_batch_number_service_generates_adh_code()",
-      "community_name": "ProductionController.php",
+      "community_name": "ActivityLogService",
       "id": "tests_feature_enterprisetest_enterprisetest_test_batch_number_service_generates_adh_code"
     },
     {
@@ -17365,7 +17365,7 @@
       "_origin": "ast",
       "community": 57,
       "norm_label": ".test_formula_service_resolves_active_recipe()",
-      "community_name": "ProductionController.php",
+      "community_name": "Grade",
       "id": "tests_feature_enterprisetest_enterprisetest_test_formula_service_resolves_active_recipe"
     },
     {
@@ -17377,7 +17377,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": ".test_stock_service_handles_adjustments_and_movement()",
-      "community_name": "EnterpriseTest",
+      "community_name": "Machine",
       "id": "tests_feature_enterprisetest_enterprisetest_test_stock_service_handles_adjustments_and_movement"
     },
     {
@@ -17389,7 +17389,7 @@
       "_origin": "ast",
       "community": 60,
       "norm_label": ".test_stock_adjustment_without_remarks_is_allowed()",
-      "community_name": "EnterpriseTest",
+      "community_name": "RawMaterial",
       "id": "tests_feature_enterprisetest_enterprisetest_test_stock_adjustment_without_remarks_is_allowed"
     },
     {
@@ -17401,7 +17401,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_production_service_manages_batch_lifecycle()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_enterprisetest_enterprisetest_test_production_service_manages_batch_lifecycle"
     },
     {
@@ -17413,7 +17413,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_production_service_completes_batch()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_enterprisetest_enterprisetest_test_production_service_completes_batch"
     },
     {
@@ -17425,7 +17425,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_report_service_computes_daily_summaries()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_enterprisetest_enterprisetest_test_report_service_computes_daily_summaries"
     },
     {
@@ -17436,7 +17436,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "epoxyassemblytest.php",
-      "community_name": "TestCase",
+      "community_name": "Color",
       "id": "tests_feature_epoxyassemblytest"
     },
     {
@@ -17592,7 +17592,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "factoryadmintest.php",
-      "community_name": "TestCase",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest"
     },
     {
@@ -17605,7 +17605,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": "factoryadmintest",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest"
     },
     {
@@ -17617,7 +17617,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".setup()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_setup"
     },
     {
@@ -17629,7 +17629,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_guests_are_redirected_to_login()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_guests_are_redirected_to_login"
     },
     {
@@ -17641,7 +17641,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_supervisors_are_forbidden_from_admin_modules()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_supervisors_are_forbidden_from_admin_modules"
     },
     {
@@ -17653,7 +17653,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_admin_can_access_and_save_factory_settings()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_access_and_save_factory_settings"
     },
     {
@@ -17665,7 +17665,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_admin_can_update_profile_and_password()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_update_profile_and_password"
     },
     {
@@ -17677,7 +17677,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_admin_can_view_activity_logs_and_export_csv()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_view_activity_logs_and_export_csv"
     },
     {
@@ -17689,7 +17689,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_admin_can_manage_database_backups()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_manage_database_backups"
     },
     {
@@ -17701,7 +17701,7 @@
       "_origin": "ast",
       "community": 61,
       "norm_label": ".test_admin_can_access_diagnostics_and_clear_cache()",
-      "community_name": "FactoryAdminTest",
+      "community_name": "User",
       "id": "tests_feature_factoryadmintest_factoryadmintest_test_admin_can_access_diagnostics_and_clear_cache"
     },
     {
@@ -17737,7 +17737,7 @@
       "_origin": "ast",
       "community": 17,
       "norm_label": ".setup()",
-      "community_name": "FinishedGood",
+      "community_name": "Department",
       "id": "tests_feature_finishedgoodstest_finishedgoodstest_setup"
     },
     {
@@ -17833,7 +17833,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_non_admin_cannot_create_finished_good()",
-      "community_name": "Grade",
+      "community_name": "FinishedGood",
       "id": "tests_feature_finishedgoodstest_finishedgoodstest_test_non_admin_cannot_create_finished_good"
     },
     {
@@ -17856,7 +17856,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "firebasenotificationtest.php",
-      "community_name": "TestCase",
+      "community_name": "User.php",
       "id": "tests_feature_firebasenotificationtest"
     },
     {
@@ -17869,7 +17869,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": "firebasenotificationtest",
-      "community_name": "UserDevice",
+      "community_name": "User.php",
       "id": "tests_feature_firebasenotificationtest_firebasenotificationtest"
     },
     {
@@ -17881,7 +17881,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".setup()",
-      "community_name": "UserDevice",
+      "community_name": "User.php",
       "id": "tests_feature_firebasenotificationtest_firebasenotificationtest_setup"
     },
     {
@@ -17893,7 +17893,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".test_device_registration_and_deregistration()",
-      "community_name": "UserDevice",
+      "community_name": "User.php",
       "id": "tests_feature_firebasenotificationtest_firebasenotificationtest_test_device_registration_and_deregistration"
     },
     {
@@ -17905,7 +17905,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".test_granular_department_notifications()",
-      "community_name": "UserDevice",
+      "community_name": "User.php",
       "id": "tests_feature_firebasenotificationtest_firebasenotificationtest_test_granular_department_notifications"
     },
     {
@@ -17917,7 +17917,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": ".test_check_mixing_timers_console_command()",
-      "community_name": "UserDevice",
+      "community_name": "User.php",
       "id": "tests_feature_firebasenotificationtest_firebasenotificationtest_test_check_mixing_timers_console_command"
     },
     {
@@ -17928,7 +17928,7 @@
       "_origin": "ast",
       "community": 87,
       "norm_label": "formulastest.php",
-      "community_name": "FormulasTest.php",
+      "community_name": "Grade.php",
       "id": "tests_feature_formulastest"
     },
     {
@@ -17941,7 +17941,7 @@
       "_origin": "ast",
       "community": 87,
       "norm_label": "formulastest",
-      "community_name": "FormulasTest.php",
+      "community_name": "TestCase",
       "id": "tests_feature_formulastest_formulastest"
     },
     {
@@ -17953,7 +17953,7 @@
       "_origin": "ast",
       "community": 87,
       "norm_label": ".setup()",
-      "community_name": "FormulasTest.php",
+      "community_name": "TestCase",
       "id": "tests_feature_formulastest_formulastest_setup"
     },
     {
@@ -17965,7 +17965,7 @@
       "_origin": "ast",
       "community": 87,
       "norm_label": ".test_guest_is_redirected_to_login()",
-      "community_name": "FormulasTest.php",
+      "community_name": "TestCase",
       "id": "tests_feature_formulastest_formulastest_test_guest_is_redirected_to_login"
     },
     {
@@ -17977,7 +17977,7 @@
       "_origin": "ast",
       "community": 87,
       "norm_label": ".test_supervisor_cannot_access_formulas()",
-      "community_name": "FormulasTest.php",
+      "community_name": "TestCase",
       "id": "tests_feature_formulastest_formulastest_test_supervisor_cannot_access_formulas"
     },
     {
@@ -17989,7 +17989,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_admin_can_perform_formula_crud()",
-      "community_name": "Grade",
+      "community_name": "TestCase",
       "id": "tests_feature_formulastest_formulastest_test_admin_can_perform_formula_crud"
     },
     {
@@ -18001,7 +18001,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_admin_can_create_formula_with_packing_material()",
-      "community_name": "Grade",
+      "community_name": "TestCase",
       "id": "tests_feature_formulastest_formulastest_test_admin_can_create_formula_with_packing_material"
     },
     {
@@ -18025,7 +18025,7 @@
       "_origin": "ast",
       "community": 80,
       "norm_label": "gradestest",
-      "community_name": "GradesTest",
+      "community_name": "BagSize",
       "id": "tests_feature_gradestest_gradestest"
     },
     {
@@ -18037,7 +18037,7 @@
       "_origin": "ast",
       "community": 80,
       "norm_label": ".setup()",
-      "community_name": "GradesTest",
+      "community_name": "BagSize",
       "id": "tests_feature_gradestest_gradestest_setup"
     },
     {
@@ -18049,7 +18049,7 @@
       "_origin": "ast",
       "community": 80,
       "norm_label": ".test_guest_is_redirected_to_login()",
-      "community_name": "GradesTest",
+      "community_name": "BagSize",
       "id": "tests_feature_gradestest_gradestest_test_guest_is_redirected_to_login"
     },
     {
@@ -18061,7 +18061,7 @@
       "_origin": "ast",
       "community": 80,
       "norm_label": ".test_supervisor_cannot_access_grades()",
-      "community_name": "GradesTest",
+      "community_name": "BagSize",
       "id": "tests_feature_gradestest_gradestest_test_supervisor_cannot_access_grades"
     },
     {
@@ -18073,7 +18073,7 @@
       "_origin": "ast",
       "community": 80,
       "norm_label": ".test_admin_can_perform_grade_crud()",
-      "community_name": "GradesTest",
+      "community_name": "BagSize",
       "id": "tests_feature_gradestest_gradestest_test_admin_can_perform_grade_crud"
     },
     {
@@ -18085,7 +18085,7 @@
       "_origin": "ast",
       "community": 80,
       "norm_label": ".test_grade_validation_rules()",
-      "community_name": "GradesTest",
+      "community_name": "BagSize",
       "id": "tests_feature_gradestest_gradestest_test_grade_validation_rules"
     },
     {
@@ -18109,7 +18109,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": "groutcolortest",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest"
     },
     {
@@ -18121,7 +18121,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": ".setup()",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest_setup"
     },
     {
@@ -18133,7 +18133,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": ".test_guest_and_supervisor_cannot_access_grout_colors()",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest_test_guest_and_supervisor_cannot_access_grout_colors"
     },
     {
@@ -18145,7 +18145,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": ".test_admin_can_access_grout_colors_list()",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest_test_admin_can_access_grout_colors_list"
     },
     {
@@ -18157,7 +18157,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": ".test_admin_can_create_grout_color()",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest_test_admin_can_create_grout_color"
     },
     {
@@ -18169,7 +18169,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": ".test_admin_can_edit_grout_color()",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest_test_admin_can_edit_grout_color"
     },
     {
@@ -18181,7 +18181,7 @@
       "_origin": "ast",
       "community": 75,
       "norm_label": ".test_color_filtering()",
-      "community_name": "GroutColorTest",
+      "community_name": "TestCase",
       "id": "tests_feature_groutcolortest_groutcolortest_test_color_filtering"
     },
     {
@@ -18192,7 +18192,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "groutformulatest.php",
-      "community_name": "TestCase",
+      "community_name": "Color",
       "id": "tests_feature_groutformulatest"
     },
     {
@@ -18300,7 +18300,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "groutproductiontest.php",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "tests_feature_groutproductiontest"
     },
     {
@@ -18313,7 +18313,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": "groutproductiontest",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "tests_feature_groutproductiontest_groutproductiontest"
     },
     {
@@ -18325,7 +18325,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".setup()",
-      "community_name": "Grade",
+      "community_name": "TestCase",
       "id": "tests_feature_groutproductiontest_groutproductiontest_setup"
     },
     {
@@ -18337,7 +18337,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": ".test_supervisor_access_and_department_boundary()",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "tests_feature_groutproductiontest_groutproductiontest_test_supervisor_access_and_department_boundary"
     },
     {
@@ -18349,7 +18349,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": ".test_machine_m01_color_restriction()",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "tests_feature_groutproductiontest_groutproductiontest_test_machine_m01_color_restriction"
     },
     {
@@ -18361,7 +18361,7 @@
       "_origin": "ast",
       "community": 39,
       "norm_label": ".test_manual_machine_timer_and_proportional_deduction_workflow()",
-      "community_name": "TestFixtureSeeder.php",
+      "community_name": "TestCase",
       "id": "tests_feature_groutproductiontest_groutproductiontest_test_manual_machine_timer_and_proportional_deduction_workflow"
     },
     {
@@ -18372,7 +18372,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "marketingordertest.php",
-      "community_name": "TestCase",
+      "community_name": "Grade.php",
       "id": "tests_feature_marketingordertest"
     },
     {
@@ -18397,7 +18397,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": ".setup()",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "tests_feature_marketingordertest_marketingordertest_setup"
     },
     {
@@ -18528,7 +18528,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "masterstest.php",
-      "community_name": "TestCase",
+      "community_name": "MastersTest",
       "id": "tests_feature_masterstest"
     },
     {
@@ -18648,7 +18648,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "productionplanningtest.php",
-      "community_name": "TestCase",
+      "community_name": "Grade.php",
       "id": "tests_feature_productionplanningtest"
     },
     {
@@ -18661,7 +18661,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": "productionplanningtest",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest"
     },
     {
@@ -18673,7 +18673,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": ".setup()",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest_setup"
     },
     {
@@ -18685,7 +18685,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": ".test_admin_can_access_production_planning_page()",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest_test_admin_can_access_production_planning_page"
     },
     {
@@ -18697,7 +18697,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": ".test_supervisor_can_access_production_planning_page()",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest_test_supervisor_can_access_production_planning_page"
     },
     {
@@ -18709,7 +18709,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": ".test_unauthorized_roles_cannot_access_production_planning()",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest_test_unauthorized_roles_cannot_access_production_planning"
     },
     {
@@ -18721,7 +18721,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": ".test_production_planning_calculates_need_production_correctly()",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest_test_production_planning_calculates_need_production_correctly"
     },
     {
@@ -18733,7 +18733,7 @@
       "_origin": "ast",
       "community": 76,
       "norm_label": ".test_get_orders_drawer_api_returns_formatted_orders()",
-      "community_name": "ProductionPlanningTest",
+      "community_name": "User",
       "id": "tests_feature_productionplanningtest_productionplanningtest_test_get_orders_drawer_api_returns_formatted_orders"
     },
     {
@@ -18744,7 +18744,7 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "productiontest.php",
-      "community_name": "Grade.php",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest"
     },
     {
@@ -18757,7 +18757,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "productiontest",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest"
     },
     {
@@ -18769,7 +18769,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".setup()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_setup"
     },
     {
@@ -18781,7 +18781,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_guest_is_redirected_to_login()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_guest_is_redirected_to_login"
     },
     {
@@ -18793,7 +18793,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_supervisor_and_admin_can_access_production_index()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_supervisor_and_admin_can_access_production_index"
     },
     {
@@ -18805,7 +18805,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_supervisor_and_admin_can_access_production_create_form()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_supervisor_and_admin_can_access_production_create_form"
     },
     {
@@ -18817,7 +18817,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_can_start_and_complete_production_batch()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_can_start_and_complete_production_batch"
     },
     {
@@ -18829,7 +18829,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_cannot_start_multiple_running_batches_on_same_machine()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_cannot_start_multiple_running_batches_on_same_machine"
     },
     {
@@ -18841,7 +18841,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_cannot_start_batch_for_grade_without_active_formula()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_cannot_start_batch_for_grade_without_active_formula"
     },
     {
@@ -18853,7 +18853,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_output_based_material_consumption_deducts_actual_output_bags()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_output_based_material_consumption_deducts_actual_output_bags"
     },
     {
@@ -18865,7 +18865,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_pause_and_resume_production_batch()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_pause_and_resume_production_batch"
     },
     {
@@ -18877,7 +18877,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_cancel_production_batch()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_cancel_production_batch"
     },
     {
@@ -18889,7 +18889,7 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": ".test_complete_batch_stores_coupon_finished_goods_separately()",
-      "community_name": "Grade",
+      "community_name": "Machine",
       "id": "tests_feature_productiontest_productiontest_test_complete_batch_stores_coupon_finished_goods_separately"
     },
     {
@@ -18900,7 +18900,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "rawmaterialstest.php",
-      "community_name": "TestCase",
+      "community_name": "RawMaterialsTest",
       "id": "tests_feature_rawmaterialstest"
     },
     {
@@ -19008,7 +19008,7 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "reportstest.php",
-      "community_name": "Grade.php",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest"
     },
     {
@@ -19021,7 +19021,7 @@
       "_origin": "ast",
       "community": 81,
       "norm_label": "reportstest",
-      "community_name": "ReportsTest",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest_reportstest"
     },
     {
@@ -19033,7 +19033,7 @@
       "_origin": "ast",
       "community": 81,
       "norm_label": ".setup()",
-      "community_name": "ReportsTest",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest_reportstest_setup"
     },
     {
@@ -19045,7 +19045,7 @@
       "_origin": "ast",
       "community": 81,
       "norm_label": ".test_guest_is_redirected_to_login()",
-      "community_name": "ReportsTest",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest_reportstest_test_guest_is_redirected_to_login"
     },
     {
@@ -19057,7 +19057,7 @@
       "_origin": "ast",
       "community": 81,
       "norm_label": ".test_supervisor_can_access_reports()",
-      "community_name": "ReportsTest",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest_reportstest_test_supervisor_can_access_reports"
     },
     {
@@ -19069,7 +19069,7 @@
       "_origin": "ast",
       "community": 81,
       "norm_label": ".test_admin_can_access_daily_report_and_export_pdf()",
-      "community_name": "ReportsTest",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest_reportstest_test_admin_can_access_daily_report_and_export_pdf"
     },
     {
@@ -19081,7 +19081,7 @@
       "_origin": "ast",
       "community": 81,
       "norm_label": ".test_daily_report_includes_epoxy_component_preparations()",
-      "community_name": "ReportsTest",
+      "community_name": "ReportsTest.php",
       "id": "tests_feature_reportstest_reportstest_test_daily_report_includes_epoxy_component_preparations"
     },
     {
@@ -19326,7 +19326,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "illuminate\\database\\eloquent\\model",
-      "community_name": "Illuminate\\Database\\Eloquent\\Relations\\BelongsTo",
+      "community_name": "Illuminate\\Database\\Eloquent\\Model",
       "id": "illuminate_database_eloquent_model"
     },
     {
@@ -19370,7 +19370,7 @@
       "_origin": "ast",
       "community": 42,
       "norm_label": "illuminate\\database\\eloquent\\factories\\hasfactory",
-      "community_name": "UserDevice",
+      "community_name": "NotificationService",
       "id": "illuminate_database_eloquent_factories_hasfactory"
     },
     {
@@ -19381,7 +19381,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "illuminate\\database\\eloquent\\relations\\belongstomany",
-      "community_name": "Role",
+      "community_name": "User.php",
       "id": "illuminate_database_eloquent_relations_belongstomany"
     },
     {
@@ -19392,7 +19392,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "illuminate\\notifications\\notifiable",
-      "community_name": "User",
+      "community_name": "User.php",
       "id": "illuminate_notifications_notifiable"
     },
     {
@@ -19447,7 +19447,7 @@
       "_origin": "ast",
       "community": 50,
       "norm_label": "illuminate\\database\\eloquent\\factories\\factory",
-      "community_name": "static",
+      "community_name": "BagSize",
       "id": "illuminate_database_eloquent_factories_factory"
     },
     {
@@ -19458,7 +19458,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "illuminate\\database\\seeder",
-      "community_name": "Brand",
+      "community_name": "EpoxyFillerColor",
       "id": "illuminate_database_seeder"
     },
     {
@@ -19500,10 +19500,9 @@
       "source_file": "app/Helpers/helpers.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "helpers.php",
       "id": "app_helpers_helpers",
-      "community_name": "currentDepartment"
+      "community": 59,
+      "norm_label": "helpers.php"
     },
     {
       "label": "currentDepartment()",
@@ -19512,10 +19511,9 @@
       "source_location": "L9",
       "_callable": true,
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "currentdepartment()",
       "id": "app_helpers_helpers_currentdepartment",
-      "community_name": "currentDepartment"
+      "community": 59,
+      "norm_label": "currentdepartment()"
     },
     {
       "label": "availableDepartments()",
@@ -19524,10 +19522,9 @@
       "source_location": "L42",
       "_callable": true,
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "availabledepartments()",
       "id": "app_helpers_helpers_availabledepartments",
-      "community_name": "currentDepartment"
+      "community": 59,
+      "norm_label": "availabledepartments()"
     },
     {
       "label": "userDepartmentIds()",
@@ -19536,10 +19533,9 @@
       "source_location": "L59",
       "_callable": true,
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "userdepartmentids()",
       "id": "app_helpers_helpers_userdepartmentids",
-      "community_name": "currentDepartment"
+      "community": 59,
+      "norm_label": "userdepartmentids()"
     },
     {
       "label": "format_quantity()",
@@ -19548,10 +19544,9 @@
       "source_location": "L78",
       "_callable": true,
       "_origin": "ast",
-      "community": 60,
-      "norm_label": "format_quantity()",
       "id": "app_helpers_helpers_format_quantity",
-      "community_name": "EnterpriseTest"
+      "community": 60,
+      "norm_label": "format_quantity()"
     },
     {
       "label": "currentBrand()",
@@ -19560,10 +19555,9 @@
       "source_location": "L99",
       "_callable": true,
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "currentbrand()",
       "id": "app_helpers_helpers_currentbrand",
-      "community_name": "currentDepartment"
+      "community": 59,
+      "norm_label": "currentbrand()"
     },
     {
       "label": "availableBrands()",
@@ -19572,10 +19566,9 @@
       "source_location": "L111",
       "_callable": true,
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "availablebrands()",
       "id": "app_helpers_helpers_availablebrands",
-      "community_name": "currentDepartment"
+      "community": 59,
+      "norm_label": "availablebrands()"
     },
     {
       "label": "Admin/BrandController.php",
@@ -19583,10 +19576,9 @@
       "source_file": "app/Http/Controllers/Admin/BrandController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "admin/brandcontroller.php",
       "id": "app_http_controllers_admin_brandcontroller",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "admin/brandcontroller.php"
     },
     {
       "label": "BrandController",
@@ -19596,10 +19588,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brandcontroller",
       "id": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brandcontroller"
     },
     {
       "label": ".index()",
@@ -19608,10 +19599,9 @@
       "source_location": "L13",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".index()",
       "id": "app_http_controllers_admin_brandcontroller_brandcontroller_index",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".index()"
     },
     {
       "label": ".create()",
@@ -19620,10 +19610,9 @@
       "source_location": "L32",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".create()",
       "id": "app_http_controllers_admin_brandcontroller_brandcontroller_create",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".create()"
     },
     {
       "label": ".store()",
@@ -19632,10 +19621,9 @@
       "source_location": "L37",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".store()",
       "id": "app_http_controllers_admin_brandcontroller_brandcontroller_store",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".store()"
     },
     {
       "label": ".edit()",
@@ -19644,10 +19632,9 @@
       "source_location": "L45",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".edit()",
       "id": "app_http_controllers_admin_brandcontroller_brandcontroller_edit",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".edit()"
     },
     {
       "label": ".update()",
@@ -19656,10 +19643,9 @@
       "source_location": "L50",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".update()",
       "id": "app_http_controllers_admin_brandcontroller_brandcontroller_update",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".update()"
     },
     {
       "label": "Shared/BrandController.php",
@@ -19667,10 +19653,9 @@
       "source_file": "app/Http/Controllers/Shared/BrandController.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "shared/brandcontroller.php",
       "id": "app_http_controllers_shared_brandcontroller",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "shared/brandcontroller.php"
     },
     {
       "label": "BrandController",
@@ -19680,10 +19665,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brandcontroller",
       "id": "app_http_controllers_shared_brandcontroller_brandcontroller",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brandcontroller"
     },
     {
       "label": ".switch()",
@@ -19692,10 +19676,9 @@
       "source_location": "L15",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".switch()",
       "id": "app_http_controllers_shared_brandcontroller_brandcontroller_switch",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".switch()"
     },
     {
       "label": "StoreBrandRequest.php",
@@ -19703,10 +19686,9 @@
       "source_file": "app/Http/Requests/Admin/StoreBrandRequest.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "storebrandrequest.php",
       "id": "app_http_requests_admin_storebrandrequest",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "storebrandrequest.php"
     },
     {
       "label": "StoreBrandRequest",
@@ -19716,10 +19698,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "storebrandrequest",
       "id": "app_http_requests_admin_storebrandrequest_storebrandrequest",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "storebrandrequest"
     },
     {
       "label": ".authorize()",
@@ -19728,10 +19709,9 @@
       "source_location": "L9",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".authorize()",
       "id": "app_http_requests_admin_storebrandrequest_storebrandrequest_authorize",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".authorize()"
     },
     {
       "label": ".rules()",
@@ -19740,10 +19720,9 @@
       "source_location": "L14",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".rules()",
       "id": "app_http_requests_admin_storebrandrequest_storebrandrequest_rules",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".rules()"
     },
     {
       "label": "UpdateBrandRequest.php",
@@ -19751,10 +19730,9 @@
       "source_file": "app/Http/Requests/Admin/UpdateBrandRequest.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "updatebrandrequest.php",
       "id": "app_http_requests_admin_updatebrandrequest",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "updatebrandrequest.php"
     },
     {
       "label": "UpdateBrandRequest",
@@ -19764,10 +19742,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "updatebrandrequest",
       "id": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "updatebrandrequest"
     },
     {
       "label": ".authorize()",
@@ -19776,10 +19753,9 @@
       "source_location": "L9",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".authorize()",
       "id": "app_http_requests_admin_updatebrandrequest_updatebrandrequest_authorize",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".authorize()"
     },
     {
       "label": ".rules()",
@@ -19788,10 +19764,9 @@
       "source_location": "L14",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".rules()",
       "id": "app_http_requests_admin_updatebrandrequest_updatebrandrequest_rules",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".rules()"
     },
     {
       "label": "Brand.php",
@@ -19799,10 +19774,9 @@
       "source_file": "app/Models/Brand.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brand.php",
       "id": "app_models_brand",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brand.php"
     },
     {
       "label": "Brand",
@@ -19812,10 +19786,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brand",
       "id": "app_models_brand_brand",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brand"
     },
     {
       "label": ".brandProducts()",
@@ -19824,10 +19797,9 @@
       "source_location": "L23",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".brandproducts()",
       "id": "app_models_brand_brand_brandproducts",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".brandproducts()"
     },
     {
       "label": ".finishedGoods()",
@@ -19836,10 +19808,9 @@
       "source_location": "L28",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".finishedgoods()",
       "id": "app_models_brand_brand_finishedgoods",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".finishedgoods()"
     },
     {
       "label": ".scopeActive()",
@@ -19848,10 +19819,9 @@
       "source_location": "L34",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".scopeactive()",
       "id": "app_models_brand_brand_scopeactive",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".scopeactive()"
     },
     {
       "label": "BrandContextService.php",
@@ -19859,10 +19829,9 @@
       "source_file": "app/Services/BrandContextService.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brandcontextservice.php",
       "id": "app_services_brandcontextservice",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brandcontextservice.php"
     },
     {
       "label": "BrandContextService",
@@ -19872,10 +19841,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brandcontextservice",
       "id": "app_services_brandcontextservice_brandcontextservice",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brandcontextservice"
     },
     {
       "label": ".current()",
@@ -19884,10 +19852,9 @@
       "source_location": "L14",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".current()",
       "id": "app_services_brandcontextservice_brandcontextservice_current",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".current()"
     },
     {
       "label": ".switch()",
@@ -19896,10 +19863,9 @@
       "source_location": "L40",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".switch()",
       "id": "app_services_brandcontextservice_brandcontextservice_switch",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".switch()"
     },
     {
       "label": ".available()",
@@ -19908,10 +19874,9 @@
       "source_location": "L58",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".available()",
       "id": "app_services_brandcontextservice_brandcontextservice_available",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".available()"
     },
     {
       "label": ".defaultBrand()",
@@ -19920,10 +19885,9 @@
       "source_location": "L66",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".defaultbrand()",
       "id": "app_services_brandcontextservice_brandcontextservice_defaultbrand",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".defaultbrand()"
     },
     {
       "label": "2026_08_14_000001_create_brands_table.php",
@@ -19931,10 +19895,9 @@
       "source_file": "database/migrations/2026_08_14_000001_create_brands_table.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 154,
-      "norm_label": "2026_08_14_000001_create_brands_table.php",
       "id": "database_migrations_2026_08_14_000001_create_brands_table",
-      "community_name": "2026_08_14_000001_create_brands_table.php"
+      "community": 154,
+      "norm_label": "2026_08_14_000001_create_brands_table.php"
     },
     {
       "label": "up()",
@@ -19943,10 +19906,9 @@
       "source_location": "L8",
       "_callable": true,
       "_origin": "ast",
-      "community": 154,
-      "norm_label": "up()",
       "id": "database_migrations_2026_08_14_000001_create_brands_table_up",
-      "community_name": "2026_08_14_000001_create_brands_table.php"
+      "community": 154,
+      "norm_label": "up()"
     },
     {
       "label": "down()",
@@ -19955,10 +19917,9 @@
       "source_location": "L21",
       "_callable": true,
       "_origin": "ast",
-      "community": 154,
-      "norm_label": "down()",
       "id": "database_migrations_2026_08_14_000001_create_brands_table_down",
-      "community_name": "2026_08_14_000001_create_brands_table.php"
+      "community": 154,
+      "norm_label": "down()"
     },
     {
       "label": "BrandSeeder.php",
@@ -19966,10 +19927,9 @@
       "source_file": "database/seeders/BrandSeeder.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brandseeder.php",
       "id": "database_seeders_brandseeder",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brandseeder.php"
     },
     {
       "label": "BrandSeeder",
@@ -19979,10 +19939,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": "brandseeder",
       "id": "database_seeders_brandseeder_brandseeder",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": "brandseeder"
     },
     {
       "label": ".run()",
@@ -19991,10 +19950,9 @@
       "source_location": "L10",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
-      "norm_label": ".run()",
       "id": "database_seeders_brandseeder_brandseeder_run",
-      "community_name": "Brand"
+      "community": 3,
+      "norm_label": ".run()"
     },
     {
       "label": "DatabaseSeeder.php",
@@ -20002,10 +19960,9 @@
       "source_file": "database/seeders/DatabaseSeeder.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 4,
-      "norm_label": "databaseseeder.php",
       "id": "database_seeders_databaseseeder",
-      "community_name": "Role"
+      "community": 4,
+      "norm_label": "databaseseeder.php"
     },
     {
       "label": "DatabaseSeeder",
@@ -20015,10 +19972,9 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 4,
-      "norm_label": "databaseseeder",
       "id": "database_seeders_databaseseeder_databaseseeder",
-      "community_name": "Role"
+      "community": 4,
+      "norm_label": "databaseseeder"
     },
     {
       "label": ".run()",
@@ -20027,10 +19983,9 @@
       "source_location": "L17",
       "_callable": true,
       "_origin": "ast",
-      "community": 4,
-      "norm_label": ".run()",
       "id": "database_seeders_databaseseeder_databaseseeder_run",
-      "community_name": "Role"
+      "community": 4,
+      "norm_label": ".run()"
     },
     {
       "label": "brands/create.blade.php",
@@ -20038,10 +19993,9 @@
       "source_file": "resources/views/admin/brands/create.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 204,
-      "norm_label": "brands/create.blade.php",
       "id": "resources_views_admin_brands_create_blade",
-      "community_name": "brands/create.blade.php"
+      "community": 204,
+      "norm_label": "brands/create.blade.php"
     },
     {
       "label": "brands/edit.blade.php",
@@ -20049,10 +20003,9 @@
       "source_file": "resources/views/admin/brands/edit.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 205,
-      "norm_label": "brands/edit.blade.php",
       "id": "resources_views_admin_brands_edit_blade",
-      "community_name": "brands/edit.blade.php"
+      "community": 205,
+      "norm_label": "brands/edit.blade.php"
     },
     {
       "label": "brands/index.blade.php",
@@ -20060,10 +20013,9 @@
       "source_file": "resources/views/admin/brands/index.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 206,
-      "norm_label": "brands/index.blade.php",
       "id": "resources_views_admin_brands_index_blade",
-      "community_name": "brands/index.blade.php"
+      "community": 206,
+      "norm_label": "brands/index.blade.php"
     },
     {
       "label": "sidebar.blade.php",
@@ -20071,10 +20023,9 @@
       "source_file": "resources/views/components/sidebar.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 255,
-      "norm_label": "sidebar.blade.php",
       "id": "resources_views_components_sidebar_blade",
-      "community_name": "sidebar.blade.php"
+      "community": 255,
+      "norm_label": "sidebar.blade.php"
     },
     {
       "label": "app.blade.php",
@@ -20082,10 +20033,9 @@
       "source_file": "resources/views/layouts/app.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 159,
-      "norm_label": "app.blade.php",
       "id": "resources_views_layouts_app_blade",
-      "community_name": "partials.pwa"
+      "community": 159,
+      "norm_label": "app.blade.php"
     },
     {
       "label": "partials.pwa",
@@ -20093,10 +20043,9 @@
       "source_file": "resources/views/layouts/app.blade.php",
       "source_location": null,
       "_origin": "ast",
-      "community": 159,
-      "norm_label": "partials.pwa",
       "id": "partials_pwa",
-      "community_name": "partials.pwa"
+      "community": 159,
+      "norm_label": "partials.pwa"
     },
     {
       "label": "web.php",
@@ -20104,10 +20053,9 @@
       "source_file": "routes/web.php",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 37,
-      "norm_label": "web.php",
       "id": "routes_web",
-      "community_name": "Notification"
+      "community": 37,
+      "norm_label": "web.php"
     }
   ],
   "links": [
@@ -27036,9 +26984,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller",
-      "target": "app_http_controllers_controller"
+      "target": "app_http_controllers_controller",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -27047,9 +26995,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_controller"
+      "target": "app_http_controllers_controller",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -27070,9 +27018,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller",
-      "target": "app_http_controllers_controller"
+      "target": "app_http_controllers_controller",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -27081,9 +27029,9 @@
       "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_controller"
+      "target": "app_http_controllers_controller",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -31627,9 +31575,9 @@
       "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "routes_web",
-      "target": "app_http_controllers_shared_logincontroller"
+      "target": "app_http_controllers_shared_logincontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -43989,9 +43937,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder",
-      "target": "app_models_permission"
+      "target": "app_models_permission",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -45388,9 +45336,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder",
-      "target": "app_models_role"
+      "target": "app_models_role",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -45684,9 +45632,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder",
-      "target": "app_models_setting"
+      "target": "app_models_setting",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -47070,9 +47018,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder",
-      "target": "app_models_user"
+      "target": "app_models_user",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -53232,9 +53180,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "routes_web",
-      "target": "config_auth"
+      "target": "config_auth",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -58822,9 +58770,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller",
-      "target": "illuminate_http_request"
+      "target": "illuminate_http_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -58834,9 +58782,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_index",
-      "target": "illuminate_http_request"
+      "target": "illuminate_http_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58846,9 +58794,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller",
-      "target": "illuminate_http_request"
+      "target": "illuminate_http_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -58858,9 +58806,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller_brandcontroller_switch",
-      "target": "illuminate_http_request"
+      "target": "illuminate_http_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58870,9 +58818,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_storebrandrequest",
-      "target": "illuminate_foundation_http_formrequest"
+      "target": "illuminate_foundation_http_formrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -58881,9 +58829,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_storebrandrequest_storebrandrequest",
-      "target": "illuminate_foundation_http_formrequest"
+      "target": "illuminate_foundation_http_formrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58893,9 +58841,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_updatebrandrequest",
-      "target": "illuminate_foundation_http_formrequest"
+      "target": "illuminate_foundation_http_formrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -58904,9 +58852,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
-      "target": "illuminate_foundation_http_formrequest"
+      "target": "illuminate_foundation_http_formrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58916,9 +58864,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand",
-      "target": "illuminate_database_eloquent_model"
+      "target": "illuminate_database_eloquent_model",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -58927,9 +58875,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand_brand",
-      "target": "illuminate_database_eloquent_model"
+      "target": "illuminate_database_eloquent_model",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58939,9 +58887,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand",
-      "target": "illuminate_database_eloquent_relations_hasmany"
+      "target": "illuminate_database_eloquent_relations_hasmany",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -58951,9 +58899,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand_brand_brandproducts",
-      "target": "illuminate_database_eloquent_relations_hasmany"
+      "target": "illuminate_database_eloquent_relations_hasmany",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -58963,9 +58911,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand_brand_finishedgoods",
-      "target": "illuminate_database_eloquent_relations_hasmany"
+      "target": "illuminate_database_eloquent_relations_hasmany",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58975,9 +58923,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice",
-      "target": "illuminate_support_collection"
+      "target": "illuminate_support_collection",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -58987,9 +58935,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice_available",
-      "target": "illuminate_support_collection"
+      "target": "illuminate_support_collection",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -58999,9 +58947,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_brandseeder",
-      "target": "illuminate_database_seeder"
+      "target": "illuminate_database_seeder",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -59010,9 +58958,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_brandseeder_brandseeder",
-      "target": "illuminate_database_seeder"
+      "target": "illuminate_database_seeder",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59022,9 +58970,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder",
-      "target": "illuminate_database_seeder"
+      "target": "illuminate_database_seeder",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -59033,9 +58981,9 @@
       "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder_databaseseeder",
-      "target": "illuminate_database_seeder"
+      "target": "illuminate_database_seeder",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59044,9 +58992,9 @@
       "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers",
-      "target": "app_helpers_helpers_availablebrands"
+      "target": "app_helpers_helpers_availablebrands",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59055,9 +59003,9 @@
       "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers",
-      "target": "app_helpers_helpers_availabledepartments"
+      "target": "app_helpers_helpers_availabledepartments",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59066,9 +59014,9 @@
       "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers",
-      "target": "app_helpers_helpers_currentbrand"
+      "target": "app_helpers_helpers_currentbrand",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59077,9 +59025,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers",
-      "target": "app_helpers_helpers_currentdepartment"
+      "target": "app_helpers_helpers_currentdepartment",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59088,9 +59036,9 @@
       "source_location": "L78",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers",
-      "target": "app_helpers_helpers_format_quantity"
+      "target": "app_helpers_helpers_format_quantity",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59099,9 +59047,9 @@
       "source_location": "L59",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers",
-      "target": "app_helpers_helpers_userdepartmentids"
+      "target": "app_helpers_helpers_userdepartmentids",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59111,9 +59059,9 @@
       "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_helpers_helpers_currentdepartment",
-      "target": "app_helpers_helpers_availabledepartments"
+      "target": "app_helpers_helpers_availabledepartments",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59122,9 +59070,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller",
-      "target": "app_http_controllers_admin_brandcontroller_brandcontroller"
+      "target": "app_http_controllers_admin_brandcontroller_brandcontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59134,9 +59082,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller",
-      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest"
+      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59146,9 +59094,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller",
-      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest"
+      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59158,9 +59106,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59169,9 +59117,9 @@
       "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_create"
+      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_create",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59180,9 +59128,9 @@
       "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_edit"
+      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_edit",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59191,9 +59139,9 @@
       "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_index"
+      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_index",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59202,9 +59150,9 @@
       "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_store"
+      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_store",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59213,9 +59161,9 @@
       "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_update"
+      "target": "app_http_controllers_admin_brandcontroller_brandcontroller_update",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59225,9 +59173,9 @@
       "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_index",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -59237,9 +59185,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_store",
-      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest"
+      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59249,9 +59197,9 @@
       "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_store",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -59261,9 +59209,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_edit",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -59273,9 +59221,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_update",
-      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest"
+      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -59285,9 +59233,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_admin_brandcontroller_brandcontroller_update",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59296,9 +59244,9 @@
       "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller",
-      "target": "app_http_controllers_shared_brandcontroller_brandcontroller"
+      "target": "app_http_controllers_shared_brandcontroller_brandcontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59308,9 +59256,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller",
-      "target": "app_models_brand"
+      "target": "app_models_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59320,9 +59268,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller",
-      "target": "app_services_brandcontextservice"
+      "target": "app_services_brandcontextservice",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59331,9 +59279,9 @@
       "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_shared_brandcontroller_brandcontroller",
-      "target": "app_http_controllers_shared_brandcontroller_brandcontroller_switch"
+      "target": "app_http_controllers_shared_brandcontroller_brandcontroller_switch",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59354,9 +59302,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_storebrandrequest",
-      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest"
+      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59365,9 +59313,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_storebrandrequest_storebrandrequest",
-      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest_authorize"
+      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest_authorize",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59376,9 +59324,9 @@
       "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_storebrandrequest_storebrandrequest",
-      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest_rules"
+      "target": "app_http_requests_admin_storebrandrequest_storebrandrequest_rules",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59387,9 +59335,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_updatebrandrequest",
-      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest"
+      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59398,9 +59346,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
-      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest_authorize"
+      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest_authorize",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59409,9 +59357,9 @@
       "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_requests_admin_updatebrandrequest_updatebrandrequest",
-      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest_rules"
+      "target": "app_http_requests_admin_updatebrandrequest_updatebrandrequest_rules",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59420,9 +59368,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59432,9 +59380,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_brandseeder",
-      "target": "app_models_brand"
+      "target": "app_models_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59443,9 +59391,9 @@
       "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand_brand",
-      "target": "app_models_brand_brand_brandproducts"
+      "target": "app_models_brand_brand_brandproducts",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59454,9 +59402,9 @@
       "source_location": "L28",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand_brand",
-      "target": "app_models_brand_brand_finishedgoods"
+      "target": "app_models_brand_brand_finishedgoods",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59465,9 +59413,9 @@
       "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_brand_brand",
-      "target": "app_models_brand_brand_scopeactive"
+      "target": "app_models_brand_brand_scopeactive",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -59477,9 +59425,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59489,9 +59437,9 @@
       "source_location": "L60",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice_available",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -59501,9 +59449,9 @@
       "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice_current",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "references_constant",
@@ -59525,9 +59473,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice_switch",
-      "target": "app_models_brand_brand"
+      "target": "app_models_brand_brand",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59548,9 +59496,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice",
-      "target": "app_services_brandcontextservice_brandcontextservice"
+      "target": "app_services_brandcontextservice_brandcontextservice",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59559,9 +59507,9 @@
       "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice",
-      "target": "app_services_brandcontextservice_brandcontextservice_available"
+      "target": "app_services_brandcontextservice_brandcontextservice_available",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59570,9 +59518,9 @@
       "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice",
-      "target": "app_services_brandcontextservice_brandcontextservice_current"
+      "target": "app_services_brandcontextservice_brandcontextservice_current",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59581,9 +59529,9 @@
       "source_location": "L66",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice",
-      "target": "app_services_brandcontextservice_brandcontextservice_defaultbrand"
+      "target": "app_services_brandcontextservice_brandcontextservice_defaultbrand",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59592,9 +59540,9 @@
       "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice",
-      "target": "app_services_brandcontextservice_brandcontextservice_switch"
+      "target": "app_services_brandcontextservice_brandcontextservice_switch",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -59604,9 +59552,9 @@
       "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_services_brandcontextservice_brandcontextservice_current",
-      "target": "app_services_brandcontextservice_brandcontextservice_defaultbrand"
+      "target": "app_services_brandcontextservice_brandcontextservice_defaultbrand",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59615,9 +59563,9 @@
       "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_migrations_2026_08_14_000001_create_brands_table",
-      "target": "database_migrations_2026_08_14_000001_create_brands_table_down"
+      "target": "database_migrations_2026_08_14_000001_create_brands_table_down",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59626,9 +59574,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_migrations_2026_08_14_000001_create_brands_table",
-      "target": "database_migrations_2026_08_14_000001_create_brands_table_up"
+      "target": "database_migrations_2026_08_14_000001_create_brands_table_up",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59637,9 +59585,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_brandseeder",
-      "target": "database_seeders_brandseeder_brandseeder"
+      "target": "database_seeders_brandseeder_brandseeder",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59648,9 +59596,9 @@
       "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_brandseeder_brandseeder",
-      "target": "database_seeders_brandseeder_brandseeder_run"
+      "target": "database_seeders_brandseeder_brandseeder_run",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59659,9 +59607,9 @@
       "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder",
-      "target": "database_seeders_databaseseeder_databaseseeder"
+      "target": "database_seeders_databaseseeder_databaseseeder",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -59670,9 +59618,9 @@
       "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "database_seeders_databaseseeder_databaseseeder",
-      "target": "database_seeders_databaseseeder_databaseseeder_run"
+      "target": "database_seeders_databaseseeder_databaseseeder_run",
+      "confidence_score": 1.0
     },
     {
       "relation": "includes",

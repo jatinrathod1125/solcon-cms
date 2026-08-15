@@ -2696,41 +2696,8 @@
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `User` connect `User` to `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo`, `GroutFormula`, `Role`, `TestCase`, `Grade`, `EpoxyComponentFormula`, `EpoxyProduct`, `Dispatch`, `FactoryAdminController`, `FinishedGood`, `Todo`, `EpoxyAssembly`, `ActivityLogService`, `TestFixtureSeeder.php`, `SettingService`, `UserDevice`, `NotificationService`, `.log`, `AuthTest`, `currentDepartment`, `EnterpriseTest`, `FactoryAdminTest`, `MastersTest`, `RawMaterialsTest`, `SystemService.php`, `GroutColorTest`, `ProductionPlanningTest`, `DepartmentAccessService`, `GradesTest`, `ReportsTest`, `FormulasTest.php`, `.department`, `HasMany`?",
-      "why": "High betweenness centrality (0.063) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `TestCase` connect `TestCase` to `GroutFormula`, `Role`, `User`, `package.json`, `Grade`, `FinishedGood`, `Todo`, `EpoxyAssembly`, `Grade.php`, `TestFixtureSeeder.php`, `SettingService`, `UserDevice`, `MarketingOrderTest`, `AuthTest`, `EnterpriseTest`, `FactoryAdminTest`, `MastersTest`, `RawMaterialsTest`, `GroutColorTest`, `ProductionPlanningTest`, `GradesTest`, `ReportsTest`, `FormulasTest.php`?",
-      "why": "High betweenness centrality (0.057) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `RawMaterial` connect `RawMaterial` to `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo`, `MarketingOrder`, `GroutFormula`, `Color`, `TestCase`, `Grade`, `EpoxyComponentFormula`, `EpoxyProduct`, `ProductionBatch`, `EpoxyFormula`, `MarketingOrderItem`, `EpoxyComponent`, `EpoxyAssembly`, `Grade.php`, `TestFixtureSeeder.php`, `Controller`, `Formula`, `DashboardService`, `FormulaController.php`, `MarketingOrderTest`, `ProductionController.php`, `currentDepartment`, `EnterpriseTest`, `RawMaterialsTest`, `FinishedGoodsController`, `FormulasTest.php`?",
-      "why": "High betweenness centrality (0.044) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 81 inferred relationships involving `User` (e.g. with `.activityLogs()` and `.create()`) actually correct?",
-      "why": "`User` has 81 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `$schema`, `name`, `type` to the rest of the system?",
-      "why": "110 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.0546448087431694 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `MarketingOrder` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.06802721088435375 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
 }
