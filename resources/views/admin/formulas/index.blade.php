@@ -39,9 +39,22 @@
                                 {{ $formula->grade->code }}
                             </td>
                             
-                            <!-- Grade Name -->
-                            <td class="p-4 font-semibold text-white">
-                                {{ $formula->grade->name }}
+                            <!-- Grade Name & Brand -->
+                            <td class="p-4">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-semibold text-white">{{ $formula->grade->name }}</span>
+                                    @if($formula->brand)
+                                    <span
+                                        class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
+                                        {{ $formula->brand->name }}
+                                    </span>
+                                    @elseif($formula->grade?->brand)
+                                    <span
+                                        class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
+                                        {{ $formula->grade->brand->name }}
+                                    </span>
+                                    @endif
+                                </div>
                             </td>
                             
                             <!-- Version -->

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreGradeRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class StoreGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'name' => ['required', 'string', 'max:255', 'unique:grades,name'],
             'code' => ['required', 'string', 'max:50', 'unique:grades,code'],
             'department_id' => ['required', 'exists:departments,id'],

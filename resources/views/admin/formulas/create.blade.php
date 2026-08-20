@@ -46,14 +46,26 @@
         // Raw Material dropdown options
         const rawMaterials = [
             @foreach($rawMaterials as $mat)
-                { id: "{{ $mat->id }}", code: "{{ $mat->code }}", name: "{{ $mat->name }}" },
+                {
+                    id: "{{ $mat->id }}",
+                    code: "{{ addslashes($mat->code) }}",
+                    name: "{{ addslashes($mat->name) }}",
+                    brand_id: "{{ $mat->brand_id ?? '' }}",
+                    brand_name: "{{ addslashes($mat->brand->name ?? '') }}"
+                },
             @endforeach
         ];
 
         // Packing Material dropdown options
         const packingMaterials = [
             @foreach($packingMaterials as $pm)
-                { id: "{{ $pm->id }}", name: "{{ $pm->name }}", category: "{{ $pm->category->name ?? 'Packing' }}" },
+                {
+                    id: "{{ $pm->id }}",
+                    name: "{{ addslashes($pm->name) }}",
+                    category: "{{ addslashes($pm->category->name ?? 'Packing') }}",
+                    brand_id: "{{ $pm->brand_id ?? '' }}",
+                    brand_name: "{{ addslashes($pm->brand->name ?? '') }}"
+                },
             @endforeach
         ];
 
@@ -63,6 +75,145 @@
                 { id: "{{ $unit->id }}", code: "{{ $unit->code }}" },
             @endforeach
         ];
+
+        // Grades list with brand association
+        const allGrades = [
+            @foreach($grades as $grade)
+                {
+                    id: "{{ $grade->id }}",
+                    name: "{{ addslashes($grade->name) }}",
+                    code: "{{ addslashes($grade->code) }}",
+                    brand_id: "{{ $grade->brand_id ?? '' }}",
+                    brand_name: "{{ addslashes($grade->brand->name ?? '') }}"
+                },
+            @endforeach
+        ];
+
+        function getFilteredGrades(selectedBrandId) {
+            return allGrades.filter(function(grade) {
+                return !selectedBrandId || grade.brand_id === selectedBrandId || !grade.brand_id;
+            });
+        }
+
+        function getFilteredRawMaterials(selectedBrandId) {
+            return rawMaterials.filter(function(mat) {
+                return !selectedBrandId || mat.brand_id === selectedBrandId || !mat.brand_id;
+            });
+        }
+
+        function getFilteredPackingMaterials(selectedBrandId) {
+            return packingMaterials.filter(function(pm) {
+                return !selectedBrandId || pm.brand_id === selectedBrandId || !pm.brand_id;
+            });
+        }
+
+        function filterAllByBrand(preserveSelected = true) {
+            const selectedBrandId = $('#brand_id').val();
+
+            // 1. Filter Grade Assignment dropdown
+            const currentGradeId = $('#grade_id').val();
+            const $gradeSelect = $('#grade_id');
+            $gradeSelect.empty();
+            $gradeSelect.append('<option value="">Select Grade</option>');
+
+            const filteredGrades = getFilteredGrades(selectedBrandId);
+            let hasCurrentGrade = false;
+
+            filteredGrades.forEach(function(grade) {
+                const brandSuffix = grade.brand_name ? ` - [${grade.brand_name}]` : '';
+                const isSelected = preserveSelected && currentGradeId && currentGradeId == grade.id;
+                if (isSelected) hasCurrentGrade = true;
+
+                $gradeSelect.append(
+                    $('<option></option>')
+                        .val(grade.id)
+                        .attr('data-brand-id', grade.brand_id)
+                        .text(`${grade.name} (${grade.code})${brandSuffix}`)
+                        .prop('selected', isSelected)
+                );
+            });
+
+            if (preserveSelected && hasCurrentGrade) {
+                $gradeSelect.val(currentGradeId);
+            }
+
+            // 2. Filter Raw Materials & Packing Materials in all existing rows
+            const filteredRaw = getFilteredRawMaterials(selectedBrandId);
+            const filteredPacking = getFilteredPackingMaterials(selectedBrandId);
+
+            $('#items-tbody tr').each(function() {
+                const $rawSelect = $(this).find('select[name*="[raw_material_id]"]');
+                const $packingSelect = $(this).find('select[name*="[packing_material_id]"]');
+
+                if ($rawSelect.length) {
+                    const currentRawId = $rawSelect.val();
+                    $rawSelect.empty();
+                    $rawSelect.append('<option value="">Select Raw Material</option>');
+                    let hasCurrentRaw = false;
+
+                    filteredRaw.forEach(function(mat) {
+                        const brandSuffix = mat.brand_name ? ` - [${mat.brand_name}]` : '';
+                        const isSelected = preserveSelected && currentRawId && currentRawId == mat.id;
+                        if (isSelected) hasCurrentRaw = true;
+
+                        $rawSelect.append(
+                            $('<option></option>')
+                                .val(mat.id)
+                                .text(`${mat.name} (${mat.code})${brandSuffix}`)
+                                .prop('selected', isSelected)
+                        );
+                    });
+
+                    if (preserveSelected && hasCurrentRaw) {
+                        $rawSelect.val(currentRawId);
+                    }
+                }
+
+                if ($packingSelect.length) {
+                    const currentPackingId = $packingSelect.val();
+                    $packingSelect.empty();
+                    $packingSelect.append('<option value="">Select Packing Material</option>');
+                    let hasCurrentPacking = false;
+
+                    filteredPacking.forEach(function(pm) {
+                        const brandSuffix = pm.brand_name ? ` - [${pm.brand_name}]` : '';
+                        const isSelected = preserveSelected && currentPackingId && currentPackingId == pm.id;
+                        if (isSelected) hasCurrentPacking = true;
+
+                        $packingSelect.append(
+                            $('<option></option>')
+                                .val(pm.id)
+                                .text(`${pm.name} (${pm.category})${brandSuffix}`)
+                                .prop('selected', isSelected)
+                        );
+                    });
+
+                    if (preserveSelected && hasCurrentPacking) {
+                        $packingSelect.val(currentPackingId);
+                    }
+                }
+            });
+        }
+
+        // On Brand change, filter grades and ingredient materials
+        $('#brand_id').on('change', function() {
+            filterAllByBrand(false);
+        });
+
+        // When a grade is selected, if brand is not chosen yet, auto-select the grade's brand
+        $('#grade_id').on('change', function() {
+            const selectedGradeId = $(this).val();
+            if (selectedGradeId) {
+                const gradeObj = allGrades.find(g => g.id == selectedGradeId);
+                if (gradeObj && gradeObj.brand_id && !$('#brand_id').val()) {
+                    $('#brand_id').val(gradeObj.brand_id);
+                    filterAllByBrand(true);
+                }
+            }
+        });
+
+        // Initialize filtering on page load
+        filterAllByBrand(true);
 
         // Item type toggle handler
         $(document).on('change', '.item-type-select', function() {
@@ -76,8 +227,10 @@
             }
         });
 
-        // Add initial row on load
-        addRow();
+        // Add initial row on load if table empty
+        if ($('#items-tbody tr').length === 0) {
+            addRow();
+        }
 
         // Add row event trigger
         $('#add-row').click(function() {
@@ -92,14 +245,20 @@
 
         function addRow() {
             rowCount++;
+            const selectedBrandId = $('#brand_id').val();
+            const filteredRaw = getFilteredRawMaterials(selectedBrandId);
+            const filteredPacking = getFilteredPackingMaterials(selectedBrandId);
+
             let rawMaterialOptions = '<option value="">Select Raw Material</option>';
-            rawMaterials.forEach(function(mat) {
-                rawMaterialOptions += `<option value="${mat.id}">${mat.name} (${mat.code})</option>`;
+            filteredRaw.forEach(function(mat) {
+                const brandSuffix = mat.brand_name ? ` - [${mat.brand_name}]` : '';
+                rawMaterialOptions += `<option value="${mat.id}">${mat.name} (${mat.code})${brandSuffix}</option>`;
             });
 
             let packingMaterialOptions = '<option value="">Select Packing Material</option>';
-            packingMaterials.forEach(function(pm) {
-                packingMaterialOptions += `<option value="${pm.id}">${pm.name} (${pm.category})</option>`;
+            filteredPacking.forEach(function(pm) {
+                const brandSuffix = pm.brand_name ? ` - [${pm.brand_name}]` : '';
+                packingMaterialOptions += `<option value="${pm.id}">${pm.name} (${pm.category})${brandSuffix}</option>`;
             });
 
             let unitOptions = '';

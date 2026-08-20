@@ -21,11 +21,20 @@
     <div class="bg-slate-955 border border-slate-850 rounded-2xl shadow-xl p-6 md:p-8 space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-850 pb-6">
             <div>
-                <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                <h3 class="text-xl font-bold text-white flex items-center gap-3 flex-wrap">
                     <span>{{ $formula->grade->name }}</span>
                     <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-900 text-xs font-mono font-bold">
                         v{{ $formula->version }}
                     </span>
+                    @if($formula->brand)
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
+                        {{ $formula->brand->name }}
+                    </span>
+                    @elseif($formula->grade?->brand)
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
+                        {{ $formula->grade->brand->name }}
+                    </span>
+                    @endif
                 </h3>
                 <p class="text-sm text-slate-500 mt-1">Grade Code: <span class="font-mono text-slate-350">{{ $formula->grade->code }}</span></p>
             </div>

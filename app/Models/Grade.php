@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
+    'brand_id',
     'department_id',
     'name',
     'code',
@@ -87,5 +88,40 @@ class Grade extends Model
     public function activeFormula(): HasOne
     {
         return $this->hasOne(Formula::class)->where('is_active', true);
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
+    /**
+     * Scope a query to include grades for a specific brand or common grades (brand_id IS NULL).
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+        return $query->where(function ($q) use ($brandId) {
+            $q->where('brand_id', $brandId)
+                ->orWhereNull('brand_id');
+        });
+    }
+    /**
+     * Scope a query to include grades for the current session brand or common grades.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
     }
 }

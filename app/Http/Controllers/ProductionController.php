@@ -119,10 +119,13 @@ class ProductionController extends Controller
 
         // Filter options for dropdowns
         $filterMachinesQuery = Machine::where('is_active', true);
-        $filterGradesQuery = Grade::where('is_active', true);
+        $filterGradesQuery = Grade::where('is_active', true)->whereHas('activeFormula');
         if ($isSupervisor) {
             $filterMachinesQuery->where('department_id', $user->department_id);
             $filterGradesQuery->where('department_id', $user->department_id);
+        }
+        if (function_exists('currentBrand') && currentBrand()) {
+            $filterGradesQuery->forBrand(currentBrand());
         }
         $machines = $filterMachinesQuery->orderBy('name')->get();
         $grades = $filterGradesQuery->orderBy('name')->get();
@@ -166,6 +169,10 @@ class ProductionController extends Controller
         if ($isSupervisor) {
             $machinesQuery->where('department_id', $user->department_id);
             $gradesQuery->where('department_id', $user->department_id);
+        }
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $gradesQuery->forBrand(currentBrand());
         }
 
         $machines = $machinesQuery->orderBy('name')->get();
@@ -244,7 +251,7 @@ class ProductionController extends Controller
             abort(403, 'Unauthorized access to department batch data.');
         }
 
-        $batch->load(['machine', 'grade.bagSize', 'supervisor', 'ledgers.rawMaterial.stockUnit']);
+        $batch->load(['machine', 'grade.bagSize', 'supervisor', 'ledgers.rawMaterial.stockUnit', 'ledgers.packingMaterial.unit']);
 
         if (in_array($batch->status, ['running', 'paused'])) {
             $coupons = RawMaterial::where('is_coupon', true)->where('is_active', true)->orderBy('name')->get();

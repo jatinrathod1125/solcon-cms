@@ -197,7 +197,7 @@
                     <table class="w-full text-left border-collapse text-sm">
                         <thead>
                             <tr class="border-b border-slate-850 bg-slate-900/60 text-slate-400 font-semibold">
-                                <th class="p-3">Raw Material</th>
+                                <th class="p-3">Material Name</th>
                                 <th class="p-3 w-32">Type</th>
                                 <th class="p-3 text-right">Deducted Qty</th>
                                 <th class="p-3 text-right">Prev Stock</th>
@@ -207,11 +207,26 @@
                         </thead>
                         <tbody class="divide-y divide-slate-850/50 text-slate-200">
                             @forelse($batch->ledgers as $ledger)
+                                @php
+                                    $isPacking = (bool) $ledger->packing_material_id || (bool) $ledger->packingMaterial;
+                                    $matName = $isPacking ? ($ledger->packingMaterial->name ?? 'Packing Material') : ($ledger->rawMaterial->name ?? 'Raw Material');
+                                    $matCode = $isPacking ? ($ledger->packingMaterial->code ?? '') : ($ledger->rawMaterial->code ?? '');
+                                    $unitCode = $isPacking ? ($ledger->packingMaterial->unit->code ?? 'PCS') : ($ledger->rawMaterial->stockUnit->code ?? 'KG');
+                                @endphp
                                 <tr class="hover:bg-slate-900/30 transition-colors">
-                                    <!-- Raw Material -->
+                                    <!-- Material Name -->
                                     <td class="p-3 font-semibold text-white">
-                                        {{ $ledger->rawMaterial->name }}
-                                        <span class="block text-xs font-mono text-slate-500">{{ $ledger->rawMaterial->code }}</span>
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span>{{ $matName }}</span>
+                                            @if($isPacking)
+                                                <span class="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] font-bold">Packing</span>
+                                            @else
+                                                <span class="px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[10px] font-bold">Raw</span>
+                                            @endif
+                                        </div>
+                                        @if($matCode)
+                                            <span class="block text-xs font-mono text-slate-500">{{ $matCode }}</span>
+                                        @endif
                                     </td>
 
                                     <!-- Transaction Type -->
@@ -223,7 +238,7 @@
 
                                     <!-- Quantity -->
                                     <td class="p-3 text-right font-mono font-bold text-rose-450">
-                                        -{{ format_quantity(abs($ledger->quantity)) }} {{ $ledger->rawMaterial->stockUnit->code }}
+                                        -{{ format_quantity(abs($ledger->quantity)) }} {{ $unitCode }}
                                     </td>
 
                                     <!-- Prev Stock -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Formula;
 use App\Models\FormulaItem;
 use App\Models\Grade;
@@ -19,11 +20,15 @@ class FormulaController extends Controller
     /**
      * Display a listing of formulas.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $formulas = Formula::with(['grade', 'creator'])
-            ->latest()
-            ->paginate(10);
+        $query = Formula::with(['grade.brand', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        $formulas = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.formulas.index', compact('formulas'));
     }
@@ -33,7 +38,7 @@ class FormulaController extends Controller
      */
     public function show(Formula $formula)
     {
-        $formula->load(['grade', 'creator', 'items.rawMaterial', 'items.packingMaterial', 'items.unit']);
+        $formula->load(['grade.brand', 'creator', 'items.rawMaterial.brand', 'items.packingMaterial.brand', 'items.unit']);
 
         return view('admin.formulas.show', compact('formula'));
     }
@@ -43,12 +48,13 @@ class FormulaController extends Controller
      */
     public function create()
     {
-        $grades = Grade::where('is_active', true)->get();
-        $rawMaterials = RawMaterial::where('is_active', true)->get();
-        $packingMaterials = PackingMaterial::where('status', 'active')->orderBy('name')->get();
+        $grades = Grade::where('is_active', true)->with('brand')->orderBy('name')->get();
+        $rawMaterials = RawMaterial::where('is_active', true)->with('brand')->orderBy('name')->get();
+        $packingMaterials = PackingMaterial::where('status', 'active')->with(['brand', 'category'])->orderBy('name')->get();
         $units = Unit::getActive();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.formulas.create', compact('grades', 'rawMaterials', 'packingMaterials', 'units'));
+        return view('admin.formulas.create', compact('grades', 'rawMaterials', 'packingMaterials', 'units', 'brands'));
     }
 
     /**
@@ -110,13 +116,14 @@ class FormulaController extends Controller
      */
     public function edit(Formula $formula)
     {
-        $formula->load(['items.rawMaterial', 'items.packingMaterial']);
-        $grades = Grade::where('is_active', true)->get();
-        $rawMaterials = RawMaterial::where('is_active', true)->get();
-        $packingMaterials = PackingMaterial::where('status', 'active')->orderBy('name')->get();
+        $formula->load(['items.rawMaterial.brand', 'items.packingMaterial.brand', 'grade.brand']);
+        $grades = Grade::where('is_active', true)->with('brand')->orderBy('name')->get();
+        $rawMaterials = RawMaterial::where('is_active', true)->with('brand')->orderBy('name')->get();
+        $packingMaterials = PackingMaterial::where('status', 'active')->with(['brand', 'category'])->orderBy('name')->get();
         $units = Unit::getActive();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.formulas.edit', compact('formula', 'grades', 'rawMaterials', 'packingMaterials', 'units'));
+        return view('admin.formulas.edit', compact('formula', 'grades', 'rawMaterials', 'packingMaterials', 'units', 'brands'));
     }
 
     /**

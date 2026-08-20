@@ -365,4 +365,67 @@ class ProductionTest extends TestCase
         $this->assertEquals($grade->name . ' (' . $coupon->name . ')', $fgWithCoupon->product_name);
         $this->assertEquals($grade->name, $fgWithoutCoupon->product_name);
     }
+
+    public function test_production_create_and_index_filters_grades_by_current_brand(): void
+    {
+        $admin = User::where('email', 'admin@solcon.com')->first();
+        $brandSolcon = \App\Models\Brand::where('code', 'SOL')->first();
+        $brandFixora = \App\Models\Brand::where('code', 'FIX')->first() ?? \App\Models\Brand::where('slug', 'fixora')->first();
+
+        $dept = \App\Models\Department::first();
+        $bagSize = \App\Models\BagSize::first();
+        $unit = \App\Models\Unit::first();
+
+        // Grade 1 under Solcon
+        $gradeSol = Grade::create([
+            'name' => 'Solcon Grade 1',
+            'code' => 'SOL-G1',
+            'brand_id' => $brandSolcon->id,
+            'department_id' => $dept->id,
+            'bag_size_id' => $bagSize->id,
+            'output_unit_id' => $unit->id,
+            'is_active' => true,
+        ]);
+        Formula::create([
+            'grade_id' => $gradeSol->id,
+            'version' => 1,
+            'is_active' => true,
+            'created_by' => $admin->id,
+        ]);
+
+        // Grade 2 under Fixora
+        $gradeFix = Grade::create([
+            'name' => 'Fixora Grade 1',
+            'code' => 'FIX-G1',
+            'brand_id' => $brandFixora->id,
+            'department_id' => $dept->id,
+            'bag_size_id' => $bagSize->id,
+            'output_unit_id' => $unit->id,
+            'is_active' => true,
+        ]);
+        Formula::create([
+            'grade_id' => $gradeFix->id,
+            'version' => 1,
+            'is_active' => true,
+            'created_by' => $admin->id,
+        ]);
+
+        // Access production create with Fixora active in session
+        $response = $this->actingAs($admin)
+            ->withSession(['current_brand_id_' . $admin->id => $brandFixora->id])
+            ->get('/production/create');
+
+        $response->assertStatus(200);
+        $response->assertSee('Fixora Grade 1');
+        $response->assertDontSee('Solcon Grade 1');
+
+        // Access production index (Quick workflow drawer) with Fixora active
+        $response = $this->actingAs($admin)
+            ->withSession(['current_brand_id_' . $admin->id => $brandFixora->id])
+            ->get('/production');
+
+        $response->assertStatus(200);
+        $response->assertSee('Fixora Grade 1');
+        $response->assertDontSee('Solcon Grade 1');
+    }
 }

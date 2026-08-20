@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateFormulaRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class UpdateFormulaRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'grade_id' => ['required', 'exists:grades,id'],
             'remarks' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],

@@ -3,66 +3,69 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
-use App\Models\Department;
-use App\Models\BagSize;
-use App\Models\Unit;
 use App\Http\Requests\Admin\StoreGradeRequest;
 use App\Http\Requests\Admin\UpdateGradeRequest;
+use App\Models\BagSize;
+use App\Models\Brand;
+use App\Models\Department;
+use App\Models\Grade;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {
-    /**
-     * Display a listing of grades.
-     */
     public function index(Request $request)
     {
-        $query = Grade::with(['department', 'bagSize', 'outputUnit', 'creator', 'updater']);
+        $query = Grade::with(['department', 'brand', 'bagSize', 'outputUnit', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('code', 'like', "%{$search}%");
+                    ->orWhere('code', 'like', "%{$search}%");
             });
         }
 
         if ($request->filled('status')) {
-            $status = $request->input('status');
-            if ($status === 'active') {
+            if ($request->status === 'active') {
                 $query->where('is_active', true);
-            } elseif ($status === 'inactive') {
+            } elseif ($request->status === 'inactive') {
                 $query->where('is_active', false);
             }
         }
 
-        $grades = $query->latest()->paginate(10)->withQueryString();
+        if ($request->filled('department_id')) {
+            $query->where('department_id', $request->input('department_id'));
+        }
 
-        return view('admin.grades.index', compact('grades'));
+        $grades = $query->orderBy('name')->paginate(15)->withQueryString();
+        $departments = Department::where('is_active', true)->orderBy('name')->get();
+
+        return view('admin.grades.index', compact('grades', 'departments'));
     }
 
-    /**
-     * Show the form for creating a new grade.
-     */
     public function create()
     {
-        $departments = Department::getActive();
-        $bagSizes = BagSize::getActive();
-        $units = Unit::getActive();
+        $departments = Department::where('is_active', true)->orderBy('name')->get();
+        $brands = Brand::active()->orderBy('name')->get();
+        $bagSizes = BagSize::where('is_active', true)->orderBy('value')->get();
+        $units = Unit::where('is_active', true)->orderBy('name')->get();
 
-        return view('admin.grades.create', compact('departments', 'bagSizes', 'units'));
+        return view('admin.grades.create', compact('departments', 'brands', 'bagSizes', 'units'));
     }
 
-    /**
-     * Store a newly created grade in storage.
-     */
     public function store(StoreGradeRequest $request)
     {
         $data = $request->validated();
-        $data['is_active'] = $request->boolean('is_active', true);
         $data['created_by'] = auth()->id();
         $data['updated_by'] = auth()->id();
+        if ($request->has('is_active')) {
+            $data['is_active'] = $request->boolean('is_active');
+        }
 
         Grade::create($data);
 
@@ -70,26 +73,23 @@ class GradeController extends Controller
             ->with('success', 'Grade created successfully.');
     }
 
-    /**
-     * Show the form for editing the grade.
-     */
     public function edit(Grade $grade)
     {
-        $departments = Department::getActive();
-        $bagSizes = BagSize::getActive();
-        $units = Unit::getActive();
+        $departments = Department::where('is_active', true)->orderBy('name')->get();
+        $brands = Brand::active()->orderBy('name')->get();
+        $bagSizes = BagSize::where('is_active', true)->orderBy('value')->get();
+        $units = Unit::where('is_active', true)->orderBy('name')->get();
 
-        return view('admin.grades.edit', compact('grade', 'departments', 'bagSizes', 'units'));
+        return view('admin.grades.edit', compact('grade', 'departments', 'brands', 'bagSizes', 'units'));
     }
 
-    /**
-     * Update the grade in storage.
-     */
     public function update(UpdateGradeRequest $request, Grade $grade)
     {
         $data = $request->validated();
-        $data['is_active'] = $request->boolean('is_active');
         $data['updated_by'] = auth()->id();
+        if ($request->has('is_active')) {
+            $data['is_active'] = $request->boolean('is_active');
+        }
 
         $grade->update($data);
 
@@ -97,13 +97,8 @@ class GradeController extends Controller
             ->with('success', 'Grade updated successfully.');
     }
 
-    /**
-     * Remove the grade from storage.
-     */
     public function destroy(Grade $grade)
     {
-        // When production and formula are added, we check if this grade is linked to any formulas or production batches.
-        // For now, standard delete:
         $grade->delete();
 
         return redirect()->route('admin.grades.index')

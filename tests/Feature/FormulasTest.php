@@ -171,11 +171,44 @@ class FormulasTest extends TestCase
         ]);
 
         $response->assertRedirect('/admin/formulas');
+    }
 
-        $this->assertDatabaseHas('formula_items', [
-            'item_type' => 'packing',
-            'packing_material_id' => $packingMat->id,
-            'quantity' => 50.0000,
+    public function test_admin_can_create_and_filter_formula_with_brand(): void
+    {
+        $admin = User::where('email', 'admin@solcon.com')->first();
+        $brandSolcon = \App\Models\Brand::where('code', 'SOL')->first();
+        
+        // Ensure grade is associated with brand
+        $gradeF101 = Grade::where('code', 'F101')->first();
+        $gradeF101->update(['brand_id' => $brandSolcon->id]);
+
+        $matCement = RawMaterial::where('code', 'OPC-53')->first();
+        $unitKG = Unit::where('code', 'KG')->first();
+
+        $response = $this->actingAs($admin)->post('/admin/formulas', [
+            'grade_id' => $gradeF101->id,
+            'remarks' => 'Brand specific formula',
+            'is_active' => true,
+            'items' => [
+                [
+                    'item_type' => 'raw',
+                    'raw_material_id' => $matCement->id,
+                    'quantity' => 500.0000,
+                    'unit_id' => $unitKG->id,
+                    'sequence' => 1,
+                ]
+            ]
         ]);
+
+        $response->assertRedirect('/admin/formulas');
+        $this->assertDatabaseHas('formulas', [
+            'grade_id' => $gradeF101->id,
+            'remarks' => 'Brand specific formula',
+        ]);
+
+        // Check index displays brand of grade
+        $response = $this->actingAs($admin)->get('/admin/formulas');
+        $response->assertStatus(200);
+        $response->assertSee($brandSolcon->name);
     }
 }

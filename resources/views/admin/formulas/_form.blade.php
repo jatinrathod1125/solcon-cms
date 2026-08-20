@@ -1,13 +1,31 @@
-<!-- Grade Selection & Remarks -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Brand, Grade Selection & Remarks -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div>
+        <label for="brand_id" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Brand</label>
+        <select name="brand_id" id="brand_id"
+            class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 text-sm">
+            <option value="" {{ old('brand_id', $formula->brand_id ?? '') == '' ? 'selected' : '' }}>All Brands (Common)</option>
+            @foreach($brands as $brand)
+                <option value="{{ $brand->id }}" {{ old('brand_id', $formula->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
+                    {{ $brand->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('brand_id')
+            <p class="text-rose-450 text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
     <div>
         <label for="grade_id" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Grade Assignment</label>
         <select id="grade_id" name="grade_id" required
             class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
             <option value="">Select Grade</option>
             @foreach($grades as $grade)
-                <option value="{{ $grade->id }}" {{ old('grade_id', $formula->grade_id ?? '') == $grade->id ? 'selected' : '' }}>
-                    {{ $grade->name }} ({{ $grade->code }})
+                <option value="{{ $grade->id }}" 
+                    data-brand-id="{{ $grade->brand_id ?? '' }}"
+                    {{ old('grade_id', $formula->grade_id ?? '') == $grade->id ? 'selected' : '' }}>
+                    {{ $grade->name }} ({{ $grade->code }})@if($grade->brand) - [{{ $grade->brand->name }}]@endif
                 </option>
             @endforeach
         </select>

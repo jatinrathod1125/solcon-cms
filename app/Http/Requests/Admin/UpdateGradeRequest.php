@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGradeRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class UpdateGradeRequest extends FormRequest
         $gradeId = $this->route('grade')?->id ?? $this->route('grade');
 
         return [
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'name' => ['required', 'string', 'max:255', 'unique:grades,name,' . $gradeId],
             'code' => ['required', 'string', 'max:50', 'unique:grades,code,' . $gradeId],
             'department_id' => ['required', 'exists:departments,id'],
