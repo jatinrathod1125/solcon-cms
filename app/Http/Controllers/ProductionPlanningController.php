@@ -33,12 +33,24 @@ class ProductionPlanningController extends Controller
         // ==========================================
         // TAB 1: WITHOUT COUPON
         // ==========================================
-        $allAdhesiveGrades = Grade::whereHas('department', function ($q) {
-            $q->where('code', 'TAD');
-        })->orWhere('department_id', 1)->orderBy('name')->get();
+        $gradesQuery = Grade::with('brand')->where(function ($q) {
+            $q->whereHas('department', function ($dq) {
+                $dq->where('code', 'TAD');
+            })->orWhere('department_id', 1);
+        });
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $gradesQuery->forBrand(currentBrand());
+        }
+
+        $allAdhesiveGrades = $gradesQuery->orderBy('name')->get();
 
         if ($allAdhesiveGrades->isEmpty()) {
-            $allAdhesiveGrades = Grade::where('is_active', true)->orderBy('name')->get();
+            $fallback = Grade::with('brand')->where('is_active', true);
+            if (function_exists('currentBrand') && currentBrand()) {
+                $fallback->forBrand(currentBrand());
+            }
+            $allAdhesiveGrades = $fallback->orderBy('name')->get();
         }
 
         // Aggregate Stock Without Coupon
@@ -93,6 +105,7 @@ class ProductionPlanningController extends Controller
                 'grade_id' => $grade->id,
                 'grade_name' => $grade->name,
                 'grade_code' => $grade->code,
+                'brand_name' => $grade->brand?->name ?? null,
                 'available_stock' => $available,
                 'pending_orders' => $pending,
                 'need_production' => $needProduction,
@@ -105,11 +118,17 @@ class ProductionPlanningController extends Controller
         // TAB 2: 20 RS COUPON
         // ==========================================
         // Only display F-101 and F-107
-        $tab2Grades = Grade::where(function ($q) {
+        $tab2GradesQuery = Grade::with('brand')->where(function ($q) {
             $q->where('code', 'F-101')->orWhere('name', 'F-101')
               ->orWhere('code', 'F-107')->orWhere('name', 'F-107')
               ->orWhere('code', 'like', '%101%')->orWhere('code', 'like', '%107%');
-        })->get();
+        });
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $tab2GradesQuery->forBrand(currentBrand());
+        }
+
+        $tab2Grades = $tab2GradesQuery->get();
 
         // Ensure both F-101 and F-107 exist in collection even if absent in DB
         $neededCodes = ['F-101', 'F-107'];
@@ -157,6 +176,7 @@ class ProductionPlanningController extends Controller
                 'grade_id' => $grade->id,
                 'grade_name' => $grade->name,
                 'grade_code' => $grade->code,
+                'brand_name' => $grade->brand?->name ?? null,
                 'available_stock' => $available,
                 'pending_orders' => $pending,
                 'need_production' => $needProduction,

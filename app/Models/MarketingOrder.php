@@ -112,6 +112,64 @@ class MarketingOrder extends Model
         return $query->where('status', 'cancelled');
     }
 
+    /**
+     * Scope a query to include orders belonging to a specific brand context.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($brandId) {
+            // Must not contain items belonging to a different brand
+            $q->whereDoesntHave('items', function ($itemQ) use ($brandId) {
+                $itemQ->where(function ($iQ) use ($brandId) {
+                    $iQ->whereHas('grade', fn ($gQ) => $gQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId))
+                       ->orWhereHas('color', fn ($cQ) => $cQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId));
+                });
+            })
+            // And must have items matching this brand (or common/epoxy items)
+            ->whereHas('items', function ($itemQ) use ($brandId) {
+                $itemQ->where(function ($iQ) use ($brandId) {
+                    $iQ->whereHas('grade', fn ($gQ) => $gQ->forBrand($brandId))
+                       ->orWhereHas('color', fn ($cQ) => $cQ->forBrand($brandId))
+                       ->orWhere('department_code', 'EPX');
+                });
+            });
+        });
+    }
+
+    /**
+     * Scope a query to include orders for the current session brand.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
+    }
+
+    /**
+     * Get the brand associated with this order.
+     */
+    public function getBrandAttribute(): ?Brand
+    {
+        foreach ($this->items as $item) {
+            if ($item->brand) {
+                return $item->brand;
+            }
+        }
+        return null;
+    }
+
     // ─── Accessors ───────────────────────────────
 
     /**

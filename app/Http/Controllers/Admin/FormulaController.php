@@ -28,9 +28,22 @@ class FormulaController extends Controller
             $query->forBrand(currentBrand());
         }
 
-        $formulas = $query->latest()->paginate(10)->withQueryString();
+        if ($request->filled('brand_id')) {
+            $query->forBrand($request->input('brand_id'));
+        }
 
-        return view('admin.formulas.index', compact('formulas'));
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->whereHas('grade', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        $formulas = $query->latest()->paginate(10)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
+
+        return view('admin.formulas.index', compact('formulas', 'brands'));
     }
 
     /**

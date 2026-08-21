@@ -212,7 +212,7 @@
                             <option value="{{ $grade->id }}" data-bag-weight="{{ $grade->bag_size->weight_kg ?? '' }}"
                                 data-bag-name="{{ $grade->bag_size->name ?? '' }}" {{ old('grade_id')==$grade->id ?
                                 'selected' : '' }}>
-                                {{ $grade->name }}
+                                {{ $grade->name }} ({{ $grade->code }}){{ $grade->brand ? ' [' . $grade->brand->name . ']' : '' }}
                             </option>
                             @endforeach
                         </select>

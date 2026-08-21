@@ -30,6 +30,10 @@ class FinishedGoodsController extends Controller
     {
         $query = FinishedGood::with(['department', 'grade.brand', 'color.brand', 'epoxyProduct', 'couponMaterial']);
 
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
         // Search by Product Name
         if ($request->filled('search')) {
             $search = trim($request->input('search'));
@@ -87,13 +91,25 @@ class FinishedGoodsController extends Controller
         }
 
         $departments = Department::orderBy('name')->get();
-        $grades = Grade::with('bagSize')->where('is_active', true)->orderBy('name')->get();
-        $colors = Color::where('is_active', true)->orderBy('name')->get();
+        
+        $gradesQuery = Grade::with(['bagSize', 'brand'])->where('is_active', true);
+        $colorsQuery = Color::with('brand')->where('is_active', true);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $gradesQuery->forBrand(currentBrand());
+            $colorsQuery->forBrand(currentBrand());
+        }
+        $grades = $gradesQuery->orderBy('name')->get();
+        $colors = $colorsQuery->orderBy('name')->get();
+
         $epoxyProducts = EpoxyProduct::where('is_active', true)->orderBy('name')->get();
         $couponMaterials = RawMaterial::where('is_coupon', true)->where('is_active', true)->orderBy('name')->get();
 
         // Get unique packing sizes for filter dropdown
-        $packingSizes = FinishedGood::distinct()->pluck('packing')->filter()->values();
+        $packingQuery = FinishedGood::distinct();
+        if (function_exists('currentBrand') && currentBrand()) {
+            $packingQuery->forBrand(currentBrand());
+        }
+        $packingSizes = $packingQuery->pluck('packing')->filter()->values();
 
         return view('finished_goods.index', compact('items', 'departments', 'grades', 'colors', 'epoxyProducts', 'couponMaterials', 'packingSizes'));
     }
@@ -252,7 +268,11 @@ class FinishedGoodsController extends Controller
      */
     public function export()
     {
-        $items = FinishedGood::with(['department', 'grade', 'color', 'epoxyProduct', 'couponMaterial'])->get();
+        $query = FinishedGood::with(['department', 'grade.brand', 'color.brand', 'epoxyProduct', 'couponMaterial']);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+        $items = $query->get();
         $csvFileName = 'finished_goods_inventory_' . now()->format('Ymd_His') . '.csv';
 
         // Log export activity

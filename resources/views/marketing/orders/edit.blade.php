@@ -309,7 +309,7 @@
                                     @php $packing = $grade->bagSize->name ?? '20KG'; @endphp
                                     <tr>
                                         <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{$grade->name }}
+                                            {{$grade->name }}@if($grade->brand) <span class="text-[9px] font-bold text-amber-600">[{{ $grade->brand->name }}]</span>@endif
                                         </td>
                                         <td class="w-16">
                                             <input type="number" min="0" class="compact-input qty-input" 
@@ -424,7 +424,7 @@
                                     @foreach($groutColors as $color)
                                     <tr>
                                         <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                            {{ $color->name }}
+                                            {{ $color->name }}@if($color->brand) <span class="text-[9px] font-bold text-amber-600">[{{ $color->brand->name }}]</span>@endif
                                         </td>
                                         <td class="w-16">
                                             <input type="number" min="0" class="compact-input qty-input" 

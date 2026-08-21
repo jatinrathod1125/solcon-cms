@@ -359,12 +359,19 @@
                                                     <tr class="{{ $item->is_edited ? 'bg-amber-50/80 border-l-4 border-l-amber-500 font-bold' : '' }}">
                                                         <td class="px-3 py-2 font-bold text-slate-600 whitespace-nowrap">{{ $item->department_label }}</td>
                                                         <td class="px-3 py-2 font-black text-slate-900">
-                                                            {{ $item->product_name }}
-                                                            @if($item->is_edited)
-                                                                <span class="inline-flex items-center gap-0.5 rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-extrabold text-amber-800 border border-amber-300 ml-1" title="Product updated">
-                                                                    Updated
-                                                                </span>
-                                                            @endif
+                                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                                <span>{{ $item->product_name }}</span>
+                                                                @if($item->brand)
+                                                                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                                        {{ $item->brand->name }}
+                                                                    </span>
+                                                                @endif
+                                                                @if($item->is_edited)
+                                                                    <span class="inline-flex items-center gap-0.5 rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-extrabold text-amber-800 border border-amber-300 ml-1" title="Product updated">
+                                                                        Updated
+                                                                    </span>
+                                                                @endif
+                                                            </div>
                                                         </td>
                                                         <td class="px-3 py-2 text-center font-extrabold text-blue-700">{{ $item->quantity_bags }} {{ $item->unit_label }}</td>
                                                         <td class="px-3 py-2 font-bold text-slate-600">{{ $item->packing ?? '-' }}</td>

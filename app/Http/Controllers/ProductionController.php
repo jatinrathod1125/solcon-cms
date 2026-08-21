@@ -83,11 +83,14 @@ class ProductionController extends Controller
         $lowStockCount = $lowStockQuery->count();
 
         // --- FILTERED PRODUCTION TABLE ---
-        $query = ProductionBatch::with(['machine', 'grade.bagSize', 'supervisor']);
+        $query = ProductionBatch::with(['machine', 'grade.bagSize', 'grade.brand', 'supervisor']);
         if ($isSupervisor) {
             $query->whereHas('machine', function ($q) use ($user) {
                 $q->where('department_id', $user->department_id);
             });
+        }
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
         }
 
         // Search by batch number
@@ -119,7 +122,7 @@ class ProductionController extends Controller
 
         // Filter options for dropdowns
         $filterMachinesQuery = Machine::where('is_active', true);
-        $filterGradesQuery = Grade::where('is_active', true)->whereHas('activeFormula');
+        $filterGradesQuery = Grade::with('brand')->where('is_active', true)->whereHas('activeFormula');
         if ($isSupervisor) {
             $filterMachinesQuery->where('department_id', $user->department_id);
             $filterGradesQuery->where('department_id', $user->department_id);
@@ -164,7 +167,7 @@ class ProductionController extends Controller
         $isSupervisor = $user && $user->isSupervisor();
 
         $machinesQuery = Machine::where('is_active', true);
-        $gradesQuery = Grade::where('is_active', true)->whereHas('activeFormula');
+        $gradesQuery = Grade::with(['brand', 'bagSize'])->where('is_active', true)->whereHas('activeFormula');
 
         if ($isSupervisor) {
             $machinesQuery->where('department_id', $user->department_id);
@@ -251,7 +254,7 @@ class ProductionController extends Controller
             abort(403, 'Unauthorized access to department batch data.');
         }
 
-        $batch->load(['machine', 'grade.bagSize', 'supervisor', 'ledgers.rawMaterial.stockUnit', 'ledgers.packingMaterial.unit']);
+        $batch->load(['machine', 'grade.bagSize', 'grade.brand', 'supervisor', 'ledgers.rawMaterial.stockUnit', 'ledgers.packingMaterial.unit']);
 
         if (in_array($batch->status, ['running', 'paused'])) {
             $coupons = RawMaterial::where('is_coupon', true)->where('is_active', true)->orderBy('name')->get();
@@ -276,7 +279,7 @@ class ProductionController extends Controller
                 ->with('error', 'Only running batches can be completed.');
         }
 
-        $batch->load(['machine', 'grade.bagSize', 'supervisor']);
+        $batch->load(['machine', 'grade.bagSize', 'grade.brand', 'supervisor']);
 
         return view('production.complete', compact('batch'));
     }
@@ -399,12 +402,19 @@ class ProductionController extends Controller
         $user = auth()->user();
         $isSupervisor = $user && $user->isSupervisor();
 
-        $query = ProductionBatch::with(['machine', 'grade.bagSize', 'supervisor']);
+        $query = ProductionBatch::with(['machine', 'grade.bagSize', 'grade.brand', 'supervisor']);
         
         if ($isSupervisor) {
             $query->whereHas('machine', function ($q) use ($user) {
                 $q->where('department_id', $user->department_id);
             });
+        }
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        if ($request->filled('brand_id')) {
+            $query->forBrand($request->input('brand_id'));
         }
 
         // Search by batch number
@@ -488,20 +498,24 @@ class ProductionController extends Controller
 
         // Dropdowns data
         $filterMachinesQuery = Machine::where('is_active', true);
-        $filterGradesQuery = Grade::where('is_active', true);
+        $filterGradesQuery = Grade::with('brand')->where('is_active', true);
         if ($isSupervisor) {
             $filterMachinesQuery->where('department_id', $user->department_id);
             $filterGradesQuery->where('department_id', $user->department_id);
         }
+        if (function_exists('currentBrand') && currentBrand()) {
+            $filterGradesQuery->forBrand(currentBrand());
+        }
         $machines = $filterMachinesQuery->orderBy('name')->get();
         $grades = $filterGradesQuery->orderBy('name')->get();
+        $brands = \App\Models\Brand::active()->orderBy('name')->get();
 
         // Supervisors list
         $supervisors = \App\Models\User::whereHas('roles', function($q) {
             $q->where('name', 'supervisor');
         })->orderBy('name')->get();
 
-        return view('production.history', compact('batches', 'machines', 'grades', 'supervisors'));
+        return view('production.history', compact('batches', 'machines', 'grades', 'supervisors', 'brands'));
     }
 
     /**

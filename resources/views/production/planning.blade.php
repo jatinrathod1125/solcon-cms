@@ -63,7 +63,14 @@
                         @forelse($tab1Data as $row)
                             <tr class="hover:bg-slate-50/50 transition">
                                 <td class="px-5 py-3 text-slate-900 font-bold">
-                                    {{ $row['grade_name'] }}
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span>{{ $row['grade_name'] }}</span>
+                                        @if(!empty($row['brand_name']))
+                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                {{ $row['brand_name'] }}
+                                            </span>
+                                        @endif
+                                    </div>
                                     <span class="text-slate-400 font-semibold font-mono text-[10px]">({{ $row['grade_code'] }})</span>
                                 </td>
 
@@ -145,7 +152,14 @@
                         @forelse($tab2Data as $row)
                             <tr class="hover:bg-slate-50/50 transition">
                                 <td class="px-5 py-3 text-slate-900 font-bold">
-                                    {{ $row['grade_name'] }}
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span>{{ $row['grade_name'] }}</span>
+                                        @if(!empty($row['brand_name']))
+                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                {{ $row['brand_name'] }}
+                                            </span>
+                                        @endif
+                                    </div>
                                     <span class="text-emerald-600 font-semibold font-mono text-[10px]">(₹20 Coupon)</span>
                                 </td>
 

@@ -53,10 +53,15 @@ class DashboardController extends Controller
      */
     public function orders()
     {
-        $orders = \App\Models\MarketingOrder::approved()
+        $ordersQuery = \App\Models\MarketingOrder::approved()
             ->orderByDesc('approved_at')
-            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator', 'approver'])
-            ->get();
+            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator', 'approver']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $ordersQuery->forBrand(currentBrand());
+        }
+
+        $orders = $ordersQuery->get();
 
         return view('supervisor.orders', compact('orders'));
     }

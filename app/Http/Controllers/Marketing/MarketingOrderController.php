@@ -42,7 +42,11 @@ class MarketingOrderController extends Controller
 
         // Get orders query
         $ordersQuery = MarketingOrder::orderBy('sort_order', 'asc')
-            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator']);
+            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $ordersQuery->forBrand(currentBrand());
+        }
 
         // Non-admin users (Marketing role) only see orders created by themselves
         if (!$user->isAdmin()) {
@@ -78,11 +82,13 @@ class MarketingOrderController extends Controller
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
         $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
-        $groutColors = Color::with('brand')
+        $groutColorsQuery = Color::with('brand')
             ->where('is_active', true)
-            ->where('packing_size', '!=', '500 GM')
-            ->orderBy('code', 'asc')
-            ->get();
+            ->where('packing_size', '!=', '500 GM');
+        if (function_exists('currentBrand') && currentBrand()) {
+            $groutColorsQuery->forBrand(currentBrand());
+        }
+        $groutColors = $groutColorsQuery->orderBy('code', 'asc')->get();
 
         $epoxyData = $this->getEpoxyProductsAndComponents();
 
@@ -320,11 +326,13 @@ class MarketingOrderController extends Controller
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
         $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
-        $groutColors = Color::with('brand')
+        $groutColorsQuery = Color::with('brand')
             ->where('is_active', true)
-            ->where('packing_size', '!=', '500 GM')
-            ->orderBy('code', 'asc')
-            ->get();
+            ->where('packing_size', '!=', '500 GM');
+        if (function_exists('currentBrand') && currentBrand()) {
+            $groutColorsQuery->forBrand(currentBrand());
+        }
+        $groutColors = $groutColorsQuery->orderBy('code', 'asc')->get();
 
         // New dynamic Epoxy products and components
         $solititeProduct = EpoxyProduct::where('code', 'SOL')->first();
@@ -385,11 +393,13 @@ class MarketingOrderController extends Controller
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
         $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
-        $groutColors = Color::with('brand')
+        $groutColorsQuery = Color::with('brand')
             ->where('is_active', true)
-            ->where('packing_size', '!=', '500 GM')
-            ->orderBy('code', 'asc')
-            ->get();
+            ->where('packing_size', '!=', '500 GM');
+        if (function_exists('currentBrand') && currentBrand()) {
+            $groutColorsQuery->forBrand(currentBrand());
+        }
+        $groutColors = $groutColorsQuery->orderBy('code', 'asc')->get();
 
         $epoxyData = $this->getEpoxyProductsAndComponents();
 

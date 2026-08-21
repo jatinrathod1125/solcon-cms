@@ -38,14 +38,15 @@ class GradeController extends Controller
             }
         }
 
-        if ($request->filled('department_id')) {
-            $query->where('department_id', $request->input('department_id'));
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->input('brand_id'));
         }
 
         $grades = $query->orderBy('name')->paginate(15)->withQueryString();
         $departments = Department::where('is_active', true)->orderBy('name')->get();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.grades.index', compact('grades', 'departments'));
+        return view('admin.grades.index', compact('grades', 'departments', 'brands'));
     }
 
     public function create()

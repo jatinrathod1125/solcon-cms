@@ -27,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
-        if (class_exists(\Illuminate\Support\Facades\Schema::class) && Schema::hasTable('settings')) {
-            try {
+        try {
+            if (class_exists(\Illuminate\Support\Facades\Schema::class) && Schema::hasTable('settings')) {
                 $timezone = \App\Models\Setting::get('timezone', 'Asia/Kolkata');
                 if (!$timezone || $timezone === 'UTC') {
                     $timezone = 'Asia/Kolkata';
@@ -46,9 +46,9 @@ class AppServiceProvider extends ServiceProvider
                         'table_density' => \App\Models\Setting::get('ui_table_density', 'normal'),
                     ]);
                 });
-            } catch (\Exception $e) {
-                // Keep default timezone and settings if DB fails
             }
+        } catch (\Throwable $e) {
+            // Keep default timezone and settings if DB is inaccessible
         }
     }
 }

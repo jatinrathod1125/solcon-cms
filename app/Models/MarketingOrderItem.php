@@ -241,6 +241,19 @@ class MarketingOrderItem extends Model
     }
 
     /**
+     * Get the brand associated with this item.
+     */
+    public function getBrandAttribute(): ?Brand
+    {
+        return match ($this->department_code) {
+            'TAD' => $this->grade?->brand,
+            'GRT' => $this->color?->brand,
+            'EPX' => $this->epoxyProduct?->brand ?? $this->epoxyComponent?->brand,
+            default => $this->grade?->brand ?? $this->color?->brand,
+        };
+    }
+
+    /**
      * Get the department label.
      */
     public function getDepartmentLabelAttribute(): string

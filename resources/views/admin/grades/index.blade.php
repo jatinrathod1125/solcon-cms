@@ -20,6 +20,17 @@
                     placeholder="Search by name or code...">
             </div>
 
+            <!-- Brand Filter -->
+            <select name="brand_id"
+                class="bg-slate-955 border border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
+                <option value="">All Brands</option>
+                @foreach($brands as $brand)
+                    <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                        {{ $brand->name }}
+                    </option>
+                @endforeach
+            </select>
+
             <!-- Status Filter -->
             <select name="status"
                 class="bg-slate-955 border border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
@@ -32,10 +43,10 @@
                 class="px-4 py-2 bg-slate-955 border border-slate-800 hover:bg-slate-900 rounded-xl text-sm font-medium transition-colors text-slate-300">
                 Filter
             </button>
-            @if(request('search') || request('status'))
+            @if(request()->anyFilled(['search', 'brand_id', 'status']))
             <a href="{{ route('admin.grades.index') }}"
                 class="px-3 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-sm transition-colors"
-                title="Clear Search">
+                title="Clear Filters">
                 Clear
             </a>
             @endif

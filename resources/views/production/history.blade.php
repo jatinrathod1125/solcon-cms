@@ -34,7 +34,7 @@
     <!-- Filters Card (hidden during print) -->
     <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden print:hidden">
         <div class="p-5 border-b border-slate-200 bg-slate-50/40">
-            <form method="GET" action="{{ route('production.history') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end">
+            <form method="GET" action="{{ route('production.history') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end">
                 <!-- Search Batch Number -->
                 <div>
                     <label for="search" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Search Batch No</label>
@@ -46,6 +46,20 @@
                             class="block w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                             placeholder="e.g. ADH-2026...">
                     </div>
+                </div>
+
+                <!-- Brand Filter -->
+                <div>
+                    <label for="brand_id" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Brand</label>
+                    <select id="brand_id" name="brand_id"
+                        class="block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                        <option value="">All Brands</option>
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- Machine Filter -->
@@ -70,7 +84,7 @@
                         <option value="">All Grades</option>
                         @foreach($grades as $grade)
                             <option value="{{ $grade->id }}" {{ request('grade_id') == $grade->id ? 'selected' : '' }}>
-                                {{ $grade->name }}
+                                {{ $grade->name }}@if($grade->brand) [{{ $grade->brand->name }}]@endif
                             </option>
                         @endforeach
                     </select>
@@ -111,12 +125,12 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="lg:col-span-6 flex justify-end gap-2 mt-2">
+                <div class="lg:col-span-7 flex justify-end gap-2 mt-2">
                     <button type="submit" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold rounded-xl text-sm transition-colors flex items-center gap-1.5 shadow-sm">
                         <i data-lucide="filter" class="w-4 h-4"></i>
                         <span>Apply Filters</span>
                     </button>
-                    @if(request()->anyFilled(['search', 'machine_id', 'grade_id', 'supervisor_id', 'status', 'date']))
+                    @if(request()->anyFilled(['search', 'brand_id', 'machine_id', 'grade_id', 'supervisor_id', 'status', 'date']))
                         <a href="{{ route('production.history') }}" class="px-4 py-2 bg-slate-150 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-semibold border border-slate-300 rounded-xl text-sm transition-colors flex items-center justify-center gap-1">
                             <i data-lucide="x" class="w-4 h-4"></i>
                             <span>Clear</span>
@@ -161,7 +175,14 @@
 
                             <!-- Grade -->
                             <td class="p-4">
-                                <div class="font-semibold text-slate-800">{{ $batch->grade->name }}</div>
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="font-semibold text-slate-800">{{ $batch->grade->name }}</span>
+                                    @if($batch->grade?->brand)
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                            {{ $batch->grade->brand->name }}
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="text-xs text-slate-450 font-mono">Formula v{{ $batch->formula->version ?? 'N/A' }}</div>
                             </td>
 

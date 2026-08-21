@@ -255,7 +255,7 @@
                         <option value="">Select Adhesive Product...</option>
                         @foreach($grades as $grade)
                             <option value="{{ $grade->id }}" data-bag-name="{{ $grade->bagSize ? $grade->bagSize->name : '20 KG Bag' }}">
-                                {{ $grade->name }} ({{ $grade->code }})
+                                {{ $grade->name }} ({{ $grade->code }})@if($grade->brand) [{{ $grade->brand->name }}]@endif
                             </option>
                         @endforeach
                     </select>
@@ -268,7 +268,7 @@
                         <option value="">Select Grout Color...</option>
                         @foreach($colors as $color)
                             <option value="{{ $color->id }}" data-bag-name="{{ $color->packing_size ?: '1 KG Pouch' }}">
-                                {{ $color->name }} ({{ $color->code }})
+                                {{ $color->name }} ({{ $color->code }})@if($color->brand) [{{ $color->brand->name }}]@endif
                             </option>
                         @endforeach
                     </select>

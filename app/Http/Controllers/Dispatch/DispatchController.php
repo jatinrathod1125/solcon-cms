@@ -115,7 +115,7 @@ class DispatchController extends Controller
         $approvedOrders = MarketingOrder::approved()
             ->whereIn('status', ['pending', 'in_progress'])
             ->whereNotIn('id', $dispatchedOrderIds)
-            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial'])
+            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial'])
             ->orderByDesc('id')
             ->get();
 

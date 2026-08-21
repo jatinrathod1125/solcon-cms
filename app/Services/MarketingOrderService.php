@@ -467,16 +467,21 @@ class MarketingOrderService
     /**
      * Get products by department code.
      */
-    public function getProductsByDepartment(string $deptCode): Collection
+    public function getProductsByDepartment(string $deptCode, $brand = null): Collection
     {
+        $targetBrand = $brand ?? (function_exists('currentBrand') ? currentBrand() : null);
+
         return match ($deptCode) {
             'TAD' => Grade::where('is_active', true)
-                ->with('bagSize:id,name,value')
-                ->select('id', 'name', 'code', 'bag_size_id')
+                ->when($targetBrand, fn ($q) => $q->forBrand($targetBrand))
+                ->with(['bagSize:id,name,value', 'brand:id,name'])
+                ->select('id', 'name', 'code', 'bag_size_id', 'brand_id')
                 ->orderBy('name')
                 ->get(),
             'GRT' => Color::where('is_active', true)
-                ->select('id', 'name', 'code', 'packing_size')
+                ->when($targetBrand, fn ($q) => $q->forBrand($targetBrand))
+                ->with('brand:id,name')
+                ->select('id', 'name', 'code', 'packing_size', 'brand_id')
                 ->orderBy('name')
                 ->get(),
             'EPX' => EpoxyProduct::where('is_active', true)

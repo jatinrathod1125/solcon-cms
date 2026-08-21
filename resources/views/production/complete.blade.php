@@ -43,7 +43,14 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-gray-200 p-4 rounded-xl border border-slate-850 text-sm">
                 <div>
                     <span class="text-slate-500 text-xs uppercase block mb-0.5">Grade</span>
-                    <span class="text-white font-semibold">{{ $batch->grade->name }}</span>
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="text-white font-semibold">{{ $batch->grade->name }}</span>
+                        @if($batch->grade?->brand)
+                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                {{ $batch->grade->brand->name }}
+                            </span>
+                        @endif
+                    </div>
                 </div>
                 <div>
                     <span class="text-slate-500 text-xs uppercase block mb-0.5">Mixer Machine</span>

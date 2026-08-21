@@ -137,6 +137,45 @@ class FinishedGood extends Model
     }
 
     /**
+     * Scope a query to include finished goods for a specific brand context.
+     * Includes:
+     * - Grades matching brand (or brand_id IS NULL)
+     * - Colors matching brand (or brand_id IS NULL)
+     * - Epoxy items (which are shared across brands or have no grade/color)
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($brandId) {
+            $q->whereHas('grade', fn ($gQ) => $gQ->forBrand($brandId))
+              ->orWhereHas('color', fn ($cQ) => $cQ->forBrand($brandId))
+              ->orWhere(function ($eQ) {
+                  $eQ->whereNull('grade_id')->whereNull('color_id');
+              });
+        });
+    }
+
+    /**
+     * Scope a query to include finished goods for the current session brand.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
+    }
+
+    /**
      * Accessor for dynamic status checking
      */
     public function getFormattedStatusAttribute(): string

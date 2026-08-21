@@ -35,7 +35,14 @@
                 RUNNING
             </span>
             @endif
-            <h2 class="text-2xl font-extrabold text-white tracking-tight">{{ $batch->grade->name }}</h2>
+            <div class="flex items-center gap-2.5 flex-wrap justify-center md:justify-start">
+                <h2 class="text-2xl font-extrabold text-white tracking-tight">{{ $batch->grade->name }}</h2>
+                @if($batch->grade?->brand)
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm">
+                        {{ $batch->grade->brand->name }}
+                    </span>
+                @endif
+            </div>
             <p class="text-sm text-slate-400">Processed on Mixer Machine: <span class="text-slate-200 font-semibold">{{
                     $batch->machine->name }}</span> ({{ $batch->machine->code }})</p>
         </div>
