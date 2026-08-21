@@ -55,10 +55,48 @@ class GroutFormula extends Model
     }
 
     /**
+     * Get the brand of the color associated with this formula.
+     */
+    public function getBrandAttribute(): ?Brand
+    {
+        return $this->color?->brand;
+    }
+
+    /**
      * Get the user who last updated the formula.
      */
     public function updater(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * Scope a query to include grout formulas for a specific brand or common formulas via Color relation.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+        return $query->whereHas('color', function ($q) use ($brandId) {
+            $q->forBrand($brandId);
+        });
+    }
+
+    /**
+     * Scope a query to include grout formulas for the current session brand or common formulas.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
     }
 }

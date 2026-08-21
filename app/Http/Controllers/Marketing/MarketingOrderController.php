@@ -78,7 +78,8 @@ class MarketingOrderController extends Controller
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
         $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
-        $groutColors = Color::where('is_active', true)
+        $groutColors = Color::with('brand')
+            ->where('is_active', true)
             ->where('packing_size', '!=', '500 GM')
             ->orderBy('code', 'asc')
             ->get();
@@ -319,7 +320,8 @@ class MarketingOrderController extends Controller
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
         $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
-        $groutColors = Color::where('is_active', true)
+        $groutColors = Color::with('brand')
+            ->where('is_active', true)
             ->where('packing_size', '!=', '500 GM')
             ->orderBy('code', 'asc')
             ->get();
@@ -383,7 +385,8 @@ class MarketingOrderController extends Controller
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
         $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
-        $groutColors = Color::where('is_active', true)
+        $groutColors = Color::with('brand')
+            ->where('is_active', true)
             ->where('packing_size', '!=', '500 GM')
             ->orderBy('code', 'asc')
             ->get();

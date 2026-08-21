@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\GroutFormula;
 use App\Models\GroutFormulaItem;
 use App\Models\Color;
+use App\Models\Brand;
 use App\Models\RawMaterial;
 use App\Models\Unit;
 use App\Services\GroutFormulaService;
@@ -29,7 +30,18 @@ class GroutFormulaController extends Controller
      */
     public function index(Request $request)
     {
-        $query = GroutFormula::with(['color', 'creator']);
+        $query = GroutFormula::with(['color.brand', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        if ($request->filled('brand_id')) {
+            $brandId = $request->input('brand_id');
+            $query->whereHas('color', function($q) use ($brandId) {
+                $q->where('brand_id', $brandId);
+            });
+        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -40,8 +52,9 @@ class GroutFormulaController extends Controller
         }
 
         $formulas = $query->latest()->paginate(10)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.grout_formulas.index', compact('formulas'));
+        return view('admin.grout_formulas.index', compact('formulas', 'brands'));
     }
 
     /**
@@ -49,7 +62,7 @@ class GroutFormulaController extends Controller
      */
     public function show(GroutFormula $grout_formula)
     {
-        $formula = $grout_formula->load(['color', 'creator', 'items.rawMaterial', 'items.unit']);
+        $formula = $grout_formula->load(['color.brand', 'creator', 'items.rawMaterial', 'items.unit']);
 
         // Group items by mix stage
         $stage1Items = $formula->items->where('mix_stage', 'Stage 1');
@@ -63,7 +76,11 @@ class GroutFormulaController extends Controller
      */
     public function create()
     {
-        $colors = Color::where('is_active', true)->orderBy('name')->get();
+        $colorsQuery = Color::with('brand')->where('is_active', true);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $colorsQuery->forBrand(currentBrand());
+        }
+        $colors = $colorsQuery->orderBy('name')->get();
         $rawMaterials = RawMaterial::where('is_active', true)->orderBy('name')->get();
         $units = Unit::getActive();
 
@@ -127,7 +144,11 @@ class GroutFormulaController extends Controller
     public function edit(GroutFormula $grout_formula)
     {
         $formula = $grout_formula->load('items');
-        $colors = Color::where('is_active', true)->orderBy('name')->get();
+        $colorsQuery = Color::with('brand')->where('is_active', true);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $colorsQuery->forBrand(currentBrand());
+        }
+        $colors = $colorsQuery->orderBy('name')->get();
         $rawMaterials = RawMaterial::where('is_active', true)->orderBy('name')->get();
         $units = Unit::getActive();
 

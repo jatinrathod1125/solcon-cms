@@ -22,7 +22,14 @@
         <div>
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Grout Color</p>
             <p class="text-lg font-bold text-white leading-snug">{{ $formula->color->name ?? 'N/A' }}</p>
-            <p class="text-xs font-mono text-slate-400 mt-1 uppercase">{{ $formula->color->code ?? 'N/A' }}</p>
+            <div class="flex items-center gap-2 mt-1">
+                <span class="text-xs font-mono text-slate-400 uppercase">{{ $formula->color->code ?? 'N/A' }}</span>
+                @if($formula->color?->brand)
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        {{ $formula->color->brand->name }}
+                    </span>
+                @endif
+            </div>
         </div>
         <div>
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Version &amp; Status</p>

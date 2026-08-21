@@ -11,7 +11,19 @@
         <tbody class="divide-y divide-slate-100 font-medium text-slate-750">
             @forelse($items as $item)
                 <tr class="hover:bg-slate-50/50 transition">
-                    <td class="px-5 py-3 font-bold text-slate-900">{{ $item->product_name }}</td>
+                    <td class="px-5 py-3 font-bold text-slate-900">
+                        <div class="flex items-center gap-1.5">
+                            <span>{{ $item->product_name }}</span>
+                            @if($item->brand)
+                                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                    {{ $item->brand->name }}
+                                </span>
+                            @endif
+                        </div>
+                        @if($item->packing)
+                            <div class="text-[10px] font-normal text-slate-400 font-mono">{{ $item->packing }}</div>
+                        @endif
+                    </td>
                     <td class="px-5 py-3 text-right font-mono font-bold text-slate-900">{{ number_format($item->available_bags) }}</td>
                     <td class="px-5 py-3 text-right font-mono text-slate-400">{{ number_format($item->minimum_stock) }}</td>
                     <td class="px-5 py-3 text-right">

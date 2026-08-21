@@ -28,7 +28,7 @@ class FinishedGoodsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = FinishedGood::with(['department', 'grade', 'color', 'epoxyProduct', 'couponMaterial']);
+        $query = FinishedGood::with(['department', 'grade.brand', 'color.brand', 'epoxyProduct', 'couponMaterial']);
 
         // Search by Product Name
         if ($request->filled('search')) {

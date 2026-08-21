@@ -100,10 +100,48 @@ class GroutProductionBatch extends Model
     }
 
     /**
+     * Get the brand of the color associated with this batch.
+     */
+    public function getBrandAttribute(): ?Brand
+    {
+        return $this->color?->brand;
+    }
+
+    /**
      * Get the stock ledger movements created by this batch.
      */
     public function ledgers(): HasMany
     {
         return $this->hasMany(StockLedger::class, 'grout_batch_id');
+    }
+
+    /**
+     * Scope a query to include grout batches for a specific brand or common batches via Color relation.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+        return $query->whereHas('color', function ($q) use ($brandId) {
+            $q->forBrand($brandId);
+        });
+    }
+
+    /**
+     * Scope a query to include grout batches for the current session brand or common batches.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
     }
 }

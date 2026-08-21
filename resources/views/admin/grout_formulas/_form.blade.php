@@ -7,7 +7,7 @@
             <option value="">Select Color</option>
             @foreach($colors as $color)
                 <option value="{{ $color->id }}" {{ old('color_id', $formula->color_id ?? '') == $color->id ? 'selected' : '' }}>
-                    {{ $color->name }} ({{ $color->code }})
+                    {{ $color->name }} ({{ $color->code }} - {{ $color->packing_size }}){{ $color->brand ? ' [' . $color->brand->name . ']' : '' }}
                 </option>
             @endforeach
         </select>

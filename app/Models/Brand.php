@@ -30,6 +30,11 @@ class Brand extends Model
         return $this->hasMany(FinishedGood::class);
     }
 
+    public function colors(): HasMany
+    {
+        return $this->hasMany(Color::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {

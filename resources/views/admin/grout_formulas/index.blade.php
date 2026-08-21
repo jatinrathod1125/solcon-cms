@@ -8,9 +8,10 @@
     <!-- Header Actions -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <!-- Search Form -->
-        <form method="GET" action="{{ route('admin.grout-formulas.index') }}" class="flex items-center w-full sm:max-w-md gap-2">
-            <div class="relative flex-1">
-                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+        <form method="GET" action="{{ route('admin.grout-formulas.index') }}" class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+            <!-- Search Input -->
+            <div class="relative min-w-[240px]">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
                     <i data-lucide="search" class="w-4 h-4"></i>
                 </span>
                 <input type="text" name="search" value="{{ request('search') }}" 
@@ -18,11 +19,22 @@
                     placeholder="Search by color name or code...">
             </div>
 
+            <!-- Brand Filter -->
+            <select name="brand_id" 
+                class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
+                <option value="">All Brands</option>
+                @foreach($brands as $brand)
+                    <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                        {{ $brand->name }}
+                    </option>
+                @endforeach
+            </select>
+
             <button type="submit" class="px-4 py-2 bg-slate-900 border border-slate-800 hover:bg-slate-800 rounded-xl text-sm font-medium transition-colors text-slate-300">
                 Filter
             </button>
-            @if(request('search'))
-                <a href="{{ route('admin.grout-formulas.index') }}" class="px-3 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-sm transition-colors" title="Clear Search">
+            @if(request()->anyFilled(['search', 'brand_id']))
+                <a href="{{ route('admin.grout-formulas.index') }}" class="px-3 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-sm transition-colors" title="Clear Filters">
                     Clear
                 </a>
             @endif
@@ -43,6 +55,7 @@
                     <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
                         <th class="p-4 w-28">Color Code</th>
                         <th class="p-4">Color Name</th>
+                        <th class="p-4">Brand</th>
                         <th class="p-4 w-24 text-center">Version</th>
                         <th class="p-4">Remarks</th>
                         <th class="p-4">Created By</th>
@@ -61,6 +74,17 @@
                             <!-- Color Name -->
                             <td class="p-4 font-semibold text-white">
                                 {{ $formula->color->name ?? 'N/A' }}
+                            </td>
+
+                            <!-- Brand -->
+                            <td class="p-4">
+                                @if($formula->color?->brand)
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                        {{ $formula->color->brand->name }}
+                                    </span>
+                                @else
+                                    <span class="text-xs text-slate-500 italic">Common</span>
+                                @endif
                             </td>
                             
                             <!-- Version -->

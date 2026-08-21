@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Color;
+use App\Models\Brand;
 use App\Models\Department;
 use App\Http\Requests\Admin\StoreColorRequest;
 use App\Http\Requests\Admin\UpdateColorRequest;
@@ -16,7 +17,15 @@ class ColorController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Color::with(['department', 'creator', 'updater']);
+        $query = Color::with(['brand', 'department', 'creator', 'updater']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->input('brand_id'));
+        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -39,8 +48,9 @@ class ColorController extends Controller
         }
 
         $colors = $query->latest()->paginate(10)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.colors.index', compact('colors'));
+        return view('admin.colors.index', compact('colors', 'brands'));
     }
 
     /**
@@ -50,7 +60,8 @@ class ColorController extends Controller
     {
         // Only get active departments, preferably including Grout Department
         $departments = Department::getActive();
-        return view('admin.colors.create', compact('departments'));
+        $brands = Brand::active()->orderBy('name')->get();
+        return view('admin.colors.create', compact('departments', 'brands'));
     }
 
     /**
@@ -75,8 +86,9 @@ class ColorController extends Controller
     public function edit(Color $grout_color)
     {
         $departments = Department::getActive();
+        $brands = Brand::active()->orderBy('name')->get();
         $color = $grout_color;
-        return view('admin.colors.edit', compact('color', 'departments'));
+        return view('admin.colors.edit', compact('color', 'departments', 'brands'));
     }
 
     /**

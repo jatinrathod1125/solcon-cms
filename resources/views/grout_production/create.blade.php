@@ -66,7 +66,7 @@
                         <option value="">Select Color</option>
                         @foreach($colors as $color)
                             <option value="{{ $color->id }}" data-name="{{ $color->name }}" data-code="{{ $color->code }}">
-                                {{ $color->name }} ({{ $color->code }})
+                                {{ $color->name }} ({{ $color->code }} - {{ $color->packing_size }}){{ $color->brand ? ' [' . $color->brand->name . ']' : '' }}
                             </option>
                         @endforeach
                     </select>

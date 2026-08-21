@@ -123,6 +123,20 @@ class FinishedGood extends Model
     }
 
     /**
+     * Get the brand associated with this finished good (via Grade or Color).
+     */
+    public function getBrandAttribute(): ?Brand
+    {
+        if ($this->grade) {
+            return $this->grade->brand;
+        }
+        if ($this->color) {
+            return $this->color->brand;
+        }
+        return null;
+    }
+
+    /**
      * Accessor for dynamic status checking
      */
     public function getFormattedStatusAttribute(): string

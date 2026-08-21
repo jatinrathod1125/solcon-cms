@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateColorRequest extends FormRequest
 {
@@ -25,6 +26,7 @@ class UpdateColorRequest extends FormRequest
         $colorId = is_object($color) ? $color->id : $color;
 
         return [
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'department_id' => ['required', 'exists:departments,id'],
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:colors,code,' . $colorId],

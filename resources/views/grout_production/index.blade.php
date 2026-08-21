@@ -51,7 +51,14 @@
                             <div class="mt-4 grid grid-cols-2 gap-2 rounded-xl border border-slate-850 bg-slate-900/40 p-3 text-xs">
                                 <div>
                                     <p class="text-[9px] font-bold uppercase tracking-wider text-slate-500">Color</p>
-                                    <p class="mt-1 font-semibold text-white truncate">{{ $batch->color?->name ?? 'No Color' }}</p>
+                                    <div class="flex items-center gap-1 mt-1">
+                                        <span class="font-semibold text-white truncate">{{ $batch->color?->name ?? 'No Color' }}</span>
+                                        @if($batch->color?->brand)
+                                            <span class="px-1 py-0.2 rounded text-[9px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+                                                {{ $batch->color->brand->name }}
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div>
                                     @if($code === 'M-01')
@@ -138,22 +145,25 @@
                     <select name="status"
                         class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-350 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-xs">
                         <option value="">All Statuses</option>
-                        <option value="Completed" {{ request('status') === 'Completed' ? 'selected' : '' }}>Completed</option>
-                        <option value="Packing" {{ request('status') === 'Packing' ? 'selected' : '' }}>Packing</option>
-                        <option value="Ready For Packing" {{ request('status') === 'Ready For Packing' ? 'selected' : '' }}>Ready For Packing</option>
+                        <option value="Waiting" {{ request('status') === 'Waiting' ? 'selected' : '' }}>Waiting</option>
                         <option value="Stage 1 Mixing" {{ request('status') === 'Stage 1 Mixing' ? 'selected' : '' }}>Stage 1 Mixing</option>
                         <option value="Timer Running" {{ request('status') === 'Timer Running' ? 'selected' : '' }}>Timer Running</option>
+                        <option value="Stage 2 Mixing" {{ request('status') === 'Stage 2 Mixing' ? 'selected' : '' }}>Stage 2 Mixing</option>
+                        <option value="Ready For Packing" {{ request('status') === 'Ready For Packing' ? 'selected' : '' }}>Ready For Packing</option>
+                        <option value="Packing" {{ request('status') === 'Packing' ? 'selected' : '' }}>Packing</option>
+                        <option value="Completed" {{ request('status') === 'Completed' ? 'selected' : '' }}>Completed</option>
                     </select>
                 </div>
 
-                <!-- Date -->
+                <!-- Date Filter -->
                 <div>
-                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[10px]">Production Date</label>
+                    <label class="block text-slate-500 mb-1.5 uppercase font-bold tracking-wider text-[10px]">Date</label>
                     <input type="date" name="date" value="{{ request('date') }}"
-                        class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-xs">
+                        class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-xs">
                 </div>
 
-                <div class="col-span-1 sm:col-span-2 md:col-span-4 flex justify-end gap-2 pt-2 border-t border-slate-850 mt-1">
+                <!-- Action Buttons -->
+                <div class="col-span-1 sm:col-span-2 md:col-span-4 flex justify-end gap-2 pt-2 border-t border-slate-850">
                     @if(request()->anyFilled(['search', 'machine_id', 'status', 'date']))
                         <a href="{{ route('grout-production.index') }}" class="px-4 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs font-semibold transition-colors">
                             Clear Filters
@@ -172,11 +182,12 @@
                 <table class="w-full text-left border-collapse text-sm">
                     <thead>
                         <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
-                            <th class="p-4 w-28">Batch No</th>
+                            <th class="p-4 w-32">Batch No</th>
                             <th class="p-4">Machine</th>
                             <th class="p-4">Color</th>
+                            <th class="p-4">Brand</th>
                             <th class="p-4">Operator</th>
-                            <th class="p-4">Finished Output</th>
+                            <th class="p-4">Output</th>
                             <th class="p-4">Start Time</th>
                             <th class="p-4 w-32">Status</th>
                             <th class="p-4 w-24 text-right">Actions</th>
@@ -190,6 +201,15 @@
                                 <td class="p-4">
                                     <div class="font-semibold text-white">{{ $b->color?->name ?? 'No Color' }}</div>
                                     <div class="text-[10px] font-mono text-slate-500 uppercase">{{ $b->color?->code ?? '-' }}</div>
+                                </td>
+                                <td class="p-4">
+                                    @if($b->color?->brand)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                            {{ $b->color->brand->name }}
+                                        </span>
+                                    @else
+                                        <span class="text-xs text-slate-500 italic">Common</span>
+                                    @endif
                                 </td>
                                 <td class="p-4 text-xs text-slate-450">{{ $b->operator?->name ?? 'Unassigned' }}</td>
                                 <td class="p-4">

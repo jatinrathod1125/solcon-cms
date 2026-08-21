@@ -26,6 +26,17 @@
                     placeholder="Search name/code...">
             </div>
 
+            <!-- Brand Filter -->
+            <select name="brand_id" 
+                class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
+                <option value="">All Brands</option>
+                @foreach($brands as $brand)
+                    <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                        {{ $brand->name }}
+                    </option>
+                @endforeach
+            </select>
+
             <!-- Packing Size -->
             <select name="packing_size" 
                 class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
@@ -51,8 +62,8 @@
             </select>
 
             <!-- Action buttons -->
-            <div class="sm:col-span-2 md:col-span-4 flex justify-end gap-2 pt-2 border-t border-slate-850">
-                @if(request()->anyFilled(['search', 'packing_size', 'default_cement', 'status']))
+            <div class="sm:col-span-2 md:col-span-5 flex justify-end gap-2 pt-2 border-t border-slate-850">
+                @if(request()->anyFilled(['search', 'brand_id', 'packing_size', 'default_cement', 'status']))
                     <a href="{{ route('admin.grout-colors.index') }}" class="px-4 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs font-semibold transition-colors">
                         Clear Filters
                     </a>
@@ -72,6 +83,7 @@
                     <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
                         <th class="p-4 w-28">Code</th>
                         <th class="p-4">Color Name</th>
+                        <th class="p-4">Brand</th>
                         <th class="p-4">Department</th>
                         <th class="p-4">Packing Size</th>
                         <th class="p-4">Default Cement</th>
@@ -94,6 +106,17 @@
                                 <div class="text-xs text-slate-500 max-w-xs truncate">{{ $color->description ?? '-' }}</div>
                             </td>
                             
+                            <!-- Brand -->
+                            <td class="p-4">
+                                @if($color->brand)
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                        {{ $color->brand->name }}
+                                    </span>
+                                @else
+                                    <span class="text-xs text-slate-500 italic">Common</span>
+                                @endif
+                            </td>
+
                             <!-- Department -->
                             <td class="p-4">
                                 <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-900 text-xs font-medium">

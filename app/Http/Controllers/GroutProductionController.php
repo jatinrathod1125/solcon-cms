@@ -76,7 +76,7 @@ class GroutProductionController extends Controller
             // Find active running batch on this machine
             $activeBatch = GroutProductionBatch::where('machine_id', $machine->id)
                 ->where('status', '!=', 'Completed')
-                ->with(['color', 'operator'])
+                ->with(['color.brand', 'operator'])
                 ->first();
 
             $remainingSeconds = 3600;
@@ -92,7 +92,11 @@ class GroutProductionController extends Controller
         }
 
         // --- BATCH HISTORY LIST ---
-        $query = GroutProductionBatch::with(['machine', 'color', 'operator']);
+        $query = GroutProductionBatch::with(['machine', 'color.brand', 'operator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $query->where('batch_no', 'like', '%' . trim($request->input('search')) . '%');
@@ -152,10 +156,15 @@ class GroutProductionController extends Controller
             $machine->status = in_array($machine->id, $runningMachineIds) ? 'running' : 'idle';
         }
 
-        $colors = Color::where('department_id', $groutDept->id)
-            ->where('is_active', true)
-            ->orderBy('name')
-            ->get();
+        $colorsQuery = Color::with('brand')
+            ->where('department_id', $groutDept->id)
+            ->where('is_active', true);
+        
+        if (function_exists('currentBrand') && currentBrand()) {
+            $colorsQuery->forBrand(currentBrand());
+        }
+
+        $colors = $colorsQuery->orderBy('name')->get();
 
         $batchNo = BatchNumberService::generate('GRT', \App\Models\GroutProductionBatch::class);
         $startTime = now();
@@ -222,7 +231,7 @@ class GroutProductionController extends Controller
             return redirect()->route('grout-production.show', $batch->id);
         }
 
-        $batch->load(['machine', 'color', 'operator']);
+        $batch->load(['machine', 'color.brand', 'operator']);
         
         $remainingSeconds = $this->timerService->getRemainingSeconds($batch);
         $isTimerCompleted = $this->timerService->isTimerCompleted($batch);
@@ -240,7 +249,7 @@ class GroutProductionController extends Controller
             abort(403, 'Unauthorized.');
         }
 
-        $batch->load(['machine', 'color', 'operator', 'ledgers.rawMaterial.stockUnit']);
+        $batch->load(['machine', 'color.brand', 'operator', 'ledgers.rawMaterial.stockUnit']);
 
         return view('grout_production.show', compact('batch'));
     }

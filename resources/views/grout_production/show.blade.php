@@ -37,6 +37,13 @@
             <div>
                 <span class="text-slate-500 block uppercase font-bold tracking-wider text-[9px] mb-1">Grout Color</span>
                 <strong class="text-white text-sm">{{ $batch->color->name }} ({{ $batch->color->code }})</strong>
+                @if($batch->color?->brand)
+                    <div class="mt-1">
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            {{ $batch->color->brand->name }}
+                        </span>
+                    </div>
+                @endif
             </div>
             <div>
                 <span class="text-slate-500 block uppercase font-bold tracking-wider text-[9px] mb-1">Packing Configuration</span>

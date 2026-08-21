@@ -85,6 +85,11 @@
                     <div class="flex items-center gap-2 mt-0.5">
                         <span class="font-semibold text-white">{{ $batch->color->name }}</span>
                         <span class="px-1.5 py-0.2 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-400 font-mono">{{ $batch->color->code }}</span>
+                        @if($batch->color->brand)
+                            <span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                {{ $batch->color->brand->name }}
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div>
