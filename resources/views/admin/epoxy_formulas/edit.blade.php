@@ -62,6 +62,19 @@
         $(document).on('click', '.remove-item-btn', function() {
             $(this).closest('tr').remove();
         });
+
+        $(document).on('change', '.item-type-select', function() {
+            var $row = $(this).closest('tr');
+            var isPacking = $(this).val() === 'packing';
+            
+            if (isPacking) {
+                $row.find('.raw-select-wrap').addClass('hidden').find('select').prop('required', false).val('');
+                $row.find('.packing-select-wrap').removeClass('hidden').find('select').prop('required', true);
+            } else {
+                $row.find('.packing-select-wrap').addClass('hidden').find('select').prop('required', false).val('');
+                $row.find('.raw-select-wrap').removeClass('hidden').find('select').prop('required', true);
+            }
+        });
     });
 </script>
 @endsection

@@ -17,11 +17,23 @@
 
     <div class="bg-slate-955 border border-slate-850 p-6 rounded-2xl shadow-xl space-y-6">
         <!-- Metadata cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-900 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-900 text-xs">
             <div>
                 <span class="text-slate-500 block uppercase font-bold tracking-wider mb-1">Component</span>
                 <span class="text-sm text-white font-bold block">{{ $epoxyComponentFormula->component->name }}</span>
                 <span class="font-mono text-cyan-400">{{ $epoxyComponentFormula->component->code }}</span>
+            </div>
+            <div>
+                <span class="text-slate-500 block uppercase font-bold tracking-wider mb-1">Brand</span>
+                @if($epoxyComponentFormula->component->brand)
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 mt-1">
+                        {{ $epoxyComponentFormula->component->brand->name }}
+                    </span>
+                @else
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700 mt-1">
+                        Common
+                    </span>
+                @endif
             </div>
             <div>
                 <span class="text-slate-500 block uppercase font-bold tracking-wider mb-1">Version</span>

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateEpoxyColorRequest extends FormRequest
+class StoreEpoxyProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,11 @@ class UpdateEpoxyColorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $color = $this->route('epoxy_color');
-        $colorId = is_object($color) ? $color->id : $color;
-
         return [
             'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'name' => ['required', 'string', 'max:255'],
-            'code' => ['required', 'string', 'max:255', 'unique:epoxy_filler_colors,code,' . $colorId],
+            'code' => ['required', 'string', 'max:50', 'unique:epoxy_products,code'],
+            'requires_color' => ['nullable', 'boolean'],
             'is_active' => ['nullable', 'boolean'],
             'description' => ['nullable', 'string'],
         ];

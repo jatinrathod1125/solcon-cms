@@ -34,9 +34,9 @@
 
     <!-- Permanent Sleek Filter Bar -->
     <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-        <form id="filterForm" method="GET" action="{{ route('admin.stock-adjustments.index') }}" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div class="relative sm:col-span-2">
-                <label class="block text-slate-500 mb-1 uppercase font-bold tracking-wider text-[9px]">Search Raw Material / Remarks</label>
+        <form id="filterForm" method="GET" action="{{ route('admin.stock-adjustments.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div class="relative lg:col-span-2">
+                <label class="block text-slate-500 mb-1 uppercase font-bold tracking-wider text-[9px]">Search Material / Remarks</label>
                 <div class="relative">
                     <i data-lucide="search" class="absolute left-3 top-2.5 w-4 h-4 text-slate-400"></i>
                     <input type="text" id="filterSearch" name="search" value="{{ request('search') }}" class="block w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Search by name, code or remarks...">
@@ -49,7 +49,19 @@
                     <option value="">All Raw Materials</option>
                     @foreach($rawMaterials as $rm)
                         <option value="{{ $rm->id }}" {{ request('raw_material_id') == $rm->id ? 'selected' : '' }}>
-                            {{ $rm->name }} ({{ $rm->code }})
+                            {{ $rm->name }} ({{ $rm->code }}){{ $rm->brand ? ' [' . $rm->brand->name . ']' : '' }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-slate-500 mb-1 uppercase font-bold tracking-wider text-[9px]">Packing Material Filter</label>
+                <select id="filterPm" name="packing_material_id" class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option value="">All Packing Materials</option>
+                    @foreach($packingMaterials as $pm)
+                        <option value="{{ $pm->id }}" {{ request('packing_material_id') == $pm->id ? 'selected' : '' }}>
+                            {{ $pm->name }} ({{ $pm->code ?? '-' }}){{ $pm->brand ? ' [' . $pm->brand->name . ']' : '' }}
                         </option>
                     @endforeach
                 </select>
@@ -76,7 +88,7 @@
                 <i data-lucide="plus-circle" class="w-5 h-5 text-blue-650"></i>
             </div>
             <div>
-                <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest">Raw Material Stock Movement</h3>
+                <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest">Stock Movement</h3>
                 <p class="text-sm font-black text-slate-800">Record Stock IN / OUT</p>
             </div>
         </div>
@@ -104,7 +116,7 @@
                     <option value="">Select Raw Material</option>
                     @foreach($rawMaterials as $rm)
                         <option value="{{ $rm->id }}">
-                            {{ $rm->name }} ({{ $rm->code }}) - Current: {{ format_quantity($rm->current_stock) }}
+                            {{ $rm->name }} ({{ $rm->code }}){{ $rm->brand ? ' [' . $rm->brand->name . ']' : '' }} - Current: {{ format_quantity($rm->current_stock) }}
                         </option>
                     @endforeach
                 </select>
@@ -116,7 +128,7 @@
                     <option value="">Select Packing Material</option>
                     @foreach($packingMaterials as $pm)
                         <option value="{{ $pm->id }}">
-                            {{ $pm->name }} ({{ $pm->code ?? '-' }}) - Current: {{ format_quantity($pm->current_stock) }} {{ $pm->unit->code ?? 'PCS' }}
+                            {{ $pm->name }} ({{ $pm->code ?? '-' }}){{ $pm->brand ? ' [' . $pm->brand->name . ']' : '' }} - Current: {{ format_quantity($pm->current_stock) }} {{ $pm->unit->code ?? 'PCS' }}
                         </option>
                     @endforeach
                 </select>
@@ -179,7 +191,7 @@ $(function() {
         }, 300);
     });
 
-    $('#filterRm').on('change', function() {
+    $('#filterRm, #filterPm').on('change', function() {
         reloadTable();
     });
 

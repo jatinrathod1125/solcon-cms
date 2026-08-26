@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\EpoxyComponent;
 use App\Models\EpoxyComponentFormula;
 use App\Models\EpoxyComponentFormulaItem;
@@ -15,29 +16,55 @@ use Illuminate\Support\Facades\DB;
 
 class EpoxyComponentFormulaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formulas = EpoxyComponentFormula::with(['component', 'creator'])->get();
-        return view('admin.epoxy_component_formulas.index', compact('formulas'));
+        $query = EpoxyComponentFormula::with(['component.brand', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        if ($request->filled('brand_id')) {
+            $query->forBrand($request->input('brand_id'));
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->whereHas('component', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        $formulas = $query->latest()->paginate(10)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
+
+        return view('admin.epoxy_component_formulas.index', compact('formulas', 'brands'));
     }
 
     public function create(Request $request)
     {
-        $components = EpoxyComponent::where('is_active', true)->orderBy('name')->get();
+        $components = EpoxyComponent::where('is_active', true)->forCurrentBrand()->with('brand')->orderBy('name')->get();
 
         $deptEPX = Department::where('code', 'EPX')->first();
-        // Allow using raw materials from Epoxy department as ingredients
-        // Filter out ready components themselves from ingredients to prevent self-consumption or nesting loop
         $rawMaterials = collect();
         if ($deptEPX) {
             $compRmIds = EpoxyComponent::whereNotNull('raw_material_id')->pluck('raw_material_id')->toArray();
-            $rawMaterials = RawMaterial::where('department_id', $deptEPX->id)
-                ->whereNotIn('id', $compRmIds)
-                ->orderBy('name')
-                ->get();
+            $rmQuery = RawMaterial::where('department_id', $deptEPX->id)
+                ->where('is_active', true)
+                ->whereNotIn('id', $compRmIds);
+            if (function_exists('currentBrand') && currentBrand()) {
+                $rmQuery->forBrand(currentBrand());
+            }
+            $rawMaterials = $rmQuery->orderBy('name')->get();
         }
 
-        $packingMaterials = PackingMaterial::where('status', 'active')->with('category')->orderBy('name')->get();
+        $pmQuery = PackingMaterial::where('status', 'active')->with(['brand', 'category']);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $pmQuery->forBrand(currentBrand());
+        }
+        $packingMaterials = $pmQuery->orderBy('name')->get();
+
         $units = Unit::where('is_active', true)->orderBy('name')->get();
         $preselectedComponentId = $request->query('component_id');
 
@@ -91,27 +118,35 @@ class EpoxyComponentFormulaController extends Controller
 
     public function show(EpoxyComponentFormula $epoxyComponentFormula)
     {
-        $epoxyComponentFormula->load(['component', 'items.rawMaterial', 'items.packingMaterial', 'items.unit']);
+        $epoxyComponentFormula->load(['component.brand', 'items.rawMaterial.brand', 'items.packingMaterial.brand', 'items.unit']);
         return view('admin.epoxy_component_formulas.show', compact('epoxyComponentFormula'));
     }
 
     public function edit(EpoxyComponentFormula $epoxyComponentFormula)
     {
-        $components = EpoxyComponent::orderBy('name')->get();
+        $components = EpoxyComponent::forCurrentBrand()->with('brand')->orderBy('name')->get();
         $deptEPX = Department::where('code', 'EPX')->first();
 
         $rawMaterials = collect();
         if ($deptEPX) {
             $compRmIds = EpoxyComponent::whereNotNull('raw_material_id')->pluck('raw_material_id')->toArray();
-            $rawMaterials = RawMaterial::where('department_id', $deptEPX->id)
-                ->whereNotIn('id', $compRmIds)
-                ->orderBy('name')
-                ->get();
+            $rmQuery = RawMaterial::where('department_id', $deptEPX->id)
+                ->where('is_active', true)
+                ->whereNotIn('id', $compRmIds);
+            if (function_exists('currentBrand') && currentBrand()) {
+                $rmQuery->forBrand(currentBrand());
+            }
+            $rawMaterials = $rmQuery->orderBy('name')->get();
         }
 
-        $packingMaterials = PackingMaterial::where('status', 'active')->with('category')->orderBy('name')->get();
+        $pmQuery = PackingMaterial::where('status', 'active')->with(['brand', 'category']);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $pmQuery->forBrand(currentBrand());
+        }
+        $packingMaterials = $pmQuery->orderBy('name')->get();
+
         $units = Unit::orderBy('name')->get();
-        $epoxyComponentFormula->load(['items.rawMaterial', 'items.packingMaterial']);
+        $epoxyComponentFormula->load(['items.rawMaterial.brand', 'items.packingMaterial.brand']);
 
         return view('admin.epoxy_component_formulas.edit', compact('epoxyComponentFormula', 'components', 'rawMaterials', 'packingMaterials', 'units'));
     }

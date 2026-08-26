@@ -3,8 +3,9 @@
         <thead>
             <tr class="bg-slate-50 border-b border-slate-100 text-slate-450 uppercase font-extrabold tracking-wider text-[9px]">
                 <th class="px-5 py-3">ID</th>
-                <th class="px-5 py-3">Raw Material</th>
-                <th class="px-5 py-3">Dept</th>
+                <th class="px-5 py-3">Material</th>
+                <th class="px-5 py-3">Brand</th>
+                <th class="px-5 py-3">Dept / Category</th>
                 <th class="px-5 py-3 text-right">Stock IN / OUT Qty</th>
                 <th class="px-5 py-3">Remarks / Reason</th>
                 <th class="px-5 py-3 font-semibold">Logged By</th>
@@ -28,6 +29,20 @@
                             -
                         @endif
                     </td>
+                    <td class="px-5 py-3">
+                        @php
+                            $brand = $adj->packingMaterial?->brand ?? $adj->rawMaterial?->brand;
+                        @endphp
+                        @if($brand)
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                                {{ $brand->name }}
+                            </span>
+                        @else
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                                Common
+                            </span>
+                        @endif
+                    </td>
                     <td class="px-5 py-3 text-slate-500 font-semibold">
                         @if($adj->packingMaterial)
                             {{ $adj->packingMaterial->category->name ?? '-' }}
@@ -46,7 +61,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center py-10 text-slate-400 font-semibold">No stock adjustments logged.</td>
+                    <td colspan="8" class="text-center py-10 text-slate-400 font-semibold">No stock adjustments logged.</td>
                 </tr>
             @endforelse
         </tbody>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 13, 2026 at 03:29 PM
+-- Generation Time: Aug 26, 2026 at 06:03 AM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `activity_logs_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=570 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=594 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -618,7 +618,31 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `module`,
 (566, 2, 'FINISHED_GOODS_ADJUSTED', 'Manual stock adjustment (decrease) of 1000 units for product: F-101 (20KG). Reason: Dispatch DISP-20260812-001.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-12 05:05:03', '2026-08-12 05:05:03'),
 (567, 2, 'DISPATCH_COMPLETED', 'Dispatch DISP-20260812-001 completed. Finished Goods stock deducted for party: ABC', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-12 05:05:03', '2026-08-12 05:05:03'),
 (568, 1, 'DISPATCH_RELEASE_TOGGLED', 'Dispatch DISP-20260812-001 release status changed to: Hold', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-12 05:06:26', '2026-08-12 05:06:26'),
-(569, 1, 'DISPATCH_RELEASE_TOGGLED', 'Dispatch DISP-20260812-001 release status changed to: Released', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-12 05:06:41', '2026-08-12 05:06:41');
+(569, 1, 'DISPATCH_RELEASE_TOGGLED', 'Dispatch DISP-20260812-001 release status changed to: Released', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-12 05:06:41', '2026-08-12 05:06:41'),
+(570, 2, 'FORMULA_UPDATED', 'Created new formula version #1 for grade ID 9.', 'Formula', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-20 08:29:53', '2026-08-20 08:29:53'),
+(571, 2, 'BATCH_CREATED', 'Production batch #ADH-20260820-0001 started on machine ID 4 (Grade: FX-01).', 'Production', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-20 08:38:51', '2026-08-20 08:38:51'),
+(572, 2, 'BATCH_COMPLETED', 'Production batch #ADH-20260820-0001 completed. Output: 100 bags (2000 KG).', 'Production', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(573, 2, 'STOCK_DEDUCTED', 'Stock deducted for production batch #ADH-20260820-0001.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(574, 2, 'LEDGER_CREATED', 'Stock ledger entries created for production batch #ADH-20260820-0001.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(575, 2, 'MARKETING_ORDER_CREATED', 'Marketing order MKT-20260821-001 created for party: fixora', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:45:26', '2026-08-21 10:45:26'),
+(576, 2, 'MARKETING_ORDER_APPROVED', 'Marketing order MKT-20260821-001 approved for party: fixora', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:45:49', '2026-08-21 10:45:49'),
+(577, 2, 'FINISHED_GOODS_ADJUSTED', 'Manual stock adjustment (increase) of 500 units for product: FX-01 (20KG). Reason: opening stock.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:49:58', '2026-08-21 10:49:58'),
+(578, 2, 'FORMULA_UPDATED', 'Created new Grout formula version #1 for color ID 35.', 'Formula', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:53:49', '2026-08-21 10:53:49'),
+(579, 2, 'BATCH_CREATED', 'Grout production batch #GRT-20260821-0001 started on machine M-04 (Color: Black).', 'Production', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:54:44', '2026-08-21 10:54:44'),
+(580, 2, 'TIMER_STARTED', '59-Minute dry mix timer started for Grout batch #GRT-20260821-0001 on machine M-04.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:54:47', '2026-08-21 10:54:47'),
+(581, 2, 'TIMER_SKIPPED', 'Timer skipped for Grout batch #GRT-20260821-0001 on machine M-04. Reason: nothing. Skipped by: Admin User.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:54:56', '2026-08-21 10:54:56'),
+(582, 2, 'STAGE2_STARTED', 'Transitioned Grout batch #GRT-20260821-0001 to Stage 2 Mixing.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:54:59', '2026-08-21 10:54:59'),
+(583, 2, 'MIXING_COMPLETED', 'Mixing completed for Grout batch #GRT-20260821-0001. Status: Ready For Packing.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:55:01', '2026-08-21 10:55:01'),
+(584, 2, 'PACKING_STARTED', 'Packing started for Grout batch #GRT-20260821-0001.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:55:03', '2026-08-21 10:55:03'),
+(585, 2, 'BATCH_COMPLETED', 'Grout production batch #GRT-20260821-0001 completed. Output: 13 bags (325 KG).', 'Production', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(586, 2, 'STOCK_DEDUCTED', 'Stock deducted for Grout production batch #GRT-20260821-0001.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(587, 2, 'LEDGER_CREATED', 'Stock ledger entries created for Grout production batch #GRT-20260821-0001.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(588, 2, 'STOCK_ADJUSTMENT', 'Manual stock adjustment of 5000 for packing material ID 29.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-26 05:04:51', '2026-08-26 05:04:51'),
+(589, 2, 'STOCK_ADJUSTMENT', 'Manual stock adjustment of 5000 for packing material ID 87.', 'Stock', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-26 05:16:07', '2026-08-26 05:16:07'),
+(590, 2, 'EPOXY_COMPONENT_PREPARED', 'Prepared 96 units of 100 GM HARDNER BOTTLE (Assembly Component). Ingredients deducted.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-26 05:16:29', '2026-08-26 05:16:29'),
+(591, 2, 'EPOXY_COMPONENT_PREPARED', 'Prepared 400 units of 100 GM HARDNER BOTTLE (Assembly Component). Ingredients deducted.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-26 05:24:07', '2026-08-26 05:24:07'),
+(592, 2, 'EPOXY_COMPONENT_PREPARED', 'Prepared 10 units of 100 GM HARDNER BOTTLE (Assembly Component). Ingredients deducted.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-26 05:25:46', '2026-08-26 05:25:46'),
+(593, 2, 'EPOXY_COMPONENT_PREPARED', 'Prepared 10 units of 100 GM HARDNER BOTTLE (Assembly Component). Ingredients deducted.', 'System', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', '2026-08-26 05:33:44', '2026-08-26 05:33:44');
 
 -- --------------------------------------------------------
 
@@ -649,6 +673,35 @@ INSERT INTO `bag_sizes` (`id`, `name`, `value`, `description`, `is_active`, `cre
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `brands`
+--
+
+DROP TABLE IF EXISTS `brands`;
+CREATE TABLE IF NOT EXISTS `brands` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `brands_code_unique` (`code`),
+  UNIQUE KEY `brands_slug_unique` (`slug`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`id`, `name`, `code`, `slug`, `logo`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Solcon', 'SOL', 'solcon', NULL, 1, '2026-08-13 16:38:59', '2026-08-13 16:38:59'),
+(2, 'Fixora', 'FIX', 'fixora', NULL, 1, '2026-08-13 16:38:59', '2026-08-13 16:38:59');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cache`
 --
 
@@ -666,14 +719,8 @@ CREATE TABLE IF NOT EXISTS `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('laravel-cache-app_settings_cache', 'a:3:{s:16:\"maintenance_mode\";s:7:\"disable\";s:27:\"maintenance_unlock_password\";s:60:\"$2y$12$v53qIAvf/BpnDdaK.Uj7OORUC7d3ZmaoAiMaZEUGBQg0VSuGXMhkW\";s:20:\"maintenance_password\";s:60:\"$2y$12$YVm3y.eS3Z5a1V6AubSUvuoKtVHVypkmze65fMRNiXcXgU1SLJbSC\";}', 2100339252),
-('laravel-cache-active_department_ids', 'a:3:{i:0;i:3;i:1;i:1;i:2;i:2;}', 1786539855),
-('laravel-cache-firebase_oauth_token', 's:1024:\"ya29.c.c0AZ4bNpY7Qx16Ib-67Sc9wD9Lj1aDTRBixUsKgKb7Ahx8NIDpqKxs6Qe9ZM_A4xrbIU6d7G43HPnwnAkOy7Nk5nKyK0ZmWsiQFjbPRuWVbMHbnQJXS4BkMw38BbRNxrq1wjpoAfL-rOt11Mk1vqFYBedyyKKRNI73akkgNTlaCVFEofTOdxK309D_Y4M6Bcp9coUJVOJMmHxvuV12d-DhgttAadFYLv8Z__G_fRf9fXvuXqllaM4-tAQ7EaKn7nsLHwBrwCTDbEwHGtj2y9ebMfuRpOJjhBW5bSa-5tAvsa-rcuvCqyQdxVI3m0PODdjsaYoNDRDKP_w9bmKdHoWUxkRnBqD0oOlWyXAimGSeyLb38B8PG_VOxuJFG385CsxBgb4oQXfjO32muQYjpY2epVZu1unY9gQ0vjje-B7OUqJW0zJ_1pQtnbqeBQ4xFmh1_FXF5F790prmafRqu7aozsRw2fqBk4eokBzU-l-_ebVV2qdBsaWFnY972uek2cYWhQr1VW0alhf-XdQ7tyr2dc8r_qs3W2gisWBUv5bXMeM9bqQkijYgbXj8UaRhtivzBbbFya2R8d_vY3wU9pzf1q2Jd71mn7crxkQOclpQu7yaojSRxxoolW7qzb8mu629_JVnUgxae1Ol_860qsVQ_0V2hsYhkq8Q4iVWmFcxVc-JZ5iFJ-rlU8WxIakmnb0VySJmSjlowzzwQy_dcqgjjaqw22jWdtdFfbvYXB69Wtzz3W82Zhcyg4IIcRkRMh628racxaaIf9y4f2B7F171Mx4ju5p3ljwk5ilWab9dSSh2g2yaus0ks7wwXJVI5xSsi4gkhBRasUJj2YJaYoFl7RsQjwUm-JlMp6JVJolu3wl1_yjkjI85leZXYms-FofJ2h-boZXYcBk8MpSsa_a4zzw-YQztVI-jzihlUmkrp0Bzm4jhYQB5WIRRwa0OmS1R4osYZe4JJXahJIvYqOnIIklF4XVniBgZhM-UX6lhr1xvb_JOJ5yBqgU\";', 1786514201),
-('laravel-cache-user_department_ids_4', 'a:1:{i:0;i:2;}', 1786511829),
-('laravel-cache-user_departments_4', 'a:1:{i:0;i:2;}', 1786511829),
-('laravel-cache-user_departments_6', 'a:1:{i:0;i:3;}', 1785244503),
-('laravel-cache-user_department_ids_6', 'a:1:{i:0;i:3;}', 1785244503),
-('laravel-cache-user_department_ids_1', 'a:0:{}', 1786513956);
+('laravel-cache-app_settings_cache', 'a:3:{s:16:\"maintenance_mode\";s:7:\"disable\";s:27:\"maintenance_unlock_password\";s:60:\"$2y$12$v53qIAvf/BpnDdaK.Uj7OORUC7d3ZmaoAiMaZEUGBQg0VSuGXMhkW\";s:20:\"maintenance_password\";s:60:\"$2y$12$YVm3y.eS3Z5a1V6AubSUvuoKtVHVypkmze65fMRNiXcXgU1SLJbSC\";}', 2103082500),
+('laravel-cache-active_department_ids', 'a:3:{i:0;i:3;i:1;i:1;i:2;i:2;}', 1787726107);
 
 -- --------------------------------------------------------
 
@@ -699,6 +746,7 @@ CREATE TABLE IF NOT EXISTS `cache_locks` (
 DROP TABLE IF EXISTS `colors`;
 CREATE TABLE IF NOT EXISTS `colors` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `department_id` bigint UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -714,44 +762,75 @@ CREATE TABLE IF NOT EXISTS `colors` (
   UNIQUE KEY `colors_code_unique` (`code`),
   KEY `colors_department_id_foreign` (`department_id`),
   KEY `colors_created_by_foreign` (`created_by`),
-  KEY `colors_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `colors_updated_by_foreign` (`updated_by`),
+  KEY `colors_brand_id_foreign` (`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `colors`
 --
 
-INSERT INTO `colors` (`id`, `department_id`, `name`, `code`, `packing_size`, `default_cement`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 'White', 'WHT', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(2, 1, 'White 500GM', 'WHT-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(3, 1, 'Ivory', 'IVY', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(4, 1, 'Ivory 500GM', 'IVY-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(5, 1, 'Black', 'BLK', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(6, 1, 'Black 500GM', 'BLK-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(7, 1, 'Gray', 'GRY', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(8, 1, 'Gray 500GM', 'GRY-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(9, 1, 'Alpine Blue', 'ABL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(10, 1, 'Alpine Blue 500GM', 'ABL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(11, 1, 'Light Blue', 'LBL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(12, 1, 'Light Blue 500GM', 'LBL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(13, 1, 'Red', 'RED', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(14, 1, 'Red 500GM', 'RED-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(15, 1, 'Magenta', 'MAG', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(16, 1, 'Magenta 500GM', 'MAG-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(17, 1, 'Terracotta', 'TER', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(18, 1, 'Terracotta 500GM', 'TER-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(19, 1, 'Wooden', 'WOD', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(20, 1, 'Wooden 500GM', 'WOD-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(21, 1, 'Bottle Green', 'BGR', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(22, 1, 'Bottle Green 500GM', 'BGR-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(23, 1, 'Pink', 'Pnk', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:34:04'),
-(24, 1, 'Pink 500GM', 'Pnk-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:34:27'),
-(25, 1, 'Orange', 'ORG', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(26, 1, 'Orange 500GM', 'ORG-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(27, 1, 'Coffee Brown', 'CBR', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(28, 1, 'Coffee Brown 500GM', 'CBR-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
-(29, 1, 'Jesalmer', 'JSL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:34:53', '2026-07-12 12:35:02'),
-(30, 1, 'Jesalmer 500', 'JSL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:35:20', '2026-07-12 12:35:30');
+INSERT INTO `colors` (`id`, `brand_id`, `department_id`, `name`, `code`, `packing_size`, `default_cement`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'White', 'WHT', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(2, 1, 1, 'White 500GM', 'WHT-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(3, 1, 1, 'Ivory', 'IVY', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(4, 1, 1, 'Ivory 500GM', 'IVY-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(5, 1, 1, 'Black', 'BLK', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(6, 1, 1, 'Black 500GM', 'BLK-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(7, 1, 1, 'Gray', 'GRY', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(8, 1, 1, 'Gray 500GM', 'GRY-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(9, 1, 1, 'Alpine Blue', 'ABL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(10, 1, 1, 'Alpine Blue 500GM', 'ABL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(11, 1, 1, 'Light Blue', 'LBL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(12, 1, 1, 'Light Blue 500GM', 'LBL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(13, 1, 1, 'Red', 'RED', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(14, 1, 1, 'Red 500GM', 'RED-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(15, 1, 1, 'Magenta', 'MAG', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(16, 1, 1, 'Magenta 500GM', 'MAG-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(17, 1, 1, 'Terracotta', 'TER', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(18, 1, 1, 'Terracotta 500GM', 'TER-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(19, 1, 1, 'Wooden', 'WOD', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(20, 1, 1, 'Wooden 500GM', 'WOD-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(21, 1, 1, 'Bottle Green', 'BGR', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(22, 1, 1, 'Bottle Green 500GM', 'BGR-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(23, 1, 1, 'Pink', 'Pnk', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:34:04'),
+(24, 1, 1, 'Pink 500GM', 'Pnk-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:34:27'),
+(25, 1, 1, 'Orange', 'ORG', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(26, 1, 1, 'Orange 500GM', 'ORG-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(27, 1, 1, 'Coffee Brown', 'CBR', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(28, 1, 1, 'Coffee Brown 500GM', 'CBR-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-07-12 12:25:59', '2026-07-12 12:25:59'),
+(29, 1, 1, 'Jesalmer', 'JSL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:34:53', '2026-07-12 12:35:02'),
+(30, 1, 1, 'Jesalmer 500', 'JSL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-07-12 12:35:20', '2026-07-12 12:35:30'),
+(31, 2, 1, 'White', 'B2-WHT', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(32, 2, 1, 'White 500GM', 'B2-WHT-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(33, 2, 1, 'Ivory', 'B2-IVY', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(34, 2, 1, 'Ivory 500GM', 'B2-IVY-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(35, 2, 1, 'Black', 'B2-BLK', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(36, 2, 1, 'Black 500GM', 'B2-BLK-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(37, 2, 1, 'Gray', 'B2-GRY', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(38, 2, 1, 'Gray 500GM', 'B2-GRY-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(39, 2, 1, 'Alpine Blue', 'B2-ABL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(40, 2, 1, 'Alpine Blue 500GM', 'B2-ABL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(41, 2, 1, 'Light Blue', 'B2-LBL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(42, 2, 1, 'Light Blue 500GM', 'B2-LBL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(43, 2, 1, 'Red', 'B2-RED', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(44, 2, 1, 'Red 500GM', 'B2-RED-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(45, 2, 1, 'Magenta', 'B2-MAG', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(46, 2, 1, 'Magenta 500GM', 'B2-MAG-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(47, 2, 1, 'Terracotta', 'B2-TER', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(48, 2, 1, 'Terracotta 500GM', 'B2-TER-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(49, 2, 1, 'Wooden', 'B2-WOD', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(50, 2, 1, 'Wooden 500GM', 'B2-WOD-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(51, 2, 1, 'Bottle Green', 'B2-BGR', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(52, 2, 1, 'Bottle Green 500GM', 'B2-BGR-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(53, 2, 1, 'Pink', 'B2-Pnk', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(54, 2, 1, 'Pink 500GM', 'B2-Pnk-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(55, 2, 1, 'Orange', 'B2-ORG', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(56, 2, 1, 'Orange 500GM', 'B2-ORG-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(57, 2, 1, 'Coffee Brown', 'B2-CBR', '1 KG', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(58, 2, 1, 'Coffee Brown 500GM', 'B2-CBR-500', '500 GM', 'Gray Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(59, 2, 1, 'Jesalmer', 'B2-JSL', '1 KG', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25'),
+(60, 2, 1, 'Jesalmer 500', 'B2-JSL-500', '500 GM', 'White Cement', 1, NULL, 2, 2, '2026-08-21 09:28:25', '2026-08-21 09:28:25');
 
 -- --------------------------------------------------------
 
@@ -1050,6 +1129,7 @@ INSERT INTO `epoxy_assemblies` (`id`, `epoxy_product_id`, `color_id`, `epoxy_fil
 DROP TABLE IF EXISTS `epoxy_components`;
 CREATE TABLE IF NOT EXISTS `epoxy_components` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `requires_color` tinyint(1) NOT NULL DEFAULT '0',
@@ -1076,82 +1156,149 @@ CREATE TABLE IF NOT EXISTS `epoxy_components` (
   KEY `epoxy_components_unit_id_foreign` (`unit_id`),
   KEY `epoxy_components_raw_material_id_foreign` (`raw_material_id`),
   KEY `epoxy_components_parent_component_id_foreign` (`parent_component_id`),
-  KEY `epoxy_components_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `epoxy_components_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`),
+  KEY `epoxy_components_brand_id_foreign` (`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_components`
 --
 
-INSERT INTO `epoxy_components` (`id`, `name`, `code`, `requires_color`, `template_material_id`, `bulk_material_id`, `bulk_qty_per_unit`, `packaging_material_id`, `packaging_qty_per_unit`, `created_at`, `updated_at`, `category`, `purpose`, `unit_id`, `is_active`, `description`, `raw_material_id`, `parent_component_id`, `epoxy_filler_color_id`) VALUES
-(1, '700gm Black Filler Pouch', 'EPX-BLK', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 08:34:26', '2026-07-13 08:54:24', 'Pouch', 'Assembly Component', 3, 1, NULL, 45, NULL, 1),
-(2, '700gm White Filler Pouch', 'EPX-WHT', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:55:58', '2026-07-13 10:55:58', 'Pouch', 'Assembly Component', 3, 1, NULL, 77, NULL, 26),
-(3, '700gm Mocha Filler Pouch', 'EPX-MOC', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 2),
-(4, '700gm Sterling Silver Filler Pouch', 'EPX-STS', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 3),
-(5, '700gm Hemp Filler Pouch', 'EPX-HEM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 4),
-(6, '700gm Marble Beige Filler Pouch', 'EPX-MBG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 5),
-(7, '700gm Sauterne Filler Pouch', 'EPX-SAU', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 6),
-(8, '700gm Smoke Grey Filler Pouch', 'EPX-SMG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 7),
-(9, '700gm Silver Shadow Filler Pouch', 'EPX-SSH', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 8),
-(10, '700gm Slate Grey Filler Pouch', 'EPX-SLG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 9),
-(11, '700gm Natural Grey Filler Pouch', 'EPX-NGY', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 10),
-(12, '700gm Platinum Filler Pouch', 'EPX-PLT', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 11),
-(13, '700gm Terracotta Filler Pouch', 'EPX-TER', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 12),
-(14, '700gm Satillo Filler Pouch', 'EPX-SAT', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 13),
-(15, '700gm Cadmium Red Filler Pouch', 'EPX-CDR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 14),
-(16, '700gm Orange Filler Pouch', 'EPX-ORG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 15),
-(17, '700gm Light Grey Filler Pouch', 'EPX-LGY', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 16),
-(18, '700gm Inca Gold Filler Pouch', 'EPX-IGD', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 17),
-(19, '700gm Blue Filler Pouch', 'EPX-BLU', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 18),
-(20, '700gm Ivy Filler Pouch', 'EPX-IVY', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 19),
-(21, '700gm Light Green Filler Pouch', 'EPX-LGN', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 20),
-(22, '700gm Sky Blue Filler Pouch', 'EPX-SKB', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 21),
-(23, '700gm Violet Filler Pouch', 'EPX-VIO', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 22),
-(24, '700gm Buff Filler Pouch', 'EPX-BUF', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 23),
-(25, '700gm Coffee Brown Filler Pouch', 'EPX-CBR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 24),
-(26, '700gm Chocolate Brown Filler Pouch', 'EPX-CHB', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 25),
-(27, '700gm Ivory Filler Pouch', 'EPX-IVR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 27),
-(28, '700gm Parchment Filler Pouch', 'EPX-PAR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 28),
-(29, '700gm Jaisalmer Filler Pouch', 'EPX-JAI', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 29),
-(30, '700gm Dusty Rose Filler Pouch', 'EPX-DTR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, NULL, NULL, 30),
-(31, 'Jari Powder - Silver', 'EPX-JARI-SLV', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(32, 'Jari Powder - Copper', 'EPX-JARI-CPR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(33, 'Jari Powder - Gold', 'EPX-JARI-GLD', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(34, 'Jari Powder - Red', 'EPX-JARI-RED', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(35, 'SB+ 1 KG', 'EPX-SBP-1', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-21 14:07:20', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(36, 'SB+ 5 KG', 'EPX-SBP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:03:47', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(37, 'SB+ 20 KG', 'EPX-SBP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:04:01', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(38, 'SB++ 1 KG', 'EPX-SBPP-1', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:04:30', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(39, 'SB++ 5 KG', 'EPX-SBPP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:06:18', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(40, 'SB++ 20 KG', 'EPX-SBPP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:06:42', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(41, 'SK+ 1 LTR', 'EPX-SKP-1', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(42, 'SK+ 5 LTR', 'EPX-SKP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(43, 'SK+ 20 LTR', 'EPX-SKP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(44, '100 GM HARDNER BOTTLE', 'EPX-BLT-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:33:42', '2026-07-24 04:07:02', 'Bottle', 'Assembly Component', 3, 1, NULL, 79, NULL, NULL),
-(45, '200GM RESIN BOTTLE', 'F-011', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:36:55', '2026-07-24 04:07:10', 'Bottle', 'Assembly Component', 3, 1, NULL, 82, NULL, NULL),
-(46, 'CLIP 2MM', '2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 08:24:43', '2026-07-24 04:01:57', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(47, 'CLIP 3MM', '3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-24 04:02:23', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(48, 'CLIP 4MM', '4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-24 04:02:12', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(50, 'SPACER 2MM', 'EPX-SP-2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:02:41', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
-(51, 'SPACER 3MM', 'EPX-SP-3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:02:54', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
-(52, 'SPACER 4MM', 'EPX-SP-4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:03:04', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
-(53, 'SPACER 5MM', 'EPX-SP-5MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:03:19', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
-(60, 'JACK LEVELLING', 'JL-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 05:58:24', '2026-07-24 05:58:24', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(61, 'PLASTIC BOX', 'PB-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 06:03:59', '2026-07-24 06:03:59', 'Other', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(62, 'SPACER 6MM', 'EPX-SP-6MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(63, 'CLIP 2MM', 'EPX-CLIP-2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(64, 'CLIP 3MM', 'EPX-CLIP-3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(65, 'CLIP 4MM', 'EPX-CLIP-4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(66, 'WEDGE', 'EPX-WEDGE', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(67, 'JACK LEVELLING', 'EPX-JL', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(68, 'TROWEL', 'EPX-TROWEL', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(69, 'PLIER', 'EPX-PLIER', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(70, 'VACUUM', 'EPX-VAC', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(71, '500 GM HARDNER BOTTLE', 'HRD-500', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 05:29:07', '2026-07-28 05:29:07', 'Bottle', 'Assembly Component', 3, 1, NULL, 85, NULL, NULL),
-(72, '1 KG RESIN BOTTLE', 'REN-1K', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 05:29:47', '2026-07-28 05:29:47', 'Bottle', 'Assembly Component', 3, 1, NULL, 86, NULL, NULL),
-(73, 'Grout Admix 200GM', 'EPX-GA-200GM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-28 12:49:05', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(74, 'Tiles Cleaner 1-LTR', 'EPX-TC-1LTR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-29 14:23:57', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
-(75, 'Tiles Cleaner 5-LTR', 'EPX-TC-5LTR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-29 14:01:14', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `epoxy_components` (`id`, `brand_id`, `name`, `code`, `requires_color`, `template_material_id`, `bulk_material_id`, `bulk_qty_per_unit`, `packaging_material_id`, `packaging_qty_per_unit`, `created_at`, `updated_at`, `category`, `purpose`, `unit_id`, `is_active`, `description`, `raw_material_id`, `parent_component_id`, `epoxy_filler_color_id`) VALUES
+(1, 1, '700gm Black Filler Pouch', 'EPX-BLK', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 08:34:26', '2026-07-13 08:54:24', 'Pouch', 'Assembly Component', 3, 1, NULL, 45, NULL, 1),
+(2, 1, '700gm White Filler Pouch', 'EPX-WHT', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:55:58', '2026-07-13 10:55:58', 'Pouch', 'Assembly Component', 3, 1, NULL, 77, NULL, 26),
+(3, 1, '700gm Mocha Filler Pouch', 'EPX-MOC', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 91, NULL, 2),
+(4, 1, '700gm Sterling Silver Filler Pouch', 'EPX-STS', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 92, NULL, 3),
+(5, 1, '700gm Hemp Filler Pouch', 'EPX-HEM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 93, NULL, 4),
+(6, 1, '700gm Marble Beige Filler Pouch', 'EPX-MBG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 94, NULL, 5),
+(7, 1, '700gm Sauterne Filler Pouch', 'EPX-SAU', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 95, NULL, 6),
+(8, 1, '700gm Smoke Grey Filler Pouch', 'EPX-SMG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 96, NULL, 7),
+(9, 1, '700gm Silver Shadow Filler Pouch', 'EPX-SSH', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 97, NULL, 8),
+(10, 1, '700gm Slate Grey Filler Pouch', 'EPX-SLG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 98, NULL, 9),
+(11, 1, '700gm Natural Grey Filler Pouch', 'EPX-NGY', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 99, NULL, 10),
+(12, 1, '700gm Platinum Filler Pouch', 'EPX-PLT', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 100, NULL, 11),
+(13, 1, '700gm Terracotta Filler Pouch', 'EPX-TER', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 101, NULL, 12),
+(14, 1, '700gm Satillo Filler Pouch', 'EPX-SAT', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 102, NULL, 13),
+(15, 1, '700gm Cadmium Red Filler Pouch', 'EPX-CDR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 103, NULL, 14),
+(16, 1, '700gm Orange Filler Pouch', 'EPX-ORG', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 104, NULL, 15),
+(17, 1, '700gm Light Grey Filler Pouch', 'EPX-LGY', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 105, NULL, 16),
+(18, 1, '700gm Inca Gold Filler Pouch', 'EPX-IGD', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 106, NULL, 17),
+(19, 1, '700gm Blue Filler Pouch', 'EPX-BLU', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 107, NULL, 18),
+(20, 1, '700gm Ivy Filler Pouch', 'EPX-IVY', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 108, NULL, 19),
+(21, 1, '700gm Light Green Filler Pouch', 'EPX-LGN', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 109, NULL, 20),
+(22, 1, '700gm Sky Blue Filler Pouch', 'EPX-SKB', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 110, NULL, 21),
+(23, 1, '700gm Violet Filler Pouch', 'EPX-VIO', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 111, NULL, 22),
+(24, 1, '700gm Buff Filler Pouch', 'EPX-BUF', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 112, NULL, 23),
+(25, 1, '700gm Coffee Brown Filler Pouch', 'EPX-CBR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 113, NULL, 24),
+(26, 1, '700gm Chocolate Brown Filler Pouch', 'EPX-CHB', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 114, NULL, 25),
+(27, 1, '700gm Ivory Filler Pouch', 'EPX-IVR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 115, NULL, 27),
+(28, 1, '700gm Parchment Filler Pouch', 'EPX-PAR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 116, NULL, 28),
+(29, 1, '700gm Jaisalmer Filler Pouch', 'EPX-JAI', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 117, NULL, 29),
+(30, 1, '700gm Dusty Rose Filler Pouch', 'EPX-DTR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 118, NULL, 30),
+(31, 1, 'Jari Powder - Silver', 'EPX-JARI-SLV', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(32, 1, 'Jari Powder - Copper', 'EPX-JARI-CPR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(33, 1, 'Jari Powder - Gold', 'EPX-JARI-GLD', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(34, 1, 'Jari Powder - Red', 'EPX-JARI-RED', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(35, 1, 'SB+ 1 KG', 'EPX-SBP-1', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-21 14:07:20', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(36, 1, 'SB+ 5 KG', 'EPX-SBP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:03:47', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(37, 1, 'SB+ 20 KG', 'EPX-SBP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:04:01', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(38, 1, 'SB++ 1 KG', 'EPX-SBPP-1', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:04:30', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(39, 1, 'SB++ 5 KG', 'EPX-SBPP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:06:18', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(40, 1, 'SB++ 20 KG', 'EPX-SBPP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:06:42', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(41, 1, 'SK+ 1 LTR', 'EPX-SKP-1', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(42, 1, 'SK+ 5 LTR', 'EPX-SKP-5', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(43, 1, 'SK+ 20 LTR', 'EPX-SKP-20', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(44, 1, '100 GM HARDNER BOTTLE', 'EPX-BLT-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:33:42', '2026-08-24 08:24:15', 'Bottle', 'Assembly Component', 3, 1, NULL, 79, NULL, NULL),
+(45, 1, '200GM RESIN BOTTLE', 'F-011', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:36:55', '2026-08-24 08:24:23', 'Bottle', 'Assembly Component', 3, 1, NULL, 82, NULL, NULL),
+(46, 1, 'CLIP 2MM', '2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 08:24:43', '2026-07-24 04:01:57', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(47, 1, 'CLIP 3MM', '3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-24 04:02:23', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(48, 1, 'CLIP 4MM', '4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-24 04:02:12', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(50, 1, 'SPACER 2MM', 'EPX-SP-2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:02:41', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(51, 1, 'SPACER 3MM', 'EPX-SP-3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:02:54', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(52, 1, 'SPACER 4MM', 'EPX-SP-4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:03:04', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(53, 1, 'SPACER 5MM', 'EPX-SP-5MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:03:19', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(60, 1, 'JACK LEVELLING', 'JL-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 05:58:24', '2026-07-24 05:58:24', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(61, 1, 'PLASTIC BOX', 'PB-01', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 06:03:59', '2026-07-24 06:03:59', 'Other', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(62, 1, 'SPACER 6MM', 'EPX-SP-6MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(63, 1, 'CLIP 2MM', 'EPX-CLIP-2MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(64, 1, 'CLIP 3MM', 'EPX-CLIP-3MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(65, 1, 'CLIP 4MM', 'EPX-CLIP-4MM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(66, 1, 'WEDGE', 'EPX-WEDGE', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(67, 1, 'JACK LEVELLING', 'EPX-JL', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(68, NULL, 'TROWEL', 'EPX-TROWEL', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-08-26 04:22:20', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(69, 1, 'PLIER', 'EPX-PLIER', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(70, NULL, 'VACUUM', 'EPX-VAC', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-08-26 04:22:09', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(71, 1, '500 GM HARDNER BOTTLE', 'HRD-500', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 05:29:07', '2026-08-24 08:24:30', 'Bottle', 'Assembly Component', 3, 1, NULL, 85, NULL, NULL),
+(72, 1, '1 KG RESIN BOTTLE', 'REN-1K', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 05:29:47', '2026-08-24 08:23:46', 'Bottle', 'Assembly Component', 3, 1, NULL, 86, NULL, NULL),
+(73, 1, 'Grout Admix 200GM', 'EPX-GA-200GM', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-28 12:49:05', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(74, 1, 'Tiles Cleaner 1-LTR', 'EPX-TC-1LTR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-29 14:23:57', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(75, 1, 'Tiles Cleaner 5-LTR', 'EPX-TC-5LTR', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-29 14:01:14', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(76, 2, '700gm Black Filler Pouch', 'EPX-BLK-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 08:34:26', '2026-08-26 05:32:33', 'Pouch', 'Assembly Component', 3, 1, NULL, 147, NULL, 1),
+(77, 2, '700gm White Filler Pouch', 'EPX-WHT-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:55:58', '2026-08-26 05:32:33', 'Pouch', 'Assembly Component', 3, 1, NULL, 148, NULL, 26),
+(78, 2, '700gm Mocha Filler Pouch', 'EPX-MOC-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 119, NULL, 2),
+(79, 2, '700gm Sterling Silver Filler Pouch', 'EPX-STS-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 120, NULL, 3),
+(80, 2, '700gm Hemp Filler Pouch', 'EPX-HEM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 121, NULL, 4),
+(81, 2, '700gm Marble Beige Filler Pouch', 'EPX-MBG-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 122, NULL, 5),
+(82, 2, '700gm Sauterne Filler Pouch', 'EPX-SAU-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 123, NULL, 6),
+(83, 2, '700gm Smoke Grey Filler Pouch', 'EPX-SMG-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 124, NULL, 7),
+(84, 2, '700gm Silver Shadow Filler Pouch', 'EPX-SSH-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 125, NULL, 8),
+(85, 2, '700gm Slate Grey Filler Pouch', 'EPX-SLG-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 126, NULL, 9),
+(86, 2, '700gm Natural Grey Filler Pouch', 'EPX-NGY-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 127, NULL, 10),
+(87, 2, '700gm Platinum Filler Pouch', 'EPX-PLT-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 128, NULL, 11),
+(88, 2, '700gm Terracotta Filler Pouch', 'EPX-TER-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 129, NULL, 12),
+(89, 2, '700gm Satillo Filler Pouch', 'EPX-SAT-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 130, NULL, 13),
+(90, 2, '700gm Cadmium Red Filler Pouch', 'EPX-CDR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 131, NULL, 14),
+(91, 2, '700gm Orange Filler Pouch', 'EPX-ORG-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 132, NULL, 15),
+(92, 2, '700gm Light Grey Filler Pouch', 'EPX-LGY-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 133, NULL, 16),
+(93, 2, '700gm Inca Gold Filler Pouch', 'EPX-IGD-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 134, NULL, 17),
+(94, 2, '700gm Blue Filler Pouch', 'EPX-BLU-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 135, NULL, 18),
+(95, 2, '700gm Ivy Filler Pouch', 'EPX-IVY-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 136, NULL, 19),
+(96, 2, '700gm Light Green Filler Pouch', 'EPX-LGN-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 137, NULL, 20),
+(97, 2, '700gm Sky Blue Filler Pouch', 'EPX-SKB-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 138, NULL, 21),
+(98, 2, '700gm Violet Filler Pouch', 'EPX-VIO-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 139, NULL, 22),
+(99, 2, '700gm Buff Filler Pouch', 'EPX-BUF-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 140, NULL, 23),
+(100, 2, '700gm Coffee Brown Filler Pouch', 'EPX-CBR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 141, NULL, 24),
+(101, 2, '700gm Chocolate Brown Filler Pouch', 'EPX-CHB-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 142, NULL, 25),
+(102, 2, '700gm Ivory Filler Pouch', 'EPX-IVR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 143, NULL, 27),
+(103, 2, '700gm Parchment Filler Pouch', 'EPX-PAR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 144, NULL, 28),
+(104, 2, '700gm Jaisalmer Filler Pouch', 'EPX-JAI-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 145, NULL, 29),
+(105, 2, '700gm Dusty Rose Filler Pouch', 'EPX-DTR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-13 10:58:25', '2026-07-13 10:58:25', 'Pouch', 'Assembly Component', 3, 1, NULL, 146, NULL, 30),
+(106, 2, 'Jari Powder - Silver', 'EPX-JARI-SLV-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(107, 2, 'Jari Powder - Copper', 'EPX-JARI-CPR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(108, 2, 'Jari Powder - Gold', 'EPX-JARI-GLD-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(109, 2, 'Jari Powder - Red', 'EPX-JARI-RED-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Powder', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(110, 2, 'SB+ 1 KG', 'EPX-SBP-1-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-21 14:07:20', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(111, 2, 'SB+ 5 KG', 'EPX-SBP-5-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:03:47', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(112, 2, 'SB+ 20 KG', 'EPX-SBP-20-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:04:01', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(113, 2, 'SB++ 1 KG', 'EPX-SBPP-1-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:04:30', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(114, 2, 'SB++ 5 KG', 'EPX-SBPP-5-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:06:18', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(115, 2, 'SB++ 20 KG', 'EPX-SBPP-20-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-24 04:06:42', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(116, 2, 'SK+ 1 LTR', 'EPX-SKP-1-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(117, 2, 'SK+ 5 LTR', 'EPX-SKP-5-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(118, 2, 'SK+ 20 LTR', 'EPX-SKP-20-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-17 16:18:31', '2026-07-17 16:18:31', 'Liquid', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(119, 2, '100 GM HARDNER BOTTLE', 'EPX-BLT-01-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:33:42', '2026-08-26 05:32:33', 'Bottle', 'Assembly Component', 3, 1, NULL, 149, NULL, NULL),
+(120, 2, '200GM RESIN BOTTLE', 'F-011-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-22 11:36:55', '2026-08-26 05:32:33', 'Bottle', 'Assembly Component', 3, 1, NULL, 150, NULL, NULL),
+(121, 2, 'CLIP 2MM', '2MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 08:24:43', '2026-07-24 04:01:57', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(122, 2, 'CLIP 3MM', '3MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-24 04:02:23', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(123, 2, 'CLIP 4MM', '4MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 09:01:34', '2026-07-24 04:02:12', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(124, 2, 'SPACER 2MM', 'EPX-SP-2MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:02:41', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(125, 2, 'SPACER 3MM', 'EPX-SP-3MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:02:54', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(126, 2, 'SPACER 4MM', 'EPX-SP-4MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:03:04', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(127, 2, 'SPACER 5MM', 'EPX-SP-5MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-23 10:55:07', '2026-07-24 04:03:19', 'Packet', 'Direct Finished Product', 1, 1, NULL, NULL, NULL, NULL),
+(128, 2, 'JACK LEVELLING', 'JL-01-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 05:58:24', '2026-07-24 05:58:24', 'Packet', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(129, 2, 'PLASTIC BOX', 'PB-01-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 06:03:59', '2026-07-24 06:03:59', 'Other', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(130, 2, 'SPACER 6MM', 'EPX-SP-6MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(131, 2, 'CLIP 2MM', 'EPX-CLIP-2MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(132, 2, 'CLIP 3MM', 'EPX-CLIP-3MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(133, 2, 'CLIP 4MM', 'EPX-CLIP-4MM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(134, 2, 'WEDGE', 'EPX-WEDGE-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(135, 2, 'JACK LEVELLING', 'EPX-JL-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(136, 2, 'PLIER', 'EPX-PLIER-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-24 12:07:24', '2026-07-24 12:07:24', 'Box', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(137, 2, '500 GM HARDNER BOTTLE', 'HRD-500-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 05:29:07', '2026-08-26 05:32:33', 'Bottle', 'Assembly Component', 3, 1, NULL, 151, NULL, NULL),
+(138, 2, '1 KG RESIN BOTTLE', 'REN-1K-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 05:29:47', '2026-08-26 05:32:33', 'Bottle', 'Assembly Component', 3, 1, NULL, 152, NULL, NULL),
+(139, 2, 'Grout Admix 200GM', 'EPX-GA-200GM-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-28 12:49:05', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(140, 2, 'Tiles Cleaner 1-LTR', 'EPX-TC-1LTR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-29 14:23:57', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL),
+(141, 2, 'Tiles Cleaner 5-LTR', 'EPX-TC-5LTR-B2', 0, NULL, NULL, 0.0000, NULL, 0.0000, '2026-07-28 12:46:53', '2026-07-29 14:01:14', 'Bottle', 'Direct Finished Product', 3, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1174,7 +1321,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_formulas` (
   KEY `epoxy_component_formulas_epoxy_component_id_foreign` (`epoxy_component_id`),
   KEY `epoxy_component_formulas_created_by_foreign` (`created_by`),
   KEY `epoxy_component_formulas_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_component_formulas`
@@ -1243,7 +1390,8 @@ INSERT INTO `epoxy_component_formulas` (`id`, `epoxy_component_id`, `version`, `
 (61, 31, 1, 1, NULL, 2, NULL, '2026-07-28 12:32:48', '2026-07-28 12:32:48'),
 (62, 73, 1, 1, NULL, 2, NULL, '2026-07-28 12:50:47', '2026-07-28 12:50:47'),
 (63, 75, 1, 1, NULL, 2, NULL, '2026-07-29 13:59:23', '2026-07-29 13:59:23'),
-(64, 74, 1, 1, NULL, 2, NULL, '2026-07-29 14:22:39', '2026-07-29 14:22:39');
+(64, 74, 1, 1, NULL, 2, NULL, '2026-07-29 14:22:39', '2026-07-29 14:22:39'),
+(65, 119, 1, 1, NULL, 2, NULL, '2026-08-26 05:03:36', '2026-08-26 05:03:36');
 
 -- --------------------------------------------------------
 
@@ -1266,7 +1414,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_formula_items` (
   KEY `epoxy_component_formula_items_raw_material_id_foreign` (`raw_material_id`),
   KEY `epoxy_component_formula_items_unit_id_foreign` (`unit_id`),
   KEY `epoxy_component_formula_items_packing_material_id_foreign` (`packing_material_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_component_formula_items`
@@ -1396,7 +1544,10 @@ INSERT INTO `epoxy_component_formula_items` (`id`, `epoxy_component_formula_id`,
 (141, 63, NULL, 42, 1.0000, 3, '2026-07-29 13:59:23', '2026-07-29 13:59:23'),
 (142, 63, NULL, 34, 4.0000, 3, '2026-07-29 13:59:23', '2026-07-29 13:59:23'),
 (143, 64, NULL, 41, 1.0000, 3, '2026-07-29 14:22:39', '2026-07-29 14:22:39'),
-(144, 64, NULL, 33, 1.0000, 1, '2026-07-29 14:22:39', '2026-07-29 14:22:39');
+(144, 64, NULL, 33, 1.0000, 1, '2026-07-29 14:22:39', '2026-07-29 14:22:39'),
+(145, 65, 81, NULL, 0.1000, 2, '2026-08-26 05:03:36', '2026-08-26 05:03:36'),
+(146, 65, NULL, 79, 1.0000, 3, '2026-08-26 05:03:36', '2026-08-26 05:03:36'),
+(147, 65, NULL, 87, 1.0000, 1, '2026-08-26 05:03:36', '2026-08-26 05:03:36');
 
 -- --------------------------------------------------------
 
@@ -1438,7 +1589,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_component_preparations` (
   KEY `epoxy_component_preparations_epoxy_component_id_foreign` (`epoxy_component_id`),
   KEY `epoxy_component_preparations_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`),
   KEY `epoxy_component_preparations_operator_id_foreign` (`operator_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_component_preparations`
@@ -1471,7 +1622,11 @@ INSERT INTO `epoxy_component_preparations` (`id`, `epoxy_component_id`, `epoxy_f
 (24, 73, NULL, 1, 2, NULL, '2026-07-29 04:27:25', '2026-07-29 04:27:25'),
 (25, 75, NULL, 10, 2, NULL, '2026-07-29 14:01:26', '2026-07-29 14:01:26'),
 (26, 70, NULL, 7, 2, NULL, '2026-07-29 14:02:23', '2026-07-29 14:02:23'),
-(27, 74, NULL, 10, 2, NULL, '2026-07-29 14:24:06', '2026-07-29 14:24:06');
+(27, 74, NULL, 10, 2, NULL, '2026-07-29 14:24:06', '2026-07-29 14:24:06'),
+(28, 119, NULL, 96, 2, NULL, '2026-08-26 05:16:29', '2026-08-26 05:16:29'),
+(29, 119, NULL, 400, 2, NULL, '2026-08-26 05:24:07', '2026-08-26 05:24:07'),
+(30, 119, NULL, 10, 2, NULL, '2026-08-26 05:25:46', '2026-08-26 05:25:46'),
+(31, 119, NULL, 10, 2, NULL, '2026-08-26 05:33:44', '2026-08-26 05:33:44');
 
 -- --------------------------------------------------------
 
@@ -1482,6 +1637,7 @@ INSERT INTO `epoxy_component_preparations` (`id`, `epoxy_component_id`, `epoxy_f
 DROP TABLE IF EXISTS `epoxy_filler_colors`;
 CREATE TABLE IF NOT EXISTS `epoxy_filler_colors` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
@@ -1491,46 +1647,76 @@ CREATE TABLE IF NOT EXISTS `epoxy_filler_colors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `epoxy_filler_colors_code_unique` (`code`),
+  UNIQUE KEY `epoxy_filler_colors_brand_code_unique` (`brand_id`,`code`),
   KEY `epoxy_filler_colors_created_by_foreign` (`created_by`),
   KEY `epoxy_filler_colors_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_filler_colors`
 --
 
-INSERT INTO `epoxy_filler_colors` (`id`, `name`, `code`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'White', '101', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(2, 'Ivory', '102', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(3, 'Parchment', '103', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(4, 'Jaisalmer', '104', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(5, 'Dusty Rose', '105', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(6, 'Buff', '106', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(7, 'Coffee Brown', '107', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(8, 'Chocolate Brown', '108', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(9, 'Black', '109', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(10, 'Mocha', '110', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(11, 'Sterling Silver', '111', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(12, 'Hemp', '112', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(13, 'Marble Beige', '113', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(14, 'Sauterne', '114', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(15, 'Smoke Grey', '115', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(16, 'Silver Shadow', '116', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(17, 'Slate Grey', '117', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(18, 'Natural Grey', '118', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(19, 'Platinum', '119', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(20, 'Terracotta', '120', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(21, 'Saltillo', '121', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(22, 'Cadmium Red', '122', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(23, 'Orange', '123', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(24, 'Light Grey', '124', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(25, 'Inca Gold', '125', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(26, 'Blue', '126', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(27, 'Ivy', '127', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(28, 'Light Green', '128', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(29, 'Sky Blue', '129', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
-(30, 'Violet', '130', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35');
+INSERT INTO `epoxy_filler_colors` (`id`, `brand_id`, `name`, `code`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 'White', '101', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(2, 1, 'Ivory', '102', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(3, 1, 'Parchment', '103', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(4, 1, 'Jaisalmer', '104', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(5, 1, 'Dusty Rose', '105', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(6, 1, 'Buff', '106', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(7, 1, 'Coffee Brown', '107', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(8, 1, 'Chocolate Brown', '108', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(9, 1, 'Black', '109', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(10, 1, 'Mocha', '110', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(11, 1, 'Sterling Silver', '111', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(12, 1, 'Hemp', '112', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(13, 1, 'Marble Beige', '113', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(14, 1, 'Sauterne', '114', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(15, 1, 'Smoke Grey', '115', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(16, 1, 'Silver Shadow', '116', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(17, 1, 'Slate Grey', '117', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(18, 1, 'Natural Grey', '118', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(19, 1, 'Platinum', '119', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(20, 1, 'Terracotta', '120', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(21, 1, 'Saltillo', '121', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(22, 1, 'Cadmium Red', '122', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(23, 1, 'Orange', '123', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(24, 1, 'Light Grey', '124', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(25, 1, 'Inca Gold', '125', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(26, 1, 'Blue', '126', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(27, 1, 'Ivy', '127', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(28, 1, 'Light Green', '128', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(29, 1, 'Sky Blue', '129', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(30, 1, 'Violet', '130', 1, NULL, 2, 2, '2026-07-15 08:36:35', '2026-07-15 08:36:35'),
+(82, 2, 'Cadmium Red', '122', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(81, 2, 'Saltillo', '121', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(80, 2, 'Terracotta', '120', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(79, 2, 'Platinum', '119', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(78, 2, 'Natural Grey', '118', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(77, 2, 'Slate Grey', '117', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(76, 2, 'Silver Shadow', '116', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(75, 2, 'Smoke Grey', '115', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(74, 2, 'Sauterne', '114', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(73, 2, 'Marble Beige', '113', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(72, 2, 'Hemp', '112', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(71, 2, 'Sterling Silver', '111', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(70, 2, 'Mocha', '110', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(69, 2, 'Black', '109', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(68, 2, 'Chocolate Brown', '108', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(67, 2, 'Coffee Brown', '107', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(66, 2, 'Buff', '106', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(65, 2, 'Dusty Rose', '105', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(64, 2, 'Jaisalmer', '104', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(63, 2, 'Parchment', '103', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(62, 2, 'Ivory', '102', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(61, 2, 'White', '101', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(83, 2, 'Orange', '123', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(84, 2, 'Light Grey', '124', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(85, 2, 'Inca Gold', '125', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(86, 2, 'Blue', '126', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(87, 2, 'Ivy', '127', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(88, 2, 'Light Green', '128', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(89, 2, 'Sky Blue', '129', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43'),
+(90, 2, 'Violet', '130', 1, NULL, 2, 2, '2026-08-24 06:23:43', '2026-08-24 06:23:43');
 
 -- --------------------------------------------------------
 
@@ -1551,7 +1737,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_formulas` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `epoxy_formulas_epoxy_product_id_version_unique` (`epoxy_product_id`,`version`),
   KEY `epoxy_formulas_created_by_foreign` (`created_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_formulas`
@@ -1582,7 +1768,7 @@ CREATE TABLE IF NOT EXISTS `epoxy_formula_items` (
   KEY `epoxy_formula_items_epoxy_formula_id_foreign` (`epoxy_formula_id`),
   KEY `epoxy_formula_items_raw_material_id_foreign` (`raw_material_id`),
   KEY `epoxy_formula_items_unit_id_foreign` (`unit_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_formula_items`
@@ -1593,7 +1779,10 @@ INSERT INTO `epoxy_formula_items` (`id`, `epoxy_formula_id`, `raw_material_id`, 
 (9, 1, 80, 0.2000, 1, 0, 'liquid', '2026-07-23 11:03:21', '2026-07-23 11:03:21'),
 (11, 2, 80, 1.0000, 1, 0, 'liquid', '2026-07-23 11:03:21', '2026-07-23 11:03:21'),
 (12, 3, 80, 0.2000, 1, 0, 'liquid', '2026-07-23 11:03:21', '2026-07-23 11:03:21'),
-(13, 4, 79, 1.0000, 3, 0, 'Bottle', '2026-07-29 14:04:02', '2026-07-29 14:04:02');
+(13, 4, 79, 1.0000, 3, 0, 'Bottle', '2026-07-29 14:04:02', '2026-07-29 14:04:02'),
+(14, 5, 149, 1.0000, 3, 0, 'Bottle', '2026-08-26 05:50:19', '2026-08-26 05:50:19'),
+(15, 5, 150, 1.0000, 3, 0, 'Bottle', '2026-08-26 05:50:19', '2026-08-26 05:50:19'),
+(16, 5, 147, 1.0000, 3, 1, 'Pouch', '2026-08-26 05:50:19', '2026-08-26 05:50:19');
 
 -- --------------------------------------------------------
 
@@ -1604,6 +1793,7 @@ INSERT INTO `epoxy_formula_items` (`id`, `epoxy_formula_id`, `raw_material_id`, 
 DROP TABLE IF EXISTS `epoxy_products`;
 CREATE TABLE IF NOT EXISTS `epoxy_products` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `requires_color` tinyint(1) NOT NULL DEFAULT '0',
@@ -1616,23 +1806,33 @@ CREATE TABLE IF NOT EXISTS `epoxy_products` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `epoxy_products_code_unique` (`code`),
   KEY `epoxy_products_created_by_foreign` (`created_by`),
-  KEY `epoxy_products_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `epoxy_products_updated_by_foreign` (`updated_by`),
+  KEY `epoxy_products_brand_id_foreign` (`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `epoxy_products`
 --
 
-INSERT INTO `epoxy_products` (`id`, `name`, `code`, `requires_color`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, '1KG BUCKET', '1B', 1, 1, NULL, 2, NULL, '2026-07-13 10:34:09', '2026-07-13 10:34:09'),
-(2, '5KG BUCKET', '5B', 1, 1, NULL, 2, NULL, '2026-07-13 10:34:28', '2026-07-13 10:34:28'),
-(3, 'RESIN KIT 0.3KG', 'RK', 0, 1, NULL, 2, 2, '2026-07-13 10:34:37', '2026-07-24 11:25:23'),
-(24, 'RESIN KIT 1.5KG', 'RK1', 0, 1, NULL, 2, NULL, '2026-07-29 14:03:20', '2026-07-29 14:03:20'),
-(25, 'SOLITITE', 'SOL', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
-(26, 'TILES CLEANER', 'TC', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
-(27, 'GROUT ADMIX', 'GA', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
-(28, 'SPACER', 'SP', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
-(29, 'TILES LEVELER', 'TL', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51');
+INSERT INTO `epoxy_products` (`id`, `brand_id`, `name`, `code`, `requires_color`, `is_active`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, '1KG BUCKET', '1B', 1, 1, NULL, 2, NULL, '2026-07-13 10:34:09', '2026-07-13 10:34:09'),
+(2, 1, '5KG BUCKET', '5B', 1, 1, NULL, 2, NULL, '2026-07-13 10:34:28', '2026-07-13 10:34:28'),
+(3, 1, 'RESIN KIT 0.3KG', 'RK', 0, 1, NULL, 2, 2, '2026-07-13 10:34:37', '2026-07-24 11:25:23'),
+(24, 1, 'RESIN KIT 1.5KG', 'RK1', 0, 1, NULL, 2, NULL, '2026-07-29 14:03:20', '2026-07-29 14:03:20'),
+(25, 1, 'SOLITITE', 'SOL', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
+(26, 1, 'TILES CLEANER', 'TC', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
+(27, 1, 'GROUT ADMIX', 'GA', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
+(28, 1, 'SPACER', 'SP', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
+(29, 1, 'TILES LEVELER', 'TL', 0, 1, NULL, NULL, NULL, '2026-08-12 04:38:51', '2026-08-12 04:38:51'),
+(30, 2, '1KG BUCKET', '1B-B2', 1, 1, NULL, 2, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(31, 2, '5KG BUCKET', '5B-B2', 1, 1, NULL, 2, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(32, 2, 'RESIN KIT 0.3KG', 'RK-B2', 0, 1, NULL, 2, 2, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(33, 2, 'RESIN KIT 1.5KG', 'RK1-B2', 0, 1, NULL, 2, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(34, 2, 'SOLITITE', 'SOL-B2', 0, 1, NULL, NULL, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(35, 2, 'TILES CLEANER', 'TC-B2', 0, 1, NULL, NULL, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(36, 2, 'GROUT ADMIX', 'GA-B2', 0, 1, NULL, NULL, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(37, 2, 'SPACER', 'SP-B2', 0, 1, NULL, NULL, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55'),
+(38, 2, 'TILES LEVELER', 'TL-B2', 0, 1, NULL, NULL, NULL, '2026-08-24 08:21:55', '2026-08-24 08:21:55');
 
 -- --------------------------------------------------------
 
@@ -1686,7 +1886,7 @@ CREATE TABLE IF NOT EXISTS `finished_goods` (
   KEY `finished_goods_epoxy_filler_color_id_foreign` (`epoxy_filler_color_id`),
   KEY `finished_goods_epoxy_component_id_foreign` (`epoxy_component_id`),
   KEY `finished_goods_coupon_raw_material_id_foreign` (`coupon_raw_material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `finished_goods`
@@ -1786,7 +1986,10 @@ INSERT INTO `finished_goods` (`id`, `department_id`, `grade_id`, `color_id`, `ep
 (165, 2, 4, NULL, NULL, NULL, '20KG', 570, 11400.0000, 20, '2026-07-29 19:56:18', 'active', 'Dispatched to Shree Krishna via Dispatch #DISP-20260730-004', '2026-07-29 14:26:18', '2026-07-30 03:30:43', NULL, NULL),
 (166, 2, 5, NULL, NULL, NULL, '20KG', 410, 8200.0000, 20, '2026-07-30 09:02:08', 'active', NULL, '2026-07-30 03:32:08', '2026-07-30 03:32:28', NULL, NULL),
 (167, 2, 1, NULL, NULL, NULL, '20KG', 1631, 32620.0000, 20, '2026-07-30 09:02:56', 'active', NULL, '2026-07-30 03:32:56', '2026-07-30 03:33:21', NULL, 8),
-(168, 2, 2, NULL, NULL, NULL, '20KG', 1287, 25740.0000, 20, '2026-07-30 09:04:05', 'active', NULL, '2026-07-30 03:34:05', '2026-07-30 03:34:29', NULL, 8);
+(168, 2, 2, NULL, NULL, NULL, '20KG', 1287, 25740.0000, 20, '2026-07-30 09:04:05', 'active', NULL, '2026-07-30 03:34:05', '2026-07-30 03:34:29', NULL, 8),
+(169, 2, 9, NULL, NULL, NULL, '20KG', 600, 12000.0000, 20, '2026-08-20 14:09:03', 'active', NULL, '2026-08-20 08:39:03', '2026-08-21 10:49:58', NULL, NULL),
+(170, 1, NULL, 35, NULL, NULL, '1 KG', 13, 325.0000, 20, '2026-08-21 16:25:30', 'low_stock', NULL, '2026-08-21 10:55:30', '2026-08-21 10:55:30', NULL, NULL),
+(171, 1, NULL, 37, NULL, NULL, '1 KG', 13, 325.0000, 20, '2026-08-21 16:25:30', 'low_stock', NULL, '2026-08-21 10:55:30', '2026-08-21 10:55:30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1807,7 +2010,7 @@ CREATE TABLE IF NOT EXISTS `formulas` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `formulas_grade_id_version_unique` (`grade_id`,`version`),
   KEY `formulas_created_by_foreign` (`created_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `formulas`
@@ -1819,7 +2022,8 @@ INSERT INTO `formulas` (`id`, `grade_id`, `version`, `remarks`, `is_active`, `cr
 (3, 3, 1, NULL, 1, 2, '2026-07-12 11:30:57', '2026-07-12 11:30:57'),
 (4, 7, 1, NULL, 1, 2, '2026-07-12 11:33:30', '2026-07-12 11:33:30'),
 (5, 4, 1, NULL, 1, 2, '2026-07-28 06:32:08', '2026-07-28 06:32:08'),
-(6, 5, 1, NULL, 1, 2, '2026-07-28 11:36:04', '2026-07-28 11:36:04');
+(6, 5, 1, NULL, 1, 2, '2026-07-28 11:36:04', '2026-07-28 11:36:04'),
+(7, 9, 1, NULL, 1, 2, '2026-08-20 08:29:53', '2026-08-20 08:29:53');
 
 -- --------------------------------------------------------
 
@@ -1846,7 +2050,7 @@ CREATE TABLE IF NOT EXISTS `formula_items` (
   KEY `formula_items_raw_material_id_foreign` (`raw_material_id`),
   KEY `formula_items_unit_id_foreign` (`unit_id`),
   KEY `formula_items_packing_material_id_foreign` (`packing_material_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `formula_items`
@@ -1892,7 +2096,13 @@ INSERT INTO `formula_items` (`id`, `formula_id`, `raw_material_id`, `item_type`,
 (68, 6, 18, 'raw', NULL, 1.5000, 1, 'formula', 1.0000, 4, '2026-07-28 11:36:04', '2026-07-28 11:36:04'),
 (69, 6, 15, 'raw', NULL, 50.0000, 1, 'formula', 1.0000, 5, '2026-07-28 11:36:04', '2026-07-28 11:36:04'),
 (70, 6, 19, 'raw', NULL, 0.5000, 1, 'formula', 1.0000, 6, '2026-07-28 11:36:04', '2026-07-28 11:36:04'),
-(71, 6, NULL, 'packing', 5, 1.0000, 3, 'output', 1.0000, 7, '2026-07-28 11:36:04', '2026-07-28 11:36:04');
+(71, 6, NULL, 'packing', 5, 1.0000, 3, 'output', 1.0000, 7, '2026-07-28 11:36:04', '2026-07-28 11:36:04'),
+(72, 7, 12, 'raw', NULL, 1280.0000, 1, 'formula', 1.0000, 1, '2026-08-20 08:29:53', '2026-08-20 08:29:53'),
+(73, 7, 13, 'raw', NULL, 500.0000, 1, 'formula', 1.0000, 2, '2026-08-20 08:29:53', '2026-08-20 08:29:53'),
+(74, 7, 15, 'raw', NULL, 200.0000, 1, 'formula', 1.0000, 3, '2026-08-20 08:29:53', '2026-08-20 08:29:53'),
+(75, 7, 18, 'raw', NULL, 4.0000, 1, 'formula', 1.0000, 4, '2026-08-20 08:29:53', '2026-08-20 08:29:53'),
+(76, 7, 17, 'raw', NULL, 4.0000, 1, 'formula', 1.0000, 5, '2026-08-20 08:29:53', '2026-08-20 08:29:53'),
+(77, 7, NULL, 'packing', 63, 1.0000, 3, 'output', 1.0000, 6, '2026-08-20 08:29:53', '2026-08-20 08:29:53');
 
 -- --------------------------------------------------------
 
@@ -1903,6 +2113,7 @@ INSERT INTO `formula_items` (`id`, `formula_id`, `raw_material_id`, `item_type`,
 DROP TABLE IF EXISTS `grades`;
 CREATE TABLE IF NOT EXISTS `grades` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `department_id` bigint UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1921,21 +2132,27 @@ CREATE TABLE IF NOT EXISTS `grades` (
   KEY `grades_bag_size_id_foreign` (`bag_size_id`),
   KEY `grades_output_unit_id_foreign` (`output_unit_id`),
   KEY `grades_created_by_foreign` (`created_by`),
-  KEY `grades_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `grades_updated_by_foreign` (`updated_by`),
+  KEY `grades_brand_id_foreign` (`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `grades`
 --
 
-INSERT INTO `grades` (`id`, `department_id`, `name`, `code`, `bag_size_id`, `output_unit_id`, `description`, `is_active`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 2, 'F-101', 'F-101', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:54:33', '2026-07-12 10:54:33'),
-(2, 2, 'F-107', 'F-107', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:54:48', '2026-07-12 10:54:48'),
-(3, 2, 'F-121', 'F-121', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:55:01', '2026-07-12 10:55:01'),
-(4, 2, 'F-115 (White)', 'F-115', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:55:40', '2026-07-12 10:56:18'),
-(5, 2, 'F-133 (White)', 'F-133', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:56:02', '2026-07-12 10:56:02'),
-(6, 2, 'F-147 (White)', 'F-147', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:56:46', '2026-07-12 10:56:46'),
-(7, 2, 'F-147 (Gray)', 'F-147G', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:57:18', '2026-07-12 10:57:18');
+INSERT INTO `grades` (`id`, `brand_id`, `department_id`, `name`, `code`, `bag_size_id`, `output_unit_id`, `description`, `is_active`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 'F-101', 'F-101', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:54:33', '2026-08-20 07:16:15'),
+(2, 1, 2, 'F-107', 'F-107', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:54:48', '2026-08-20 07:16:24'),
+(3, 1, 2, 'F-121', 'F-121', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:55:01', '2026-08-20 07:16:36'),
+(4, 1, 2, 'F-115 (White)', 'F-115', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:55:40', '2026-08-20 07:16:30'),
+(5, 1, 2, 'F-133 (White)', 'F-133', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:56:02', '2026-08-20 07:16:42'),
+(6, 1, 2, 'F-147 (White)', 'F-147', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:56:46', '2026-08-20 07:16:51'),
+(7, 1, 2, 'F-147 (Gray)', 'F-147G', 1, 1, NULL, 1, 2, 2, '2026-07-12 10:57:18', '2026-08-20 07:16:47'),
+(9, 2, 2, 'FX-01', 'FX-01', 1, 1, NULL, 1, 2, 2, '2026-08-20 07:17:19', '2026-08-20 07:17:19'),
+(10, 2, 2, 'FX-02', 'FX-02', 1, 1, NULL, 1, 2, 2, '2026-08-20 07:17:40', '2026-08-20 07:17:40'),
+(11, 2, 2, 'FX-03', 'FX-03', 1, 1, NULL, 1, 2, 2, '2026-08-20 07:17:19', '2026-08-20 07:17:19'),
+(12, 2, 2, 'FX-04', 'FX-04', 1, 1, NULL, 1, 2, 2, '2026-08-20 07:17:19', '2026-08-20 07:17:19'),
+(13, 2, 2, 'FX-05', 'FX-05', 1, 1, NULL, 1, 2, 2, '2026-08-20 07:17:19', '2026-08-20 07:17:19');
 
 -- --------------------------------------------------------
 
@@ -1958,7 +2175,7 @@ CREATE TABLE IF NOT EXISTS `grout_formulas` (
   UNIQUE KEY `grout_formulas_color_id_version_unique` (`color_id`,`version`),
   KEY `grout_formulas_created_by_foreign` (`created_by`),
   KEY `grout_formulas_updated_by_foreign` (`updated_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `grout_formulas`
@@ -1990,7 +2207,8 @@ INSERT INTO `grout_formulas` (`id`, `color_id`, `version`, `remarks`, `is_active
 (24, 27, 1, NULL, 1, 2, NULL, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
 (25, 28, 1, NULL, 1, 2, NULL, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
 (26, 29, 1, NULL, 1, 2, NULL, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
-(27, 30, 1, NULL, 1, 2, NULL, '2026-07-13 07:03:50', '2026-07-13 07:03:50');
+(27, 30, 1, NULL, 1, 2, NULL, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
+(28, 35, 1, NULL, 1, 2, NULL, '2026-08-21 10:53:49', '2026-08-21 10:53:49');
 
 -- --------------------------------------------------------
 
@@ -2013,7 +2231,7 @@ CREATE TABLE IF NOT EXISTS `grout_formula_items` (
   KEY `grout_formula_items_grout_formula_id_foreign` (`grout_formula_id`),
   KEY `grout_formula_items_raw_material_id_foreign` (`raw_material_id`),
   KEY `grout_formula_items_unit_id_foreign` (`unit_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `grout_formula_items`
@@ -2059,7 +2277,12 @@ INSERT INTO `grout_formula_items` (`id`, `grout_formula_id`, `raw_material_id`, 
 (41, 8, 17, 2.0000, 1, 'Stage 1', 1, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
 (42, 8, 18, 0.6000, 1, 'Stage 1', 2, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
 (43, 8, 25, 3.3000, 1, 'Stage 1', 3, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
-(44, 8, 14, 100.0000, 1, 'Stage 2', 4, '2026-07-13 07:03:50', '2026-07-13 07:03:50');
+(44, 8, 14, 100.0000, 1, 'Stage 2', 4, '2026-07-13 07:03:50', '2026-07-13 07:03:50'),
+(45, 28, 16, 225.0000, 1, 'Stage 1', 0, '2026-08-21 10:53:49', '2026-08-21 10:53:49'),
+(46, 28, 18, 0.6000, 2, 'Stage 1', 1, '2026-08-21 10:53:49', '2026-08-21 10:53:49'),
+(47, 28, 17, 2.0000, 1, 'Stage 1', 2, '2026-08-21 10:53:49', '2026-08-21 10:53:49'),
+(48, 28, 22, 17.0000, 1, 'Stage 1', 3, '2026-08-21 10:53:49', '2026-08-21 10:53:49'),
+(49, 28, 13, 125.0000, 1, 'Stage 2', 4, '2026-08-21 10:53:49', '2026-08-21 10:53:49');
 
 -- --------------------------------------------------------
 
@@ -2103,7 +2326,7 @@ CREATE TABLE IF NOT EXISTS `grout_production_batches` (
   KEY `grout_production_batches_operator_id_foreign` (`operator_id`),
   KEY `grout_production_batches_status_index` (`status`),
   KEY `grout_production_batches_skipped_by_id_foreign` (`skipped_by_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `grout_production_batches`
@@ -2121,7 +2344,8 @@ INSERT INTO `grout_production_batches` (`id`, `batch_no`, `machine_id`, `color_i
 (9, 'GRT-20260713-0009', 1, 3, 3, '[{\"unit_id\": 1, \"quantity\": 700, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 16, \"raw_material_code\": \"DL\", \"raw_material_name\": \"Dolomite\"}, {\"unit_id\": 1, \"quantity\": 250, \"mix_stage\": \"Stage 2\", \"unit_code\": \"KG\", \"raw_material_id\": 14, \"raw_material_code\": \"WHT-01\", \"raw_material_name\": \"White Cement\"}, {\"unit_id\": 1, \"quantity\": 4, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\"}, {\"unit_id\": 1, \"quantity\": 2, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\"}, {\"unit_id\": 1, \"quantity\": 2, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 28, \"raw_material_code\": \"PMT-07\", \"raw_material_name\": \"Prigment Color Yellow\"}]', 5, 'Completed', '2026-07-13 23:12:39', '2026-07-13 23:12:52', '2026-07-13 23:13:52', '2026-07-13 23:12:39', '2026-07-13 23:37:58', NULL, NULL, '2026-07-13 23:38:17', '2026-07-13 23:38:35', 39, 975.0000, NULL, '2026-07-13 17:42:39', '2026-07-13 18:08:35', 0, NULL, NULL, NULL),
 (10, 'GRT-20260713-0010', 1, 1, 2, '[{\"unit_id\": 1, \"quantity\": 700, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 16, \"raw_material_code\": \"DL\", \"raw_material_name\": \"Dolomite\"}, {\"unit_id\": 1, \"quantity\": 250, \"mix_stage\": \"Stage 2\", \"unit_code\": \"KG\", \"raw_material_id\": 14, \"raw_material_code\": \"WHT-01\", \"raw_material_name\": \"White Cement\"}, {\"unit_id\": 1, \"quantity\": 4, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\"}, {\"unit_id\": 1, \"quantity\": 2, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\"}]', 5, 'Completed', '2026-07-13 23:39:15', '2026-07-13 23:39:32', '2026-07-13 23:40:32', '2026-07-13 23:39:15', '2026-07-14 08:31:45', NULL, NULL, '2026-07-14 08:32:18', '2026-07-14 08:32:37', 38, 950.0000, NULL, '2026-07-13 18:09:15', '2026-07-14 03:02:37', 0, NULL, NULL, NULL),
 (11, 'G1426G', 1, 3, 3, '[{\"unit_id\": 1, \"quantity\": 700, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 16, \"raw_material_code\": \"DL\", \"raw_material_name\": \"Dolomite\"}, {\"unit_id\": 1, \"quantity\": 250, \"mix_stage\": \"Stage 2\", \"unit_code\": \"KG\", \"raw_material_id\": 14, \"raw_material_code\": \"WHT-01\", \"raw_material_name\": \"White Cement\"}, {\"unit_id\": 1, \"quantity\": 4, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\"}, {\"unit_id\": 1, \"quantity\": 2, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\"}, {\"unit_id\": 1, \"quantity\": 2, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 28, \"raw_material_code\": \"PMT-07\", \"raw_material_name\": \"Prigment Color Yellow\"}]', 5, 'Completed', '2026-07-14 09:00:35', '2026-07-14 09:00:50', '2026-07-14 09:59:50', '2026-07-14 09:00:35', '2026-07-29 19:40:10', NULL, NULL, '2026-07-29 19:40:13', '2026-07-29 19:40:19', 40, 1000.0000, NULL, '2026-07-14 03:30:35', '2026-07-29 14:10:19', 0, NULL, NULL, NULL),
-(12, 'GRT-20260729-0001', 2, 27, 24, '[]', 2, 'Completed', '2026-07-29 19:41:57', '2026-07-29 19:42:01', '2026-07-29 19:42:08', '2026-07-29 19:41:57', '2026-07-29 19:42:11', '2026-07-29 19:42:11', '2026-07-29 19:42:18', '2026-07-29 19:42:22', '2026-07-29 19:42:33', 15, 375.0000, NULL, '2026-07-29 14:11:57', '2026-07-29 14:12:33', 1, 2, 'nothing', '2026-07-29 19:42:08');
+(12, 'GRT-20260729-0001', 2, 27, 24, '[]', 2, 'Completed', '2026-07-29 19:41:57', '2026-07-29 19:42:01', '2026-07-29 19:42:08', '2026-07-29 19:41:57', '2026-07-29 19:42:11', '2026-07-29 19:42:11', '2026-07-29 19:42:18', '2026-07-29 19:42:22', '2026-07-29 19:42:33', 15, 375.0000, NULL, '2026-07-29 14:11:57', '2026-07-29 14:12:33', 1, 2, 'nothing', '2026-07-29 19:42:08'),
+(13, 'GRT-20260821-0001', 2, 35, 28, '[{\"unit_id\": 1, \"quantity\": 225, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 16, \"raw_material_code\": \"DL\", \"raw_material_name\": \"Dolomite\"}, {\"unit_id\": 2, \"quantity\": 0.6, \"mix_stage\": \"Stage 1\", \"unit_code\": \"GM\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\"}, {\"unit_id\": 1, \"quantity\": 2, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\"}, {\"unit_id\": 1, \"quantity\": 17, \"mix_stage\": \"Stage 1\", \"unit_code\": \"KG\", \"raw_material_id\": 22, \"raw_material_code\": \"PMT-01\", \"raw_material_name\": \"Prigment Color Black\"}, {\"unit_id\": 1, \"quantity\": 125, \"mix_stage\": \"Stage 2\", \"unit_code\": \"KG\", \"raw_material_id\": 13, \"raw_material_code\": \"GRY-01\", \"raw_material_name\": \"Gray Cement\"}]', 2, 'Completed', '2026-08-21 16:24:44', '2026-08-21 16:24:47', '2026-08-21 16:24:56', '2026-08-21 16:24:44', '2026-08-21 16:24:59', '2026-08-21 16:24:59', '2026-08-21 16:25:01', '2026-08-21 16:25:03', '2026-08-21 16:25:30', 13, 325.0000, NULL, '2026-08-21 10:54:44', '2026-08-21 10:55:30', 1, 2, 'nothing', '2026-08-21 16:24:56');
 
 -- --------------------------------------------------------
 
@@ -2234,7 +2458,7 @@ CREATE TABLE IF NOT EXISTS `marketing_orders` (
   KEY `marketing_orders_status_sort_order_index` (`status`,`sort_order`),
   KEY `marketing_orders_party_name_index` (`party_name`),
   KEY `marketing_orders_order_date_index` (`order_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `marketing_orders`
@@ -2249,7 +2473,8 @@ INSERT INTO `marketing_orders` (`id`, `order_number`, `party_name`, `city`, `cou
 (6, 'MKT-20260728-006', 'Aniket', 'Sampat', NULL, NULL, '2026-07-28', 'medium', 'in_progress', 0, 'available', NULL, 2, 2, '2026-07-28 12:04:06', NULL, NULL, NULL, 2, '2026-07-28 11:57:00', '2026-07-28 12:04:06'),
 (7, 'MKT-20260728-007', 'Rajasthan Marble', 'Betiah', NULL, NULL, '2026-07-28', 'medium', 'completed', 0, 'partial', 'cetra 20gm -8 box', 2, 2, '2026-07-29 14:08:43', '2026-07-30 03:27:19', NULL, NULL, 8, '2026-07-28 11:59:28', '2026-07-30 03:27:19'),
 (8, 'MKT-20260728-008', 'Vipul Sanitary', 'Gondal', NULL, NULL, '2026-07-28', 'medium', 'completed', 0, 'available', NULL, 2, 2, '2026-07-28 12:04:12', '2026-07-30 03:11:19', NULL, NULL, 3, '2026-07-28 12:00:20', '2026-07-30 03:11:19'),
-(9, 'MKT-20260812-001', 'ABC', 'RAJKOT', NULL, NULL, '2026-08-12', 'urgent', 'completed', 1, 'available', NULL, 1, 2, '2026-08-12 05:01:39', '2026-08-12 05:05:03', NULL, NULL, 3, '2026-08-12 04:57:51', '2026-08-12 05:05:03');
+(9, 'MKT-20260812-001', 'ABC', 'RAJKOT', NULL, NULL, '2026-08-12', 'urgent', 'completed', 1, 'available', NULL, 1, 2, '2026-08-12 05:01:39', '2026-08-12 05:05:03', NULL, NULL, 3, '2026-08-12 04:57:51', '2026-08-12 05:05:03'),
+(10, 'MKT-20260821-001', 'fixora', 'morbi', NULL, NULL, '2026-08-21', 'high', 'in_progress', 0, 'available', NULL, 2, 2, '2026-08-21 10:45:49', NULL, NULL, NULL, 3, '2026-08-21 10:45:26', '2026-08-21 10:57:57');
 
 -- --------------------------------------------------------
 
@@ -2288,7 +2513,7 @@ CREATE TABLE IF NOT EXISTS `marketing_order_items` (
   KEY `marketing_order_items_department_code_index` (`department_code`),
   KEY `fk_mkt_items_epoxy_filler_color` (`epoxy_filler_color_id`),
   KEY `fk_mkt_items_epoxy_component` (`epoxy_component_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `marketing_order_items`
@@ -2334,7 +2559,10 @@ INSERT INTO `marketing_order_items` (`id`, `marketing_order_id`, `department_cod
 (49, 3, 'EPX', NULL, NULL, NULL, 1, NULL, 'Box', NULL, NULL, 1, NULL, 'completed', 0, NULL, '2026-07-28 12:02:49', '2026-07-29 14:31:48', NULL, 66),
 (50, 3, 'EPX', NULL, NULL, NULL, 20, NULL, 'Box', NULL, NULL, 1, NULL, 'completed', 0, NULL, '2026-07-28 12:02:49', '2026-07-29 14:31:48', NULL, 68),
 (51, 3, 'EPX', NULL, NULL, NULL, 5, NULL, 'Box', NULL, NULL, 1, NULL, 'completed', 0, NULL, '2026-07-28 12:02:49', '2026-07-29 14:31:48', NULL, 70),
-(53, 9, 'TAD', 1, NULL, NULL, 1000, NULL, '20KG', NULL, NULL, 1, NULL, 'completed', 1, NULL, '2026-08-12 04:58:07', '2026-08-12 05:05:03', NULL, NULL);
+(53, 9, 'TAD', 1, NULL, NULL, 1000, NULL, '20KG', NULL, NULL, 1, NULL, 'completed', 1, NULL, '2026-08-12 04:58:07', '2026-08-12 05:05:03', NULL, NULL),
+(54, 10, 'TAD', 9, NULL, NULL, 200, NULL, '20KG', NULL, NULL, 1, NULL, 'pending', 0, NULL, '2026-08-21 10:45:26', '2026-08-21 10:57:57', NULL, NULL),
+(55, 10, 'GRT', NULL, 35, NULL, 9, NULL, '1 KG', NULL, NULL, 1, NULL, 'pending', 0, NULL, '2026-08-21 10:45:26', '2026-08-21 10:57:57', NULL, NULL),
+(56, 10, 'GRT', NULL, 37, NULL, 10, NULL, '1 KG', NULL, NULL, 1, NULL, 'pending', 0, NULL, '2026-08-21 10:45:26', '2026-08-21 10:57:57', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2348,7 +2576,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -2418,7 +2646,21 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (62, '2026_07_23_000003_add_packing_material_id_to_stock_tables', 11),
 (63, '2026_07_23_000004_migrate_packing_materials_data', 11),
 (64, '2026_07_23_000005_add_packing_material_id_to_epoxy_component_formula_items_table', 12),
-(65, '2026_07_28_000001_add_packing_material_id_to_formula_items_table', 13);
+(65, '2026_07_28_000001_add_packing_material_id_to_formula_items_table', 13),
+(66, '2026_08_14_000001_create_brands_table', 14),
+(67, '2026_08_14_000002_create_brand_products_table', 14),
+(68, '2026_08_14_000003_create_brand_packagings_table', 14),
+(69, '2026_08_14_000004_create_brand_packaging_items_table', 14),
+(70, '2026_08_14_000005_seed_solcon_brand_products', 14),
+(71, '2026_08_15_000001_add_brand_id_to_raw_materials_table', 15),
+(72, '2026_08_15_000003_add_brand_id_to_packing_materials_table', 16),
+(73, '2026_08_15_000004_ensure_packing_materials_common_brand', 17),
+(74, '2026_08_20_000001_add_brand_id_to_grades_table', 18),
+(76, '2026_08_22_000001_add_brand_id_to_colors_table', 19),
+(77, '2026_08_25_000001_add_brand_id_to_epoxy_tables', 20),
+(78, '2026_08_25_000002_add_epoxy_fields_to_marketing_order_items', 21),
+(79, '2026_08_26_000001_sync_epoxy_components_raw_materials_brand', 22),
+(80, '2026_08_26_000001_ensure_epoxy_components_have_isolated_raw_materials', 23);
 
 -- --------------------------------------------------------
 
@@ -2443,7 +2685,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   PRIMARY KEY (`id`),
   KEY `notifications_department_id_foreign` (`department_id`),
   KEY `notifications_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `notifications`
@@ -2585,7 +2827,10 @@ INSERT INTO `notifications` (`id`, `title`, `body`, `type`, `department_id`, `us
 (133, 'New Order Approved: MKT-20260812-001', 'Order for ABC (RAJKOT) has been approved. Priority: Urgent', 'marketing_order_approved', NULL, 6, 'sent', '2026-08-12 05:01:42', NULL, '{\"order_id\": 9, \"click_url\": \"/supervisor/orders\"}', '2026-08-12 05:01:42', '2026-08-12 05:01:42'),
 (134, 'New Dispatch Created: DISP-20260812-001', 'New Factory Pickup created for ABC. Vehicle: RJ09GD3600. Expected: 12 Aug 2026 10:32 AM', 'dispatch_created', NULL, 2, 'sent', '2026-08-12 05:02:55', '2026-08-12 12:07:50', '{\"click_url\": \"/dispatch/9\", \"dispatch_id\": 9}', '2026-08-12 05:02:55', '2026-08-12 12:07:50'),
 (135, 'New Dispatch Created: DISP-20260812-001', 'New Factory Pickup created for ABC. Vehicle: RJ09GD3600. Expected: 12 Aug 2026 10:32 AM', 'dispatch_created', NULL, 3, 'no_device_registered', '2026-08-12 05:02:55', NULL, '{\"click_url\": \"/dispatch/9\", \"dispatch_id\": 9}', '2026-08-12 05:02:55', '2026-08-12 05:02:55'),
-(136, 'New Dispatch Created: DISP-20260812-001', 'New Factory Pickup created for ABC. Vehicle: RJ09GD3600. Expected: 12 Aug 2026 10:32 AM', 'dispatch_created', NULL, 7, 'no_device_registered', '2026-08-12 05:02:55', NULL, '{\"click_url\": \"/dispatch/9\", \"dispatch_id\": 9}', '2026-08-12 05:02:55', '2026-08-12 05:02:55');
+(136, 'New Dispatch Created: DISP-20260812-001', 'New Factory Pickup created for ABC. Vehicle: RJ09GD3600. Expected: 12 Aug 2026 10:32 AM', 'dispatch_created', NULL, 7, 'no_device_registered', '2026-08-12 05:02:55', NULL, '{\"click_url\": \"/dispatch/9\", \"dispatch_id\": 9}', '2026-08-12 05:02:55', '2026-08-12 05:02:55'),
+(137, 'New Order Approved: MKT-20260821-001', 'Order for fixora (morbi) has been approved. Priority: High', 'marketing_order_approved', NULL, 4, 'no_device_registered', '2026-08-21 10:45:49', NULL, '{\"order_id\": 10, \"click_url\": \"/supervisor/orders\"}', '2026-08-21 10:45:49', '2026-08-21 10:45:49'),
+(138, 'New Order Approved: MKT-20260821-001', 'Order for fixora (morbi) has been approved. Priority: High', 'marketing_order_approved', NULL, 5, 'sent', '2026-08-21 10:45:52', NULL, '{\"order_id\": 10, \"click_url\": \"/supervisor/orders\"}', '2026-08-21 10:45:52', '2026-08-21 10:45:52'),
+(139, 'New Order Approved: MKT-20260821-001', 'Order for fixora (morbi) has been approved. Priority: High', 'marketing_order_approved', NULL, 6, 'sent', '2026-08-21 10:45:52', NULL, '{\"order_id\": 10, \"click_url\": \"/supervisor/orders\"}', '2026-08-21 10:45:52', '2026-08-21 10:45:52');
 
 -- --------------------------------------------------------
 
@@ -2596,6 +2841,7 @@ INSERT INTO `notifications` (`id`, `title`, `body`, `type`, `department_id`, `us
 DROP TABLE IF EXISTS `packing_materials`;
 CREATE TABLE IF NOT EXISTS `packing_materials` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `category_id` bigint UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2610,76 +2856,133 @@ CREATE TABLE IF NOT EXISTS `packing_materials` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `packing_materials_category_id_foreign` (`category_id`),
-  KEY `packing_materials_unit_id_foreign` (`unit_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `packing_materials_unit_id_foreign` (`unit_id`),
+  KEY `packing_materials_brand_id_foreign` (`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `packing_materials`
 --
 
-INSERT INTO `packing_materials` (`id`, `category_id`, `name`, `code`, `size`, `unit_id`, `minimum_stock`, `opening_stock`, `current_stock`, `remarks`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'F101 Bag', 'BAG-F101', NULL, 3, 2000.0000, 12000.0000, 28900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-30 03:32:56'),
-(2, 1, 'F107 Bag', 'BAG-F107', NULL, 3, 2000.0000, 12000.0000, 70900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-30 03:34:05'),
-(3, 1, 'F121 Bag', 'BAG-F121', NULL, 3, 2000.0000, 12000.0000, 8500.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-26 06:58:14'),
-(4, 1, 'F115 Bag', 'BAG-F115', NULL, 3, 2000.0000, 12000.0000, 7200.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-29 14:26:18'),
-(5, 1, 'F133 Bag', 'BAG-F133', NULL, 3, 2000.0000, 12000.0000, 6400.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-30 03:32:08'),
-(6, 1, 'B01 Bag', 'BAG-B01', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
-(7, 2, 'Grout 1Kg Pouch', 'PCH-GRT-1KG', '1Kg', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
-(8, 2, 'Grout 500gm Pouch', 'PCH-GRT-500G', '500gm', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
-(9, 2, 'Filler Pouch', 'PCH-FLR', NULL, 3, 50.0000, 150.0000, 49950.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
-(10, 2, 'Spacer Pouch 2mm', 'PCH-SPC-2MM', '2mm', 3, 0.0000, 0.0000, 900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:35:41'),
-(11, 2, 'Spacer Pouch 3mm', 'PCH-SPC-3MM', '3mm', 3, 0.0000, 0.0000, 2500.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:36:24'),
-(12, 2, 'Spacer Pouch 4mm', 'PCH-SPC-4MM', '4mm', 3, 0.0000, 0.0000, 2800.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:37:23'),
-(13, 2, 'Spacer Pouch 5mm', 'PCH-SPC-5MM', '5mm', 3, 0.0000, 0.0000, 600.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:37:50'),
-(14, 2, 'Clip Pouch 2mm', 'PCH-CLP-2MM', '2mm', 3, 0.0000, 0.0000, 325.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 06:53:04'),
-(15, 2, 'Clip Pouch 3mm', 'PCH-CLP-3MM', '3mm', 3, 0.0000, 0.0000, 200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:53:46'),
-(16, 2, 'Clip Pouch 4mm', 'PCH-CLP-4MM', '4mm', 3, 0.0000, 0.0000, 450.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:54:15'),
-(17, 2, 'Wedge Pouch', 'PCH-WDG', NULL, 3, 0.0000, 0.0000, 25.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:42:38'),
-(18, 2, 'Jari Pouch', 'PCH-JRI', NULL, 3, 0.0000, 0.0000, 58400.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:39:36'),
-(19, 3, '1Kg Bucket', 'BKT-1KG', '1Kg', 3, 2000.0000, 10000.0000, 4200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:48:54'),
-(20, 3, '5Kg Bucket', 'BKT-5KG', '5Kg', 3, 2000.0000, 10000.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:50:12'),
-(21, 4, '100gm Bottle', 'BTL-100G', '100gm', 3, 50.0000, 150.0000, 2200.0000, '', 'active', '2026-07-23 07:07:44', '2026-08-12 04:29:25'),
-(22, 4, '200gm Bottle', 'BTL-200G', '200gm', 3, 50.0000, 1000.0000, 4440.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
-(23, 4, '500gm Bottle', 'BTL-500G', '500gm', 3, 50.0000, 150.0000, 180.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:49:40'),
-(24, 4, '1Kg Bottle', 'BTL-1KG', '1Kg', 3, 50.0000, 150.0000, 400.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:48:09'),
-(25, 4, 'Tile Power 1L Bottle', 'BTL-TP-1L', '1L', 3, 0.0000, 0.0000, 1100.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:40:16'),
-(26, 4, 'Tile Power 5L Bottle', 'BTL-TP-5L', '5L', 3, 0.0000, 0.0000, 280.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:40:46'),
-(27, 4, 'SBR 1L Bottle', 'BTL-SBR-1L', '1L', 3, 0.0000, 0.0000, 200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:31:27'),
-(28, 4, 'SBR 5L Bottle', 'BTL-SBR-5L', '5L', 3, 0.0000, 0.0000, 230.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:32:05'),
-(29, 5, '100gm Sticker', 'STK-100G', '100gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
-(30, 5, '200gm Sticker', 'STK-200G', '200gm', 3, 0.0000, 0.0000, 5000.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:52:45'),
-(31, 5, '500gm Sticker', 'STK-500G', '500gm', 3, 100.0000, 0.0000, 0.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-12 04:11:31'),
-(32, 5, '1Kg Sticker', 'STK-1KG', '1Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
-(33, 5, 'Tile Power 1L Sticker', 'STK-TP-1L', '1L', 3, 0.0000, 0.0000, 980.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:24:06'),
-(34, 5, 'Tile Power 5L Sticker', 'STK-TP-5L', '5L', 3, 0.0000, 0.0000, 4840.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:01:26'),
-(35, 5, 'Grout Admix Sticker', 'STK-GA', NULL, 3, 0.0000, 0.0000, 49440.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
-(36, 5, 'Soltite 1.8Kg Sticker', 'STK-SLT-1.8KG', '1.8Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
-(37, 5, 'Soltite 900gm Sticker', 'STK-SLT-900G', '900gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
-(38, 5, 'Soltite 450gm Sticker', 'STK-SLT-450G', '450gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
-(39, 6, 'Grout Admix Box', 'BOX-GA', NULL, 3, 0.0000, 0.0000, 174.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
-(40, 6, 'Sample Box', 'BOX-SMP', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
-(41, 6, 'Tile Cleaner 1L Box', 'BOX-TC-1L', '1L', 3, 0.0000, 0.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:24:06'),
-(42, 6, 'Tile Cleaner 5L Box', 'BOX-TC-5L', '5L', 3, 0.0000, 0.0000, 270.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:01:26'),
-(43, 6, 'Epoxy 1Kg Box', 'BOX-EPX-1KG', '1Kg', 3, 0.0000, 0.0000, 300.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:55:03'),
-(44, 6, 'Epoxy 5Kg Box', 'BOX-EPX-5KG', '5Kg', 3, 0.0000, 0.0000, 450.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:56:02'),
-(45, 6, 'Small Grout Box', 'BOX-GRT-SM', NULL, 3, 0.0000, 0.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:30'),
-(46, 6, 'Big Grout Box', 'BOX-GRT-BG', NULL, 3, 0.0000, 0.0000, 360.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:51:15'),
-(47, 6, 'Jari Box', 'BOX-JRI', NULL, 3, 0.0000, 0.0000, 100.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:39:36'),
-(48, 6, 'Soltite 1.8Kg Box', 'BOX-SLT-1.8KG', '1.8Kg', 3, 0.0000, 0.0000, 1200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:48'),
-(49, 6, 'Soltite 900gm Box', 'BOX-SLT-900G', '900gm', 3, 0.0000, 0.0000, 1200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:34:29'),
-(50, 6, 'Soltite 450gm Box', 'BOX-SLT-450G', '450gm', 3, 0.0000, 0.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:34:06'),
-(51, 7, 'Acid Barrel', 'BRL-ACD', NULL, 3, 0.0000, 0.0000, 8.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:50:30'),
-(52, 7, 'SBR Barrel 200 KG', 'BRL-SBR-50L', '200 KG', 3, 0.0000, 0.0000, 225.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:23'),
-(53, 8, 'Sponge', 'ACC-SPG', NULL, 3, 50.0000, 150.0000, 9150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:38:17'),
-(54, 8, 'Blade', 'ACC-BLD', NULL, 3, 50.0000, 150.0000, 1500.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:52:15'),
-(55, 8, 'Hand Gloves', 'ACC-GLV', NULL, 3, 50.0000, 150.0000, 11200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:18:33'),
-(56, 5, 'JACK LEVELER', 'JL-01', '1', 3, 0.0000, 1000.0000, 25.0000, NULL, 'active', '2026-07-24 06:02:31', '2026-07-28 12:26:34'),
-(57, 6, 'PLASTIC BOX', 'BOX-P', '0.100', 3, 10.0000, 100.0000, 90.0000, NULL, 'active', '2026-07-24 07:00:37', '2026-07-25 12:03:16'),
-(58, 2, 'Jack Leveller', 'JKL', '50PCS', 3, 10.0000, 500.0000, 0.0000, NULL, 'active', '2026-07-24 07:03:12', '2026-07-25 12:03:16'),
-(59, 8, 'Trowel', 'THR', '0.100', 3, 100.0000, 200.0000, 150.0000, NULL, 'active', '2026-07-25 04:20:58', '2026-07-25 04:21:56'),
-(60, 2, 'Spacer Pouch 6mm', 'PCH-SPC-6MM', '5mm', 3, 100.0000, 5000.0000, 4000.0000, NULL, 'active', '2026-07-25 11:52:35', '2026-07-25 11:57:26'),
-(61, 8, 'PLIER', 'PLIER', '0.100', 3, 100.0000, 2000.0000, 25.0000, NULL, 'active', '2026-07-25 12:05:43', '2026-07-28 12:30:55'),
-(62, 8, 'VACUUM', 'VAC', '1KG', 3, 100.0000, 7.0000, 0.0000, NULL, 'active', '2026-07-28 12:18:15', '2026-07-29 14:02:23');
+INSERT INTO `packing_materials` (`id`, `brand_id`, `category_id`, `name`, `code`, `size`, `unit_id`, `minimum_stock`, `opening_stock`, `current_stock`, `remarks`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'F101 Bag', 'BAG-F101', NULL, 3, 2000.0000, 12000.0000, 28900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-30 03:32:56'),
+(2, 1, 1, 'F107 Bag', 'BAG-F107', NULL, 3, 2000.0000, 12000.0000, 70900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-30 03:34:05'),
+(3, 1, 1, 'F121 Bag', 'BAG-F121', NULL, 3, 2000.0000, 12000.0000, 8500.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-26 06:58:14'),
+(4, 1, 1, 'F115 Bag', 'BAG-F115', NULL, 3, 2000.0000, 12000.0000, 7200.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-29 14:26:18'),
+(5, 1, 1, 'F133 Bag', 'BAG-F133', NULL, 3, 2000.0000, 12000.0000, 6400.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-30 03:32:08'),
+(6, 1, 1, 'B01 Bag', 'BAG-B01', NULL, 3, 0.0000, 0.0000, 0.0000, NULL, 'active', '2026-07-23 07:07:43', '2026-08-15 16:33:31'),
+(7, 1, 2, 'Grout 1Kg Pouch', 'PCH-GRT-1KG', '1Kg', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(8, 1, 2, 'Grout 500gm Pouch', 'PCH-GRT-500G', '500gm', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(9, 1, 2, 'Filler Pouch', 'PCH-FLR', NULL, 3, 50.0000, 150.0000, 49950.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(10, 1, 2, 'Spacer Pouch 2mm', 'PCH-SPC-2MM', '2mm', 3, 0.0000, 0.0000, 900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:35:41'),
+(11, 1, 2, 'Spacer Pouch 3mm', 'PCH-SPC-3MM', '3mm', 3, 0.0000, 0.0000, 2500.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:36:24'),
+(12, 1, 2, 'Spacer Pouch 4mm', 'PCH-SPC-4MM', '4mm', 3, 0.0000, 0.0000, 2800.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:37:23'),
+(13, 1, 2, 'Spacer Pouch 5mm', 'PCH-SPC-5MM', '5mm', 3, 0.0000, 0.0000, 600.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:37:50'),
+(14, 1, 2, 'Clip Pouch 2mm', 'PCH-CLP-2MM', '2mm', 3, 0.0000, 0.0000, 325.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 06:53:04'),
+(15, 1, 2, 'Clip Pouch 3mm', 'PCH-CLP-3MM', '3mm', 3, 0.0000, 0.0000, 200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:53:46'),
+(16, 1, 2, 'Clip Pouch 4mm', 'PCH-CLP-4MM', '4mm', 3, 0.0000, 0.0000, 450.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:54:15'),
+(17, 1, 2, 'Wedge Pouch', 'PCH-WDG', NULL, 3, 0.0000, 0.0000, 25.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:42:38'),
+(18, 1, 2, 'Jari Pouch', 'PCH-JRI', NULL, 3, 0.0000, 0.0000, 58400.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:39:36'),
+(19, 1, 3, '1Kg Bucket', 'BKT-1KG', '1Kg', 3, 2000.0000, 10000.0000, 4200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:48:54'),
+(20, 1, 3, '5Kg Bucket', 'BKT-5KG', '5Kg', 3, 2000.0000, 10000.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:50:12'),
+(21, 1, 4, '100gm Bottle', 'BTL-100G', '100gm', 3, 50.0000, 150.0000, 2200.0000, '', 'active', '2026-07-23 07:07:44', '2026-08-12 04:29:25'),
+(22, 1, 4, '200gm Bottle', 'BTL-200G', '200gm', 3, 50.0000, 1000.0000, 4440.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
+(23, 1, 4, '500gm Bottle', 'BTL-500G', '500gm', 3, 50.0000, 150.0000, 180.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:49:40'),
+(24, 1, 4, '1Kg Bottle', 'BTL-1KG', '1Kg', 3, 50.0000, 150.0000, 400.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:48:09'),
+(25, 1, 4, 'Tile Power 1L Bottle', 'BTL-TP-1L', '1L', 3, 0.0000, 0.0000, 1100.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:40:16'),
+(26, 1, 4, 'Tile Power 5L Bottle', 'BTL-TP-5L', '5L', 3, 0.0000, 0.0000, 280.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:40:46'),
+(27, 1, 4, 'SBR 1L Bottle', 'BTL-SBR-1L', '1L', 3, 0.0000, 0.0000, 200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:31:27'),
+(28, 1, 4, 'SBR 5L Bottle', 'BTL-SBR-5L', '5L', 3, 0.0000, 0.0000, 230.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:32:05'),
+(29, 1, 5, '100gm Sticker', 'STK-100G', '100gm', 3, 0.0000, 0.0000, 5000.0000, '', 'active', '2026-07-23 07:07:44', '2026-08-26 05:04:51'),
+(30, 1, 5, '200gm Sticker', 'STK-200G', '200gm', 3, 0.0000, 0.0000, 5000.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:52:45'),
+(31, 1, 5, '500gm Sticker', 'STK-500G', '500gm', 3, 100.0000, 0.0000, 0.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-12 04:11:31'),
+(32, 1, 5, '1Kg Sticker', 'STK-1KG', '1Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(33, 1, 5, 'Tile Power 1L Sticker', 'STK-TP-1L', '1L', 3, 0.0000, 0.0000, 980.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:24:06'),
+(34, 1, 5, 'Tile Power 5L Sticker', 'STK-TP-5L', '5L', 3, 0.0000, 0.0000, 4840.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:01:26'),
+(35, 1, 5, 'Grout Admix Sticker', 'STK-GA', NULL, 3, 0.0000, 0.0000, 49440.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
+(36, 1, 5, 'Soltite 1.8Kg Sticker', 'STK-SLT-1.8KG', '1.8Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(37, 1, 5, 'Soltite 900gm Sticker', 'STK-SLT-900G', '900gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(38, 1, 5, 'Soltite 450gm Sticker', 'STK-SLT-450G', '450gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(39, 1, 6, 'Grout Admix Box', 'BOX-GA', NULL, 3, 0.0000, 0.0000, 174.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
+(40, 1, 6, 'Sample Box', 'BOX-SMP', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(41, 1, 6, 'Tile Cleaner 1L Box', 'BOX-TC-1L', '1L', 3, 0.0000, 0.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:24:06'),
+(42, 1, 6, 'Tile Cleaner 5L Box', 'BOX-TC-5L', '5L', 3, 0.0000, 0.0000, 270.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:01:26'),
+(43, 1, 6, 'Epoxy 1Kg Box', 'BOX-EPX-1KG', '1Kg', 3, 0.0000, 0.0000, 300.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:55:03'),
+(44, 1, 6, 'Epoxy 5Kg Box', 'BOX-EPX-5KG', '5Kg', 3, 0.0000, 0.0000, 450.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:56:02'),
+(45, 1, 6, 'Small Grout Box', 'BOX-GRT-SM', NULL, 3, 0.0000, 0.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:30'),
+(46, 1, 6, 'Big Grout Box', 'BOX-GRT-BG', NULL, 3, 0.0000, 0.0000, 360.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:51:15'),
+(47, 1, 6, 'Jari Box', 'BOX-JRI', NULL, 3, 0.0000, 0.0000, 100.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:39:36'),
+(48, 1, 6, 'Soltite 1.8Kg Box', 'BOX-SLT-1.8KG', '1.8Kg', 3, 0.0000, 0.0000, 1200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:48'),
+(49, 1, 6, 'Soltite 900gm Box', 'BOX-SLT-900G', '900gm', 3, 0.0000, 0.0000, 1200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:34:29'),
+(50, 1, 6, 'Soltite 450gm Box', 'BOX-SLT-450G', '450gm', 3, 0.0000, 0.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:34:06'),
+(51, NULL, 7, 'Acid Barrel', 'BRL-ACD', NULL, 3, 0.0000, 0.0000, 8.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-15 16:50:22'),
+(52, 1, 7, 'SBR Barrel 200 KG', 'BRL-SBR-50L', '200 KG', 3, 0.0000, 0.0000, 225.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:23'),
+(53, 1, 8, 'Sponge', 'ACC-SPG', NULL, 3, 50.0000, 150.0000, 9150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:38:17'),
+(54, 1, 8, 'Blade', 'ACC-BLD', NULL, 3, 50.0000, 150.0000, 1500.0000, NULL, 'inactive', '2026-07-23 07:07:44', '2026-08-26 05:51:05'),
+(55, 1, 8, 'Hand Gloves', 'ACC-GLV', NULL, 3, 50.0000, 150.0000, 11200.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-15 16:34:00'),
+(56, 1, 5, 'JACK LEVELER', 'JL-01', '1', 3, 0.0000, 1000.0000, 25.0000, NULL, 'active', '2026-07-24 06:02:31', '2026-08-15 16:34:11'),
+(57, 1, 6, 'PLASTIC BOX', 'BOX-P', '0.100', 3, 10.0000, 100.0000, 90.0000, NULL, 'active', '2026-07-24 07:00:37', '2026-07-25 12:03:16'),
+(58, 1, 2, 'Jack Leveller', 'JKL', '50PCS', 3, 10.0000, 500.0000, 0.0000, NULL, 'active', '2026-07-24 07:03:12', '2026-07-25 12:03:16'),
+(59, 1, 8, 'Trowel', 'THR', '0.100', 3, 100.0000, 200.0000, 150.0000, NULL, 'active', '2026-07-25 04:20:58', '2026-07-25 04:21:56'),
+(60, 1, 2, 'Spacer Pouch 6mm', 'PCH-SPC-6MM', '5mm', 3, 100.0000, 5000.0000, 4000.0000, NULL, 'active', '2026-07-25 11:52:35', '2026-07-25 11:57:26'),
+(61, 1, 8, 'PLIER', 'PLIER', '0.100', 3, 100.0000, 2000.0000, 25.0000, NULL, 'active', '2026-07-25 12:05:43', '2026-07-28 12:30:55'),
+(62, 1, 8, 'VACUUM', 'VAC', '1KG', 3, 100.0000, 7.0000, 0.0000, NULL, 'active', '2026-07-28 12:18:15', '2026-07-29 14:02:23'),
+(63, 2, 1, 'FX-01 BAG', 'F1B', '20KG', 1, 5000.0000, 4500.0000, 4400.0000, NULL, 'active', '2026-08-20 08:27:44', '2026-08-20 08:39:03'),
+(65, 2, 2, 'Grout 1Kg Pouch', 'PCH-GRT-1KG-B2', '1Kg', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(66, 2, 2, 'Grout 500gm Pouch', 'PCH-GRT-500G-B2', '500gm', 3, 5000.0000, 20000.0000, 20000.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(67, 2, 2, 'Filler Pouch', 'PCH-FLR-B2', NULL, 3, 50.0000, 150.0000, 49950.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-23 07:07:43'),
+(68, 2, 2, 'Spacer Pouch 2mm', 'PCH-SPC-2MM-B2', '2mm', 3, 0.0000, 0.0000, 900.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:35:41'),
+(69, 2, 2, 'Spacer Pouch 3mm', 'PCH-SPC-3MM-B2', '3mm', 3, 0.0000, 0.0000, 2500.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:36:24'),
+(70, 2, 2, 'Spacer Pouch 4mm', 'PCH-SPC-4MM-B2', '4mm', 3, 0.0000, 0.0000, 2800.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:37:23'),
+(71, 2, 2, 'Spacer Pouch 5mm', 'PCH-SPC-5MM-B2', '5mm', 3, 0.0000, 0.0000, 600.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 12:37:50'),
+(72, 2, 2, 'Clip Pouch 2mm', 'PCH-CLP-2MM-B2', '2mm', 3, 0.0000, 0.0000, 325.0000, '', 'active', '2026-07-23 07:07:43', '2026-07-28 06:53:04'),
+(73, 2, 2, 'Clip Pouch 3mm', 'PCH-CLP-3MM-B2', '3mm', 3, 0.0000, 0.0000, 200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:53:46'),
+(74, 2, 2, 'Clip Pouch 4mm', 'PCH-CLP-4MM-B2', '4mm', 3, 0.0000, 0.0000, 450.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:54:15'),
+(75, 2, 2, 'Wedge Pouch', 'PCH-WDG-B2', NULL, 3, 0.0000, 0.0000, 25.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:42:38'),
+(76, 2, 2, 'Jari Pouch', 'PCH-JRI-B2', NULL, 3, 0.0000, 0.0000, 58400.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:39:36'),
+(77, 2, 3, '1Kg Bucket', 'BKT-1KG-B2', '1Kg', 3, 2000.0000, 10000.0000, 4200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:48:54'),
+(78, 2, 3, '5Kg Bucket', 'BKT-5KG-B2', '5Kg', 3, 2000.0000, 10000.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:50:12'),
+(79, 2, 4, '100gm Bottle', 'BTL-100G-B2', '100gm', 3, 50.0000, 150.0000, 1684.0000, '', 'active', '2026-07-23 07:07:44', '2026-08-26 05:33:44'),
+(80, 2, 4, '200gm Bottle', 'BTL-200G-B2', '200gm', 3, 50.0000, 1000.0000, 4440.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
+(81, 2, 4, '500gm Bottle', 'BTL-500G-B2', '500gm', 3, 50.0000, 150.0000, 180.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:49:40'),
+(82, 2, 4, '1Kg Bottle', 'BTL-1KG-B2', '1Kg', 3, 50.0000, 150.0000, 400.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:48:09'),
+(83, 2, 4, 'Tile Power 1L Bottle', 'BTL-TP-1L-B2', '1L', 3, 0.0000, 0.0000, 1100.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:40:16'),
+(84, 2, 4, 'Tile Power 5L Bottle', 'BTL-TP-5L-B2', '5L', 3, 0.0000, 0.0000, 280.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:40:46'),
+(85, 2, 4, 'SBR 1L Bottle', 'BTL-SBR-1L-B2', '1L', 3, 0.0000, 0.0000, 200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:31:27'),
+(86, 2, 4, 'SBR 5L Bottle', 'BTL-SBR-5L-B2', '5L', 3, 0.0000, 0.0000, 230.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:32:05'),
+(87, 2, 5, '100gm Sticker', 'STK-100G-B2', '100gm', 3, 200.0000, 0.0000, 4484.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-26 05:33:44'),
+(88, 2, 5, '200gm Sticker', 'STK-200G-B2', '200gm', 3, 0.0000, 0.0000, 5000.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:52:45'),
+(89, 2, 5, '500gm Sticker', 'STK-500G-B2', '500gm', 3, 100.0000, 0.0000, 0.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-12 04:11:31'),
+(90, 2, 5, '1Kg Sticker', 'STK-1KG-B2', '1Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(91, 2, 5, 'Tile Power 1L Sticker', 'STK-TP-1L-B2', '1L', 3, 0.0000, 0.0000, 980.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:24:06'),
+(92, 2, 5, 'Tile Power 5L Sticker', 'STK-TP-5L-B2', '5L', 3, 0.0000, 0.0000, 4840.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:01:26'),
+(93, 2, 5, 'Grout Admix Sticker', 'STK-GA-B2', NULL, 3, 0.0000, 0.0000, 49440.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
+(94, 2, 5, 'Soltite 1.8Kg Sticker', 'STK-SLT-1.8KG-B2', '1.8Kg', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(95, 2, 5, 'Soltite 900gm Sticker', 'STK-SLT-900G-B2', '900gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(96, 2, 5, 'Soltite 450gm Sticker', 'STK-SLT-450G-B2', '450gm', 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(97, 2, 6, 'Grout Admix Box', 'BOX-GA-B2', NULL, 3, 0.0000, 0.0000, 174.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 04:27:25'),
+(98, 2, 6, 'Sample Box', 'BOX-SMP-B2', NULL, 3, 0.0000, 0.0000, 0.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-23 07:07:44'),
+(99, 2, 6, 'Tile Cleaner 1L Box', 'BOX-TC-1L-B2', '1L', 3, 0.0000, 0.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:24:06'),
+(100, 2, 6, 'Tile Cleaner 5L Box', 'BOX-TC-5L-B2', '5L', 3, 0.0000, 0.0000, 270.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-29 14:01:26'),
+(101, 2, 6, 'Epoxy 1Kg Box', 'BOX-EPX-1KG-B2', '1Kg', 3, 0.0000, 0.0000, 300.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:55:03'),
+(102, 2, 6, 'Epoxy 5Kg Box', 'BOX-EPX-5KG-B2', '5Kg', 3, 0.0000, 0.0000, 450.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:56:02'),
+(103, 2, 6, 'Small Grout Box', 'BOX-GRT-SM-B2', NULL, 3, 0.0000, 0.0000, 380.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:30'),
+(104, 2, 6, 'Big Grout Box', 'BOX-GRT-BG-B2', NULL, 3, 0.0000, 0.0000, 360.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 06:51:15'),
+(105, 2, 6, 'Jari Box', 'BOX-JRI-B2', NULL, 3, 0.0000, 0.0000, 100.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:39:36'),
+(106, 2, 6, 'Soltite 1.8Kg Box', 'BOX-SLT-1.8KG-B2', '1.8Kg', 3, 0.0000, 0.0000, 1200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:48'),
+(107, 2, 6, 'Soltite 900gm Box', 'BOX-SLT-900G-B2', '900gm', 3, 0.0000, 0.0000, 1200.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:34:29'),
+(108, 2, 6, 'Soltite 450gm Box', 'BOX-SLT-450G-B2', '450gm', 3, 0.0000, 0.0000, 150.0000, '', 'active', '2026-07-23 07:07:44', '2026-07-28 12:34:06'),
+(109, 2, 7, 'SBR Barrel 200 KG', 'BRL-SBR-50L-B2', '200 KG', 3, 0.0000, 0.0000, 225.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-07-28 12:33:23'),
+(110, NULL, 8, 'Sponge', 'ACC-SPG-B2', NULL, 3, 50.0000, 150.0000, 9150.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-26 05:51:52'),
+(111, NULL, 8, 'Blade', 'ACC-BLD-B2', NULL, 3, 50.0000, 150.0000, 1500.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-26 05:51:27'),
+(112, NULL, 8, 'Hand Gloves', 'ACC-GLV-B2', NULL, 3, 50.0000, 150.0000, 11200.0000, NULL, 'active', '2026-07-23 07:07:44', '2026-08-26 05:52:09'),
+(113, 2, 5, 'JACK LEVELER', 'JL-01-B2', '1', 3, 0.0000, 1000.0000, 25.0000, NULL, 'active', '2026-07-24 06:02:31', '2026-08-15 16:34:11'),
+(114, 2, 6, 'PLASTIC BOX', 'BOX-P-B2', '0.100', 3, 10.0000, 100.0000, 90.0000, NULL, 'active', '2026-07-24 07:00:37', '2026-07-25 12:03:16'),
+(115, 2, 2, 'Jack Leveller', 'JKL-B2', '50PCS', 3, 10.0000, 500.0000, 0.0000, NULL, 'active', '2026-07-24 07:03:12', '2026-07-25 12:03:16'),
+(116, 2, 8, 'Trowel', 'THR-B2', '0.100', 3, 100.0000, 200.0000, 150.0000, NULL, 'active', '2026-07-25 04:20:58', '2026-07-25 04:21:56'),
+(117, 2, 2, 'Spacer Pouch 6mm', 'PCH-SPC-6MM-B2', '5mm', 3, 100.0000, 5000.0000, 4000.0000, NULL, 'active', '2026-07-25 11:52:35', '2026-07-25 11:57:26'),
+(118, 2, 8, 'PLIER', 'PLIER-B2', '0.100', 3, 100.0000, 2000.0000, 25.0000, NULL, 'active', '2026-07-25 12:05:43', '2026-07-28 12:30:55'),
+(119, 2, 8, 'VACUUM', 'VAC-B2', '1KG', 3, 100.0000, 7.0000, 0.0000, NULL, 'active', '2026-07-28 12:18:15', '2026-07-29 14:02:23');
 
 -- --------------------------------------------------------
 
@@ -2813,7 +3116,7 @@ CREATE TABLE IF NOT EXISTS `production_batches` (
   KEY `production_batches_formula_id_foreign` (`formula_id`),
   KEY `production_batches_supervisor_id_foreign` (`supervisor_id`),
   KEY `production_batches_status_index` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `production_batches`
@@ -2843,7 +3146,8 @@ INSERT INTO `production_batches` (`id`, `batch_no`, `machine_id`, `grade_id`, `f
 (21, 'ADH-20260729-0001', 7, 4, 5, '[{\"quantity\": 320, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 12, \"raw_material_code\": \"SL\", \"raw_material_name\": \"Silica\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 150, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 14, \"raw_material_code\": \"WHT-01\", \"raw_material_name\": \"White Cement\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 3.5, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 50, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 15, \"raw_material_code\": \"C.C\", \"raw_material_name\": \"Calcium Carbonate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"item_type\": \"packing\", \"unit_code\": \"PCS\", \"raw_material_id\": null, \"raw_material_code\": \"BAG-F115\", \"raw_material_name\": \"F115 Bag\", \"consumption_method\": \"output\", \"packing_material_id\": 4, \"consumption_per_unit\": 1}]', 2, '2026-07-29 19:44:09', '2026-07-29 19:55:00', 300.0000, 6000.0000, 'completed', NULL, '2026-07-29 14:14:09', '2026-07-29 14:26:18'),
 (22, 'ADH-20260730-0001', 4, 5, 6, '[{\"quantity\": 320, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 12, \"raw_material_code\": \"SL\", \"raw_material_name\": \"Silica\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 175, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 14, \"raw_material_code\": \"WHT-01\", \"raw_material_name\": \"White Cement\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 7, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1.5, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 50, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 15, \"raw_material_code\": \"C.C\", \"raw_material_name\": \"Calcium Carbonate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 0.5, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 19, \"raw_material_code\": \"CF\", \"raw_material_name\": \"Calcium Formate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"item_type\": \"packing\", \"unit_code\": \"PCS\", \"raw_material_id\": null, \"raw_material_code\": \"BAG-F133\", \"raw_material_name\": \"F133 Bag\", \"consumption_method\": \"output\", \"packing_material_id\": 5, \"consumption_per_unit\": 1}]', 2, '2026-07-30 09:01:53', '2026-07-30 09:01:00', 100.0000, 2000.0000, 'completed', NULL, '2026-07-30 03:31:53', '2026-07-30 03:32:08'),
 (23, 'ADH-20260730-0002', 4, 1, 1, '[{\"quantity\": 1, \"item_type\": \"packing\", \"unit_code\": \"PCS\", \"raw_material_id\": null, \"raw_material_code\": \"BAG-F101\", \"raw_material_name\": \"F101 Bag\", \"consumption_method\": \"output\", \"packing_material_id\": 1, \"consumption_per_unit\": 1}, {\"quantity\": 1280, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 12, \"raw_material_code\": \"SL\", \"raw_material_name\": \"Silica\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 500, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 13, \"raw_material_code\": \"GRY-01\", \"raw_material_name\": \"Gray Cement\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 200, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 15, \"raw_material_code\": \"C.C\", \"raw_material_name\": \"Calcium Carbonate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 4, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 4, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"unit_code\": \"PCS\", \"raw_material_id\": 8, \"raw_material_code\": \"RS-20\", \"raw_material_name\": \"RS-20 Solcon\", \"consumption_method\": \"output\", \"consumption_per_unit\": 1}]', 2, '2026-07-30 09:02:40', '2026-07-30 09:02:00', 100.0000, 2000.0000, 'completed', NULL, '2026-07-30 03:32:40', '2026-07-30 03:32:56'),
-(24, 'ADH-20260730-0003', 5, 2, 2, '[{\"quantity\": 1, \"item_type\": \"packing\", \"unit_code\": \"PCS\", \"raw_material_id\": null, \"raw_material_code\": \"BAG-F107\", \"raw_material_name\": \"F107 Bag\", \"consumption_method\": \"output\", \"packing_material_id\": 2, \"consumption_per_unit\": 1}, {\"quantity\": 1280, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 12, \"raw_material_code\": \"SL\", \"raw_material_name\": \"Silica\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 600, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 13, \"raw_material_code\": \"GRY-01\", \"raw_material_name\": \"Gray Cement\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 200, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 15, \"raw_material_code\": \"C.C\", \"raw_material_name\": \"Calcium Carbonate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 10, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 4, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"unit_code\": \"PCS\", \"raw_material_id\": 8, \"raw_material_code\": \"RS-20\", \"raw_material_name\": \"RS-20 Solcon\", \"consumption_method\": \"output\", \"consumption_per_unit\": 1}]', 2, '2026-07-30 09:03:42', '2026-07-30 09:03:00', 100.0000, 2000.0000, 'completed', NULL, '2026-07-30 03:33:42', '2026-07-30 03:34:05');
+(24, 'ADH-20260730-0003', 5, 2, 2, '[{\"quantity\": 1, \"item_type\": \"packing\", \"unit_code\": \"PCS\", \"raw_material_id\": null, \"raw_material_code\": \"BAG-F107\", \"raw_material_name\": \"F107 Bag\", \"consumption_method\": \"output\", \"packing_material_id\": 2, \"consumption_per_unit\": 1}, {\"quantity\": 1280, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 12, \"raw_material_code\": \"SL\", \"raw_material_name\": \"Silica\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 600, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 13, \"raw_material_code\": \"GRY-01\", \"raw_material_name\": \"Gray Cement\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 200, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 15, \"raw_material_code\": \"C.C\", \"raw_material_name\": \"Calcium Carbonate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 10, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 4, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"unit_code\": \"PCS\", \"raw_material_id\": 8, \"raw_material_code\": \"RS-20\", \"raw_material_name\": \"RS-20 Solcon\", \"consumption_method\": \"output\", \"consumption_per_unit\": 1}]', 2, '2026-07-30 09:03:42', '2026-07-30 09:03:00', 100.0000, 2000.0000, 'completed', NULL, '2026-07-30 03:33:42', '2026-07-30 03:34:05'),
+(25, 'ADH-20260820-0001', 4, 9, 7, '[{\"quantity\": 1280, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 12, \"raw_material_code\": \"SL\", \"raw_material_name\": \"Silica\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 500, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 13, \"raw_material_code\": \"GRY-01\", \"raw_material_name\": \"Gray Cement\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 200, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 15, \"raw_material_code\": \"C.C\", \"raw_material_name\": \"Calcium Carbonate\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 4, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 18, \"raw_material_code\": \"MHEC\", \"raw_material_name\": \"MHEC\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 4, \"item_type\": \"raw\", \"unit_code\": \"KG\", \"raw_material_id\": 17, \"raw_material_code\": \"RDP-N\", \"raw_material_name\": \"RDP 5010N\", \"consumption_method\": \"formula\", \"packing_material_id\": null, \"consumption_per_unit\": 1}, {\"quantity\": 1, \"item_type\": \"packing\", \"unit_code\": \"PCS\", \"raw_material_id\": null, \"raw_material_code\": \"F1B\", \"raw_material_name\": \"FX-01 BAG\", \"consumption_method\": \"output\", \"packing_material_id\": 63, \"consumption_per_unit\": 1}]', 2, '2026-08-20 14:08:51', '2026-08-20 14:08:00', 100.0000, 2000.0000, 'completed', NULL, '2026-08-20 08:38:51', '2026-08-20 08:39:03');
 
 -- --------------------------------------------------------
 
@@ -2854,6 +3158,7 @@ INSERT INTO `production_batches` (`id`, `batch_no`, `machine_id`, `grade_id`, `f
 DROP TABLE IF EXISTS `raw_materials`;
 CREATE TABLE IF NOT EXISTS `raw_materials` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `department_id` bigint UNSIGNED NOT NULL,
@@ -2873,86 +3178,146 @@ CREATE TABLE IF NOT EXISTS `raw_materials` (
   UNIQUE KEY `raw_materials_code_unique` (`code`),
   KEY `raw_materials_department_id_foreign` (`department_id`),
   KEY `raw_materials_stock_unit_id_foreign` (`stock_unit_id`),
-  KEY `raw_materials_purchase_unit_id_foreign` (`purchase_unit_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `raw_materials_purchase_unit_id_foreign` (`purchase_unit_id`),
+  KEY `raw_materials_brand_id_foreign` (`brand_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `raw_materials`
 --
 
-INSERT INTO `raw_materials` (`id`, `name`, `code`, `department_id`, `stock_unit_id`, `purchase_unit_id`, `purchase_conversion`, `opening_stock`, `current_stock`, `minimum_stock`, `maximum_stock`, `description`, `is_active`, `is_coupon`, `created_at`, `updated_at`) VALUES
-(6, 'Empty Bag F-147', 'F-147', 2, 3, 3, 1.0000, 12000.0000, 12000.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-12 11:05:03'),
-(7, 'RS-10 Solcon', 'RS-10', 2, 3, 3, 1.0000, 3000.0000, 2900.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-13 04:28:46'),
-(8, 'RS-20 Solcon', 'RS-20', 2, 3, 3, 1.0000, 3000.0000, 2800.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-30 03:34:05'),
-(9, 'RS-30 Solcon', 'RS-30', 2, 3, 3, 1.0000, 3000.0000, 3000.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-12 11:24:04'),
-(10, 'RS-40 Solcon', 'RS-40', 2, 3, 3, 1.0000, 3000.0000, 2678.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-14 06:56:45'),
-(11, 'RS-50 Solcon', 'RS-50', 2, 3, 3, 1.0000, 3000.0000, 3000.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-12 11:24:04'),
-(12, 'Silica', 'SL', 2, 4, 4, 1.0000, 350000.0000, 1290924.8500, 50000.0000, 400000.0000, NULL, 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:34:05'),
-(13, 'Gray Cement', 'GRY-01', 2, 1, 1, 1.0000, 50000.0000, 85317.8939, 10000.0000, 60000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:34:05'),
-(14, 'White Cement', 'WHT-01', 2, 1, 1, 1.0000, 14500.0000, 164.0397, 5000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:32:07'),
-(15, 'Calcium Carbonate', 'C.C', 2, 1, 1, 1.0000, 50000.0000, 45500.0000, 20000.0000, 60000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:34:05'),
-(16, 'Dolomite', 'DL', 2, 1, 1, 1.0000, 20000.0000, 13549.0283, 5000.0000, 50000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-29 14:11:09'),
-(17, 'RDP 5010N', 'RDP-N', 2, 1, 1, 1.0000, 4000.0000, 1719.5659, 300.0000, 5000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:34:05'),
-(18, 'MHEC', 'MHEC', 2, 1, 1, 1.0000, 4000.0000, 736.8847, 300.0000, 5000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:34:05'),
-(19, 'Calcium Formate', 'CF', 2, 1, 1, 1.0000, 2000.0000, 2541.5000, 300.0000, 3000.0000, NULL, 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:32:08'),
-(20, 'RDP 8620', 'RDP-E', 2, 1, 1, 1.0000, 100.0000, 100.0000, 50.0000, 200.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-12 11:26:25'),
-(21, 'Starch Ether', 'SE', 2, 1, 1, 1.0000, 100.0000, 100.0000, 50.0000, 200.0000, NULL, 1, 0, '2026-07-12 11:34:52', '2026-07-12 11:34:52'),
-(22, 'Prigment Color Black', 'PMT-01', 1, 1, 1, 1.0000, 150.0000, 135.0514, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-29 14:11:09'),
-(23, 'Prigment Color Red 130', 'PMT-02', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(24, 'Prigment Color Red 110', 'PMT-03', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(25, 'Prigment Color Blue', 'PMT-04', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(26, 'Prigment Color Green', 'PMT-05', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(28, 'Prigment Color Yellow', 'PMT-07', 1, 1, 1, 1.0000, 150.0000, 139.9791, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-29 14:10:19'),
-(29, 'Prigment Color Orange', 'PMT-08', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(30, 'Prigment Color Alphine', 'PMT-09', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
-(33, 'Empty Bucket 1KG', 'EXP-01', 3, 3, 3, 1.0000, 150.0000, 4200.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-28 06:41:51'),
-(34, 'Empty Bucket 5KG', 'EXP-02', 3, 3, 3, 1.0000, 150.0000, 380.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-28 06:42:40'),
-(90, 'Bulk - Jari Powder - Copper', 'CJC', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:27:14', '2026-07-28 12:39:36'),
-(89, 'Bulk - Jari Powder - Red', 'BJR', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:26:42', '2026-07-28 12:39:36'),
-(88, 'Bulk - Jari Powder - Gold', 'BJG', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:26:12', '2026-07-28 12:39:36'),
-(87, 'Bulk - Jari Powder - Sliver', 'BJS', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:24:33', '2026-07-28 12:39:36'),
-(40, 'Empty Sprakle Pouch', 'EXP-08', 3, 3, 3, 1.0000, 150.0000, 60000.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-28 06:44:50'),
-(86, '1 KG RESIN BOTTLE', 'REN-1K', 3, 3, 3, 1.0000, 0.0000, 271.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-28 05:29:47', '2026-07-28 12:19:20'),
-(85, '500 GM HARDNER BOTTLE', 'HRD-500', 3, 3, 3, 1.0000, 0.0000, 341.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-28 05:29:07', '2026-07-28 12:20:49'),
-(44, 'Bulk Epoxy Bag-Black', 'EXP-12', 3, 1, 1, 1.0000, 1000.0000, 1625.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-28 04:56:48'),
-(45, '700gm Black Filler Pouch', 'EPX-BLK', 3, 3, 3, 1.0000, 0.0000, 1735.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-13 08:49:04', '2026-07-28 04:42:02'),
-(46, 'Bulk Epoxy Bag-White', 'EXP-13', 3, 1, 1, 1.0000, 1000.0000, 375.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:13:19'),
-(47, 'Bulk Epoxy Bag-Ivory', 'EXP-14', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:04:23'),
-(48, 'Bulk Epoxy Bag-Parchment', 'EXP-15', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:08:28'),
-(49, 'Bulk Epoxy Bag-Jaisalmer', 'EXP-16', 3, 1, 1, 1.0000, 1000.0000, 100.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:05:44'),
-(50, 'Bulk Epoxy Bag-Dusty-Rose', 'EXP-17', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:00:27'),
-(51, 'Bulk Epoxy Bag-Buff', 'EXP-18', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:57:35'),
-(52, 'Bulk Epoxy Bag-CO.Brown', 'EXP-19', 3, 1, 1, 1.0000, 1000.0000, 575.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:59:46'),
-(53, 'Bulk Epoxy Bag-Choco.Brown', 'EXP-20', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:58:54'),
-(54, 'Bulk Epoxy Bag-Mocha', 'EXP-21', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:07:43'),
-(55, 'Bulk Epoxy Bag-Sterling-Sliver', 'EXP-22', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:12:01'),
-(56, 'Bulk Epoxy Bag-Hemp', 'EXP-23', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:02:31'),
-(57, 'Bulk Epoxy Bag-Marble-Beige', 'EXP-24', 3, 1, 1, 1.0000, 1000.0000, 25.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:07:17'),
-(58, 'Bulk Epoxy Bag-Sauterne', 'EXP-25', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:09:50'),
-(59, 'Bulk Epoxy Bag-Smoke-Gray', 'EXP-26', 3, 1, 1, 1.0000, 1000.0000, 200.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:11:38'),
-(60, 'Bulk Epoxy Bag-Silver-Shadow', 'EXP-27', 3, 1, 1, 1.0000, 1000.0000, 150.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:10:22'),
-(61, 'Bulk Epoxy Bag-Slate-Gray', 'EXP-28', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:11:13'),
-(62, 'Bulk Epoxy Bag-Natural-Grey', 'EXP-29', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:08:02'),
-(63, 'Bulk Epoxy Bag-Platium', 'EXP-30', 3, 1, 1, 1.0000, 1000.0000, 100.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:09:19'),
-(64, 'Bulk Epoxy Bag-Terracotta', 'EXP-31', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:12:20'),
-(65, 'Bulk Epoxy Bag-Saltilo', 'EXP-32', 3, 1, 1, 1.0000, 1000.0000, 100.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:09:36'),
-(66, 'Bulk Epoxy Bag-Cadium-Red', 'EXP-33', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:58:13'),
-(67, 'Bulk Epoxy Bag- Orange', 'EXP-34', 3, 1, 1, 1.0000, 1000.0000, 125.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:55:27'),
-(68, 'Bulk Epoxy Bag-Light-Grey', 'EXP-35', 3, 1, 1, 1.0000, 1000.0000, 425.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:06:53'),
-(69, 'Bulk Epoxy Bag-IncaGold', 'EXP-36', 3, 1, 1, 1.0000, 1000.0000, 1000.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-13 10:21:52'),
-(70, 'Bulk Epoxy Bag-Blue', 'EXP-37', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:57:17'),
-(71, 'Bulk Epoxy Bag-Ivy', 'EXP-38', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:05:15'),
-(72, 'Bulk Epoxy Bag-Light-Green', 'EXP-39', 3, 1, 1, 1.0000, 1000.0000, 25.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:06:12'),
-(73, 'Bulk Epoxy Bag-Sky Blue', 'EXP-40', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:10:51'),
-(74, 'Bulk Epoxy Bag-Vilote', 'EXP-41', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:12:36'),
-(84, 'SPACER 3MM', 'EPX-SP-3MM', 3, 3, 3, 1.0000, 0.0000, 2450.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-24 04:02:31', '2026-07-28 06:47:01'),
-(83, 'SPACER 2MM', 'EPX-SP-2MM', 3, 3, 3, 1.0000, 0.0000, 900.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-24 04:01:35', '2026-07-28 06:46:21'),
-(77, '700gm White Filler Pouch', 'EPX-WHT', 3, 3, 3, 1.0000, 0.0000, 375.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-13 10:55:58', '2026-07-28 04:42:51'),
-(78, 'Custom 10rs', 'CUSTOM-10RS', 2, 3, 3, 1.0000, 0.0000, 999999.0000, 0.0000, 0.0000, NULL, 1, 1, '2026-07-21 15:10:47', '2026-07-21 15:10:47'),
-(79, '100 GM HARDNER BOTTLE', 'EPX-BLT-01', 3, 3, 3, 1.0000, 0.0000, 2594.2000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-22 11:33:42', '2026-07-29 14:04:43'),
-(80, 'Resin', 'r-01', 3, 1, 1, 1.0000, 500.0000, 796.4000, 100.0000, 500.0000, NULL, 1, 0, '2026-07-22 11:35:08', '2026-07-29 14:04:34'),
-(81, 'Hardner', 'h-01', 3, 1, 1, 1.0000, 500.0000, 90.0000, 100.0000, 500.0000, NULL, 1, 0, '2026-07-22 11:35:30', '2026-07-28 05:20:33'),
-(82, '200GM RESIN BOTTLE', 'F-011', 3, 3, 3, 1.0000, 1000.0000, 2100.0000, 500.0000, 1000.0000, NULL, 1, 0, '2026-07-22 11:36:55', '2026-07-28 06:39:45');
+INSERT INTO `raw_materials` (`id`, `brand_id`, `name`, `code`, `department_id`, `stock_unit_id`, `purchase_unit_id`, `purchase_conversion`, `opening_stock`, `current_stock`, `minimum_stock`, `maximum_stock`, `description`, `is_active`, `is_coupon`, `created_at`, `updated_at`) VALUES
+(6, NULL, 'Empty Bag F-147', 'F-147', 2, 3, 3, 1.0000, 12000.0000, 12000.0000, 2000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:05:03', '2026-07-12 11:05:03'),
+(7, 1, 'RS-10 Solcon', 'RS-10', 2, 3, 3, 1.0000, 3000.0000, 2900.0000, 500.0000, 5000.0000, NULL, 1, 1, '2026-07-12 11:24:04', '2026-08-17 09:57:07'),
+(8, NULL, 'RS-20 Solcon', 'RS-20', 2, 3, 3, 1.0000, 3000.0000, 2800.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-30 03:34:05'),
+(9, NULL, 'RS-30 Solcon', 'RS-30', 2, 3, 3, 1.0000, 3000.0000, 3000.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-12 11:24:04'),
+(10, NULL, 'RS-40 Solcon', 'RS-40', 2, 3, 3, 1.0000, 3000.0000, 2678.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-14 06:56:45'),
+(11, NULL, 'RS-50 Solcon', 'RS-50', 2, 3, 3, 1.0000, 3000.0000, 3000.0000, 500.0000, 5000.0000, '', 1, 1, '2026-07-12 11:24:04', '2026-07-12 11:24:04'),
+(12, NULL, 'Silica', 'SL', 2, 4, 4, 1.0000, 350000.0000, 1289644.8500, 50000.0000, 400000.0000, NULL, 1, 0, '2026-07-12 11:26:25', '2026-08-20 08:39:02'),
+(13, NULL, 'Gray Cement', 'GRY-01', 2, 1, 1, 1.0000, 50000.0000, 84707.9778, 10000.0000, 60000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-08-21 10:55:30'),
+(14, NULL, 'White Cement', 'WHT-01', 2, 1, 1, 1.0000, 14500.0000, 164.0397, 5000.0000, 20000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:32:07'),
+(15, NULL, 'Calcium Carbonate', 'C.C', 2, 1, 1, 1.0000, 50000.0000, 45300.0000, 20000.0000, 60000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-08-20 08:39:03'),
+(16, NULL, 'Dolomite', 'DL', 2, 1, 1, 1.0000, 20000.0000, 13351.1793, 5000.0000, 50000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-08-21 10:55:29'),
+(17, NULL, 'RDP 5010N', 'RDP-N', 2, 1, 1, 1.0000, 4000.0000, 1713.8072, 300.0000, 5000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-08-21 10:55:30'),
+(18, NULL, 'MHEC', 'MHEC', 2, 1, 1, 1.0000, 4000.0000, 732.3571, 300.0000, 5000.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-08-21 10:55:29'),
+(19, NULL, 'Calcium Formate', 'CF', 2, 1, 1, 1.0000, 2000.0000, 2541.5000, 300.0000, 3000.0000, NULL, 1, 0, '2026-07-12 11:26:25', '2026-07-30 03:32:08'),
+(20, NULL, 'RDP 8620', 'RDP-E', 2, 1, 1, 1.0000, 100.0000, 100.0000, 50.0000, 200.0000, '', 1, 0, '2026-07-12 11:26:25', '2026-07-12 11:26:25'),
+(21, NULL, 'Starch Ether', 'SE', 2, 1, 1, 1.0000, 100.0000, 100.0000, 50.0000, 200.0000, NULL, 1, 0, '2026-07-12 11:34:52', '2026-07-12 11:34:52'),
+(22, NULL, 'Prigment Color Black', 'PMT-01', 1, 1, 1, 1.0000, 150.0000, 120.1028, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-08-21 10:55:30'),
+(23, NULL, 'Prigment Color Red 130', 'PMT-02', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
+(24, NULL, 'Prigment Color Red 110', 'PMT-03', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
+(25, NULL, 'Prigment Color Blue', 'PMT-04', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
+(26, NULL, 'Prigment Color Green', 'PMT-05', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
+(28, NULL, 'Prigment Color Yellow', 'PMT-07', 1, 1, 1, 1.0000, 150.0000, 139.9791, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-29 14:10:19'),
+(29, NULL, 'Prigment Color Orange', 'PMT-08', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
+(30, NULL, 'Prigment Color Alphine', 'PMT-09', 1, 1, 1, 1.0000, 150.0000, 150.0000, 50.0000, 150.0000, '', 1, 0, '2026-07-13 04:03:05', '2026-07-13 04:03:05'),
+(92, 1, '700gm Sterling Silver Filler Pouch', 'EPX-STS', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(90, NULL, 'Bulk - Jari Powder - Copper', 'CJC', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:27:14', '2026-07-28 12:39:36'),
+(89, NULL, 'Bulk - Jari Powder - Red', 'BJR', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:26:42', '2026-07-28 12:39:36'),
+(88, NULL, 'Bulk - Jari Powder - Gold', 'BJG', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:26:12', '2026-07-28 12:39:36'),
+(87, NULL, 'Bulk - Jari Powder - Sliver', 'BJS', 3, 1, 1, 1.0000, 50.0000, 30.0000, 10.0000, 50.0000, NULL, 1, 0, '2026-07-28 12:24:33', '2026-07-28 12:39:36'),
+(40, 1, 'Empty Sprakle Pouch', 'EXP-08', 3, 3, 3, 1.0000, 150.0000, 60000.0000, 50.0000, 150.0000, NULL, 1, 0, '2026-07-13 08:38:47', '2026-08-15 16:00:15'),
+(86, 1, '1 KG RESIN BOTTLE', 'REN-1K', 3, 3, 3, 1.0000, 0.0000, 271.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-28 05:29:47', '2026-08-26 05:32:48'),
+(85, 1, '500 GM HARDNER BOTTLE', 'HRD-500', 3, 3, 3, 1.0000, 0.0000, 341.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-28 05:29:07', '2026-08-26 05:32:48'),
+(44, NULL, 'Bulk Epoxy Bag-Black', 'EXP-12', 3, 1, 1, 1.0000, 1000.0000, 1625.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 08:38:47', '2026-07-28 04:56:48'),
+(45, 1, '700gm Black Filler Pouch', 'EPX-BLK', 3, 3, 3, 1.0000, 0.0000, 1735.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-13 08:49:04', '2026-08-26 05:32:48'),
+(46, NULL, 'Bulk Epoxy Bag-White', 'EXP-13', 3, 1, 1, 1.0000, 1000.0000, 375.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:13:19'),
+(47, NULL, 'Bulk Epoxy Bag-Ivory', 'EXP-14', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:04:23'),
+(48, NULL, 'Bulk Epoxy Bag-Parchment', 'EXP-15', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:08:28'),
+(49, NULL, 'Bulk Epoxy Bag-Jaisalmer', 'EXP-16', 3, 1, 1, 1.0000, 1000.0000, 100.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:05:44'),
+(50, NULL, 'Bulk Epoxy Bag-Dusty-Rose', 'EXP-17', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:00:27'),
+(51, NULL, 'Bulk Epoxy Bag-Buff', 'EXP-18', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:57:35'),
+(52, NULL, 'Bulk Epoxy Bag-CO.Brown', 'EXP-19', 3, 1, 1, 1.0000, 1000.0000, 575.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:59:46'),
+(53, NULL, 'Bulk Epoxy Bag-Choco.Brown', 'EXP-20', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:58:54'),
+(54, NULL, 'Bulk Epoxy Bag-Mocha', 'EXP-21', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:07:43'),
+(55, NULL, 'Bulk Epoxy Bag-Sterling-Sliver', 'EXP-22', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:12:01'),
+(56, NULL, 'Bulk Epoxy Bag-Hemp', 'EXP-23', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:02:31'),
+(57, NULL, 'Bulk Epoxy Bag-Marble-Beige', 'EXP-24', 3, 1, 1, 1.0000, 1000.0000, 25.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:07:17'),
+(58, NULL, 'Bulk Epoxy Bag-Sauterne', 'EXP-25', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:09:50'),
+(59, NULL, 'Bulk Epoxy Bag-Smoke-Gray', 'EXP-26', 3, 1, 1, 1.0000, 1000.0000, 200.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:11:38'),
+(60, NULL, 'Bulk Epoxy Bag-Silver-Shadow', 'EXP-27', 3, 1, 1, 1.0000, 1000.0000, 150.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:10:22'),
+(61, NULL, 'Bulk Epoxy Bag-Slate-Gray', 'EXP-28', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:11:13'),
+(62, NULL, 'Bulk Epoxy Bag-Natural-Grey', 'EXP-29', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:08:02'),
+(63, NULL, 'Bulk Epoxy Bag-Platium', 'EXP-30', 3, 1, 1, 1.0000, 1000.0000, 100.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:09:19'),
+(64, NULL, 'Bulk Epoxy Bag-Terracotta', 'EXP-31', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:12:20'),
+(65, NULL, 'Bulk Epoxy Bag-Saltilo', 'EXP-32', 3, 1, 1, 1.0000, 1000.0000, 100.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:09:36'),
+(66, NULL, 'Bulk Epoxy Bag-Cadium-Red', 'EXP-33', 3, 1, 1, 1.0000, 1000.0000, 250.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:58:13'),
+(67, NULL, 'Bulk Epoxy Bag- Orange', 'EXP-34', 3, 1, 1, 1.0000, 1000.0000, 125.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:55:27'),
+(68, NULL, 'Bulk Epoxy Bag-Light-Grey', 'EXP-35', 3, 1, 1, 1.0000, 1000.0000, 425.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:06:53'),
+(69, NULL, 'Bulk Epoxy Bag-IncaGold', 'EXP-36', 3, 1, 1, 1.0000, 1000.0000, 1000.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-13 10:21:52'),
+(70, NULL, 'Bulk Epoxy Bag-Blue', 'EXP-37', 3, 1, 1, 1.0000, 1000.0000, 75.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 04:57:17'),
+(71, NULL, 'Bulk Epoxy Bag-Ivy', 'EXP-38', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:05:15'),
+(72, NULL, 'Bulk Epoxy Bag-Light-Green', 'EXP-39', 3, 1, 1, 1.0000, 1000.0000, 25.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:06:12'),
+(73, NULL, 'Bulk Epoxy Bag-Sky Blue', 'EXP-40', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:10:51'),
+(74, NULL, 'Bulk Epoxy Bag-Vilote', 'EXP-41', 3, 1, 1, 1.0000, 1000.0000, 50.0000, 100.0000, 1500.0000, '', 1, 0, '2026-07-13 10:21:52', '2026-07-28 05:12:36'),
+(84, 1, 'SPACER 3MM', 'EPX-SP-3MM', 3, 3, 3, 1.0000, 0.0000, 2450.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-24 04:02:31', '2026-08-15 15:46:53'),
+(83, 1, 'SPACER 2MM', 'EPX-SP-2MM', 3, 3, 3, 1.0000, 0.0000, 900.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-24 04:01:35', '2026-08-15 15:50:22'),
+(77, 1, '700gm White Filler Pouch', 'EPX-WHT', 3, 3, 3, 1.0000, 0.0000, 375.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-13 10:55:58', '2026-08-26 05:32:48'),
+(91, 1, '700gm Mocha Filler Pouch', 'EPX-MOC', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(79, 1, '100 GM HARDNER BOTTLE', 'EPX-BLT-01', 3, 3, 3, 1.0000, 0.0000, 3100.2000, 0.0000, 0.0000, NULL, 1, 0, '2026-07-22 11:33:42', '2026-08-26 05:32:48'),
+(80, NULL, 'Resin', 'r-01', 3, 1, 1, 1.0000, 500.0000, 796.4000, 100.0000, 500.0000, NULL, 1, 0, '2026-07-22 11:35:08', '2026-07-29 14:04:34'),
+(81, NULL, 'Hardner', 'h-01', 3, 1, 1, 1.0000, 500.0000, 38.4000, 100.0000, 500.0000, NULL, 1, 0, '2026-07-22 11:35:30', '2026-08-26 05:33:44'),
+(82, 1, '200GM RESIN BOTTLE', 'F-011', 3, 3, 3, 1.0000, 1000.0000, 2100.0000, 500.0000, 1000.0000, NULL, 1, 0, '2026-07-22 11:36:55', '2026-08-26 05:32:48'),
+(97, 1, '700gm Silver Shadow Filler Pouch', 'EPX-SSH', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(96, 1, '700gm Smoke Grey Filler Pouch', 'EPX-SMG', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(95, 1, '700gm Sauterne Filler Pouch', 'EPX-SAU', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(94, 1, '700gm Marble Beige Filler Pouch', 'EPX-MBG', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(93, 1, '700gm Hemp Filler Pouch', 'EPX-HEM', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(98, 1, '700gm Slate Grey Filler Pouch', 'EPX-SLG', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(99, 1, '700gm Natural Grey Filler Pouch', 'EPX-NGY', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(100, 1, '700gm Platinum Filler Pouch', 'EPX-PLT', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(101, 1, '700gm Terracotta Filler Pouch', 'EPX-TER', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(102, 1, '700gm Satillo Filler Pouch', 'EPX-SAT', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(103, 1, '700gm Cadmium Red Filler Pouch', 'EPX-CDR', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(104, 1, '700gm Orange Filler Pouch', 'EPX-ORG', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(105, 1, '700gm Light Grey Filler Pouch', 'EPX-LGY', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(106, 1, '700gm Inca Gold Filler Pouch', 'EPX-IGD', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(107, 1, '700gm Blue Filler Pouch', 'EPX-BLU', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(108, 1, '700gm Ivy Filler Pouch', 'EPX-IVY', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(109, 1, '700gm Light Green Filler Pouch', 'EPX-LGN', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(110, 1, '700gm Sky Blue Filler Pouch', 'EPX-SKB', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(111, 1, '700gm Violet Filler Pouch', 'EPX-VIO', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(112, 1, '700gm Buff Filler Pouch', 'EPX-BUF', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(113, 1, '700gm Coffee Brown Filler Pouch', 'EPX-CBR', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(114, 1, '700gm Chocolate Brown Filler Pouch', 'EPX-CHB', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(115, 1, '700gm Ivory Filler Pouch', 'EPX-IVR', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(116, 1, '700gm Parchment Filler Pouch', 'EPX-PAR', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(117, 1, '700gm Jaisalmer Filler Pouch', 'EPX-JAI', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(118, 1, '700gm Dusty Rose Filler Pouch', 'EPX-DTR', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(119, 2, '700gm Mocha Filler Pouch', 'EPX-MOC-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(120, 2, '700gm Sterling Silver Filler Pouch', 'EPX-STS-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(121, 2, '700gm Hemp Filler Pouch', 'EPX-HEM-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(122, 2, '700gm Marble Beige Filler Pouch', 'EPX-MBG-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(123, 2, '700gm Sauterne Filler Pouch', 'EPX-SAU-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(124, 2, '700gm Smoke Grey Filler Pouch', 'EPX-SMG-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(125, 2, '700gm Silver Shadow Filler Pouch', 'EPX-SSH-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(126, 2, '700gm Slate Grey Filler Pouch', 'EPX-SLG-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(127, 2, '700gm Natural Grey Filler Pouch', 'EPX-NGY-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(128, 2, '700gm Platinum Filler Pouch', 'EPX-PLT-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(129, 2, '700gm Terracotta Filler Pouch', 'EPX-TER-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(130, 2, '700gm Satillo Filler Pouch', 'EPX-SAT-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(131, 2, '700gm Cadmium Red Filler Pouch', 'EPX-CDR-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(132, 2, '700gm Orange Filler Pouch', 'EPX-ORG-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(133, 2, '700gm Light Grey Filler Pouch', 'EPX-LGY-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(134, 2, '700gm Inca Gold Filler Pouch', 'EPX-IGD-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(135, 2, '700gm Blue Filler Pouch', 'EPX-BLU-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(136, 2, '700gm Ivy Filler Pouch', 'EPX-IVY-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(137, 2, '700gm Light Green Filler Pouch', 'EPX-LGN-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(138, 2, '700gm Sky Blue Filler Pouch', 'EPX-SKB-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(139, 2, '700gm Violet Filler Pouch', 'EPX-VIO-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(140, 2, '700gm Buff Filler Pouch', 'EPX-BUF-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(141, 2, '700gm Coffee Brown Filler Pouch', 'EPX-CBR-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(142, 2, '700gm Chocolate Brown Filler Pouch', 'EPX-CHB-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(143, 2, '700gm Ivory Filler Pouch', 'EPX-IVR-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(144, 2, '700gm Parchment Filler Pouch', 'EPX-PAR-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(145, 2, '700gm Jaisalmer Filler Pouch', 'EPX-JAI-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(146, 2, '700gm Dusty Rose Filler Pouch', 'EPX-DTR-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:21:28', '2026-08-26 05:21:28'),
+(147, 2, '700gm Black Filler Pouch', 'EPX-BLK-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:32:33', '2026-08-26 05:32:33'),
+(148, 2, '700gm White Filler Pouch', 'EPX-WHT-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:32:33', '2026-08-26 05:32:33'),
+(149, 2, '100 GM HARDNER BOTTLE', 'EPX-BLT-01-B2', 3, 3, 3, 1.0000, 0.0000, 10.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:32:33', '2026-08-26 05:33:44'),
+(150, 2, '200GM RESIN BOTTLE', 'F-011-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:32:33', '2026-08-26 05:32:33'),
+(151, 2, '500 GM HARDNER BOTTLE', 'HRD-500-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:32:33', '2026-08-26 05:32:33'),
+(152, 2, '1 KG RESIN BOTTLE', 'REN-1K-B2', 3, 3, 3, 1.0000, 0.0000, 0.0000, 0.0000, 0.0000, NULL, 1, 0, '2026-08-26 05:32:33', '2026-08-26 05:32:33');
 
 -- --------------------------------------------------------
 
@@ -3035,10 +3400,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('RF0TITzazlR9VqGFqLF7pUSBsDNqD4olaDLo52rW', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJlcEJNU2lOckxMeXRVWXp0M3hKdlF5dGYyR2tHTGNDV08zbEZ6QVJIIiwidXJsIjpbXSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2FkbWluXC9kYXNoYm9hcmQiLCJyb3V0ZSI6ImFkbWluLmRhc2hib2FyZCJ9LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MiwiY3VycmVudF9kZXBhcnRtZW50X2lkXzIiOjJ9', 1786538164),
-('XQCuwRETqSpq3ytxR3WB3WLiIbwcRrhlXjpZpfZs', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJpNUY5YjJqYmFaNjY5T21JelZla2MyYXFnNU9ySWIwNlFLVjd2bFFHIiwidXJsIjp7ImludGVuZGVkIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2Rpc3BhdGNoXC9jcmVhdGUifSwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9sb2dpbiIsInJvdXRlIjoibG9naW4ifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1786536229),
-('5CO82Ekb7W3ziagXcO4S5kmE8YZfT14kDIUnA5RA', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJXMDZ2STl6aURFbUlQRVdFcWMyYmFuYkhHUXVta0YxelNjcGNwQUttIiwidXJsIjp7ImludGVuZGVkIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2Rpc3BhdGNoXC9jcmVhdGUifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1786536229),
-('H0AH9G7yto88OeEVNKybYERixotcOmki2LImHoUJ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI3UFgzbnZQbkJkSmJZa2xHcWV2dWtSeFhQRFRrcTdld3Z4d01ZQmhFIiwidXJsIjp7ImludGVuZGVkIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2FkbWluXC9kYXNoYm9hcmQifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1786536223);
+('hLkuKbuuQERtD4TUBvE43P8GLcPQ32IuhguLE81o', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJjcnlIVGpXMWRTNXMwYkJDZ0g1REo0SkxaSXo0Zm9yazRBZUs1ZmkyIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9hZG1pblwvZXBveHktZm9ybXVsYXNcL2NyZWF0ZSIsInJvdXRlIjoiYWRtaW4uZXBveHktZm9ybXVsYXMuY3JlYXRlIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjIsImN1cnJlbnRfYnJhbmRfaWRfMiI6MSwiY3VycmVudF9kZXBhcnRtZW50X2lkXzIiOjN9', 1787724218);
 
 -- --------------------------------------------------------
 
@@ -3084,7 +3446,7 @@ CREATE TABLE IF NOT EXISTS `stock_adjustments` (
   KEY `stock_adjustments_raw_material_id_foreign` (`raw_material_id`),
   KEY `stock_adjustments_created_by_foreign` (`created_by`),
   KEY `stock_adjustments_packing_material_id_foreign` (`packing_material_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `stock_adjustments`
@@ -3216,7 +3578,9 @@ INSERT INTO `stock_adjustments` (`id`, `raw_material_id`, `packing_material_id`,
 (123, NULL, 35, 50000.0000, '', 2, '2026-07-28 12:54:15', '2026-07-28 12:54:15'),
 (124, NULL, 34, 5000.0000, '', 2, '2026-07-29 14:00:10', '2026-07-29 14:00:10'),
 (125, NULL, 33, 1000.0000, '', 2, '2026-07-29 14:23:23', '2026-07-29 14:23:23'),
-(126, NULL, 21, 100.0000, '', 2, '2026-08-12 04:29:25', '2026-08-12 04:29:25');
+(126, NULL, 21, 100.0000, '', 2, '2026-08-12 04:29:25', '2026-08-12 04:29:25'),
+(127, NULL, 29, 5000.0000, '', 2, '2026-08-26 05:04:51', '2026-08-26 05:04:51'),
+(128, NULL, 87, 5000.0000, '', 2, '2026-08-26 05:16:07', '2026-08-26 05:16:07');
 
 -- --------------------------------------------------------
 
@@ -3246,7 +3610,7 @@ CREATE TABLE IF NOT EXISTS `stock_ledgers` (
   KEY `stock_ledgers_grout_batch_id_foreign` (`grout_batch_id`),
   KEY `stock_ledgers_epoxy_assembly_id_foreign` (`epoxy_assembly_id`),
   KEY `stock_ledgers_packing_material_id_created_at_index` (`packing_material_id`,`created_at`)
-) ENGINE=MyISAM AUTO_INCREMENT=423 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=453 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `stock_ledgers`
@@ -3675,7 +4039,37 @@ INSERT INTO `stock_ledgers` (`id`, `raw_material_id`, `packing_material_id`, `ba
 (419, 17, NULL, 24, NULL, NULL, 'OUT', -10.0000, 1719.5659, 'Consumed in production batch #ADH-20260730-0003', 2, '2026-07-30 03:34:05', '2026-07-30 03:34:05'),
 (420, 18, NULL, 24, NULL, NULL, 'OUT', -4.0000, 736.8847, 'Consumed in production batch #ADH-20260730-0003', 2, '2026-07-30 03:34:05', '2026-07-30 03:34:05'),
 (421, 8, NULL, 24, NULL, NULL, 'OUT', -100.0000, 2800.0000, 'Consumed in production batch #ADH-20260730-0003', 2, '2026-07-30 03:34:05', '2026-07-30 03:34:05'),
-(422, NULL, 21, NULL, NULL, NULL, 'ADJUSTMENT', 100.0000, 2200.0000, 'Manual Stock Adjustment', 2, '2026-08-12 04:29:25', '2026-08-12 04:29:25');
+(422, NULL, 21, NULL, NULL, NULL, 'ADJUSTMENT', 100.0000, 2200.0000, 'Manual Stock Adjustment', 2, '2026-08-12 04:29:25', '2026-08-12 04:29:25'),
+(423, NULL, 63, NULL, NULL, NULL, 'IN', 4500.0000, 4500.0000, 'Initial Opening Stock', 2, '2026-08-20 08:27:44', '2026-08-20 08:27:44'),
+(424, 12, NULL, 25, NULL, NULL, 'OUT', -1280.0000, 1289644.8500, 'Consumed in production batch #ADH-20260820-0001', 2, '2026-08-20 08:39:02', '2026-08-20 08:39:02'),
+(425, 13, NULL, 25, NULL, NULL, 'OUT', -500.0000, 84817.8939, 'Consumed in production batch #ADH-20260820-0001', 2, '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(426, 15, NULL, 25, NULL, NULL, 'OUT', -200.0000, 45300.0000, 'Consumed in production batch #ADH-20260820-0001', 2, '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(427, 18, NULL, 25, NULL, NULL, 'OUT', -4.0000, 732.8847, 'Consumed in production batch #ADH-20260820-0001', 2, '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(428, 17, NULL, 25, NULL, NULL, 'OUT', -4.0000, 1715.5659, 'Consumed in production batch #ADH-20260820-0001', 2, '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(429, NULL, 63, 25, NULL, NULL, 'OUT', -100.0000, 4400.0000, 'Consumed in production batch #ADH-20260820-0001', 2, '2026-08-20 08:39:03', '2026-08-20 08:39:03'),
+(430, 16, NULL, NULL, 13, NULL, 'OUT', -197.8490, 13351.1793, 'Consumed in Grout production batch #GRT-20260821-0001', 2, '2026-08-21 10:55:29', '2026-08-21 10:55:29'),
+(431, 18, NULL, NULL, 13, NULL, 'OUT', -0.5276, 732.3571, 'Consumed in Grout production batch #GRT-20260821-0001', 2, '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(432, 17, NULL, NULL, 13, NULL, 'OUT', -1.7587, 1713.8072, 'Consumed in Grout production batch #GRT-20260821-0001', 2, '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(433, 22, NULL, NULL, 13, NULL, 'OUT', -14.9486, 120.1028, 'Consumed in Grout production batch #GRT-20260821-0001', 2, '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(434, 13, NULL, NULL, 13, NULL, 'OUT', -109.9161, 84707.9778, 'Consumed in Grout production batch #GRT-20260821-0001', 2, '2026-08-21 10:55:30', '2026-08-21 10:55:30'),
+(435, NULL, 29, NULL, NULL, NULL, 'ADJUSTMENT', 5000.0000, 5000.0000, 'Manual Stock Adjustment', 2, '2026-08-26 05:04:51', '2026-08-26 05:04:51'),
+(436, NULL, 87, NULL, NULL, NULL, 'ADJUSTMENT', 5000.0000, 5000.0000, 'Manual Stock Adjustment', 2, '2026-08-26 05:16:07', '2026-08-26 05:16:07'),
+(437, 81, NULL, NULL, NULL, NULL, 'OUT', -9.6000, 80.4000, 'Formula consumed to prepare 96 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:16:29', '2026-08-26 05:16:29'),
+(438, NULL, 79, NULL, NULL, NULL, 'OUT', -96.0000, 2104.0000, 'Formula consumed to prepare 96 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:16:29', '2026-08-26 05:16:29'),
+(439, NULL, 87, NULL, NULL, NULL, 'OUT', -96.0000, 4904.0000, 'Formula consumed to prepare 96 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:16:29', '2026-08-26 05:16:29'),
+(440, 79, NULL, NULL, NULL, NULL, 'IN', 96.0000, 2690.2000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:16:29', '2026-08-26 05:16:29'),
+(441, 81, NULL, NULL, NULL, NULL, 'OUT', -40.0000, 40.4000, 'Formula consumed to prepare 400 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:24:07', '2026-08-26 05:24:07'),
+(442, NULL, 79, NULL, NULL, NULL, 'OUT', -400.0000, 1704.0000, 'Formula consumed to prepare 400 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:24:07', '2026-08-26 05:24:07'),
+(443, NULL, 87, NULL, NULL, NULL, 'OUT', -400.0000, 4504.0000, 'Formula consumed to prepare 400 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:24:07', '2026-08-26 05:24:07'),
+(444, 79, NULL, NULL, NULL, NULL, 'IN', 400.0000, 3090.2000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:24:07', '2026-08-26 05:24:07'),
+(445, 81, NULL, NULL, NULL, NULL, 'OUT', -1.0000, 39.4000, 'Formula consumed to prepare 10 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:25:46', '2026-08-26 05:25:46'),
+(446, NULL, 79, NULL, NULL, NULL, 'OUT', -10.0000, 1694.0000, 'Formula consumed to prepare 10 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:25:46', '2026-08-26 05:25:46'),
+(447, NULL, 87, NULL, NULL, NULL, 'OUT', -10.0000, 4494.0000, 'Formula consumed to prepare 10 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:25:46', '2026-08-26 05:25:46'),
+(448, 79, NULL, NULL, NULL, NULL, 'IN', 10.0000, 3100.2000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:25:46', '2026-08-26 05:25:46'),
+(449, 81, NULL, NULL, NULL, NULL, 'OUT', -1.0000, 38.4000, 'Formula consumed to prepare 10 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:33:44', '2026-08-26 05:33:44'),
+(450, NULL, 79, NULL, NULL, NULL, 'OUT', -10.0000, 1684.0000, 'Formula consumed to prepare 10 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:33:44', '2026-08-26 05:33:44'),
+(451, NULL, 87, NULL, NULL, NULL, 'OUT', -10.0000, 4484.0000, 'Formula consumed to prepare 10 units of component: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:33:44', '2026-08-26 05:33:44'),
+(452, 149, NULL, NULL, NULL, NULL, 'IN', 10.0000, 10.0000, 'Prepared component stock increment: 100 GM HARDNER BOTTLE', 2, '2026-08-26 05:33:44', '2026-08-26 05:33:44');
 
 -- --------------------------------------------------------
 
@@ -3820,7 +4214,7 @@ CREATE TABLE IF NOT EXISTS `user_devices` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_devices_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_devices`
@@ -3828,12 +4222,13 @@ CREATE TABLE IF NOT EXISTS `user_devices` (
 
 INSERT INTO `user_devices` (`id`, `user_id`, `device_token`, `browser_name`, `platform`, `device_name`, `ip_address`, `last_seen_at`, `created_at`, `updated_at`) VALUES
 (11, 2, 'eWTgtqTgX8Dkh2kYVh0mAf:APA91bEPWso69iKVqxu8hq5KovBZ-vH9ldOn1_9hUD7bYPrnAAs4kPr9J-2mTz_Sgv4B5oA4EN4gqygkMYrilgA1hDTeulJtfNJe8XW-rbyEjZVvro-yylg', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-07-13 17:45:25', '2026-07-13 17:31:36', '2026-08-12 05:02:55'),
-(15, 5, 'fWxRteuaA-PujAMwj-Xg91:APA91bH9-2TtN04hCOiSZJ41PQvx5gd_fCapf-h_XMHoohQ4QUw7P7IuM1adTCrackhD3i0u5Y6CnhU3KR6otXBbBD_sYnAa54Mjequ9f-YScY4nvZENLIA', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 05:31:17', '2026-07-14 04:08:17', '2026-08-12 05:01:42'),
-(20, 6, 'fa-M29b1oq328lVxcVNYDP:APA91bHwQZry6w0iIqLmb-Opr7L2GTgUppswq5_F9QrFOCiBQ3oSRHbWU9HaD7JExFZIDazNXlFTaxsGoOuehau_8e_ej1AeN1-_YDszzjfT2xnnMcug3mA', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-28 06:56:03', '2026-07-28 04:42:10', '2026-08-12 05:01:42'),
+(15, 5, 'fWxRteuaA-PujAMwj-Xg91:APA91bH9-2TtN04hCOiSZJ41PQvx5gd_fCapf-h_XMHoohQ4QUw7P7IuM1adTCrackhD3i0u5Y6CnhU3KR6otXBbBD_sYnAa54Mjequ9f-YScY4nvZENLIA', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 05:31:17', '2026-07-14 04:08:17', '2026-08-21 10:45:52'),
+(20, 6, 'fa-M29b1oq328lVxcVNYDP:APA91bHwQZry6w0iIqLmb-Opr7L2GTgUppswq5_F9QrFOCiBQ3oSRHbWU9HaD7JExFZIDazNXlFTaxsGoOuehau_8e_ej1AeN1-_YDszzjfT2xnnMcug3mA', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-28 06:56:03', '2026-07-28 04:42:10', '2026-08-21 10:45:52'),
 (17, 1, 'foB_yuuHGmg3DfZLjiMyzq:APA91bE7L0Vy50lBEMzxf5KAbnQnNG60r2fyNKNhCmLkRjfqikVSnqHI7glns7xBBa9XY4j4Bu5gxKaxHYojCJe7_7vLUokvw1QSLYSa1EDy0zLh-awDi5c', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 11:56:53', '2026-07-14 11:56:53', '2026-07-14 11:56:53'),
 (19, 2, 'cqUKPOsITd7mgnoNxROSxo:APA91bE7K7Bu6SVPf2ogcfftGjFOBHEI0VrfDZkAWidwGRfOxTEFn9Fego_GQFECncQEmV6jvLu9VblXqhWMudhwEyRWtNwCpBOD1qAWapaxKQ9XjScBJTg', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-07-29 14:33:33', '2026-07-25 11:34:58', '2026-08-12 05:02:55'),
 (18, 1, 'foB_yuuHGmg3DfZLjiMyzq:APA91bF5dqYBWAgI5-j0kMQlqBggasoEf77uL8M5qWmaWuWgiUPvqLc-pcagHFjhzdY4rEtigKjTlpIG_bdX3qFHbC2X5srs_gXgsdFgJ4DjBP7e3-8jcv4', 'Chrome', 'Linux', 'Mobile/Tablet', '127.0.0.1', '2026-07-14 11:59:53', '2026-07-14 11:56:53', '2026-07-14 11:59:53'),
-(21, 2, 'fhvxybvvwR6wh7bOInEe6V:APA91bFvIHXuXTy6LS7mdbRgiPqJAG54QzoeUwsI2aRkATdvyIT7t63F_U-JZj5ng-L0zoC8YRf0evyFRN5J8tDHiCe7nXDy6G73Y7I3Xd71nUjR39UeD2o', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-08-12 12:35:29', '2026-07-30 03:09:50', '2026-08-12 12:35:29');
+(21, 2, 'fhvxybvvwR6wh7bOInEe6V:APA91bFvIHXuXTy6LS7mdbRgiPqJAG54QzoeUwsI2aRkATdvyIT7t63F_U-JZj5ng-L0zoC8YRf0evyFRN5J8tDHiCe7nXDy6G73Y7I3Xd71nUjR39UeD2o', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-08-20 10:43:09', '2026-07-30 03:09:50', '2026-08-20 10:43:09'),
+(22, 2, 'fhvxybvvwR6wh7bOInEe6V:APA91bEVN-tXZ0jsTMXsJKAKoyYJju88JHV9cSXO0dL0Xi12mj8Ja-EA9Zij8KXOPuEUlJAHrkrykhvRBWCEntrsELNWl7Vah8EVAVaUbFV1qLjJrTP_hkg', 'Chrome', 'Windows', 'Desktop', '127.0.0.1', '2026-08-26 06:03:37', '2026-08-21 07:27:54', '2026-08-26 06:03:37');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

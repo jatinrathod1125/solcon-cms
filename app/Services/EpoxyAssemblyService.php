@@ -64,13 +64,18 @@ class EpoxyAssemblyService
 
             // 1. Resolve and scale formula items, validating ready components stock
             foreach ($formula->items as $item) {
+                $isPacking = (bool) $item->packing_material_id;
                 $rawMaterial = $item->rawMaterial;
-                $resolvedRm = $rawMaterial;
+                $packingMaterial = $item->packingMaterial;
+                $resolvedMat = $isPacking ? $packingMaterial : $rawMaterial;
 
-                if ($item->is_dynamic_color) {
-                    if ($epoxyFillerColor) {
+                if (!$isPacking && $item->is_dynamic_color) {
+                    if ($epoxyFillerColor && $rawMaterial) {
                         // Find parent component
-                        $parentComponent = EpoxyComponent::where('raw_material_id', $rawMaterial->id)->first();
+                        $parentComponent = EpoxyComponent::where('raw_material_id', $rawMaterial->id)
+                            ->orWhere('template_material_id', $rawMaterial->id)
+                            ->first();
+
                         if (!$parentComponent) {
                             throw ValidationException::withMessages([
                                 'color_id' => ["Epoxy Component for template '{$rawMaterial->name}' not configured."],
@@ -88,25 +93,25 @@ class EpoxyAssemblyService
                             ]);
                         }
 
-                        $resolvedRm = $childComponent->rawMaterial;
-                    } elseif ($color) {
+                        $resolvedMat = $childComponent->rawMaterial;
+                    } elseif ($color && $rawMaterial) {
                         // Fallback/Legacy resolution for Grout colors
                         $colorCodeSuffix = str_replace('GR-', '', $color->code);
                         $specificRmCode = $rawMaterial->code . '-' . $colorCodeSuffix;
 
-                        $resolvedRm = RawMaterial::where('department_id', $deptEPX->id)
+                        $resolvedMat = RawMaterial::where('department_id', $deptEPX->id)
                             ->where('code', $specificRmCode)
                             ->first();
 
-                        if (!$resolvedRm) {
+                        if (!$resolvedMat) {
                             $firstWord = explode(' ', trim($color->name))[0];
-                            $resolvedRm = RawMaterial::where('department_id', $deptEPX->id)
+                            $resolvedMat = RawMaterial::where('department_id', $deptEPX->id)
                                 ->where('name', 'like', '%' . $firstWord . '%')
                                 ->where('name', 'like', '%Filler%')
                                 ->first();
                         }
 
-                        if (!$resolvedRm) {
+                        if (!$resolvedMat) {
                             throw ValidationException::withMessages([
                                 'color_id' => ["Color-specific raw material for color '{$color->name}' not configured in inventory."],
                             ]);
@@ -114,22 +119,31 @@ class EpoxyAssemblyService
                     }
                 }
 
+                if (!$resolvedMat) {
+                    throw ValidationException::withMessages([
+                        'quantity' => ["Material not configured for formula item #{$item->id}."],
+                    ]);
+                }
+
                 $totalQtyNeeded = (float) $item->quantity * $quantity;
 
                 // Check stock
-                $currentStock = (float) $resolvedRm->current_stock;
+                $currentStock = (float) $resolvedMat->current_stock;
                 if ($currentStock < $totalQtyNeeded) {
+                    $matType = $isPacking ? "packing material" : "ready component";
                     throw ValidationException::withMessages([
-                        'quantity' => ["Insufficient stock for ready component '{$resolvedRm->name}'. Required: {$totalQtyNeeded}, Available: {$currentStock}."],
+                        'quantity' => ["Insufficient stock for {$matType} '{$resolvedMat->name}'. Required: {$totalQtyNeeded}, Available: {$currentStock}."],
                     ]);
                 }
 
                 $snapshot[] = [
-                    'raw_material_id' => $resolvedRm->id,
-                    'raw_material_name' => $resolvedRm->name,
-                    'raw_material_code' => $resolvedRm->code,
+                    'item_type' => $isPacking ? 'packing' : 'raw',
+                    'raw_material_id' => !$isPacking ? $resolvedMat->id : null,
+                    'packing_material_id' => $isPacking ? $resolvedMat->id : null,
+                    'raw_material_name' => $resolvedMat->name,
+                    'raw_material_code' => $resolvedMat->code,
                     'quantity' => $totalQtyNeeded,
-                    'unit_code' => $item->unit->code,
+                    'unit_code' => $item->unit ? $item->unit->code : 'PCS',
                     'material_type' => $item->material_type,
                     'is_dynamic_color' => $item->is_dynamic_color,
                 ];
@@ -150,15 +164,28 @@ class EpoxyAssemblyService
 
             // 3. Deduct stock & create ledger entries
             foreach ($snapshot as $snapItem) {
-                StockService::recordMovement(
-                    $snapItem['raw_material_id'],
-                    $snapItem['quantity'],
-                    'OUT',
-                    null,
-                    "Consumed in Epoxy assembly #{$assembly->id}",
-                    null,
-                    $assembly->id
-                );
+                if (!empty($snapItem['packing_material_id'])) {
+                    StockService::recordMovement(
+                        null,
+                        $snapItem['quantity'],
+                        'OUT',
+                        null,
+                        "Consumed in Epoxy assembly #{$assembly->id}",
+                        null,
+                        $assembly->id,
+                        $snapItem['packing_material_id']
+                    );
+                } else {
+                    StockService::recordMovement(
+                        $snapItem['raw_material_id'],
+                        $snapItem['quantity'],
+                        'OUT',
+                        null,
+                        "Consumed in Epoxy assembly #{$assembly->id}",
+                        null,
+                        $assembly->id
+                    );
+                }
             }
 
             // Update Finished Goods Stock

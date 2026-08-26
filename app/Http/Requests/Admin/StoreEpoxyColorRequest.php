@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreEpoxyColorRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class StoreEpoxyColorRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:epoxy_filler_colors,code'],
             'is_active' => ['nullable', 'boolean'],

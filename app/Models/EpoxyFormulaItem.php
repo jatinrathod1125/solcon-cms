@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 #[Fillable([
     'epoxy_formula_id',
     'raw_material_id',
+    'packing_material_id',
     'quantity',
     'unit_id',
     'is_dynamic_color',
@@ -38,6 +39,14 @@ class EpoxyFormulaItem extends Model
     public function rawMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class, 'raw_material_id');
+    }
+
+    /**
+     * Get the packing material.
+     */
+    public function packingMaterial(): BelongsTo
+    {
+        return $this->belongsTo(PackingMaterial::class, 'packing_material_id');
     }
 
     /**

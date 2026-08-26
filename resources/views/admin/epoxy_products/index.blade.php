@@ -17,6 +17,40 @@
         </a>
     </div>
 
+    <!-- Filters and Search -->
+    <div class="bg-slate-955 border border-slate-850 p-4 rounded-2xl">
+        <form method="GET" action="{{ route('admin.epoxy-products.index') }}" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div class="sm:col-span-2">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name or code..."
+                    class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors">
+            </div>
+            <div>
+                <select name="brand_id" onchange="this.form.submit()"
+                    class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors">
+                    <option value="">All Brands</option>
+                    @foreach($brands as $brand)
+                        <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                            {{ $brand->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <select name="status" onchange="this.form.submit()"
+                    class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors">
+                    <option value="">All Status</option>
+                    <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                </select>
+                @if(request()->hasAny(['search', 'brand_id', 'status']))
+                    <a href="{{ route('admin.epoxy-products.index') }}" class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-xl transition-colors flex items-center justify-center">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </a>
+                @endif
+            </div>
+        </form>
+    </div>
+
     <div class="bg-slate-955 border border-slate-850 rounded-2xl overflow-hidden shadow-xl">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-sm">
@@ -24,6 +58,7 @@
                     <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
                         <th class="p-4 w-32">Product Code</th>
                         <th class="p-4">Name</th>
+                        <th class="p-4">Brand</th>
                         <th class="p-4">Requires Color</th>
                         <th class="p-4">Active Formulas</th>
                         <th class="p-4">Status</th>
@@ -35,6 +70,17 @@
                     <tr>
                         <td class="p-4 font-mono font-bold text-cyan-400">{{ $product->code }}</td>
                         <td class="p-4 font-semibold text-white">{{ $product->name }}</td>
+                        <td class="p-4">
+                            @if($product->brand)
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                    {{ $product->brand->name }}
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 border border-slate-700">
+                                    Common
+                                </span>
+                            @endif
+                        </td>
                         <td class="p-4">
                             @if($product->requires_color)
                             <span
@@ -84,13 +130,18 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="p-8 text-center text-slate-500">No Epoxy products defined. Click Add
+                        <td colspan="7" class="p-8 text-center text-slate-500">No Epoxy products found. Click Add
                             Epoxy Product to get started.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+        @if($products->hasPages())
+        <div class="p-4 border-t border-slate-850">
+            {{ $products->links() }}
+        </div>
+        @endif
     </div>
 </div>
 @endsection

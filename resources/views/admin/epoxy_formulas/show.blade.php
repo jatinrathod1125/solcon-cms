@@ -23,10 +23,22 @@
     </div>
 
     <!-- Details Card -->
-    <div class="bg-slate-955 border border-slate-850 p-6 rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-slate-955 border border-slate-850 p-6 rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
             <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Product Code</span>
             <span class="text-sm font-mono text-cyan-400 font-bold">{{ $epoxyFormula->product->code }}</span>
+        </div>
+        <div>
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Brand</span>
+            @if($epoxyFormula->product->brand)
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    {{ $epoxyFormula->product->brand->name }}
+                </span>
+            @else
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700">
+                    Common / Shared
+                </span>
+            @endif
         </div>
         <div>
             <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Requires Color</span>
@@ -61,6 +73,7 @@
             <table class="w-full text-left border-collapse text-sm">
                 <thead>
                     <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
+                        <th class="p-4">Item Type</th>
                         <th class="p-4">Material Code</th>
                         <th class="p-4">Material Name</th>
                         <th class="p-4 text-center">Material Type</th>
@@ -71,9 +84,18 @@
                 </thead>
                 <tbody class="divide-y divide-slate-850/50 text-slate-200">
                     @foreach($epoxyFormula->items as $item)
+                        @php
+                            $isPacking = (bool) $item->packing_material_id;
+                            $mat = $isPacking ? $item->packingMaterial : $item->rawMaterial;
+                        @endphp
                         <tr>
-                            <td class="p-4 font-mono text-slate-400">{{ $item->rawMaterial->code }}</td>
-                            <td class="p-4 font-semibold text-white">{{ $item->rawMaterial->name }}</td>
+                            <td class="p-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $isPacking ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' }}">
+                                    {{ $isPacking ? 'Packing' : 'Raw Material' }}
+                                </span>
+                            </td>
+                            <td class="p-4 font-mono text-slate-400">{{ $mat->code ?? '-' }}</td>
+                            <td class="p-4 font-semibold text-white">{{ $mat->name ?? '-' }}</td>
                             <td class="p-4 text-center">
                                 <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-slate-850 text-slate-300">
                                     {{ $item->material_type }}
@@ -89,7 +111,7 @@
                                 @endif
                             </td>
                             <td class="p-4 text-right font-mono font-bold text-emerald-400">{{ format_quantity($item->quantity) }}</td>
-                            <td class="p-4 text-slate-400 font-mono">{{ $item->unit->code }}</td>
+                            <td class="p-4 text-slate-400 font-mono">{{ $item->unit->code ?? '' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

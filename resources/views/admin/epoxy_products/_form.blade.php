@@ -1,4 +1,17 @@
 <div>
+    <label for="brand_id" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Brand</label>
+    <select name="brand_id" id="brand_id"
+        class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
+        <option value="">-- Common / All Brands --</option>
+        @foreach($brands as $brand)
+            <option value="{{ $brand->id }}" {{ old('brand_id', $epoxyProduct->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
+                {{ $brand->name }} ({{ $brand->code }})
+            </option>
+        @endforeach
+    </select>
+</div>
+
+<div>
     <label for="name" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Product Name</label>
     <input type="text" name="name" id="name" value="{{ old('name', $epoxyProduct->name ?? '') }}" required
         class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">

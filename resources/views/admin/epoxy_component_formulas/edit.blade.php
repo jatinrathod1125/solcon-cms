@@ -91,7 +91,7 @@
                                             <select name="items[{{ $idx }}][raw_material_id]" {{ !$isPacking ? 'required' : '' }} class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
                                                 <option value="">-- Select Raw Material --</option>
                                                 @foreach($rawMaterials as $rm)
-                                                    <option value="{{ $rm->id }}" {{ $item->raw_material_id == $rm->id ? 'selected' : '' }}>{{ $rm->name }} ({{ $rm->code }})</option>
+                                                    <option value="{{ $rm->id }}" {{ $item->raw_material_id == $rm->id ? 'selected' : '' }}>{{ $rm->name }} ({{ $rm->code }}){{ $rm->brand ? ' [' . $rm->brand->name . ']' : ' [Common]' }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -99,7 +99,7 @@
                                             <select name="items[{{ $idx }}][packing_material_id]" {{ $isPacking ? 'required' : '' }} class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-purple-500">
                                                 <option value="">-- Select Packing Material --</option>
                                                 @foreach($packingMaterials as $pm)
-                                                    <option value="{{ $pm->id }}" {{ $item->packing_material_id == $pm->id ? 'selected' : '' }}>{{ $pm->name }} ({{ $pm->category->name ?? 'Packing' }})</option>
+                                                    <option value="{{ $pm->id }}" {{ $item->packing_material_id == $pm->id ? 'selected' : '' }}>{{ $pm->name }} ({{ $pm->code ?? ($pm->category->name ?? 'Packing') }}){{ $pm->brand ? ' [' . $pm->brand->name . ']' : ' [Common]' }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -155,7 +155,7 @@
                 <select name="items[INDEX][raw_material_id]" class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
                     <option value="">-- Select Raw Material --</option>
                     @foreach($rawMaterials as $rm)
-                        <option value="{{ $rm->id }}">{{ $rm->name }} ({{ $rm->code }})</option>
+                        <option value="{{ $rm->id }}">{{ $rm->name }} ({{ $rm->code }}){{ $rm->brand ? ' [' . $rm->brand->name . ']' : ' [Common]' }}</option>
                     @endforeach
                 </select>
             </div>
@@ -163,7 +163,7 @@
                 <select name="items[INDEX][packing_material_id]" class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:ring-1 focus:ring-purple-500">
                     <option value="">-- Select Packing Material --</option>
                     @foreach($packingMaterials as $pm)
-                        <option value="{{ $pm->id }}">{{ $pm->name }} ({{ $pm->category->name ?? 'Packing' }})</option>
+                        <option value="{{ $pm->id }}">{{ $pm->name }} ({{ $pm->code ?? ($pm->category->name ?? 'Packing') }}){{ $pm->brand ? ' [' . $pm->brand->name . ']' : ' [Common]' }}</option>
                     @endforeach
                 </select>
             </div>

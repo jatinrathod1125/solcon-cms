@@ -100,10 +100,18 @@
                             <div>
                                 <span class="text-[9px] text-slate-500 uppercase tracking-wider block">Target Product</span>
                                 <span class="font-semibold text-slate-350">{{ $assembly->product->name }}</span>
+                                @if($assembly->product->brand)
+                                    <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 ml-1">
+                                        {{ $assembly->product->brand->name }}
+                                    </span>
+                                @endif
                             </div>
                             @if($assembly->epoxyFillerColor)
                                 <span class="px-2 py-0.5 rounded bg-purple-950/40 text-purple-400 border border-purple-900/40 text-[10px] font-bold">
                                     {{ $assembly->epoxyFillerColor->name }}
+                                    @if($assembly->epoxyFillerColor->brand)
+                                        <span class="text-[9px] text-purple-300">({{ $assembly->epoxyFillerColor->brand->name }})</span>
+                                    @endif
                                 </span>
                             @endif
                         </div>
@@ -141,7 +149,12 @@
                         <div class="flex items-start justify-between text-xs">
                             <div>
                                 <span class="font-bold text-white block">{{ $prep->component->name }}</span>
-                                <span class="text-slate-500 font-mono">{{ $prep->created_at->format('d M Y, h:i A') }}</span>
+                                @if($prep->component->brand)
+                                    <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                        {{ $prep->component->brand->name }}
+                                    </span>
+                                @endif
+                                <span class="text-slate-500 font-mono block mt-0.5">{{ $prep->created_at->format('d M Y, h:i A') }}</span>
                             </div>
                             <div class="text-right">
                                 <span class="text-cyan-400 font-extrabold font-mono text-sm">+{{ $prep->quantity }} {{ $prep->component->unit->code }}</span>

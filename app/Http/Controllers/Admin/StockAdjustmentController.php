@@ -16,7 +16,11 @@ class StockAdjustmentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = StockAdjustment::with(['rawMaterial.department', 'packingMaterial.category', 'creator']);
+        $query = StockAdjustment::with(['rawMaterial.department', 'rawMaterial.brand', 'packingMaterial.category', 'packingMaterial.brand', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $search = trim($request->input('search'));
@@ -45,9 +49,18 @@ class StockAdjustmentController extends Controller
             return view('admin.stock_adjustments._table', compact('adjustments'))->render();
         }
 
-        // Active raw materials and packing materials lists for creation dropdown
-        $rawMaterials = RawMaterial::where('is_active', true)->with('department')->orderBy('name')->get();
-        $packingMaterials = PackingMaterial::where('status', 'active')->with('category')->orderBy('name')->get();
+        // Active raw materials and packing materials lists for creation dropdown (filtered by active brand)
+        $rawMaterials = RawMaterial::where('is_active', true)
+            ->forCurrentBrand()
+            ->with(['department', 'brand'])
+            ->orderBy('name')
+            ->get();
+
+        $packingMaterials = PackingMaterial::where('status', 'active')
+            ->forCurrentBrand()
+            ->with(['category', 'brand', 'unit'])
+            ->orderBy('name')
+            ->get();
 
         return view('admin.stock_adjustments.index', compact('adjustments', 'rawMaterials', 'packingMaterials'));
     }
@@ -68,6 +81,21 @@ class StockAdjustmentController extends Controller
         try {
             $rawMaterialId = $validated['material_type'] === 'raw' ? (int)$validated['raw_material_id'] : null;
             $packingMaterialId = $validated['material_type'] === 'packing' ? (int)$validated['packing_material_id'] : null;
+
+            if (function_exists('currentBrand') && $currentBrand = currentBrand()) {
+                if ($rawMaterialId) {
+                    $rm = RawMaterial::where('id', $rawMaterialId)->forBrand($currentBrand)->first();
+                    if (!$rm) {
+                        return redirect()->back()->withInput()->with('error', 'Selected raw material is not accessible for the active brand.');
+                    }
+                }
+                if ($packingMaterialId) {
+                    $pm = PackingMaterial::where('id', $packingMaterialId)->forBrand($currentBrand)->first();
+                    if (!$pm) {
+                        return redirect()->back()->withInput()->with('error', 'Selected packing material is not accessible for the active brand.');
+                    }
+                }
+            }
 
             $adjustment = StockService::adjustStock(
                 $rawMaterialId,

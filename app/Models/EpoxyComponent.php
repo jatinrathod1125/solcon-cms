@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class EpoxyComponent extends Model
 {
     protected $fillable = [
+        'brand_id',
         'name',
         'code',
         'category', // Bottle, Pouch, Packet, Liquid, Powder, Plastic, Accessory, Other
@@ -25,6 +26,14 @@ class EpoxyComponent extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    /**
+     * Get the brand that owns this epoxy component.
+     */
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
 
     /**
      * Get parent component.
@@ -88,6 +97,37 @@ class EpoxyComponent extends Model
     public function finishedGoods(): HasMany
     {
         return $this->hasMany(FinishedGood::class, 'epoxy_component_id');
+    }
+
+    /**
+     * Scope a query to include epoxy components for a specific brand or common components (brand_id IS NULL).
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+        return $query->where(function ($q) use ($brandId) {
+            $q->where('brand_id', $brandId)
+                ->orWhereNull('brand_id');
+        });
+    }
+
+    /**
+     * Scope a query to include epoxy components for the current session brand or common components.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
     }
 
     /**

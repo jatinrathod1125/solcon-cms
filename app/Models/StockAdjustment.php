@@ -50,4 +50,39 @@ class StockAdjustment extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Scope a query to include stock adjustments for a specific brand or common materials.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \App\Models\Brand|int|string|null  $brand
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBrand($query, $brand = null)
+    {
+        $brandId = $brand instanceof Brand ? $brand->id : $brand;
+        if (!$brandId) {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($brandId) {
+            $q->whereHas('rawMaterial', function ($rmQ) use ($brandId) {
+                $rmQ->forBrand($brandId);
+            })->orWhereHas('packingMaterial', function ($pmQ) use ($brandId) {
+                $pmQ->forBrand($brandId);
+            });
+        });
+    }
+
+    /**
+     * Scope a query to include stock adjustments for the current session brand or common materials.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForCurrentBrand($query)
+    {
+        $currentBrand = function_exists('currentBrand') ? currentBrand() : null;
+        return $this->scopeForBrand($query, $currentBrand?->id);
+    }
 }

@@ -21,6 +21,20 @@
             @method('PUT')
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Brand</label>
+                    <select name="brand_id"
+                        class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
+                        <option value="">-- Common / All Brands --</option>
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}" {{ old('brand_id', $epoxyComponent->brand_id) == $brand->id ? 'selected' : '' }}>
+                                {{ $brand->name }} ({{ $brand->code }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <!-- Name -->
                 <div>
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Name</label>

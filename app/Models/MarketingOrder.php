@@ -131,15 +131,24 @@ class MarketingOrder extends Model
             $q->whereDoesntHave('items', function ($itemQ) use ($brandId) {
                 $itemQ->where(function ($iQ) use ($brandId) {
                     $iQ->whereHas('grade', fn ($gQ) => $gQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId))
-                       ->orWhereHas('color', fn ($cQ) => $cQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId));
+                       ->orWhereHas('color', fn ($cQ) => $cQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId))
+                       ->orWhereHas('epoxyProduct', fn ($eQ) => $eQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId))
+                       ->orWhereHas('epoxyComponent', fn ($ecQ) => $ecQ->whereNotNull('brand_id')->where('brand_id', '!=', $brandId));
                 });
             })
-            // And must have items matching this brand (or common/epoxy items)
+            // And must have items matching this brand (or common items)
             ->whereHas('items', function ($itemQ) use ($brandId) {
                 $itemQ->where(function ($iQ) use ($brandId) {
                     $iQ->whereHas('grade', fn ($gQ) => $gQ->forBrand($brandId))
                        ->orWhereHas('color', fn ($cQ) => $cQ->forBrand($brandId))
-                       ->orWhere('department_code', 'EPX');
+                       ->orWhereHas('epoxyProduct', fn ($eQ) => $eQ->forBrand($brandId))
+                       ->orWhereHas('epoxyComponent', fn ($ecQ) => $ecQ->forBrand($brandId))
+                       ->orWhere(function ($otherQ) {
+                           $otherQ->whereNull('grade_id')
+                                  ->whereNull('color_id')
+                                  ->whereNull('epoxy_product_id')
+                                  ->whereNull('epoxy_component_id');
+                       });
                 });
             });
         });

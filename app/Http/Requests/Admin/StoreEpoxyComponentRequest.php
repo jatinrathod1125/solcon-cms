@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateEpoxyColorRequest extends FormRequest
+class StoreEpoxyComponentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,17 @@ class UpdateEpoxyColorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $color = $this->route('epoxy_color');
-        $colorId = is_object($color) ? $color->id : $color;
-
         return [
             'brand_id' => ['nullable', Rule::exists('brands', 'id')->where('is_active', true)],
             'name' => ['required', 'string', 'max:255'],
-            'code' => ['required', 'string', 'max:255', 'unique:epoxy_filler_colors,code,' . $colorId],
+            'code' => ['required', 'string', 'max:50', 'unique:epoxy_components,code'],
+            'category' => ['required', 'string', 'in:Bottle,Pouch,Packet,Liquid,Powder,Plastic,Accessory,Other'],
+            'purpose' => ['required', 'string', 'in:Assembly Component,Direct Finished Product'],
+            'unit_id' => ['required', 'exists:units,id'],
             'is_active' => ['nullable', 'boolean'],
             'description' => ['nullable', 'string'],
+            'parent_component_id' => ['nullable', 'exists:epoxy_components,id'],
+            'epoxy_filler_color_id' => ['nullable', 'exists:epoxy_filler_colors,id'],
         ];
     }
 }

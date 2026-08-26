@@ -123,7 +123,7 @@ class FinishedGood extends Model
     }
 
     /**
-     * Get the brand associated with this finished good (via Grade or Color).
+     * Get the brand associated with this finished good (via Grade, Color, Epoxy Product, or Epoxy Component).
      */
     public function getBrandAttribute(): ?Brand
     {
@@ -133,6 +133,12 @@ class FinishedGood extends Model
         if ($this->color) {
             return $this->color->brand;
         }
+        if ($this->epoxyProduct) {
+            return $this->epoxyProduct->brand;
+        }
+        if ($this->epoxyComponent) {
+            return $this->epoxyComponent->brand;
+        }
         return null;
     }
 
@@ -141,7 +147,8 @@ class FinishedGood extends Model
      * Includes:
      * - Grades matching brand (or brand_id IS NULL)
      * - Colors matching brand (or brand_id IS NULL)
-     * - Epoxy items (which are shared across brands or have no grade/color)
+     * - Epoxy Products matching brand (or brand_id IS NULL)
+     * - Epoxy Components matching brand (or brand_id IS NULL)
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \App\Models\Brand|int|string|null  $brand
@@ -157,9 +164,8 @@ class FinishedGood extends Model
         return $query->where(function ($q) use ($brandId) {
             $q->whereHas('grade', fn ($gQ) => $gQ->forBrand($brandId))
               ->orWhereHas('color', fn ($cQ) => $cQ->forBrand($brandId))
-              ->orWhere(function ($eQ) {
-                  $eQ->whereNull('grade_id')->whereNull('color_id');
-              });
+              ->orWhereHas('epoxyProduct', fn ($eQ) => $eQ->forBrand($brandId))
+              ->orWhereHas('epoxyComponent', fn ($ecQ) => $ecQ->forBrand($brandId));
         });
     }
 

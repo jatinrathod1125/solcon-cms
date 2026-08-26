@@ -33,14 +33,22 @@ class EpoxyAssemblyController extends Controller
 
         // 1. Daily Component Summary Report
         $targetDate = $request->input('date', now()->format('Y-m-d'));
-        $dailySummary = EpoxyComponentPreparation::with(['component', 'color'])
-            ->whereDate('created_at', $targetDate)
+        $dailySummaryQuery = EpoxyComponentPreparation::with(['component.brand', 'color.brand'])
+            ->whereDate('created_at', $targetDate);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $dailySummaryQuery->whereHas('component', fn ($cQ) => $cQ->forBrand(currentBrand()));
+        }
+        $dailySummary = $dailySummaryQuery
             ->select('epoxy_component_id', 'epoxy_filler_color_id', DB::raw('SUM(quantity) as total_qty'))
             ->groupBy('epoxy_component_id', 'epoxy_filler_color_id')
             ->get();
 
         // 2. Bucket Assemblies List
-        $assemblyQuery = EpoxyAssembly::with(['product', 'color', 'epoxyFillerColor', 'operator']);
+        $assemblyQuery = EpoxyAssembly::with(['product.brand', 'color.brand', 'epoxyFillerColor.brand', 'operator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $assemblyQuery->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $search = trim($request->input('search'));
@@ -65,7 +73,10 @@ class EpoxyAssemblyController extends Controller
             ->withQueryString();
 
         // 3. Component Preparations List
-        $prepQuery = EpoxyComponentPreparation::with(['component', 'color', 'operator']);
+        $prepQuery = EpoxyComponentPreparation::with(['component.brand', 'color.brand', 'operator']);
+        if (function_exists('currentBrand') && currentBrand()) {
+            $prepQuery->whereHas('component', fn ($cQ) => $cQ->forBrand(currentBrand()));
+        }
         if ($request->filled('date')) {
             $prepQuery->whereDate('created_at', $request->input('date'));
         }
@@ -73,8 +84,8 @@ class EpoxyAssemblyController extends Controller
             ->paginate(15, ['*'], 'preps_page')
             ->withQueryString();
 
-        $products = EpoxyProduct::orderBy('name')->get();
-        $colors = EpoxyFillerColor::where('is_active', true)->orderBy('name')->get();
+        $products = EpoxyProduct::where('is_active', true)->forCurrentBrand()->orderBy('name')->get();
+        $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->orderBy('name')->get();
 
         return view('epoxy_assembly.index', compact('assemblies', 'preparations', 'dailySummary', 'dept', 'products', 'colors', 'targetDate'));
     }
@@ -91,7 +102,8 @@ class EpoxyAssemblyController extends Controller
         }
 
         $components = EpoxyComponent::where('is_active', true)
-            ->with(['unit', 'color', 'parentComponent', 'rawMaterial', 'activeFormula', 'finishedGoods'])
+            ->forCurrentBrand()
+            ->with(['brand', 'unit', 'color.brand', 'parentComponent', 'rawMaterial', 'activeFormula', 'finishedGoods'])
             ->orderBy('name')
             ->get();
 
@@ -201,10 +213,11 @@ class EpoxyAssemblyController extends Controller
         }
 
         $products = EpoxyProduct::where('is_active', true)
-            ->with('activeFormula')
+            ->forCurrentBrand()
+            ->with(['brand', 'activeFormula'])
             ->get();
 
-        $colors = EpoxyFillerColor::where('is_active', true)->orderBy('name')->get();
+        $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->with('brand')->orderBy('name')->get();
 
         return view('epoxy_assembly.create', compact('products', 'colors', 'dept'));
     }
@@ -269,48 +282,60 @@ class EpoxyAssemblyController extends Controller
 
         $items = [];
         foreach ($formula->items as $item) {
+            $isPacking = (bool) $item->packing_material_id;
             $rawMaterial = $item->rawMaterial;
-            $resolvedRm = $rawMaterial;
+            $packingMaterial = $item->packingMaterial;
+            $resolvedMat = $isPacking ? $packingMaterial : $rawMaterial;
             $status = 'Available';
 
-            if ($item->is_dynamic_color) {
-                if ($color) {
-                    $component = EpoxyComponent::where('template_material_id', $rawMaterial->id)->first();
+            if (!$isPacking && $item->is_dynamic_color) {
+                if ($color && $rawMaterial) {
+                    $component = EpoxyComponent::where('template_material_id', $rawMaterial->id)
+                        ->orWhere('raw_material_id', $rawMaterial->id)
+                        ->first();
                     if ($component) {
-                        $mapping = EpoxyComponentMapping::where('epoxy_component_id', $component->id)
+                        $childComponent = EpoxyComponent::where('parent_component_id', $component->id)
                             ->where('epoxy_filler_color_id', $color->id)
                             ->first();
-                        if ($mapping) {
-                            $resolvedRm = $mapping->rawMaterial;
+
+                        if ($childComponent && $childComponent->rawMaterial) {
+                            $resolvedMat = $childComponent->rawMaterial;
                         } else {
-                            $resolvedRm = (object)[
-                                'id' => null,
-                                'name' => "{$rawMaterial->name} ({$color->name} - Not Configured)",
-                                'code' => $rawMaterial->code,
-                                'current_stock' => 0,
-                            ];
-                            $status = 'Missing Component';
+                            $mapping = EpoxyComponentMapping::where('epoxy_component_id', $component->id)
+                                ->where('epoxy_filler_color_id', $color->id)
+                                ->first();
+                            if ($mapping && $mapping->rawMaterial) {
+                                $resolvedMat = $mapping->rawMaterial;
+                            } else {
+                                $resolvedMat = (object)[
+                                    'id' => null,
+                                    'name' => "{$rawMaterial->name} ({$color->name} - Not Configured)",
+                                    'code' => $rawMaterial->code,
+                                    'current_stock' => 0,
+                                ];
+                                $status = 'Missing Component';
+                            }
                         }
                     }
-                } elseif ($legacyColor) {
+                } elseif ($legacyColor && $rawMaterial) {
                     // Fallback to legacy resolution for tests/grout colors
                     $colorCodeSuffix = str_replace('GR-', '', $legacyColor->code);
                     $specificRmCode = $rawMaterial->code . '-' . $colorCodeSuffix;
 
-                    $resolvedRm = RawMaterial::where('department_id', $deptId)
+                    $resolvedMat = RawMaterial::where('department_id', $deptId)
                         ->where('code', $specificRmCode)
                         ->first();
 
-                    if (!$resolvedRm) {
+                    if (!$resolvedMat) {
                         $firstWord = explode(' ', trim($legacyColor->name))[0];
-                        $resolvedRm = RawMaterial::where('department_id', $deptId)
+                        $resolvedMat = RawMaterial::where('department_id', $deptId)
                             ->where('name', 'like', '%' . $firstWord . '%')
                             ->where('name', 'like', '%Filler%')
                             ->first();
                     }
 
-                    if (!$resolvedRm) {
-                        $resolvedRm = (object)[
+                    if (!$resolvedMat) {
+                        $resolvedMat = (object)[
                             'id' => null,
                             'name' => "{$rawMaterial->name} ({$legacyColor->name} - Not Configured)",
                             'code' => $specificRmCode,
@@ -319,41 +344,44 @@ class EpoxyAssemblyController extends Controller
                         $status = 'Missing Component';
                     }
                 } else {
-                    $resolvedRm = (object)[
+                    $resolvedMat = (object)[
                         'id' => null,
-                        'name' => "{$rawMaterial->name} (Color Required)",
-                        'code' => $rawMaterial->code,
+                        'name' => ($rawMaterial ? $rawMaterial->name : 'Item') . " (Color Required)",
+                        'code' => $rawMaterial ? $rawMaterial->code : 'N/A',
                         'current_stock' => 0,
                     ];
                     $status = 'Missing Component';
                 }
-            } else {
-                $component = EpoxyComponent::where('template_material_id', $rawMaterial->id)->first();
+            } elseif (!$isPacking && $rawMaterial) {
+                $component = EpoxyComponent::where('template_material_id', $rawMaterial->id)
+                    ->orWhere('raw_material_id', $rawMaterial->id)
+                    ->first();
                 if ($component) {
                     $mapping = EpoxyComponentMapping::where('epoxy_component_id', $component->id)
                         ->whereNull('epoxy_filler_color_id')
                         ->first();
-                    if ($mapping) {
-                        $resolvedRm = $mapping->rawMaterial;
+                    if ($mapping && $mapping->rawMaterial) {
+                        $resolvedMat = $mapping->rawMaterial;
                     }
                 }
             }
 
             $needed = (float) $item->quantity * $quantity;
-            $stock = $resolvedRm ? (float) $resolvedRm->current_stock : 0;
+            $stock = $resolvedMat ? (float) $resolvedMat->current_stock : 0;
 
-            if ($resolvedRm && $resolvedRm->id && $stock < $needed) {
+            if ($resolvedMat && isset($resolvedMat->id) && $resolvedMat->id && $stock < $needed) {
                 $status = 'Insufficient Stock';
             }
 
             $items[] = [
-                'name' => $resolvedRm ? $resolvedRm->name : 'Unknown Raw Material',
-                'code' => $resolvedRm ? $resolvedRm->code : 'N/A',
+                'name' => $resolvedMat ? $resolvedMat->name : ($isPacking ? 'Unknown Packing Material' : 'Unknown Raw Material'),
+                'code' => $resolvedMat ? $resolvedMat->code : 'N/A',
                 'quantity' => $needed,
-                'unit' => $item->unit->code,
+                'unit' => $item->unit ? $item->unit->code : 'PCS',
                 'type' => $item->material_type,
                 'stock' => $stock,
                 'status' => $status,
+                'is_packing' => $isPacking,
             ];
         }
 

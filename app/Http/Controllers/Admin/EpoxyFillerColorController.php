@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\EpoxyFillerColor;
 use App\Http\Requests\Admin\StoreEpoxyColorRequest;
 use App\Http\Requests\Admin\UpdateEpoxyColorRequest;
@@ -15,7 +16,11 @@ class EpoxyFillerColorController extends Controller
      */
     public function index(Request $request)
     {
-        $query = EpoxyFillerColor::with(['creator', 'updater']);
+        $query = EpoxyFillerColor::with(['brand', 'creator', 'updater']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -25,13 +30,18 @@ class EpoxyFillerColorController extends Controller
             });
         }
 
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->input('brand_id'));
+        }
+
         if ($request->filled('status')) {
             $query->where('is_active', $request->input('status') === 'active');
         }
 
         $colors = $query->latest()->paginate(10)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
 
-        return view('admin.epoxy_colors.index', compact('colors'));
+        return view('admin.epoxy_colors.index', compact('colors', 'brands'));
     }
 
     /**
@@ -39,7 +49,8 @@ class EpoxyFillerColorController extends Controller
      */
     public function create()
     {
-        return view('admin.epoxy_colors.create');
+        $brands = Brand::active()->orderBy('name')->get();
+        return view('admin.epoxy_colors.create', compact('brands'));
     }
 
     /**
@@ -64,7 +75,8 @@ class EpoxyFillerColorController extends Controller
     public function edit(EpoxyFillerColor $epoxy_color)
     {
         $color = $epoxy_color;
-        return view('admin.epoxy_colors.edit', compact('color'));
+        $brands = Brand::active()->orderBy('name')->get();
+        return view('admin.epoxy_colors.edit', compact('color', 'brands'));
     }
 
     /**

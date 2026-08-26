@@ -485,7 +485,9 @@ class MarketingOrderService
                 ->orderBy('name')
                 ->get(),
             'EPX' => EpoxyProduct::where('is_active', true)
-                ->select('id', 'name', 'code')
+                ->when($targetBrand, fn ($q) => $q->forBrand($targetBrand))
+                ->with('brand:id,name')
+                ->select('id', 'name', 'code', 'brand_id')
                 ->orderBy('name')
                 ->get(),
             default => collect(),

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\EpoxyFormula;
 use App\Models\EpoxyFormulaItem;
 use App\Models\EpoxyProduct;
 use App\Models\RawMaterial;
+use App\Models\PackingMaterial;
 use App\Models\Department;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -14,20 +16,40 @@ use Illuminate\Support\Facades\DB;
 
 class EpoxyFormulaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formulas = EpoxyFormula::with(['product', 'creator'])->get();
-        return view('admin.epoxy_formulas.index', compact('formulas'));
+        $query = EpoxyFormula::with(['product.brand', 'creator']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        if ($request->filled('brand_id')) {
+            $query->forBrand($request->input('brand_id'));
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->whereHas('product', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        $formulas = $query->latest()->paginate(10)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
+
+        return view('admin.epoxy_formulas.index', compact('formulas', 'brands'));
     }
 
     public function create()
     {
-        $products = EpoxyProduct::where('is_active', true)->get();
-        $deptEPX = Department::where('code', 'EPX')->first();
-        $rawMaterials = $deptEPX ? RawMaterial::where('department_id', $deptEPX->id)->get() : collect();
+        $products = EpoxyProduct::where('is_active', true)->forCurrentBrand()->with('brand')->orderBy('name')->get();
+        $rawMaterials = RawMaterial::where('is_active', true)->with('brand')->forCurrentBrand()->orderBy('name')->get();
+        $packingMaterials = PackingMaterial::where('status', 'active')->with(['brand', 'category'])->forCurrentBrand()->orderBy('name')->get();
         $units = Unit::where('is_active', true)->get();
         
-        return view('admin.epoxy_formulas.create', compact('products', 'rawMaterials', 'units'));
+        return view('admin.epoxy_formulas.create', compact('products', 'rawMaterials', 'packingMaterials', 'units'));
     }
 
     public function store(Request $request)
@@ -38,7 +60,9 @@ class EpoxyFormulaController extends Controller
             'is_active' => 'boolean',
             'description' => 'nullable|string',
             'items' => 'required|array|min:1',
-            'items.*.raw_material_id' => 'required|exists:raw_materials,id',
+            'items.*.item_type' => 'required|in:raw,packing',
+            'items.*.raw_material_id' => 'required_if:items.*.item_type,raw|nullable|exists:raw_materials,id',
+            'items.*.packing_material_id' => 'required_if:items.*.item_type,packing|nullable|exists:packing_materials,id',
             'items.*.quantity' => 'required|numeric|min:0.0001',
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.material_type' => 'required|string|in:Bottle,Pouch,Accessory,Bucket',
@@ -62,9 +86,11 @@ class EpoxyFormulaController extends Controller
             ]);
 
             foreach ($request->items as $item) {
+                $isPacking = isset($item['item_type']) && $item['item_type'] === 'packing';
                 EpoxyFormulaItem::create([
                     'epoxy_formula_id' => $formula->id,
-                    'raw_material_id' => $item['raw_material_id'],
+                    'raw_material_id' => !$isPacking ? ($item['raw_material_id'] ?? null) : null,
+                    'packing_material_id' => $isPacking ? ($item['packing_material_id'] ?? null) : null,
                     'quantity' => $item['quantity'],
                     'unit_id' => $item['unit_id'],
                     'material_type' => $item['material_type'],
@@ -78,19 +104,19 @@ class EpoxyFormulaController extends Controller
 
     public function show(EpoxyFormula $epoxyFormula)
     {
-        $epoxyFormula->load(['product', 'items.rawMaterial', 'items.unit']);
+        $epoxyFormula->load(['product.brand', 'items.rawMaterial', 'items.packingMaterial', 'items.unit']);
         return view('admin.epoxy_formulas.show', compact('epoxyFormula'));
     }
 
     public function edit(EpoxyFormula $epoxyFormula)
     {
-        $products = EpoxyProduct::all();
-        $deptEPX = Department::where('code', 'EPX')->first();
-        $rawMaterials = $deptEPX ? RawMaterial::where('department_id', $deptEPX->id)->get() : collect();
+        $products = EpoxyProduct::forCurrentBrand()->with('brand')->orderBy('name')->get();
+        $rawMaterials = RawMaterial::where('is_active', true)->with('brand')->forCurrentBrand()->orderBy('name')->get();
+        $packingMaterials = PackingMaterial::where('status', 'active')->with(['brand', 'category'])->forCurrentBrand()->orderBy('name')->get();
         $units = Unit::all();
         $epoxyFormula->load('items');
 
-        return view('admin.epoxy_formulas.edit', compact('epoxyFormula', 'products', 'rawMaterials', 'units'));
+        return view('admin.epoxy_formulas.edit', compact('epoxyFormula', 'products', 'rawMaterials', 'packingMaterials', 'units'));
     }
 
     public function update(Request $request, EpoxyFormula $epoxyFormula)
@@ -101,7 +127,9 @@ class EpoxyFormulaController extends Controller
             'is_active' => 'boolean',
             'description' => 'nullable|string',
             'items' => 'required|array|min:1',
-            'items.*.raw_material_id' => 'required|exists:raw_materials,id',
+            'items.*.item_type' => 'required|in:raw,packing',
+            'items.*.raw_material_id' => 'required_if:items.*.item_type,raw|nullable|exists:raw_materials,id',
+            'items.*.packing_material_id' => 'required_if:items.*.item_type,packing|nullable|exists:packing_materials,id',
             'items.*.quantity' => 'required|numeric|min:0.0001',
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.material_type' => 'required|string|in:Bottle,Pouch,Accessory,Bucket',
@@ -127,9 +155,11 @@ class EpoxyFormulaController extends Controller
             $epoxyFormula->items()->delete();
 
             foreach ($request->items as $item) {
+                $isPacking = isset($item['item_type']) && $item['item_type'] === 'packing';
                 EpoxyFormulaItem::create([
                     'epoxy_formula_id' => $epoxyFormula->id,
-                    'raw_material_id' => $item['raw_material_id'],
+                    'raw_material_id' => !$isPacking ? ($item['raw_material_id'] ?? null) : null,
+                    'packing_material_id' => $isPacking ? ($item['packing_material_id'] ?? null) : null,
                     'quantity' => $item['quantity'],
                     'unit_id' => $item['unit_id'],
                     'material_type' => $item['material_type'],

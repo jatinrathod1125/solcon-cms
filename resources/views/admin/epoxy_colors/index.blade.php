@@ -28,8 +28,19 @@
                     placeholder="Search name/code...">
             </div>
 
+            <!-- Brand Filter -->
+            <select name="brand_id" onchange="this.form.submit()"
+                class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
+                <option value="">All Brands</option>
+                @foreach($brands as $brand)
+                    <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                        {{ $brand->name }}
+                    </option>
+                @endforeach
+            </select>
+
             <!-- Status Filter -->
-            <select name="status"
+            <select name="status" onchange="this.form.submit()"
                 class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
                 <option value="">All Statuses</option>
                 <option value="active" {{ request('status')==='active' ? 'selected' : '' }}>Active Only</option>
@@ -37,10 +48,10 @@
             </select>
 
             <!-- Action buttons -->
-            <div class="sm:col-span-2 md:col-span-2 flex justify-end gap-2">
-                @if(request()->anyFilled(['search', 'status']))
+            <div class="flex justify-end gap-2">
+                @if(request()->anyFilled(['search', 'brand_id', 'status']))
                 <a href="{{ route('admin.epoxy-colors.index') }}"
-                    class="px-4 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs font-semibold transition-colors">
+                    class="px-4 py-2 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs font-semibold transition-colors flex items-center justify-center">
                     Clear Filters
                 </a>
                 @endif
@@ -53,13 +64,14 @@
     </div>
 
     <!-- Data Table -->
-    <div class="bg-slate-950 border border-slate-850 rounded-2xl overflow-hidden shadow-xl">
+    <div class="bg-slate-955 border border-slate-850 rounded-2xl overflow-hidden shadow-xl">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-sm">
                 <thead>
                     <tr class="border-b border-slate-850 bg-slate-900/50 text-slate-400 font-semibold">
                         <th class="p-4 w-28">Code</th>
                         <th class="p-4">Color Name</th>
+                        <th class="p-4">Brand</th>
                         <th class="p-4">Audit Details</th>
                         <th class="p-4 w-32">Status</th>
                         <th class="p-4 w-32 text-right">Actions</th>
@@ -77,6 +89,19 @@
                         <td class="p-4">
                             <div class="font-semibold text-white">{{ $color->name }}</div>
                             <div class="text-xs text-slate-500 max-w-xs truncate">{{ $color->description ?? '-' }}</div>
+                        </td>
+
+                        <!-- Brand -->
+                        <td class="p-4">
+                            @if($color->brand)
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                    {{ $color->brand->name }}
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 border border-slate-700">
+                                    Common
+                                </span>
+                            @endif
                         </td>
 
                         <!-- Audit Details -->
@@ -124,7 +149,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="p-8 text-center text-slate-500">
+                        <td colspan="6" class="p-8 text-center text-slate-500">
                             <div class="flex flex-col items-center justify-center gap-2">
                                 <i data-lucide="palette" class="w-8 h-8 text-slate-600"></i>
                                 <span class="text-sm font-semibold">No colors found matching the search criteria.</span>

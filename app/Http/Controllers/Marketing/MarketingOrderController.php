@@ -81,7 +81,7 @@ class MarketingOrderController extends Controller
         $adhesives = $this->orderService->getProductsByDepartment('TAD');
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
-        $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
+        $epoxyColors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->orderBy('code', 'asc')->get();
         $groutColorsQuery = Color::with('brand')
             ->where('is_active', true)
             ->where('packing_size', '!=', '500 GM');
@@ -325,7 +325,7 @@ class MarketingOrderController extends Controller
         $adhesives = $this->orderService->getProductsByDepartment('TAD');
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
-        $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
+        $epoxyColors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->orderBy('code', 'asc')->get();
         $groutColorsQuery = Color::with('brand')
             ->where('is_active', true)
             ->where('packing_size', '!=', '500 GM');
@@ -343,16 +343,16 @@ class MarketingOrderController extends Controller
         $resinKitProduct = EpoxyProduct::where('code', 'RK')->first();
         $resinKit15Product = EpoxyProduct::where('code', 'RK1')->first();
         
-        $jariComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-JARI-%')->get();
-        $sbPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SBP-%')->get();
-        $sbPlusPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SBPP-%')->get();
-        $skPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SKP-%')->get();
+        $jariComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-JARI-%')->get();
+        $sbPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-SBP-%')->get();
+        $sbPlusPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-SBPP-%')->get();
+        $skPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-SKP-%')->get();
         
-        $spacerComponents = EpoxyComponent::where('is_active', true)->where(function ($q) {
+        $spacerComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
             $q->where('name', 'like', '%SPACER%')->orWhere('code', 'like', '%SP%');
         })->get();
 
-        $levelerComponents = EpoxyComponent::where('is_active', true)->where(function ($q) {
+        $levelerComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
             $q->where('name', 'like', '%CLIP%')
               ->orWhere('name', 'like', '%WEDGE%')
               ->orWhere('name', 'like', '%LEVELLING%')
@@ -392,7 +392,7 @@ class MarketingOrderController extends Controller
         $adhesives = $this->orderService->getProductsByDepartment('TAD');
         $grouts = $this->orderService->getProductsByDepartment('GRT');
         $epoxies = $this->orderService->getProductsByDepartment('EPX');
-        $epoxyColors = EpoxyFillerColor::where('is_active', true)->orderBy('code', 'asc')->get();
+        $epoxyColors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->orderBy('code', 'asc')->get();
         $groutColorsQuery = Color::with('brand')
             ->where('is_active', true)
             ->where('packing_size', '!=', '500 GM');
@@ -742,8 +742,8 @@ class MarketingOrderController extends Controller
     {
         $validated = $request->validate([
             'department_code' => 'required|in:TAD,GRT,EPX',
-            'product_id' => 'nullable|integer|required_without:component_id|prohibited_with:component_id',
-            'component_id' => 'nullable|integer|exists:epoxy_components,id|required_without:product_id|prohibited_with:product_id',
+            'product_id' => 'nullable|integer|required_without:component_id|prohibits:component_id',
+            'component_id' => 'nullable|integer|exists:epoxy_components,id|required_without:product_id|prohibits:product_id',
             'packing' => 'nullable|string',
             'coupon_raw_material_id' => 'nullable|integer',
         ]);

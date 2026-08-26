@@ -3,63 +3,82 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\EpoxyComponent;
 use App\Models\EpoxyFillerColor;
 use App\Models\RawMaterial;
 use App\Models\Department;
 use App\Models\Unit;
+use App\Http\Requests\Admin\StoreEpoxyComponentRequest;
+use App\Http\Requests\Admin\UpdateEpoxyComponentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class EpoxyComponentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $components = EpoxyComponent::with(['unit', 'color', 'parentComponent', 'rawMaterial'])->get();
-        return view('admin.epoxy_components.index', compact('components'));
+        $query = EpoxyComponent::with(['brand', 'unit', 'color', 'parentComponent', 'rawMaterial']);
+
+        if (function_exists('currentBrand') && currentBrand()) {
+            $query->forBrand(currentBrand());
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->input('brand_id'));
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->input('category'));
+        }
+
+        if ($request->filled('status')) {
+            if ($request->status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->status === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        $components = $query->orderBy('name')->paginate(15)->withQueryString();
+        $brands = Brand::active()->orderBy('name')->get();
+
+        return view('admin.epoxy_components.index', compact('components', 'brands'));
     }
 
     public function create()
     {
         $units = Unit::where('is_active', true)->get();
-        $colors = EpoxyFillerColor::where('is_active', true)->get();
-        $parentComponents = EpoxyComponent::whereNull('parent_component_id')->get();
+        $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->get();
+        $parentComponents = EpoxyComponent::whereNull('parent_component_id')->forCurrentBrand()->get();
+        $brands = Brand::active()->orderBy('name')->get();
         
-        return view('admin.epoxy_components.create', compact('units', 'colors', 'parentComponents'));
+        return view('admin.epoxy_components.create', compact('units', 'colors', 'parentComponents', 'brands'));
     }
 
-    public function store(Request $request)
+    public function store(StoreEpoxyComponentRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:epoxy_components,code',
-            'category' => 'required|string|in:Bottle,Pouch,Packet,Liquid,Powder,Plastic,Accessory,Other',
-            'purpose' => 'required|string|in:Assembly Component,Direct Finished Product',
-            'unit_id' => 'required|exists:units,id',
-            'is_active' => 'boolean',
-            'description' => 'nullable|string',
-            'parent_component_id' => 'nullable|exists:epoxy_components,id',
-            'epoxy_filler_color_id' => 'nullable|exists:epoxy_filler_colors,id',
-        ]);
+        $data = $request->validated();
+        $data['code'] = strtoupper($data['code']);
+        $data['is_active'] = $request->boolean('is_active', true);
 
-        DB::transaction(function () use ($request) {
-            $component = EpoxyComponent::create([
-                'name' => $request->name,
-                'code' => strtoupper($request->code),
-                'category' => $request->category,
-                'purpose' => $request->purpose,
-                'unit_id' => $request->unit_id,
-                'is_active' => $request->has('is_active'),
-                'description' => $request->description,
-                'parent_component_id' => $request->parent_component_id,
-                'epoxy_filler_color_id' => $request->epoxy_filler_color_id,
-            ]);
+        DB::transaction(function () use ($data, $request) {
+            $component = EpoxyComponent::create($data);
 
             if ($request->purpose === 'Assembly Component') {
                 $deptEPX = Department::where('code', 'EPX')->firstOrFail();
                 $rawMaterial = RawMaterial::updateOrCreate(
                     ['code' => $component->code],
                     [
+                        'brand_id' => $component->brand_id,
                         'name' => $component->name,
                         'department_id' => $deptEPX->id,
                         'stock_unit_id' => $component->unit_id,
@@ -78,44 +97,28 @@ class EpoxyComponentController extends Controller
     public function edit(EpoxyComponent $epoxyComponent)
     {
         $units = Unit::where('is_active', true)->get();
-        $colors = EpoxyFillerColor::where('is_active', true)->get();
-        $parentComponents = EpoxyComponent::whereNull('parent_component_id')->where('id', '!=', $epoxyComponent->id)->get();
+        $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->get();
+        $parentComponents = EpoxyComponent::whereNull('parent_component_id')->where('id', '!=', $epoxyComponent->id)->forCurrentBrand()->get();
+        $brands = Brand::active()->orderBy('name')->get();
         
-        return view('admin.epoxy_components.edit', compact('epoxyComponent', 'units', 'colors', 'parentComponents'));
+        return view('admin.epoxy_components.edit', compact('epoxyComponent', 'units', 'colors', 'parentComponents', 'brands'));
     }
 
-    public function update(Request $request, EpoxyComponent $epoxyComponent)
+    public function update(UpdateEpoxyComponentRequest $request, EpoxyComponent $epoxyComponent)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:epoxy_components,code,' . $epoxyComponent->id,
-            'category' => 'required|string|in:Bottle,Pouch,Packet,Liquid,Powder,Plastic,Accessory,Other',
-            'purpose' => 'required|string|in:Assembly Component,Direct Finished Product',
-            'unit_id' => 'required|exists:units,id',
-            'is_active' => 'boolean',
-            'description' => 'nullable|string',
-            'parent_component_id' => 'nullable|exists:epoxy_components,id',
-            'epoxy_filler_color_id' => 'nullable|exists:epoxy_filler_colors,id',
-        ]);
+        $data = $request->validated();
+        $data['code'] = strtoupper($data['code']);
+        $data['is_active'] = $request->boolean('is_active');
 
-        DB::transaction(function () use ($request, $epoxyComponent) {
-            $epoxyComponent->update([
-                'name' => $request->name,
-                'code' => strtoupper($request->code),
-                'category' => $request->category,
-                'purpose' => $request->purpose,
-                'unit_id' => $request->unit_id,
-                'is_active' => $request->has('is_active'),
-                'description' => $request->description,
-                'parent_component_id' => $request->parent_component_id,
-                'epoxy_filler_color_id' => $request->epoxy_filler_color_id,
-            ]);
+        DB::transaction(function () use ($data, $request, $epoxyComponent) {
+            $epoxyComponent->update($data);
 
             if ($request->purpose === 'Assembly Component') {
                 $deptEPX = Department::where('code', 'EPX')->firstOrFail();
                 $rawMaterial = RawMaterial::updateOrCreate(
                     ['code' => $epoxyComponent->code],
                     [
+                        'brand_id' => $epoxyComponent->brand_id,
                         'name' => $epoxyComponent->name,
                         'department_id' => $deptEPX->id,
                         'stock_unit_id' => $epoxyComponent->unit_id,
