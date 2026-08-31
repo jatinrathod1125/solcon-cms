@@ -71,29 +71,62 @@ class EpoxyAssemblyService
 
                 if (!$isPacking && $item->is_dynamic_color) {
                     if ($epoxyFillerColor && $rawMaterial) {
-                        // Find parent component
-                        $parentComponent = EpoxyComponent::where('raw_material_id', $rawMaterial->id)
-                            ->orWhere('template_material_id', $rawMaterial->id)
+                        $brandId = $product->brand_id ?? (function_exists('currentBrand') && currentBrand() ? currentBrand()->id : null);
+
+                        // 1. Direct match: EpoxyComponent for this brand and color
+                        $directComponent = EpoxyComponent::where('epoxy_filler_color_id', $epoxyFillerColor->id)
+                            ->when($brandId, fn($q) => $q->where('brand_id', $brandId))
                             ->first();
 
-                        if (!$parentComponent) {
-                            throw ValidationException::withMessages([
-                                'color_id' => ["Epoxy Component for template '{$rawMaterial->name}' not configured."],
-                            ]);
+                        if (!$directComponent) {
+                            $directComponent = EpoxyComponent::where('epoxy_filler_color_id', $epoxyFillerColor->id)->first();
                         }
 
-                        // Find child component matching color
-                        $childComponent = EpoxyComponent::where('parent_component_id', $parentComponent->id)
-                            ->where('epoxy_filler_color_id', $epoxyFillerColor->id)
-                            ->first();
+                        if ($directComponent && $directComponent->rawMaterial) {
+                            $resolvedMat = $directComponent->rawMaterial;
+                        } else {
+                            // 2. Parent / Template component lookup
+                            $parentComponent = EpoxyComponent::where('raw_material_id', $rawMaterial->id)
+                                ->orWhere('template_material_id', $rawMaterial->id)
+                                ->first();
 
-                        if (!$childComponent || !$childComponent->raw_material_id) {
-                            throw ValidationException::withMessages([
-                                'color_id' => ["Color-specific ready component for '{$parentComponent->name}' with color '{$epoxyFillerColor->name}' not configured in inventory."],
-                            ]);
+                            if ($parentComponent) {
+                                $childComponent = EpoxyComponent::where('parent_component_id', $parentComponent->id)
+                                    ->where('epoxy_filler_color_id', $epoxyFillerColor->id)
+                                    ->first();
+
+                                if ($childComponent && $childComponent->rawMaterial) {
+                                    $resolvedMat = $childComponent->rawMaterial;
+                                } else {
+                                    $mapping = EpoxyComponentMapping::where('epoxy_component_id', $parentComponent->id)
+                                        ->where('epoxy_filler_color_id', $epoxyFillerColor->id)
+                                        ->first();
+                                    if ($mapping && $mapping->rawMaterial) {
+                                        $resolvedMat = $mapping->rawMaterial;
+                                    }
+                                }
+                            }
                         }
 
-                        $resolvedMat = $childComponent->rawMaterial;
+                        if (!$resolvedMat) {
+                            // 3. Fallback to RawMaterial by color suffix or name
+                            $colorSuffix = str_replace('GR-', '', $epoxyFillerColor->code);
+                            $specificRm = RawMaterial::where('department_id', $deptEPX->id)
+                                ->where(function ($q) use ($epoxyFillerColor, $colorSuffix) {
+                                    $q->where('code', 'like', "%{$colorSuffix}%")
+                                      ->orWhere('name', 'like', "%{$epoxyFillerColor->name}%");
+                                })
+                                ->where('name', 'like', '%Filler%')
+                                ->first();
+
+                            if ($specificRm) {
+                                $resolvedMat = $specificRm;
+                            } else {
+                                throw ValidationException::withMessages([
+                                    'color_id' => ["Color-specific ready component for '{$rawMaterial->name}' with color '{$epoxyFillerColor->name}' not configured in inventory."],
+                                ]);
+                            }
+                        }
                     } elseif ($color && $rawMaterial) {
                         // Fallback/Legacy resolution for Grout colors
                         $colorCodeSuffix = str_replace('GR-', '', $color->code);

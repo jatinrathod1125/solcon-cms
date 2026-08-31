@@ -270,6 +270,130 @@ class ReportController extends Controller
                 }
             }
 
+            // Material Consumption Summary (OUT)
+            if ($data['showConsumption'] && (count($data['materialSummary']) > 0 || count($data['packingMaterialConsumptionSummary']) > 0)) {
+                fputcsv($file, ['--- MATERIAL CONSUMPTION SUMMARY (OUT) ---']);
+                
+                if (count($data['materialSummary']) > 0) {
+                    fputcsv($file, ['RAW MATERIAL CONSUMPTION']);
+                    fputcsv($file, ['Material Name', 'Code', 'Department', 'Consumed Quantity', 'Unit']);
+                    foreach ($data['materialSummary'] as $mat) {
+                        if ($mat->rawMaterial) {
+                            fputcsv($file, [
+                                $mat->rawMaterial->name,
+                                $mat->rawMaterial->code,
+                                $mat->rawMaterial->department?->name ?? '-',
+                                number_format($mat->total_consumed, 2),
+                                $mat->rawMaterial->stockUnit?->code ?? 'KG',
+                            ]);
+                        }
+                    }
+                    fputcsv($file, ['Total Raw Consumed Weight:', number_format($data['totalConsumptionWeight'], 2) . ' KG']);
+                    fputcsv($file, []);
+                }
+
+                if (count($data['packingMaterialConsumptionSummary']) > 0) {
+                    fputcsv($file, ['PACKING MATERIAL CONSUMPTION']);
+                    fputcsv($file, ['Packing Material Name', 'Code', 'Category', 'Consumed Quantity (PCS)']);
+                    foreach ($data['packingMaterialConsumptionSummary'] as $pmOut) {
+                        if ($pmOut->packingMaterial) {
+                            fputcsv($file, [
+                                $pmOut->packingMaterial->name,
+                                $pmOut->packingMaterial->code,
+                                $pmOut->packingMaterial->category?->name ?? '-',
+                                $pmOut->total_consumed,
+                            ]);
+                        }
+                    }
+                    fputcsv($file, ['Total Packing Consumed Quantity:', $data['totalConsumptionPackingQty'] . ' PCS']);
+                    fputcsv($file, []);
+                }
+            }
+
+            // Material Inward Summary (IN)
+            if ($data['showInward'] && (count($data['rawMaterialInwardSummary']) > 0 || count($data['packingMaterialInwardSummary']) > 0)) {
+                fputcsv($file, ['--- MATERIAL INWARD & STOCK RECEIPTS (IN) ---']);
+                
+                if (count($data['rawMaterialInwardSummary']) > 0) {
+                    fputcsv($file, ['RAW MATERIAL INWARD']);
+                    fputcsv($file, ['Material Name', 'Code', 'Department', 'Inward Quantity', 'Unit', 'Entries Count']);
+                    foreach ($data['rawMaterialInwardSummary'] as $rmIn) {
+                        if ($rmIn->rawMaterial) {
+                            fputcsv($file, [
+                                $rmIn->rawMaterial->name,
+                                $rmIn->rawMaterial->code,
+                                $rmIn->rawMaterial->department?->name ?? '-',
+                                $rmIn->total_inward,
+                                $rmIn->rawMaterial->stockUnit?->code ?? 'KG',
+                                $rmIn->entry_count,
+                            ]);
+                        }
+                    }
+                    fputcsv($file, ['Total Raw Inward Weight:', number_format($data['totalInwardRawWeight'], 2) . ' KG']);
+                    fputcsv($file, []);
+                }
+
+                if (count($data['packingMaterialInwardSummary']) > 0) {
+                    fputcsv($file, ['PACKING MATERIAL INWARD']);
+                    fputcsv($file, ['Material Name', 'Code', 'Category', 'Inward Quantity (PCS)', 'Entries Count']);
+                    foreach ($data['packingMaterialInwardSummary'] as $pmIn) {
+                        if ($pmIn->packingMaterial) {
+                            fputcsv($file, [
+                                $pmIn->packingMaterial->name,
+                                $pmIn->packingMaterial->code,
+                                $pmIn->packingMaterial->category?->name ?? '-',
+                                $pmIn->total_inward,
+                                $pmIn->entry_count,
+                            ]);
+                        }
+                    }
+                    fputcsv($file, ['Total Packing Inward Quantity:', $data['totalInwardPackingQty'] . ' PCS']);
+                    fputcsv($file, []);
+                }
+            }
+
+            // Completed Dispatches Report
+            if ($data['showDispatch'] && count($data['dispatches']) > 0) {
+                fputcsv($file, ['--- COMPLETED DISPATCHES & LOGISTICS REPORT ---']);
+                fputcsv($file, ['Total Dispatches:', $data['totalDispatchesCount']]);
+                fputcsv($file, ['Total Dispatched Weight:', number_format($data['totalDispatchedWeightKg'], 2) . ' KG (' . number_format($data['totalDispatchedWeightKg'] / 1000, 3) . ' Tons)']);
+                fputcsv($file, []);
+
+                fputcsv($file, ['DISPATCHED PRODUCTS BREAKDOWN']);
+                fputcsv($file, ['Product Name', 'Department', 'Quantity', 'Unit', 'Weight (KG)', 'Weight (Tons)']);
+                foreach ($data['dispatchedProductsSummary'] as $prod) {
+                    fputcsv($file, [
+                        $prod['product_name'],
+                        $prod['department'],
+                        $prod['total_quantity'],
+                        $prod['unit'],
+                        number_format($prod['total_weight_kg'], 2),
+                        number_format($prod['total_weight_kg'] / 1000, 3),
+                    ]);
+                }
+                fputcsv($file, []);
+
+                fputcsv($file, ['COMPLETED DISPATCHES LIST']);
+                fputcsv($file, ['Dispatch No', 'Date', 'Party Name', 'City', 'Vehicle Number', 'Total Bags/Units', 'Total Weight (KG)', 'Products Summary']);
+                foreach ($data['dispatches'] as $d) {
+                    $dBags = $d->items->sum('quantity_bags');
+                    $dKg = $d->items->sum('calculated_weight_kg');
+                    $dDate = $d->loaded_at ?? $d->created_at;
+                    $itemSummary = $d->items->map(fn($it) => $it->quantity_bags . ' ' . $it->unit_label . ' ' . $it->product_name)->implode(', ');
+                    fputcsv($file, [
+                        $d->dispatch_number,
+                        $dDate ? $dDate->format('Y-m-d H:i') : '-',
+                        $d->party_name,
+                        $d->city ?: '-',
+                        $d->vehicle_number ?: '-',
+                        $dBags,
+                        number_format($dKg, 2),
+                        $itemSummary,
+                    ]);
+                }
+                fputcsv($file, []);
+            }
+
             fclose($file);
         };
 

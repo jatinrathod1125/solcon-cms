@@ -21,8 +21,17 @@ class FinishedGoodsResolver
     /** @var array<string, string> */
     private const COMPONENT_PACKINGS = [
         'EPX-GA-200GM' => '200GM',
+        'EPX-GA-200GM-B2' => '200GM',
         'EPX-TC-1LTR' => '1-LTR',
+        'EPX-TC-1LTR-B2' => '1-LTR',
         'EPX-TC-5LTR' => '5-LTR',
+        'EPX-TC-5LTR-B2' => '5-LTR',
+        'EPX-SOL-1.8KG' => '1.8KG',
+        'EPX-SOL-1.8KG-B2' => '1.8KG',
+        'EPX-SOL-900GM' => '900 GM',
+        'EPX-SOL-900GM-B2' => '900 GM',
+        'EPX-SOL-450GM' => '450 GM',
+        'EPX-SOL-450GM-B2' => '450 GM',
     ];
 
     public function findForOrderItem(MarketingOrderItem $item): ?FinishedGood
@@ -126,13 +135,17 @@ class FinishedGoodsResolver
             return $componentId;
         }
 
-        $productCode = $productId
-            ? EpoxyProduct::whereKey($productId)->value('code')
-            : null;
+        $product = $productId ? EpoxyProduct::whereKey($productId)->first() : null;
+        $productCode = $product ? strtoupper((string) $product->code) : '';
+        $isBrand2 = $product && $product->brand_id == 2;
 
-        $componentCode = match (strtoupper((string) $productCode)) {
+        $componentCode = match ($productCode) {
             'GA' => 'EPX-GA-200GM',
-            'TC' => $this->tilesCleanerComponentCode($packing),
+            'GA-B2' => 'EPX-GA-200GM-B2',
+            'TC' => $this->tilesCleanerComponentCode($packing, false),
+            'TC-B2' => $this->tilesCleanerComponentCode($packing, true),
+            'SOL' => $this->solititeComponentCode($packing, false),
+            'SOL-B2' => $this->solititeComponentCode($packing, true),
             // Old orders in the supplied database reference deleted product IDs.
             // Only apply this fallback when the product record itself is missing.
             '' => $this->legacyComponentCode($packing),
@@ -144,21 +157,36 @@ class FinishedGoodsResolver
             : null;
     }
 
-    private function legacyComponentCode(?string $packing): ?string
+    private function solititeComponentCode(?string $packing, bool $isBrand2 = false): ?string
     {
+        $suffix = $isBrand2 ? '-B2' : '';
         return match ($this->normalisePacking($packing)) {
-            '200GM' => 'EPX-GA-200GM',
-            '1LTR' => 'EPX-TC-1LTR',
-            '5LTR' => 'EPX-TC-5LTR',
+            '1.8KG', '18KG' => 'EPX-SOL-1.8KG' . $suffix,
+            '900GM', '900G' => 'EPX-SOL-900GM' . $suffix,
+            '450GM', '450G' => 'EPX-SOL-450GM' . $suffix,
             default => null,
         };
     }
 
-    private function tilesCleanerComponentCode(?string $packing): ?string
+    private function legacyComponentCode(?string $packing): ?string
     {
         return match ($this->normalisePacking($packing)) {
-            '1LTR' => 'EPX-TC-1LTR',
-            '5LTR' => 'EPX-TC-5LTR',
+            '200GM' => 'EPX-GA-200GM',
+            '1LTR', '1L' => 'EPX-TC-1LTR',
+            '5LTR', '5L' => 'EPX-TC-5LTR',
+            '1.8KG', '18KG' => 'EPX-SOL-1.8KG',
+            '900GM', '900G' => 'EPX-SOL-900GM',
+            '450GM', '450G' => 'EPX-SOL-450GM',
+            default => null,
+        };
+    }
+
+    private function tilesCleanerComponentCode(?string $packing, bool $isBrand2 = false): ?string
+    {
+        $suffix = $isBrand2 ? '-B2' : '';
+        return match ($this->normalisePacking($packing)) {
+            '1LTR', '1L' => 'EPX-TC-1LTR' . $suffix,
+            '5LTR', '5L' => 'EPX-TC-5LTR' . $suffix,
             default => null,
         };
     }

@@ -53,13 +53,59 @@ class DashboardController extends Controller
      */
     public function orders()
     {
+        $user = auth()->user();
+
         $ordersQuery = \App\Models\MarketingOrder::approved()
-            ->orderByDesc('approved_at')
-            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator', 'approver']);
+            ->orderByDesc('approved_at');
 
         if (function_exists('currentBrand') && currentBrand()) {
             $ordersQuery->forBrand(currentBrand());
         }
+
+        $deptCodes = [];
+        if ($user && $user->isSupervisor()) {
+            $assignedCodes = $user->departments()->pluck('code')->toArray();
+            if ($user->department) {
+                $assignedCodes[] = $user->department->code;
+            }
+
+            if (empty($assignedCodes)) {
+                $userName = strtolower($user->name);
+                if (str_contains($userName, 'adhesive')) {
+                    $assignedCodes[] = 'TAD';
+                } elseif (str_contains($userName, 'grout')) {
+                    $assignedCodes[] = 'GRT';
+                } elseif (str_contains($userName, 'epoxy')) {
+                    $assignedCodes[] = 'EPX';
+                }
+            }
+
+            foreach ($assignedCodes as $rc) {
+                $upper = strtoupper(trim($rc));
+                $deptCodes[] = $upper;
+                if ($upper === 'TAD') {
+                    $deptCodes[] = 'Tad';
+                }
+            }
+            $deptCodes = array_values(array_unique($deptCodes));
+
+            if (!empty($deptCodes)) {
+                $ordersQuery->whereHas('items', function ($itemQ) use ($deptCodes) {
+                    $itemQ->whereIn('department_code', $deptCodes);
+                });
+            }
+        }
+
+        $ordersQuery->with([
+            'items' => function ($itemQ) use ($user, $deptCodes) {
+                if ($user && $user->isSupervisor() && !empty($deptCodes)) {
+                    $itemQ->whereIn('department_code', $deptCodes);
+                }
+                $itemQ->with(['grade.brand', 'color.brand', 'epoxyProduct', 'epoxyFillerColor', 'epoxyComponent', 'couponMaterial']);
+            },
+            'creator',
+            'approver'
+        ]);
 
         $orders = $ordersQuery->get();
 

@@ -334,35 +334,6 @@ class MarketingOrderController extends Controller
         }
         $groutColors = $groutColorsQuery->orderBy('code', 'asc')->get();
 
-        // New dynamic Epoxy products and components
-        $solititeProduct = EpoxyProduct::where('code', 'SOL')->first();
-        $tilesCleanerProduct = EpoxyProduct::where('code', 'TC')->first();
-        $groutAdmixProduct = EpoxyProduct::where('code', 'GA')->first();
-        $spacerProduct = EpoxyProduct::where('code', 'SP')->first();
-        $levelerProduct = EpoxyProduct::where('code', 'TL')->first();
-        $resinKitProduct = EpoxyProduct::where('code', 'RK')->first();
-        $resinKit15Product = EpoxyProduct::where('code', 'RK1')->first();
-        
-        $jariComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-JARI-%')->get();
-        $sbPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-SBP-%')->get();
-        $sbPlusPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-SBPP-%')->get();
-        $skPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', 'EPX-SKP-%')->get();
-        
-        $spacerComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
-            $q->where('name', 'like', '%SPACER%')->orWhere('code', 'like', '%SP%');
-        })->get();
-
-        $levelerComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
-            $q->where('name', 'like', '%CLIP%')
-              ->orWhere('name', 'like', '%WEDGE%')
-              ->orWhere('name', 'like', '%LEVELLING%')
-              ->orWhere('name', 'like', '%TROWEL%')
-              ->orWhere('name', 'like', '%PLIER%')
-              ->orWhere('name', 'like', '%VACUUM%')
-              ->orWhere('name', 'like', '%PLASTIC%')
-              ->orWhere('name', 'like', '%STEEL%');
-        })->get();
-
         $epoxyData = $this->getEpoxyProductsAndComponents();
 
         return view('marketing.orders.show', array_merge([
@@ -767,92 +738,55 @@ class MarketingOrderController extends Controller
      */
     private function getEpoxyProductsAndComponents(): array
     {
-        $solititeProduct = EpoxyProduct::firstOrCreate(['code' => 'SOL'], ['name' => 'SOLITITE', 'requires_color' => 0, 'is_active' => 1]);
-        $tilesCleanerProduct = EpoxyProduct::firstOrCreate(['code' => 'TC'], ['name' => 'TILES CLEANER', 'requires_color' => 0, 'is_active' => 1]);
-        $groutAdmixProduct = EpoxyProduct::firstOrCreate(['code' => 'GA'], ['name' => 'GROUT ADMIX', 'requires_color' => 0, 'is_active' => 1]);
-        $spacerProduct = EpoxyProduct::firstOrCreate(['code' => 'SP'], ['name' => 'SPACER', 'requires_color' => 0, 'is_active' => 1]);
-        $levelerProduct = EpoxyProduct::firstOrCreate(['code' => 'TL'], ['name' => 'TILES LEVELER', 'requires_color' => 0, 'is_active' => 1]);
-        $resinKitProduct = EpoxyProduct::firstOrCreate(['code' => 'RK'], ['name' => 'RESIN KIT 0.3KG', 'requires_color' => 0, 'is_active' => 1]);
-        $resinKit15Product = EpoxyProduct::firstOrCreate(['code' => 'RK1'], ['name' => 'RESIN KIT 1.5KG', 'requires_color' => 0, 'is_active' => 1]);
+        $solititeProduct = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'SOL%')->orWhere('name', 'like', '%SOLITITE%');
+        })->first();
 
-        // Ensure Jari Components exist
-        $jariList = [
-            ['code' => 'EPX-JARI-SLV', 'name' => 'Jari Powder - Silver'],
-            ['code' => 'EPX-JARI-CPR', 'name' => 'Jari Powder - Copper'],
-            ['code' => 'EPX-JARI-GLD', 'name' => 'Jari Powder - Gold'],
-            ['code' => 'EPX-JARI-RED', 'name' => 'Jari Powder - Red'],
-        ];
-        foreach ($jariList as $j) {
-            EpoxyComponent::firstOrCreate(['code' => $j['code']], ['name' => $j['name'], 'category' => 'Powder', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]);
-        }
+        $tilesCleanerProduct = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'TC%')->orWhere('name', 'like', '%TILES CLEANER%');
+        })->first();
 
-        // Ensure SB+ Components exist
-        $sbPlusList = [
-            ['code' => 'EPX-SBP-1', 'name' => 'SB+ 1 KG'],
-            ['code' => 'EPX-SBP-5', 'name' => 'SB+ 5 KG'],
-            ['code' => 'EPX-SBP-20', 'name' => 'SB+ 20 KG'],
-        ];
-        foreach ($sbPlusList as $sb) {
-            EpoxyComponent::firstOrCreate(['code' => $sb['code']], ['name' => $sb['name'], 'category' => 'Powder', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]);
-        }
+        $groutAdmixProduct = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'GA%')->orWhere('name', 'like', '%GROUT ADMIX%');
+        })->first();
 
-        // Ensure SB++ Components exist
-        $sbPlusPlusList = [
-            ['code' => 'EPX-SBPP-1', 'name' => 'SB++ 1 KG'],
-            ['code' => 'EPX-SBPP-5', 'name' => 'SB++ 5 KG'],
-            ['code' => 'EPX-SBPP-20', 'name' => 'SB++ 20 KG'],
-        ];
-        foreach ($sbPlusPlusList as $sb) {
-            EpoxyComponent::firstOrCreate(['code' => $sb['code']], ['name' => $sb['name'], 'category' => 'Powder', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]);
-        }
+        $spacerProduct = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'SP%')->orWhere('name', 'like', '%SPACER%');
+        })->first();
 
-        // Ensure SK+ Components exist
-        $skPlusList = [
-            ['code' => 'EPX-SKP-1', 'name' => 'SK+ 1 LTR'],
-            ['code' => 'EPX-SKP-5', 'name' => 'SK+ 5 LTR'],
-            ['code' => 'EPX-SKP-20', 'name' => 'SK+ 20 LTR'],
-        ];
-        foreach ($skPlusList as $sk) {
-            EpoxyComponent::firstOrCreate(['code' => $sk['code']], ['name' => $sk['name'], 'category' => 'Liquid', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]);
-        }
+        $levelerProduct = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'TL%')->orWhere('name', 'like', '%TILES LEVELER%');
+        })->first();
 
-        // Ensure Spacer Components exist
-        $spacerList = [
-            ['code' => 'EPX-SP-2MM', 'name' => 'SPACER 2MM'],
-            ['code' => 'EPX-SP-3MM', 'name' => 'SPACER 3MM'],
-            ['code' => 'EPX-SP-4MM', 'name' => 'SPACER 4MM'],
-            ['code' => 'EPX-SP-5MM', 'name' => 'SPACER 5MM'],
-            ['code' => 'EPX-SP-6MM', 'name' => 'SPACER 6MM'],
-        ];
-        foreach ($spacerList as $sp) {
-            EpoxyComponent::firstOrCreate(['code' => $sp['code']], ['name' => $sp['name'], 'category' => 'Box', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]);
-        }
+        $resinKitProduct = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'RK%')->where('code', 'not like', 'RK1%')->orWhere('name', 'like', '%RESIN KIT 0.3%');
+        })->first();
 
-        // Ensure Tiles Leveler Components exist
-        $levelerList = [
-            ['code' => 'EPX-CLIP-2MM', 'name' => 'CLIP 2MM'],
-            ['code' => 'EPX-CLIP-3MM', 'name' => 'CLIP 3MM'],
-            ['code' => 'EPX-CLIP-4MM', 'name' => 'CLIP 4MM'],
-            ['code' => 'EPX-WEDGE', 'name' => 'WEDGE'],
-            ['code' => 'EPX-JL', 'name' => 'JACK LEVELLING'],
-            ['code' => 'EPX-TROWEL', 'name' => 'TROWEL'],
-            ['code' => 'EPX-PLIER', 'name' => 'PLIER'],
-            ['code' => 'EPX-VAC', 'name' => 'VACUUM'],
-        ];
-        foreach ($levelerList as $lvl) {
-            EpoxyComponent::firstOrCreate(['code' => $lvl['code']], ['name' => $lvl['name'], 'category' => 'Box', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]);
-        }
+        $resinKit15Product = EpoxyProduct::forCurrentBrand()->where(function ($q) {
+            $q->where('code', 'like', 'RK1%')->orWhere('name', 'like', '%RESIN KIT 1.5%');
+        })->first();
 
-        $jariComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-JARI-%')->get();
-        $sbPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SBP-%')->get();
-        $sbPlusPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SBPP-%')->get();
-        $skPlusComponents = EpoxyComponent::where('is_active', true)->where('code', 'like', 'EPX-SKP-%')->get();
-
-        $spacerComponents = EpoxyComponent::where('is_active', true)->where(function ($q) {
-            $q->where('name', 'like', '%SPACER%')->orWhere('code', 'like', '%SP%');
+        $jariComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
+            $q->where('name', 'like', '%Jari%')->orWhere('code', 'like', '%JARI%');
         })->get();
 
-        $levelerComponents = EpoxyComponent::where('is_active', true)->where(function ($q) {
+        $sbPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
+            $q->where('name', 'like', 'SB+ %')->orWhere('code', 'like', '%SBP-%');
+        })->get();
+
+        $sbPlusPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
+            $q->where('name', 'like', 'SB++ %')->orWhere('code', 'like', '%SBPP-%');
+        })->get();
+
+        $skPlusComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
+            $q->where('name', 'like', 'SK+ %')->orWhere('code', 'like', '%SKP-%');
+        })->get();
+
+        $spacerComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
+            $q->where('name', 'like', '%SPACER%')->orWhere('code', 'like', '%SP-%')->orWhere('code', 'like', '%SP%');
+        })->get();
+
+        $levelerComponents = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
             $q->where('name', 'like', '%CLIP%')
               ->orWhere('name', 'like', '%WEDGE%')
               ->orWhere('name', 'like', '%LEVELLING%')
@@ -863,28 +797,23 @@ class MarketingOrderController extends Controller
               ->orWhere('name', 'like', '%STEEL%');
         })->get();
 
-        $groutAdmixComponent = EpoxyComponent::firstOrCreate(
-            ['code' => 'EPX-GA-200GM'],
-            ['name' => '200GM Admix', 'category' => 'Box', 'purpose' => 'Direct Finished Product', 'unit_id' => 3, 'is_active' => 1]
-        );
+        $groutAdmixComponent = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where(function ($q) {
+            $q->where('name', 'like', '%Admix%')->orWhere('code', 'like', '%GA-%');
+        })->first();
 
-        $tilesCleanerComponents = collect([
-            ['code' => 'EPX-TC-1LTR', 'name' => 'Tiles Cleaner 1-LTR'],
-            ['code' => 'EPX-TC-5LTR', 'name' => 'Tiles Cleaner 5-LTR'],
-        ])->mapWithKeys(function (array $component) {
-            $model = EpoxyComponent::firstOrCreate(
-                ['code' => $component['code']],
-                [
-                    'name' => $component['name'],
-                    'category' => 'Box',
-                    'purpose' => 'Direct Finished Product',
-                    'unit_id' => 3,
-                    'is_active' => 1,
-                ]
-            );
-
-            return [$model->code => $model];
-        });
+        $tilesCleanerComponents = collect();
+        $tc1 = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', '%TC-1LTR%')->first();
+        $tc5 = EpoxyComponent::where('is_active', true)->forCurrentBrand()->where('code', 'like', '%TC-5LTR%')->first();
+        if ($tc1) {
+            $tilesCleanerComponents->put('EPX-TC-1LTR', $tc1);
+            $tilesCleanerComponents->put('EPX-TC-1LTR-B2', $tc1);
+            $tilesCleanerComponents->put('1-LTR', $tc1);
+        }
+        if ($tc5) {
+            $tilesCleanerComponents->put('EPX-TC-5LTR', $tc5);
+            $tilesCleanerComponents->put('EPX-TC-5LTR-B2', $tc5);
+            $tilesCleanerComponents->put('5-LTR', $tc5);
+        }
 
         return compact(
             'solititeProduct', 'tilesCleanerProduct', 'tilesCleanerComponents', 'groutAdmixProduct', 'groutAdmixComponent', 'spacerProduct',

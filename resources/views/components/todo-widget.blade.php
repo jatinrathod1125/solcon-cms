@@ -1,6 +1,8 @@
 @props(['todos', 'todoCounters', 'supervisors', 'departments'])
 
 @php
+    $activeBrand = currentBrand();
+    $isFixora = ($activeBrand && $activeBrand->id == 2);
     $todoCollection = $todos instanceof \Illuminate\Support\Collection ? $todos : collect($todos ?? []);
     $currentUserId = auth()->id();
 
@@ -17,19 +19,19 @@
 
     $lanes = [
         'pending' => ['label' => 'Pending', 'icon' => 'clock', 'items' => $pendingTasks, 'tone' => 'amber'],
-        'in_progress' => ['label' => 'In Progress', 'icon' => 'activity', 'items' => $inProgressTasks, 'tone' => 'blue'],
+        'in_progress' => ['label' => 'In Progress', 'icon' => 'activity', 'items' => $inProgressTasks, 'tone' => 'primary'],
         'completed' => ['label' => 'Completed', 'icon' => 'check-circle', 'items' => $completedTasks, 'tone' => 'emerald'],
     ];
 
     $priorityBadgeClasses = [
         'high' => 'border-rose-100 bg-rose-50 text-rose-700',
-        'medium' => 'border-blue-100 bg-blue-50 text-blue-700',
+        'medium' => $isFixora ? 'border-emerald-100 bg-emerald-50 text-emerald-700' : 'border-orange-100 bg-orange-50 text-orange-700',
         'low' => 'border-slate-200 bg-slate-100 text-slate-600',
     ];
 
     $statusBadgeClasses = [
         'pending' => 'border-amber-100 bg-amber-50 text-amber-700',
-        'in_progress' => 'border-blue-100 bg-blue-50 text-blue-700',
+        'in_progress' => $isFixora ? 'border-emerald-100 bg-emerald-50 text-emerald-700' : 'border-orange-100 bg-orange-50 text-orange-700',
         'completed' => 'border-emerald-100 bg-emerald-50 text-emerald-700',
     ];
 
@@ -75,7 +77,7 @@
         <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div>
                 <div class="flex flex-wrap items-center gap-2">
-                    <p class="text-[10px] font-extrabold uppercase tracking-[.18em] text-blue-600">Today's Actions</p>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.18em] {{ $isFixora ? 'text-emerald-600' : 'text-orange-600' }}">Today's Actions</p>
                     <span class="rounded-full bg-white px-2.5 py-1 text-[10px] font-extrabold text-slate-500 ring-1 ring-slate-200">
                         {{ $allCount }} Task{{ $allCount === 1 ? '' : 's' }}
                     </span>
@@ -92,10 +94,10 @@
                         type="search"
                         placeholder="Search tasks"
                         autocomplete="off"
-                        class="h-12 w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 text-sm font-semibold text-slate-800 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                        class="h-12 w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 text-sm font-semibold text-slate-800 outline-none transition {{ $isFixora ? 'focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100' : 'focus:border-orange-400 focus:ring-4 focus:ring-orange-100' }}"
                     >
                 </label>
-                <button type="button" onclick="openTodoDrawer()" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100">
+                <button type="button" onclick="openTodoDrawer()" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl {{ $isFixora ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/20 focus:ring-emerald-100' : 'bg-orange-600 hover:bg-orange-500 shadow-orange-600/20 focus:ring-orange-100' }} px-5 py-3 text-sm font-extrabold text-white shadow-lg transition focus:outline-none focus:ring-4">
                     <i data-lucide="plus" class="h-4 w-4"></i>
                     <span>Create Task</span>
                 </button>
@@ -119,8 +121,8 @@
                 <p class="text-[9px] font-extrabold uppercase tracking-[.14em] text-rose-700">Overdue</p>
                 <p class="mt-2 text-2xl font-black text-slate-950" data-todo-count="overdue">{{ $overdueCount }}</p>
             </article>
-            <article class="rounded-2xl border border-blue-100 bg-blue-50/70 p-4">
-                <p class="text-[9px] font-extrabold uppercase tracking-[.14em] text-blue-700">High Priority</p>
+            <article class="rounded-2xl border {{ $isFixora ? 'border-emerald-100 bg-emerald-50/70' : 'border-orange-100 bg-orange-50/70' }} p-4">
+                <p class="text-[9px] font-extrabold uppercase tracking-[.14em] {{ $isFixora ? 'text-emerald-700' : 'text-orange-700' }}">High Priority</p>
                 <p class="mt-2 text-2xl font-black text-slate-950" data-todo-count="high">{{ $highPriorityCount }}</p>
             </article>
         </div>
@@ -133,7 +135,7 @@
                     type="button"
                     data-todo-filter="{{ $filter['key'] }}"
                     aria-pressed="{{ $filter['key'] === 'all' ? 'true' : 'false' }}"
-                    class="todo-filter-btn inline-flex min-h-10 shrink-0 items-center gap-2 rounded-2xl border px-3.5 py-2 text-xs font-extrabold transition focus:outline-none focus:ring-4 focus:ring-blue-100 {{ $filter['key'] === 'all' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-800' }}"
+                    class="todo-filter-btn inline-flex min-h-10 shrink-0 items-center gap-2 rounded-2xl border px-3.5 py-2 text-xs font-extrabold transition focus:outline-none focus:ring-4 {{ $isFixora ? 'focus:ring-emerald-100' : 'focus:ring-orange-100' }} {{ $filter['key'] === 'all' ? ($isFixora ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-orange-200 bg-orange-50 text-orange-700') : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-800' }}"
                 >
                     <i data-lucide="{{ $filter['icon'] }}" class="h-3.5 w-3.5"></i>
                     <span>{{ $filter['label'] }}</span>

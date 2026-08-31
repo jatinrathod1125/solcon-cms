@@ -41,17 +41,20 @@
         return str_contains($type, 'mixing_complete') || str_contains($title, 'mixing complete');
     })->count();
 
+    $activeBrand = currentBrand();
+    $isFixora = ($activeBrand && $activeBrand->id == 2);
+
     $summaryCards = [
         ['label' => 'High Priority Tasks', 'value' => $highPriorityTasks, 'meta' => 'needs focus', 'icon' => 'alert-triangle', 'tone' => 'rose'],
-        ['label' => 'Pending Production', 'value' => $pendingProduction, 'meta' => 'active queues', 'icon' => 'activity', 'tone' => 'blue'],
+        ['label' => 'Pending Production', 'value' => $pendingProduction, 'meta' => 'active queues', 'icon' => 'activity', 'tone' => 'primary'],
         ['label' => 'Running Mixers', 'value' => $runningMixers, 'meta' => $idleMixers . ' idle', 'icon' => 'cpu', 'tone' => 'emerald'],
         ['label' => 'Low Stock Alerts', 'value' => $lowStockCount, 'meta' => 'materials', 'icon' => 'archive', 'tone' => $lowStockCount > 0 ? 'amber' : 'slate'],
         ['label' => 'Mixing Complete', 'value' => $mixingCompleteNotifications, 'meta' => 'notifications', 'icon' => 'bell', 'tone' => $mixingCompleteNotifications > 0 ? 'emerald' : 'slate'],
-        ['label' => 'Today Schedule', 'value' => $todayTasks->count(), 'meta' => 'task due dates', 'icon' => 'calendar', 'tone' => 'blue'],
+        ['label' => 'Today Schedule', 'value' => $todayTasks->count(), 'meta' => 'task due dates', 'icon' => 'calendar', 'tone' => 'primary'],
     ];
 
     $toneClasses = [
-        'blue' => 'bg-blue-50 text-blue-700 border-blue-100',
+        'primary' => $isFixora ? 'bg-emerald-50 text-emerald-700 border-emerald-100' : 'bg-orange-50 text-orange-700 border-orange-100',
         'emerald' => 'bg-emerald-50 text-emerald-700 border-emerald-100',
         'amber' => 'bg-amber-50 text-amber-700 border-amber-100',
         'rose' => 'bg-rose-50 text-rose-700 border-rose-100',
@@ -59,18 +62,18 @@
     ];
 
     $quickActions = [
-        ['label' => 'Create Task', 'icon' => 'plus', 'type' => 'button', 'tone' => 'blue'],
-        ['label' => 'Start Adhesive', 'icon' => 'play', 'href' => route('production.create'), 'tone' => 'blue'],
-        ['label' => 'Start Grout', 'icon' => 'play', 'href' => route('grout-production.create'), 'tone' => 'cyan'],
-        ['label' => 'Epoxy Entry', 'icon' => 'package', 'href' => route('epoxy.component-entry'), 'tone' => 'violet'],
-        ['label' => 'Finished Goods', 'icon' => 'archive', 'href' => route('finished-goods.index'), 'tone' => 'emerald'],
+        ['label' => 'Create Task', 'icon' => 'plus', 'type' => 'button', 'tone' => 'primary'],
+        ['label' => 'Start Adhesive', 'icon' => 'play', 'href' => route('production.create'), 'tone' => 'primary'],
+        ['label' => 'Start Grout', 'icon' => 'play', 'href' => route('grout-production.create'), 'tone' => 'secondary'],
+        ['label' => 'Epoxy Entry', 'icon' => 'package', 'href' => route('epoxy.component-entry'), 'tone' => 'accent'],
+        ['label' => 'Finished Goods', 'icon' => 'archive', 'href' => route('finished-goods.index'), 'tone' => 'success'],
     ];
 
     $actionToneClasses = [
-        'blue' => 'bg-blue-600 text-white shadow-blue-600/20 hover:bg-blue-500',
-        'cyan' => 'bg-cyan-600 text-white shadow-cyan-600/20 hover:bg-cyan-500',
-        'violet' => 'bg-violet-600 text-white shadow-violet-600/20 hover:bg-violet-500',
-        'emerald' => 'bg-emerald-600 text-white shadow-emerald-600/20 hover:bg-emerald-500',
+        'primary' => $isFixora ? 'bg-emerald-600 text-white shadow-emerald-600/20 hover:bg-emerald-500' : 'bg-orange-600 text-white shadow-orange-600/20 hover:bg-orange-500',
+        'secondary' => $isFixora ? 'bg-teal-600 text-white shadow-teal-600/20 hover:bg-teal-500' : 'bg-amber-600 text-white shadow-amber-600/20 hover:bg-amber-500',
+        'accent' => $isFixora ? 'bg-emerald-700 text-white shadow-emerald-700/20 hover:bg-emerald-600' : 'bg-orange-700 text-white shadow-orange-700/20 hover:bg-orange-600',
+        'success' => $isFixora ? 'bg-teal-700 text-white shadow-teal-700/20 hover:bg-teal-600' : 'bg-amber-700 text-white shadow-amber-700/20 hover:bg-amber-600',
     ];
 
     $scheduleSlots = ['09:00', '11:00', '14:00', '16:00'];
@@ -80,15 +83,15 @@
 <section class="action-center-surface overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-xl shadow-slate-900/5">
     <div class="grid gap-0 xl:grid-cols-[1.1fr_.9fr]">
         <div class="relative overflow-hidden bg-slate-950 px-5 py-6 text-white sm:px-7 lg:px-8">
-            <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border-[46px] border-blue-500/15"></div>
-            <div class="pointer-events-none absolute bottom-0 right-0 h-32 w-56 bg-blue-500/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border-[46px] {{ $isFixora ? 'border-emerald-500/15' : 'border-orange-500/15' }}"></div>
+            <div class="pointer-events-none absolute bottom-0 right-0 h-32 w-56 {{ $isFixora ? 'bg-emerald-500/10' : 'bg-orange-500/10' }} blur-3xl"></div>
 
             <div class="relative flex flex-col gap-6">
                 <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                         <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-200">
-                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                            <span class="inline-flex items-center gap-1.5 rounded-full {{ $isFixora ? 'bg-emerald-400/10 text-emerald-200 border border-emerald-500/20' : 'bg-orange-400/10 text-orange-200 border border-orange-500/20' }} px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider">
+                                <span class="h-1.5 w-1.5 rounded-full {{ $isFixora ? 'bg-emerald-400' : 'bg-orange-400' }} animate-pulse"></span>
                                 Factory online
                             </span>
                             <span class="text-[11px] font-bold text-slate-300">{{ now()->format('l, d F Y') }}</span>
@@ -136,7 +139,7 @@
             <div class="border-b border-slate-100 p-5 sm:p-6">
                 <div class="flex items-center justify-between gap-3">
                     <div>
-                        <p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-blue-600">Quick Actions</p>
+                        <p class="text-[10px] font-extrabold uppercase tracking-[.16em] {{ $isFixora ? 'text-emerald-600' : 'text-orange-600' }}">Quick Actions</p>
                         <h3 class="mt-1 text-sm font-extrabold text-slate-950">Factory shortcuts</h3>
                     </div>
                     @if($departmentName)
@@ -147,12 +150,12 @@
                 <div class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
                     @foreach($quickActions as $action)
                         @if(($action['type'] ?? 'link') === 'button')
-                            <button type="button" onclick="openTodoDrawer()" class="action-center-button inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left text-xs font-extrabold shadow-lg transition focus:outline-none focus:ring-4 focus:ring-blue-100 {{ $actionToneClasses[$action['tone']] }}">
+                            <button type="button" onclick="openTodoDrawer()" class="action-center-button inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left text-xs font-extrabold shadow-lg transition focus:outline-none focus:ring-4 {{ $isFixora ? 'focus:ring-emerald-100' : 'focus:ring-orange-100' }} {{ $actionToneClasses[$action['tone']] }}">
                                 <span class="inline-flex items-center gap-2"><i data-lucide="{{ $action['icon'] }}" class="h-4 w-4"></i>{{ $action['label'] }}</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 opacity-75"></i>
                             </button>
                         @else
-                            <a href="{{ $action['href'] }}" class="action-center-button inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left text-xs font-extrabold shadow-lg transition focus:outline-none focus:ring-4 focus:ring-blue-100 {{ $actionToneClasses[$action['tone']] }}">
+                            <a href="{{ $action['href'] }}" class="action-center-button inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left text-xs font-extrabold shadow-lg transition focus:outline-none focus:ring-4 {{ $isFixora ? 'focus:ring-emerald-100' : 'focus:ring-orange-100' }} {{ $actionToneClasses[$action['tone']] }}">
                                 <span class="inline-flex items-center gap-2"><i data-lucide="{{ $action['icon'] }}" class="h-4 w-4"></i>{{ $action['label'] }}</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 opacity-75"></i>
                             </a>
@@ -168,7 +171,7 @@
                             <p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-slate-400">Today's Schedule</p>
                             <h3 class="mt-1 text-sm font-extrabold text-slate-950">{{ $todayTasks->count() }} due task{{ $todayTasks->count() === 1 ? '' : 's' }}</h3>
                         </div>
-                        <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                        <span class="flex h-10 w-10 items-center justify-center rounded-2xl {{ $isFixora ? 'bg-emerald-50 text-emerald-600' : 'bg-orange-50 text-orange-600' }}">
                             <i data-lucide="calendar" class="h-5 w-5"></i>
                         </span>
                     </div>

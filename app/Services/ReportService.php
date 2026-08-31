@@ -38,6 +38,7 @@ class ReportService
 
         // 3. Raw Material consumption summary
         $materialSummary = StockLedger::where('transaction_type', 'OUT')
+            ->whereNotNull('raw_material_id')
             ->whereHas('batch', function ($q) use ($date) {
                 $q->whereDate('start_time', $date)->where('status', 'completed');
             })
@@ -47,7 +48,8 @@ class ReportService
             )
             ->groupBy('raw_material_id')
             ->with(['rawMaterial.stockUnit'])
-            ->get();
+            ->get()
+            ->filter(fn($mat) => !is_null($mat->rawMaterial));
 
         // 4. Supervisor summary
         $supervisorSummary = ProductionBatch::whereDate('start_time', $date)

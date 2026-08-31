@@ -43,14 +43,207 @@ iconify-icon { display: inline-block; width: 1em; height: 1em; flex-shrink: 0; v
 .sub-link:hover { background: rgba(255,255,255,.08); color: #fff; transform: translateX(3px); }
 .sub-link.is-active { color: #38bdf8; font-weight: 800; background: rgba(56,189,248,.12); transform: none; }
 
-.mobile-nav-item, .mobile-fab { display: flex; min-width: 0; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #94a3b8; font-size: 9px; font-weight: 750; }
+/* Solcon Brand: White Sidebar Theme with Orange Hover Effect */
+.app-sidebar.sidebar-theme-solcon {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08) !important;
+}
+.app-sidebar.sidebar-theme-solcon .border-white\/10,
+.app-sidebar.sidebar-theme-solcon .border-white\/5 {
+    border-color: #f1f5f9 !important;
+}
+.app-sidebar.sidebar-theme-solcon .border-l.border-white\/10 {
+    border-color: #e2e8f0 !important;
+}
+.app-sidebar.sidebar-theme-solcon .nav-eyebrow {
+    color: #94a3b8 !important;
+}
+.app-sidebar.sidebar-theme-solcon .sidebar-link {
+    color: #475569 !important;
+}
+.app-sidebar.sidebar-theme-solcon .sidebar-link:hover {
+    background: #fff7ed !important;
+    color: #ea580c !important;
+    transform: translateX(3px);
+}
+.app-sidebar.sidebar-theme-solcon .sidebar-link:hover svg,
+.app-sidebar.sidebar-theme-solcon .sidebar-link:hover iconify-icon {
+    color: #ea580c !important;
+}
+.app-sidebar.sidebar-theme-solcon .sidebar-link.is-active {
+    background: #f97316 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(249, 115, 22, 0.35) !important;
+    transform: none;
+}
+.app-sidebar.sidebar-theme-solcon .sidebar-link.is-active svg,
+.app-sidebar.sidebar-theme-solcon .sidebar-link.is-active iconify-icon {
+    color: #ffffff !important;
+}
+.app-sidebar.sidebar-theme-solcon .sub-link {
+    color: #64748b !important;
+}
+.app-sidebar.sidebar-theme-solcon .sub-link:hover {
+    background: #fff7ed !important;
+    color: #ea580c !important;
+    transform: translateX(3px);
+}
+.app-sidebar.sidebar-theme-solcon .sub-link.is-active {
+    color: #ea580c !important;
+    background: #ffedd5 !important;
+    font-weight: 800;
+}
+.app-sidebar.sidebar-theme-solcon .border-t.border-white\/10 {
+    border-color: #f1f5f9 !important;
+}
+.app-sidebar.sidebar-theme-solcon .bg-white\/\[\.06\] {
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0;
+}
+.app-sidebar.sidebar-theme-solcon .bg-white\/10 {
+    background-color: #ffedd5 !important;
+    color: #ea580c !important;
+}
+.app-sidebar.sidebar-theme-solcon .text-slate-500 {
+    color: #94a3b8 !important;
+}
+.app-sidebar.sidebar-theme-solcon .hover\:bg-white\/10:hover {
+    background-color: #fee2e2 !important;
+    color: #ef4444 !important;
+}
+.app-sidebar.sidebar-theme-solcon .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+}
+
+/* Fixora Brand: Dark Sidebar Theme with Green Hover & Active Effect */
+.app-sidebar.sidebar-theme-fixora {
+    background-color: #020617 !important;
+    color: #ffffff !important;
+}
+.app-sidebar.sidebar-theme-fixora .sidebar-link {
+    color: #94a3b8 !important;
+}
+.app-sidebar.sidebar-theme-fixora .sidebar-link:hover {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #34d399 !important;
+    transform: translateX(3px);
+}
+.app-sidebar.sidebar-theme-fixora .sidebar-link:hover svg,
+.app-sidebar.sidebar-theme-fixora .sidebar-link:hover iconify-icon {
+    color: #34d399 !important;
+}
+.app-sidebar.sidebar-theme-fixora .sidebar-link.is-active {
+    background: #059669 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 28px rgba(5, 150, 105, 0.35) !important;
+    transform: none;
+}
+.app-sidebar.sidebar-theme-fixora .sidebar-link.is-active svg,
+.app-sidebar.sidebar-theme-fixora .sidebar-link.is-active iconify-icon {
+    color: #ffffff !important;
+}
+.app-sidebar.sidebar-theme-fixora .sub-link {
+    color: #94a3b8 !important;
+}
+.app-sidebar.sidebar-theme-fixora .sub-link:hover {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #34d399 !important;
+    transform: translateX(3px);
+}
+.app-sidebar.sidebar-theme-fixora .sub-link.is-active {
+    color: #34d399 !important;
+    background: rgba(52, 211, 153, 0.15) !important;
+    font-weight: 800;
+}
+
+/* Brand Dashboard Accents: Solcon (Warm Orange & Amber) */
+body.brand-solcon .erp-button-primary,
+body.brand-solcon .btn-primary {
+    background-color: #ea580c !important;
+    border-color: #ea580c !important;
+    box-shadow: 0 10px 24px rgba(234, 88, 12, 0.25) !important;
+}
+body.brand-solcon .erp-button-primary:hover,
+body.brand-solcon .btn-primary:hover {
+    background-color: #c2410c !important;
+}
+body.brand-solcon .page-content input:focus,
+body.brand-solcon .page-content select:focus,
+body.brand-solcon .page-content textarea:focus {
+    border-color: #ea580c !important;
+    box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.1) !important;
+}
+
+/* Brand Dashboard Accents: Fixora (Emerald Green & Forest) */
+body.brand-fixora .erp-button-primary,
+body.brand-fixora .btn-primary {
+    background-color: #059669 !important;
+    border-color: #059669 !important;
+    box-shadow: 0 10px 24px rgba(5, 150, 105, 0.25) !important;
+}
+body.brand-fixora .erp-button-primary:hover,
+body.brand-fixora .btn-primary:hover {
+    background-color: #047857 !important;
+}
+body.brand-fixora .page-content input:focus,
+body.brand-fixora .page-content select:focus,
+body.brand-fixora .page-content textarea:focus {
+    border-color: #059669 !important;
+    box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1) !important;
+}
+
+.mobile-nav-item, .mobile-fab { display: flex; min-width: 0; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #94a3b8; font-size: 9px; font-weight: 750; transition: all 0.2s ease; }
 .mobile-nav-item { min-height: 50px; border-radius: 15px; }
-.mobile-nav-item iconify-icon { width: 21px; height: 21px; }
-.mobile-nav-item.is-active { color: #2563eb; background: #eff6ff; }
-.mobile-fab { position: relative; color: #2563eb; }
-.mobile-fab > span { display: flex; width: 48px; height: 48px; align-items: center; justify-content: center; margin-top: -25px; border: 4px solid #f8fafc; border-radius: 17px; background: #2563eb; color: #fff; box-shadow: 0 10px 22px rgba(37,99,235,.35); }
-.mobile-fab iconify-icon { width: 23px; height: 23px; }
+.mobile-nav-item svg, .mobile-nav-item iconify-icon { width: 20px; height: 20px; }
+.mobile-nav-item.is-active { color: #ea580c; background: #fff7ed; }
+.mobile-fab { position: relative; color: #ea580c; }
+.mobile-fab > span { display: flex; width: 48px; height: 48px; align-items: center; justify-content: center; margin-top: -25px; border: 4px solid #f8fafc; border-radius: 17px; background: #ea580c; color: #fff; box-shadow: 0 10px 22px rgba(234,88,12,.35); }
+.mobile-fab svg, .mobile-fab iconify-icon { width: 22px; height: 22px; }
 .mobile-fab small { font-size: 9px; font-weight: 800; }
+
+/* Mobile Bottom Navbar Theme: Solcon */
+body.brand-solcon .mobile-dock {
+    background-color: rgba(255, 255, 255, 0.96) !important;
+    border-color: #fed7aa !important;
+}
+body.brand-solcon .mobile-nav-item {
+    color: #64748b;
+}
+body.brand-solcon .mobile-nav-item.is-active {
+    color: #ea580c !important;
+    background: #fff7ed !important;
+    font-weight: 800;
+}
+body.brand-solcon .mobile-nav-item:hover {
+    color: #ea580c;
+}
+body.brand-solcon .mobile-fab > span {
+    background: #ea580c !important;
+    box-shadow: 0 10px 22px rgba(234, 88, 12, 0.35) !important;
+}
+
+/* Mobile Bottom Navbar Theme: Fixora */
+body.brand-fixora .mobile-dock {
+    background-color: rgba(2, 6, 23, 0.96) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+body.brand-fixora .mobile-nav-item {
+    color: #94a3b8;
+}
+body.brand-fixora .mobile-nav-item.is-active {
+    color: #34d399 !important;
+    background: rgba(52, 211, 153, 0.15) !important;
+    font-weight: 800;
+}
+body.brand-fixora .mobile-nav-item:hover {
+    color: #34d399;
+}
+body.brand-fixora .mobile-fab > span {
+    background: #059669 !important;
+    box-shadow: 0 10px 22px rgba(5, 150, 105, 0.35) !important;
+}
 
 .page-content > * { animation: page-in .35s ease both; }
 @keyframes page-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }

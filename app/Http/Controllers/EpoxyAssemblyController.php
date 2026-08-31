@@ -87,7 +87,13 @@ class EpoxyAssemblyController extends Controller
         $products = EpoxyProduct::where('is_active', true)->forCurrentBrand()->orderBy('name')->get();
         $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->orderBy('name')->get();
 
-        return view('epoxy_assembly.index', compact('assemblies', 'preparations', 'dailySummary', 'dept', 'products', 'colors', 'targetDate'));
+        $todayStats = [
+            'assembled_kits_today' => (int) EpoxyAssembly::forCurrentBrand()->whereDate('created_at', $targetDate)->sum('quantity'),
+            'components_prepared_today' => (int) EpoxyComponentPreparation::when(function_exists('currentBrand') && currentBrand(), fn($q) => $q->whereHas('component', fn($cQ) => $cQ->forBrand(currentBrand())))->whereDate('created_at', $targetDate)->sum('quantity'),
+            'total_products' => $products->count(),
+        ];
+
+        return view('epoxy_assembly.index', compact('assemblies', 'preparations', 'dailySummary', 'dept', 'products', 'colors', 'targetDate', 'todayStats'));
     }
 
     /**
@@ -219,7 +225,20 @@ class EpoxyAssemblyController extends Controller
 
         $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->with('brand')->orderBy('name')->get();
 
-        return view('epoxy_assembly.create', compact('products', 'colors', 'dept'));
+        $recentAssemblies = EpoxyAssembly::with(['product.brand', 'epoxyFillerColor.brand', 'operator'])
+            ->forCurrentBrand()
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $stats = [
+            'total_products' => $products->count(),
+            'active_formulas' => $products->filter(fn($p) => $p->activeFormula)->count(),
+            'color_count' => $colors->count(),
+            'today_assembled' => EpoxyAssembly::forCurrentBrand()->whereDate('created_at', now()->format('Y-m-d'))->sum('quantity'),
+        ];
+
+        return view('epoxy_assembly.create', compact('products', 'colors', 'dept', 'recentAssemblies', 'stats'));
     }
 
     /**
@@ -258,6 +277,9 @@ class EpoxyAssemblyController extends Controller
     public function previewFormula(Request $request, EpoxyProduct $product)
     {
         $quantity = (int) $request->query('quantity', 1);
+        if ($quantity <= 0) {
+            $quantity = 1;
+        }
         $colorId = $request->query('epoxy_filler_color_id');
         $legacyColorId = $request->query('color_id');
 
@@ -281,6 +303,10 @@ class EpoxyAssemblyController extends Controller
         $deptId = $deptEPX ? $deptEPX->id : null;
 
         $items = [];
+        $maxPossibleList = [];
+        $hasMissing = false;
+        $hasInsufficient = false;
+
         foreach ($formula->items as $item) {
             $isPacking = (bool) $item->packing_material_id;
             $rawMaterial = $item->rawMaterial;
@@ -290,31 +316,64 @@ class EpoxyAssemblyController extends Controller
 
             if (!$isPacking && $item->is_dynamic_color) {
                 if ($color && $rawMaterial) {
-                    $component = EpoxyComponent::where('template_material_id', $rawMaterial->id)
-                        ->orWhere('raw_material_id', $rawMaterial->id)
+                    $brandId = $product->brand_id ?? (function_exists('currentBrand') && currentBrand() ? currentBrand()->id : null);
+                    
+                    // 1. Direct match: EpoxyComponent for this brand and color
+                    $directComponent = EpoxyComponent::where('epoxy_filler_color_id', $color->id)
+                        ->when($brandId, fn($q) => $q->where('brand_id', $brandId))
                         ->first();
-                    if ($component) {
-                        $childComponent = EpoxyComponent::where('parent_component_id', $component->id)
-                            ->where('epoxy_filler_color_id', $color->id)
+
+                    if (!$directComponent) {
+                        $directComponent = EpoxyComponent::where('epoxy_filler_color_id', $color->id)->first();
+                    }
+
+                    if ($directComponent && $directComponent->rawMaterial) {
+                        $resolvedMat = $directComponent->rawMaterial;
+                    } else {
+                        // 2. Parent / Template component lookup
+                        $component = EpoxyComponent::where('template_material_id', $rawMaterial->id)
+                            ->orWhere('raw_material_id', $rawMaterial->id)
                             ->first();
 
-                        if ($childComponent && $childComponent->rawMaterial) {
-                            $resolvedMat = $childComponent->rawMaterial;
-                        } else {
-                            $mapping = EpoxyComponentMapping::where('epoxy_component_id', $component->id)
+                        if ($component) {
+                            $childComponent = EpoxyComponent::where('parent_component_id', $component->id)
                                 ->where('epoxy_filler_color_id', $color->id)
                                 ->first();
-                            if ($mapping && $mapping->rawMaterial) {
-                                $resolvedMat = $mapping->rawMaterial;
+
+                            if ($childComponent && $childComponent->rawMaterial) {
+                                $resolvedMat = $childComponent->rawMaterial;
                             } else {
-                                $resolvedMat = (object)[
-                                    'id' => null,
-                                    'name' => "{$rawMaterial->name} ({$color->name} - Not Configured)",
-                                    'code' => $rawMaterial->code,
-                                    'current_stock' => 0,
-                                ];
-                                $status = 'Missing Component';
+                                $mapping = EpoxyComponentMapping::where('epoxy_component_id', $component->id)
+                                    ->where('epoxy_filler_color_id', $color->id)
+                                    ->first();
+                                if ($mapping && $mapping->rawMaterial) {
+                                    $resolvedMat = $mapping->rawMaterial;
+                                }
                             }
+                        }
+                    }
+
+                    if (!$resolvedMat || !isset($resolvedMat->id) || !$resolvedMat->id) {
+                        // 3. Fallback: Search RawMaterial by color name / code suffix
+                        $colorSuffix = str_replace('GR-', '', $color->code);
+                        $specificRm = RawMaterial::where('department_id', $deptId)
+                            ->where(function ($q) use ($color, $colorSuffix) {
+                                $q->where('code', 'like', "%{$colorSuffix}%")
+                                  ->orWhere('name', 'like', "%{$color->name}%");
+                            })
+                            ->where('name', 'like', '%Filler%')
+                            ->first();
+
+                        if ($specificRm) {
+                            $resolvedMat = $specificRm;
+                        } else {
+                            $resolvedMat = (object)[
+                                'id' => null,
+                                'name' => "{$rawMaterial->name} ({$color->name} - Not Configured)",
+                                'code' => $rawMaterial->code,
+                                'current_stock' => 0,
+                            ];
+                            $status = 'Missing Component';
                         }
                     }
                 } elseif ($legacyColor && $rawMaterial) {
@@ -366,30 +425,52 @@ class EpoxyAssemblyController extends Controller
                 }
             }
 
-            $needed = (float) $item->quantity * $quantity;
+            $baseQty = (float) $item->quantity;
+            $needed = $baseQty * $quantity;
             $stock = $resolvedMat ? (float) $resolvedMat->current_stock : 0;
 
-            if ($resolvedMat && isset($resolvedMat->id) && $resolvedMat->id && $stock < $needed) {
-                $status = 'Insufficient Stock';
+            if ($status === 'Missing Component') {
+                $hasMissing = true;
+                $maxPossibleList[] = 0;
+            } else {
+                if ($resolvedMat && isset($resolvedMat->id) && $resolvedMat->id && $stock < $needed) {
+                    $status = 'Insufficient Stock';
+                    $hasInsufficient = true;
+                }
+                if ($baseQty > 0) {
+                    $maxPossibleList[] = (int) floor($stock / $baseQty);
+                }
             }
+
+            $coveragePercent = ($needed > 0) ? min(100, round(($stock / $needed) * 100, 1)) : 100;
 
             $items[] = [
                 'name' => $resolvedMat ? $resolvedMat->name : ($isPacking ? 'Unknown Packing Material' : 'Unknown Raw Material'),
                 'code' => $resolvedMat ? $resolvedMat->code : 'N/A',
+                'base_quantity' => $baseQty,
                 'quantity' => $needed,
                 'unit' => $item->unit ? $item->unit->code : 'PCS',
-                'type' => $item->material_type,
+                'type' => $item->material_type ?? ($isPacking ? 'Packaging' : 'Ready Component'),
                 'stock' => $stock,
                 'status' => $status,
                 'is_packing' => $isPacking,
+                'coverage_percent' => $coveragePercent,
             ];
         }
 
+        $maxPossibleQty = empty($maxPossibleList) ? 0 : max(0, min($maxPossibleList));
+
         return response()->json([
+            'product_id' => $product->id,
             'product_name' => $product->name,
+            'product_code' => $product->code,
+            'requires_color' => (bool)$product->requires_color,
             'quantity' => $quantity,
             'color_name' => $color ? $color->name : ($legacyColor ? $legacyColor->name : null),
             'items' => $items,
+            'max_possible_qty' => $maxPossibleQty,
+            'can_assemble' => (!$hasMissing && !$hasInsufficient && count($items) > 0),
+            'total_items_count' => count($items),
         ]);
     }
 }

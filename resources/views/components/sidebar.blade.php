@@ -22,22 +22,22 @@
         ($user->isAdmin() || ($deptEPX && $user->canAccessDepartment($deptEPX->id)));
     $canAccessMarketing = $user->isAdmin() || $user->isSupervisor() || $user->isMarketing();
     $canAccessDispatch = $user->isAdmin() || $user->isMarketing() || $user->isDispatch();
+
+    $activeBrand = currentBrand();
+    $isFixora = ($activeBrand && $activeBrand->id == 2);
+    $brandName = strtoupper($activeBrand->name ?? 'SOLCON');
+    $brandLogo = $isFixora ? asset('logos/logo.svg') : asset('logos/solcon.png');
+    $themeClass = $isFixora
+        ? 'sidebar-theme-fixora bg-slate-950 text-white shadow-2xl shadow-slate-950/20'
+        : 'sidebar-theme-solcon bg-white text-slate-900 border border-slate-200 shadow-2xl shadow-slate-200/60';
 @endphp
 
 <aside id="appSidebar"
-    class="app-sidebar fixed inset-y-3 left-3 z-50 hidden w-[264px] flex-col overflow-hidden rounded-[24px] bg-slate-950 text-white shadow-2xl shadow-slate-950/20 transition-all duration-300 lg:flex">
-    <div class="flex h-[72px] items-center gap-3 border-b border-white/10 px-5">
-        <a href="{{ $homeRoute }}" class="flex min-w-0 items-center gap-3">
-            <span
-                class="brand-mark flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-sm font-black tracking-tight text-white shadow-lg shadow-blue-600/25">SI</span>
-            <span class="sidebar-label min-w-0"><span
-                    class="block text-[15px] font-extrabold tracking-[0.18em]">SOLCON</span><span
-                    class="block truncate text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-500">Factory
-                    OS</span></span>
+    class="app-sidebar {{ $themeClass }} fixed inset-y-3 left-3 z-50 hidden w-[264px] flex-col overflow-hidden rounded-[24px] transition-all duration-300 lg:flex">
+    <div class="flex h-[96px] items-center justify-center border-b {{ $isFixora ? 'border-white/10' : 'border-slate-100' }} px-3 py-1.5 overflow-hidden">
+        <a href="{{ $homeRoute }}" class="flex h-full w-full items-center justify-center">
+            <img src="{{ $brandLogo }}" alt="{{ $brandName }}" class="{{ $isFixora ? 'max-h-12 w-auto max-w-[200px] object-contain' : 'h-20 max-h-[84px] w-auto max-w-[240px] object-contain scale-105 transition-transform' }}">
         </a>
-        <span
-            class="sidebar-label ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-1 text-[9px] font-bold text-emerald-300"><span
-                class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>Live</span>
     </div>
 
     <nav class="sidebar-scroll flex-1 space-y-6 overflow-y-auto px-3 py-5">

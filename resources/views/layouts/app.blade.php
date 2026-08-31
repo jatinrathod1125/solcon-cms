@@ -30,11 +30,17 @@
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    @php
+        $appBrand = currentBrand();
+        $isFixoraBrand = ($appBrand && $appBrand->id == 2);
+    @endphp
     <style>
         :root {
-            --brand: #2563eb;
-            --brand-dark: #1d4ed8;
-            --brand-soft: #eff6ff;
+            --brand: {{ $isFixoraBrand ? '#059669' : '#ea580c' }};
+            --brand-dark: {{ $isFixoraBrand ? '#047857' : '#c2410c' }};
+            --brand-soft: {{ $isFixoraBrand ? '#ecfdf5' : '#fff7ed' }};
+            --brand-border: {{ $isFixoraBrand ? '#a7f3d0' : '#fed7aa' }};
+            --brand-ring: {{ $isFixoraBrand ? 'rgba(5, 150, 105, 0.2)' : 'rgba(234, 88, 12, 0.2)' }};
         }
         @if(($uiSettings['compact_mode'] ?? 'disable') === 'enable')
             .page-content { padding-top: 1rem !important; }
@@ -43,66 +49,106 @@
     </style>
     @yield('styles')
 </head>
-<body class="h-full bg-slate-50 text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
+<body class="h-full bg-slate-50 text-slate-900 antialiased {{ $isFixoraBrand ? 'selection:bg-emerald-100 selection:text-emerald-900 brand-fixora' : 'selection:bg-orange-100 selection:text-orange-900 brand-solcon' }}">
     <div class="erp-shell min-h-full">
         <x-sidebar />
         <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
         <div id="workspace" class="workspace min-w-0 transition-all duration-300">
-            <header class="app-header sticky top-0 z-40 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
+            <header class="app-header sticky top-0 z-40 transition-all duration-300 {{ $isFixoraBrand ? 'bg-slate-950/95 border-b border-emerald-500/20 text-white backdrop-blur-xl shadow-lg shadow-slate-950/25' : 'bg-white/90 border-b border-orange-100/90 text-slate-900 backdrop-blur-xl shadow-sm' }}">
                 <div class="flex h-[72px] items-center gap-3 px-4 sm:px-6 lg:px-8">
                     <!-- Mobile Hamburger Menu Button -->
-                    <button id="mobileSidebarToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 lg:hidden" aria-label="Open navigation">
+                    <button id="mobileSidebarToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-xl {{ $isFixoraBrand ? 'text-slate-400 hover:bg-white/10 hover:text-white' : 'text-slate-500 hover:bg-orange-50 hover:text-orange-600' }} transition lg:hidden" aria-label="Open navigation">
                         <i data-lucide="menu" class="h-5 w-5"></i>
                     </button>
 
-                    <button id="sidebarToggle" type="button" class="hidden h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 lg:flex" aria-label="Collapse navigation">
+                    <button id="sidebarToggle" type="button" class="hidden h-10 w-10 items-center justify-center rounded-xl {{ $isFixoraBrand ? 'text-slate-400 hover:bg-white/10 hover:text-white' : 'text-slate-500 hover:bg-orange-50 hover:text-orange-600' }} transition lg:flex" aria-label="Collapse navigation">
                         <i data-lucide="panel-left-close" class="h-5 w-5"></i>
                     </button>
 
                     <div class="min-w-0 flex-1">
-                        <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-                            <span>{{ currentBrand()->name }}</span><span class="text-slate-300">/</span><span class="truncate">@yield('title', 'Dashboard')</span>
+                        <div class="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.16em]">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full {{ $isFixoraBrand ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300' : 'bg-orange-50 border border-orange-200 text-orange-600' }}">
+                                <span class="h-1.5 w-1.5 rounded-full {{ $isFixoraBrand ? 'bg-emerald-400 animate-pulse' : 'bg-orange-500 animate-pulse' }}"></span>
+                                {{ currentBrand()->name }}
+                            </span>
+                            <span class="{{ $isFixoraBrand ? 'text-slate-600' : 'text-slate-300' }}">/</span>
+                            <span class="truncate {{ $isFixoraBrand ? 'text-slate-400' : 'text-slate-500' }}">@yield('title', 'Dashboard')</span>
                         </div>
-                        <h1 class="mt-0.5 truncate text-lg font-extrabold tracking-tight text-slate-950 sm:text-xl">@yield('header-title', 'Production Management System')</h1>
+                        <h1 class="mt-0.5 truncate text-lg font-extrabold tracking-tight {{ $isFixoraBrand ? 'text-white' : 'text-slate-950' }} sm:text-xl">@yield('header-title', 'Production Management System')</h1>
                     </div>
 
-            
                     <div class="hidden items-center gap-2 text-right xl:flex">
-                        <div class="text-sm font-bold text-slate-800">{{ now()->format('D, d M') }}</div>
-                        <span class="h-1 w-1 rounded-full bg-slate-300"></span>
-                        <div id="liveClock" class="min-w-[70px] text-sm font-medium tabular-nums text-slate-500">{{ now()->format('h:i A') }}</div>
+                        <div class="text-sm font-extrabold {{ $isFixoraBrand ? 'text-slate-200' : 'text-slate-800' }}">{{ now()->format('D, d M') }}</div>
+                        <span class="h-1 w-1 rounded-full {{ $isFixoraBrand ? 'bg-emerald-500/50' : 'bg-orange-400/50' }}"></span>
+                        <div id="liveClock" class="min-w-[70px] text-sm font-bold tabular-nums {{ $isFixoraBrand ? 'text-emerald-400' : 'text-orange-600' }}">{{ now()->format('h:i A') }}</div>
                     </div>
 
                     @if(Auth::check() && availableBrands()->count() > 1)
-                        <form action="{{ route('brand.switch') }}" method="POST" id="brandSwitchForm" class="mr-1">
-                            @csrf
-                            <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
-                                <i data-lucide="tag" class="h-3.5 w-3.5 text-slate-500"></i>
-                                <select name="brand_id" onchange="document.getElementById('brandSwitchForm').submit()" class="bg-transparent border-0 text-xs font-bold text-slate-700 focus:outline-none cursor-pointer py-0.5">
+                        <div class="relative" id="brandSwitcherContainer">
+                            <button type="button" id="brandSwitcherBtn" class="flex items-center gap-2 {{ $isFixoraBrand ? 'bg-gradient-to-r from-emerald-950/90 via-slate-900 to-emerald-950/80 border border-emerald-500/40 text-white shadow-lg shadow-emerald-950/40 hover:border-emerald-400' : 'bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border border-orange-200 text-orange-950 shadow-sm hover:border-orange-300' }} px-3 py-1.5 rounded-2xl transition-all duration-200" aria-expanded="false">
+                                <span class="flex h-5 w-5 items-center justify-center rounded-lg {{ $isFixoraBrand ? 'bg-emerald-500/20 text-emerald-300' : 'bg-orange-500/20 text-orange-600' }}">
+                                    <i data-lucide="layers" class="h-3.5 w-3.5"></i>
+                                </span>
+                                <div class="text-left">
+                                    <span class="block text-[8px] font-black uppercase tracking-widest leading-none {{ $isFixoraBrand ? 'text-emerald-400' : 'text-orange-600' }}">Brand</span>
+                                    <span class="block text-xs font-extrabold leading-tight {{ $isFixoraBrand ? 'text-white' : 'text-slate-900' }}">{{ currentBrand()->name }}</span>
+                                </div>
+                                <i data-lucide="chevron-down" id="brandChevronIcon" class="h-3.5 w-3.5 ml-0.5 opacity-60 transition-transform duration-200"></i>
+                            </button>
+
+                            <div id="brandSwitcherDropdown" class="hidden absolute right-0 mt-2 w-72 origin-top-right rounded-2xl border {{ $isFixoraBrand ? 'border-slate-800 bg-slate-900/95 text-white shadow-2xl shadow-black/70' : 'border-slate-200 bg-white/95 text-slate-900 shadow-2xl shadow-slate-900/10' }} p-2 backdrop-blur-xl z-[70]">
+                                <div class="px-3 py-2 border-b {{ $isFixoraBrand ? 'border-slate-800' : 'border-slate-100' }}">
+                                    <p class="text-[9px] font-extrabold uppercase tracking-wider {{ $isFixoraBrand ? 'text-slate-400' : 'text-slate-400' }}">Active Brand Context</p>
+                                    <p class="text-[11px] font-semibold {{ $isFixoraBrand ? 'text-slate-300' : 'text-slate-600' }}">Switch catalogs & formulas</p>
+                                </div>
+
+                                <div class="mt-1 space-y-1">
                                     @foreach(availableBrands() as $brand)
-                                        <option value="{{ $brand->id }}" {{ currentBrand()->id == $brand->id ? 'selected' : '' }}>
-                                            {{ $brand->name }}
-                                        </option>
+                                        @php
+                                            $isThisActive = (currentBrand()->id == $brand->id);
+                                            $isBrand2 = ($brand->id == 2);
+                                        @endphp
+                                        <form action="{{ route('brand.switch') }}" method="POST" class="m-0 p-0">
+                                            @csrf
+                                            <input type="hidden" name="brand_id" value="{{ $brand->id }}">
+                                            <button type="submit" class="w-full text-left flex items-center justify-between p-2.5 rounded-xl transition-all duration-150 {{ $isThisActive ? ($isBrand2 ? 'bg-emerald-500/15 border border-emerald-500/40 text-white shadow-sm' : 'bg-orange-50 border border-orange-200 text-orange-950 shadow-sm') : ($isFixoraBrand ? 'hover:bg-white/5 border border-transparent text-slate-300 hover:text-white' : 'hover:bg-slate-50 border border-transparent text-slate-700 hover:text-slate-950') }}">
+                                                <div class="flex items-center gap-2.5">
+                                                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl {{ $isBrand2 ? 'bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 font-black' : 'bg-orange-100/70 border border-orange-200 text-orange-600 font-black' }}">
+                                                        <span class="text-xs font-black tracking-tight">{{ $isBrand2 ? 'FX' : 'SC' }}</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-xs font-extrabold leading-tight">{{ $brand->name }}</p>
+                                                        <p class="text-[10px] font-medium opacity-70">{{ $isBrand2 ? 'Tiles Adhesive Division' : 'Industrial Adhesives & Chemical' }}</p>
+                                                    </div>
+                                                </div>
+
+                                                @if($isThisActive)
+                                                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full {{ $isBrand2 ? 'bg-emerald-500 text-slate-950' : 'bg-orange-600 text-white' }} shadow">
+                                                        <i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>
+                                                    </span>
+                                                @endif
+                                            </button>
+                                        </form>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
-                        </form>
+                        </div>
                     @elseif(Auth::check())
-                        <div class="hidden sm:flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl mr-1">
-                            <i data-lucide="tag" class="h-3.5 w-3.5 text-slate-500"></i>
-                            <span class="text-xs font-bold text-slate-700">{{ currentBrand()->name }}</span>
+                        <div class="hidden sm:flex items-center gap-2 {{ $isFixoraBrand ? 'bg-emerald-950/60 border border-emerald-500/30 text-emerald-300' : 'bg-orange-50/80 border border-orange-200 text-orange-800' }} px-3 py-1.5 rounded-2xl mr-1">
+                            <i data-lucide="layers" class="h-3.5 w-3.5 {{ $isFixoraBrand ? 'text-emerald-400' : 'text-orange-600' }}"></i>
+                            <span class="text-xs font-extrabold">{{ currentBrand()->name }}</span>
                         </div>
                     @endif
 
                     @if(Auth::check() && Auth::user()->isSupervisor() && availableDepartments()->count() > 1)
                         <form action="{{ route('department.switch') }}" method="POST" id="deptSwitchForm" class="mr-1">
                             @csrf
-                            <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
-                                <i data-lucide="building" class="h-3.5 w-3.5 text-slate-500"></i>
-                                <select name="department_id" onchange="document.getElementById('deptSwitchForm').submit()" class="bg-transparent border-0 text-xs font-bold text-slate-700 focus:outline-none cursor-pointer py-0.5">
+                            <div class="flex items-center gap-1.5 {{ $isFixoraBrand ? 'bg-white/5 border border-white/10 text-slate-200 hover:bg-white/10' : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100' }} px-3 py-1.5 rounded-xl transition-all">
+                                <i data-lucide="building" class="h-3.5 w-3.5 {{ $isFixoraBrand ? 'text-slate-400' : 'text-slate-500' }}"></i>
+                                <select name="department_id" onchange="document.getElementById('deptSwitchForm').submit()" class="bg-transparent border-0 text-xs font-bold {{ $isFixoraBrand ? 'text-slate-200' : 'text-slate-700' }} focus:outline-none cursor-pointer py-0.5">
                                     @foreach(availableDepartments() as $dept)
-                                        <option value="{{ $dept->id }}" {{ currentDepartment() && currentDepartment()->id == $dept->id ? 'selected' : '' }}>
+                                        <option value="{{ $dept->id }}" class="text-slate-900 bg-white" {{ currentDepartment() && currentDepartment()->id == $dept->id ? 'selected' : '' }}>
                                             {{ $dept->name }}
                                         </option>
                                     @endforeach
@@ -110,9 +156,9 @@
                             </div>
                         </form>
                     @elseif(Auth::check() && Auth::user()->isSupervisor() && currentDepartment())
-                        <div class="hidden sm:flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl mr-1">
-                            <i data-lucide="building" class="h-3.5 w-3.5 text-slate-500"></i>
-                            <span class="text-xs font-bold text-slate-700">{{ currentDepartment()->name }}</span>
+                        <div class="hidden sm:flex items-center gap-1.5 {{ $isFixoraBrand ? 'bg-white/5 border border-white/10 text-slate-200' : 'bg-slate-50 border border-slate-200 text-slate-700' }} px-3 py-1.5 rounded-xl mr-1">
+                            <i data-lucide="building" class="h-3.5 w-3.5 {{ $isFixoraBrand ? 'text-slate-400' : 'text-slate-500' }}"></i>
+                            <span class="text-xs font-bold">{{ currentDepartment()->name }}</span>
                         </div>
                     @endif
 
@@ -122,7 +168,7 @@
                         @endphp
                         <button type="button" id="maintenanceModeToggleBtn"
                                 data-status="{{ $maintenanceMode }}"
-                                class="relative flex h-10 w-10 items-center justify-center rounded-xl border transition focus:outline-none {{ $maintenanceMode === 'on' ? 'text-rose-650 border-rose-200 bg-rose-50 hover:bg-rose-100' : 'text-slate-500 border-slate-200 bg-white hover:bg-slate-50' }}"
+                                class="relative flex h-10 w-10 items-center justify-center rounded-xl border transition focus:outline-none {{ $maintenanceMode === 'on' ? 'text-rose-650 border-rose-200 bg-rose-50 hover:bg-rose-100' : ($isFixoraBrand ? 'text-slate-400 border-white/10 bg-white/5 hover:bg-white/10 hover:text-white' : 'text-slate-500 border-slate-200 bg-white hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200') }}"
                                 title="Maintenance Mode Settings">
                             <i data-lucide="wrench" class="h-5 w-5"></i>
                             @if($maintenanceMode === 'on')
@@ -133,34 +179,34 @@
 
                     <!-- Notification Bell with Dropdown -->
                     <div class="relative" id="notifications-dropdown-container">
-                        <button type="button" id="bellButton" class="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50 hover:text-blue-600 focus:outline-none" aria-label="Notifications">
+                        <button type="button" id="bellButton" class="relative flex h-10 w-10 items-center justify-center rounded-xl border {{ $isFixoraBrand ? 'border-white/10 bg-white/5 text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/30' : 'border-slate-200 bg-white text-slate-500 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200' }} transition focus:outline-none" aria-label="Notifications">
                             <i data-lucide="bell" class="h-5 w-5"></i>
                             <span id="unread-count-badge" class="absolute -right-1 -top-1 h-4 w-4 hidden items-center justify-center rounded-full bg-rose-600 text-[8px] font-black text-white ring-2 ring-white">0</span>
                         </button>
 
-                        <div id="notificationsDropdown" class="absolute right-0 mt-2 w-80 md:w-96 hidden flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl z-[60]">
-                            <div class="flex items-center justify-between border-b border-slate-100 px-4 py-3 bg-slate-50">
-                                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-800">Notifications</span>
-                                <button type="button" id="markAllReadBtn" class="text-[10px] font-extrabold text-blue-600 hover:text-blue-700 hover:underline uppercase tracking-wider">Mark All Read</button>
+                        <div id="notificationsDropdown" class="absolute right-0 mt-2 w-80 md:w-96 hidden flex-col overflow-hidden rounded-2xl border {{ $isFixoraBrand ? 'border-slate-800 bg-slate-900 text-white' : 'border-slate-200 bg-white text-slate-900' }} shadow-2xl z-[60]">
+                            <div class="flex items-center justify-between border-b {{ $isFixoraBrand ? 'border-slate-800 bg-slate-950' : 'border-slate-100 bg-slate-50' }} px-4 py-3">
+                                <span class="text-xs font-extrabold uppercase tracking-wider {{ $isFixoraBrand ? 'text-white' : 'text-slate-800' }}">Notifications</span>
+                                <button type="button" id="markAllReadBtn" class="text-[10px] font-extrabold {{ $isFixoraBrand ? 'text-emerald-400 hover:text-emerald-300' : 'text-orange-600 hover:text-orange-700' }} hover:underline uppercase tracking-wider">Mark All Read</button>
                             </div>
-                            <div id="notificationsList" class="max-h-[320px] overflow-y-auto divide-y divide-slate-100">
+                            <div id="notificationsList" class="max-h-[320px] overflow-y-auto divide-y {{ $isFixoraBrand ? 'divide-slate-800' : 'divide-slate-100' }}">
                                 <div class="p-6 text-center text-xs text-slate-400">Loading...</div>
                             </div>
-                            <div class="border-t border-slate-100 px-4 py-2.5 text-center bg-slate-50">
-                                <a href="{{ route('notifications.index') }}" class="text-xs font-bold text-slate-650 hover:text-slate-900 transition-colors uppercase tracking-wider block">View All Notifications</a>
+                            <div class="border-t {{ $isFixoraBrand ? 'border-slate-800 bg-slate-950' : 'border-slate-100 bg-slate-50' }} px-4 py-2.5 text-center">
+                                <a href="{{ route('notifications.index') }}" class="text-xs font-bold {{ $isFixoraBrand ? 'text-emerald-400 hover:text-emerald-300' : 'text-orange-600 hover:text-orange-700' }} transition-colors uppercase tracking-wider block">View All Notifications</a>
                             </div>
                         </div>
                     </div>
 
-                    <a href="{{ Auth::user()->isAdmin() ? route('admin.profile.edit') : '#' }}" class="flex items-center gap-2 rounded-xl p-1.5 transition hover:bg-slate-100">
+                    <a href="{{ Auth::user()->isAdmin() ? route('admin.profile.edit') : '#' }}" class="flex items-center gap-2 rounded-xl p-1.5 transition {{ $isFixoraBrand ? 'hover:bg-white/10' : 'hover:bg-orange-50' }}">
                         @if(Auth::user()->profile_photo)
-                            <img src="{{ asset(Auth::user()->profile_photo) }}" class="h-9 w-9 rounded-xl object-cover ring-1 ring-slate-200" alt="{{ Auth::user()->name }}">
+                            <img src="{{ asset(Auth::user()->profile_photo) }}" class="h-9 w-9 rounded-xl object-cover ring-1 {{ $isFixoraBrand ? 'ring-emerald-500/30' : 'ring-orange-200' }}" alt="{{ Auth::user()->name }}">
                         @else
-                            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-sm font-extrabold text-white shadow-sm shadow-blue-600/20">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                            <span class="flex h-9 w-9 items-center justify-center rounded-xl {{ $isFixoraBrand ? 'bg-gradient-to-tr from-emerald-600 to-teal-500 shadow-emerald-600/30' : 'bg-gradient-to-tr from-orange-600 to-amber-500 shadow-orange-600/30' }} text-sm font-extrabold text-white shadow-md">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                         @endif
                         <span class="hidden text-left sm:block">
-                            <span class="block max-w-[130px] truncate text-xs font-bold text-slate-800">{{ Auth::user()->name }}</span>
-                            <span class="block text-[10px] font-semibold capitalize text-slate-400">{{ Auth::user()->roles->first()?->name ?? 'User' }}</span>
+                            <span class="block max-w-[130px] truncate text-xs font-bold {{ $isFixoraBrand ? 'text-white' : 'text-slate-800' }}">{{ Auth::user()->name }}</span>
+                            <span class="block text-[10px] font-extrabold capitalize {{ $isFixoraBrand ? 'text-emerald-400' : 'text-orange-600' }}">{{ Auth::user()->roles->first()?->name ?? 'User' }}</span>
                         </span>
                     </a>
                 </div>
@@ -224,11 +270,11 @@
     </div>
 
     @if(Auth::check() && Auth::user()->isMarketing())
-        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-1 rounded-[22px] border border-slate-200/80 bg-white/95 px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl shadow-slate-900/15 backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-1 rounded-[22px] {{ $isFixoraBrand ? 'border border-emerald-500/25 bg-slate-950/95 shadow-black/70 text-slate-300' : 'border border-orange-100 bg-white/95 shadow-slate-900/15 text-slate-700' }} px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
             <a href="{{ route('marketing.orders.index') }}" class="mobile-nav-item {{ request()->routeIs('marketing.orders.*') ? 'is-active' : '' }}"><i data-lucide="clipboard-list"></i><span>Orders Board</span></a>
         </nav>
     @else
-        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-[22px] border border-slate-200/80 bg-white/95 px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl shadow-slate-900/15 backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-[22px] {{ $isFixoraBrand ? 'border border-emerald-500/25 bg-slate-950/95 shadow-black/70 text-slate-300' : 'border border-orange-100 bg-white/95 shadow-slate-900/15 text-slate-700' }} px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
             @php
                 $mobileDashboard = Auth::user()->isAdmin() ? route('admin.dashboard') : route('supervisor.dashboard');
                 $settingsRoute = Auth::user()->isAdmin() ? route('admin.settings.factory') : '#';
@@ -424,9 +470,23 @@
                 window.fetchUnreadNotifications();
             });
 
+            // Brand Switcher Dropdown Toggle
+            $('#brandSwitcherBtn').click(function(e) {
+                e.stopPropagation();
+                const dropdown = $('#brandSwitcherDropdown');
+                const isHidden = dropdown.hasClass('hidden');
+                $('#notificationsDropdown').addClass('hidden');
+                dropdown.toggleClass('hidden');
+                $('#brandChevronIcon').toggleClass('rotate-180', isHidden);
+            });
+
             $(document).click(function(e) {
                 if (!$(e.target).closest('#notifications-dropdown-container').length) {
                     $('#notificationsDropdown').addClass('hidden');
+                }
+                if (!$(e.target).closest('#brandSwitcherContainer').length) {
+                    $('#brandSwitcherDropdown').addClass('hidden');
+                    $('#brandChevronIcon').removeClass('rotate-180');
                 }
             });
 

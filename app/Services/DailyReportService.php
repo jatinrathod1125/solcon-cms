@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Dispatch;
 use App\Models\ProductionBatch;
 use App\Models\GroutProductionBatch;
 use App\Models\EpoxyAssembly;
@@ -96,19 +97,44 @@ class DailyReportService
         }
 
         // Department filter resolution
+        $showAdhesive = false;
+        $showGrout = false;
+        $showEpoxy = false;
+        $showInward = false;
+        $showConsumption = false;
+        $showDispatch = false;
+
+        $normalizedFilter = strtoupper(trim($deptFilter));
+
         if ($isSupervisor) {
             $showAdhesive = ($userDeptCode === 'TAD');
             $showGrout = ($userDeptCode === 'GRT');
-            $showEpoxy = ($userDeptCode === 'EP');
+            $showEpoxy = ($userDeptCode === 'EPX' || $userDeptCode === 'EP');
+            $showInward = true;
+            $showConsumption = true;
+            $showDispatch = false;
         } else {
-            if ($deptFilter === 'TAD') {
-                $showAdhesive = true; $showGrout = false; $showEpoxy = false;
-            } elseif ($deptFilter === 'GRT') {
-                $showAdhesive = false; $showGrout = true; $showEpoxy = false;
-            } elseif ($deptFilter === 'EPX') {
-                $showAdhesive = false; $showGrout = false; $showEpoxy = true;
+            if ($normalizedFilter === 'TAD') {
+                $showAdhesive = true;
+                $showInward = true;
+                $showConsumption = true;
+            } elseif ($normalizedFilter === 'GRT') {
+                $showGrout = true;
+                $showInward = true;
+                $showConsumption = true;
+            } elseif ($normalizedFilter === 'EPX') {
+                $showEpoxy = true;
+                $showInward = true;
+                $showConsumption = true;
+            } elseif (in_array($normalizedFilter, ['DSP', 'DISPATCH'])) {
+                $showDispatch = true;
             } else { // 'all'
-                $showAdhesive = true; $showGrout = true; $showEpoxy = true;
+                $showAdhesive = true;
+                $showGrout = true;
+                $showEpoxy = true;
+                $showInward = true;
+                $showConsumption = true;
+                $showDispatch = true;
             }
         }
 
@@ -437,22 +463,163 @@ class DailyReportService
             }
         }
 
-        // --- 4. UNIFIED RAW MATERIAL CONSUMPTION ---
-        $materialSummaryQuery = StockLedger::where('transaction_type', 'OUT')
+        // --- 4. UNIFIED MATERIAL CONSUMPTION (STOCK OUT & NEGATIVE ADJUSTMENTS) ---
+        // 4.1 Raw Material Consumption (OUT)
+        $materialSummaryQuery = StockLedger::where(function ($q) {
+                $q->where('transaction_type', 'OUT')
+                  ->orWhere(function ($sub) {
+                      $sub->where('transaction_type', 'ADJUSTMENT')->where('quantity', '<', 0);
+                  });
+            })
+            ->whereNotNull('raw_material_id')
             ->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate]);
 
-        if ($isSupervisor) {
+        if ($isSupervisor && $supervisorDeptId) {
             $materialSummaryQuery->whereHas('rawMaterial', function ($q) use ($supervisorDeptId) {
                 $q->where('department_id', $supervisorDeptId);
             });
         }
 
-        $materialSummary = $materialSummaryQuery->select('raw_material_id', DB::raw('abs(sum(quantity)) as total_consumed'))
+        $materialSummary = $materialSummaryQuery->select('raw_material_id', DB::raw('abs(sum(quantity)) as total_consumed'), DB::raw('count(*) as entry_count'))
             ->groupBy('raw_material_id')
-            ->with(['rawMaterial.stockUnit'])
-            ->get();
+            ->with(['rawMaterial.stockUnit', 'rawMaterial.department'])
+            ->get()
+            ->filter(fn($mat) => !is_null($mat->rawMaterial));
 
         $totalConsumptionWeight = $materialSummary->sum('total_consumed');
+
+        // 4.2 Packing Material Consumption (OUT)
+        $pmConsumptionQuery = StockLedger::where(function ($q) {
+                $q->where('transaction_type', 'OUT')
+                  ->orWhere(function ($sub) {
+                      $sub->where('transaction_type', 'ADJUSTMENT')->where('quantity', '<', 0);
+                  });
+            })
+            ->whereNotNull('packing_material_id')
+            ->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate]);
+
+        $packingMaterialConsumptionSummary = $pmConsumptionQuery
+            ->select('packing_material_id', DB::raw('abs(sum(quantity)) as total_consumed'), DB::raw('count(*) as entry_count'))
+            ->groupBy('packing_material_id')
+            ->with(['packingMaterial.category'])
+            ->get()
+            ->filter(fn($mat) => !is_null($mat->packingMaterial));
+
+        $totalConsumptionPackingQty = $packingMaterialConsumptionSummary->sum('total_consumed');
+
+        // --- 5. MATERIAL INWARD / NEW ENTRIES (IN + POSITIVE ADJUSTMENTS) ---
+        // 5.1 Raw Material Inward
+        $rmInwardQuery = StockLedger::where(function ($q) {
+                $q->where('transaction_type', 'IN')
+                  ->orWhere(function ($sub) {
+                      $sub->where('transaction_type', 'ADJUSTMENT')->where('quantity', '>', 0);
+                  });
+            })
+            ->whereNotNull('raw_material_id')
+            ->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate]);
+
+        if ($isSupervisor && $supervisorDeptId) {
+            $rmInwardQuery->whereHas('rawMaterial', function ($q) use ($supervisorDeptId) {
+                $q->where('department_id', $supervisorDeptId);
+            });
+        }
+
+        $rawMaterialInwardSummary = $rmInwardQuery
+            ->select('raw_material_id', DB::raw('sum(quantity) as total_inward'), DB::raw('count(*) as entry_count'))
+            ->groupBy('raw_material_id')
+            ->with(['rawMaterial.stockUnit', 'rawMaterial.department'])
+            ->get()
+            ->filter(fn($mat) => !is_null($mat->rawMaterial));
+
+        $totalInwardRawWeight = $rawMaterialInwardSummary->sum('total_inward');
+
+        // 5.2 Packing Material Inward
+        $pmInwardQuery = StockLedger::where(function ($q) {
+                $q->where('transaction_type', 'IN')
+                  ->orWhere(function ($sub) {
+                      $sub->where('transaction_type', 'ADJUSTMENT')->where('quantity', '>', 0);
+                  });
+            })
+            ->whereNotNull('packing_material_id')
+            ->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate]);
+
+        $packingMaterialInwardSummary = $pmInwardQuery
+            ->select('packing_material_id', DB::raw('sum(quantity) as total_inward'), DB::raw('count(*) as entry_count'))
+            ->groupBy('packing_material_id')
+            ->with(['packingMaterial.category'])
+            ->get()
+            ->filter(fn($mat) => !is_null($mat->packingMaterial));
+
+        $totalInwardPackingQty = $packingMaterialInwardSummary->sum('total_inward');
+
+        // 5.3 Detailed Inward Entries Log
+        $inwardEntriesLogQuery = StockLedger::where(function ($q) {
+                $q->where('transaction_type', 'IN')
+                  ->orWhere(function ($sub) {
+                      $sub->where('transaction_type', 'ADJUSTMENT')->where('quantity', '>', 0);
+                  });
+            })
+            ->where(function ($q) {
+                $q->whereNotNull('raw_material_id')
+                  ->orWhereNotNull('packing_material_id');
+            })
+            ->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate])
+            ->with(['rawMaterial.stockUnit', 'rawMaterial.department', 'packingMaterial.category', 'creator'])
+            ->orderByDesc('created_at');
+
+        if ($isSupervisor && $supervisorDeptId) {
+            $inwardEntriesLogQuery->where(function ($q) use ($supervisorDeptId) {
+                $q->whereHas('rawMaterial', function ($rmQ) use ($supervisorDeptId) {
+                    $rmQ->where('department_id', $supervisorDeptId);
+                })->orWhereNull('raw_material_id');
+            });
+        }
+
+        $inwardEntriesLog = $inwardEntriesLogQuery->get();
+
+        // --- 6. COMPLETED DISPATCHES & LOGISTICS SUMMARY ---
+        $dispatchesQuery = Dispatch::where('status', 'completed')
+            ->where(function ($q) use ($startDate, $endDate) {
+                $q->whereBetween(DB::raw('DATE(COALESCE(loaded_at, created_at))'), [$startDate, $endDate]);
+            })
+            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'creator', 'loader', 'releaser'])
+            ->orderByDesc('loaded_at');
+
+        $dispatches = $dispatchesQuery->get();
+
+        $totalDispatchesCount = $dispatches->count();
+        $totalDispatchedBags = 0;
+        $totalDispatchedWeightKg = 0;
+
+        $dispatchedItemsMap = [];
+
+        foreach ($dispatches as $disp) {
+            foreach ($disp->items as $it) {
+                $qty = (int) $it->quantity_bags;
+                $weight = (float) $it->calculated_weight_kg;
+                $prodName = $it->product_name ?: 'Unknown Product';
+                $dept = $it->department_label ?: $it->department_code ?: 'General';
+                $unit = $it->unit_label ?: 'Bags';
+
+                $totalDispatchedBags += $qty;
+                $totalDispatchedWeightKg += $weight;
+
+                $key = $prodName . '___' . $dept;
+                if (!isset($dispatchedItemsMap[$key])) {
+                    $dispatchedItemsMap[$key] = [
+                        'product_name' => $prodName,
+                        'department' => $dept,
+                        'unit' => $unit,
+                        'total_quantity' => 0,
+                        'total_weight_kg' => 0,
+                    ];
+                }
+                $dispatchedItemsMap[$key]['total_quantity'] += $qty;
+                $dispatchedItemsMap[$key]['total_weight_kg'] += $weight;
+            }
+        }
+
+        $dispatchedProductsSummary = collect(array_values($dispatchedItemsMap))->sortByDesc('total_weight_kg')->values();
 
         return [
             // Filter Params
@@ -491,9 +658,33 @@ class DailyReportService
             'epoxyPrepGrouped' => $epoxyPrepGrouped,
             'showEpoxy' => $showEpoxy,
 
-            // Unified Material Consumption
+            // Unified Material Consumption (OUT)
             'materialSummary' => $materialSummary,
             'totalConsumptionWeight' => $totalConsumptionWeight,
+            'packingMaterialConsumptionSummary' => $packingMaterialConsumptionSummary,
+            'totalConsumptionPackingQty' => $totalConsumptionPackingQty,
+
+            // Material Inward / Stock In (IN + Positive Adjustments)
+            'rawMaterialInwardSummary' => $rawMaterialInwardSummary,
+            'packingMaterialInwardSummary' => $packingMaterialInwardSummary,
+            'inwardEntriesLog' => $inwardEntriesLog,
+            'totalInwardRawWeight' => $totalInwardRawWeight,
+            'totalInwardPackingQty' => $totalInwardPackingQty,
+
+            // Visibility Flags
+            'showAdhesive' => $showAdhesive,
+            'showGrout' => $showGrout,
+            'showEpoxy' => $showEpoxy,
+            'showInward' => $showInward,
+            'showConsumption' => $showConsumption,
+            'showDispatch' => $showDispatch,
+
+            // Dispatches / Outward Logistics
+            'dispatches' => $dispatches,
+            'dispatchedProductsSummary' => $dispatchedProductsSummary,
+            'totalDispatchesCount' => $totalDispatchesCount,
+            'totalDispatchedBags' => $totalDispatchedBags,
+            'totalDispatchedWeightKg' => $totalDispatchedWeightKg,
         ];
     }
 }

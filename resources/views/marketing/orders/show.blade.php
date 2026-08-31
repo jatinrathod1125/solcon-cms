@@ -356,12 +356,12 @@
                     </div>
                 </div>
 
-                    <!-- SOLITITE -->
+                    <!-- SOLITITE / FIXOTITE -->
                     <div
                         class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Solitite</span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ (($order->brand_id ?? (function_exists('currentBrand') ? currentBrand()?->id : 1)) == 2) ? 'Fixotite' : 'Solitite' }}</span>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full erp-table text-center min-w-[200px]">
@@ -495,11 +495,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($epoxyColors as $color)
                                     @php 
-                                        $epoxy1kg = $epoxies->where('code', '1B')->first();
-                                        $epoxy5kg = $epoxies->where('code', '5B')->first();
+                                        $epoxy1kg = $epoxies->first(fn($p) => str_contains($p->name, '1KG') || $p->code === '1B' || $p->code === '1B-B2');
+                                        $epoxy5kg = $epoxies->first(fn($p) => str_contains($p->name, '5KG') || $p->code === '5B' || $p->code === '5B-B2');
                                     @endphp
+                                    @foreach($epoxyColors as $color)
                                     <tr>
                                         <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
                                             {{ $color->code }} - {{ $color->name }}
@@ -507,7 +507,7 @@
                                         <td class="w-14">
                                             <input type="text" class="compact-input qty-input" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="1KG" readonly>
                                         </td>
@@ -515,14 +515,14 @@
                                             <input type="text" class="compact-input coupon-code-input uppercase" 
                                                    placeholder="None" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="1KG" readonly>
                                         </td>
                                         <td class="w-14">
                                             <input type="text" class="compact-input qty-input" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="5KG" readonly>
                                         </td>
@@ -530,7 +530,7 @@
                                             <input type="text" class="compact-input coupon-code-input uppercase" 
                                                    placeholder="None" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="5KG" readonly>
                                         </td>

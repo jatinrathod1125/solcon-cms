@@ -91,7 +91,7 @@
             </td>
             <td class="meta-text">
                 <div><strong>Period:</strong> {{ $startDate }} {{ $isMultiDay ? 'to ' . $endDate : '' }}</div>
-                <div><strong>Filter:</strong> {{ strtoupper($deptFilter === 'all' ? 'All Departments' : $deptFilter) }}</div>
+                <div><strong>Filter:</strong> {{ strtoupper($deptFilter === 'all' ? 'All Departments' : (in_array(strtoupper($deptFilter), ['DSP', 'DISPATCH']) ? 'Dispatch' : $deptFilter)) }}</div>
             </td>
         </tr>
     </table>
@@ -286,6 +286,86 @@
         @endif
     @endif
 
+
+    <!-- MATERIAL INWARD & DISPATCH SUMMARY -->
+    @if(($showInward && (count($rawMaterialInwardSummary) > 0 || count($packingMaterialInwardSummary) > 0)) || ($showDispatch && count($dispatches) > 0))
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="vertical-align: top;">
+                <!-- Left Column: Material Inward -->
+                @if($showInward && (count($rawMaterialInwardSummary) > 0 || count($packingMaterialInwardSummary) > 0))
+                    <td style="width: 50%; padding-right: 8px; border: none; background: transparent;">
+                        <div style="font-weight: 800; font-size: 10px; color: #047857; text-transform: uppercase; margin-bottom: 4px;">
+                            MATERIAL INWARD SUMMARY (IN)
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Material Name</th>
+                                    <th>Type</th>
+                                    <th class="text-right">Inward Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($rawMaterialInwardSummary->take(8) as $rmIn)
+                                    @if($rmIn->rawMaterial)
+                                        <tr>
+                                            <td class="font-bold">{{ $rmIn->rawMaterial->name }}</td>
+                                            <td>Raw Material</td>
+                                            <td class="text-right font-mono font-bold" style="color: #047857;">+{{ number_format($rmIn->total_inward, 2) }} {{ $rmIn->rawMaterial->stockUnit?->code ?? 'KG' }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                                @foreach($packingMaterialInwardSummary->take(6) as $pmIn)
+                                    @if($pmIn->packingMaterial)
+                                        <tr>
+                                            <td class="font-bold">{{ $pmIn->packingMaterial->name }}</td>
+                                            <td>Packing</td>
+                                            <td class="text-right font-mono font-bold" style="color: #0369a1;">+{{ number_format($pmIn->total_inward) }} PCS</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </td>
+                @endif
+
+                <!-- Right Column: Dispatches -->
+                @if($showDispatch && count($dispatches) > 0)
+                    <td style="width: 50%; padding-left: 8px; border: none; background: transparent;">
+                        <div style="font-weight: 800; font-size: 10px; color: #1d4ed8; text-transform: uppercase; margin-bottom: 4px;">
+                            DISPATCH SUMMARY ({{ $totalDispatchesCount }} Vehicles | {{ number_format($totalDispatchedWeightKg / 1000, 2) }} T)
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Dispatch No</th>
+                                    <th>Party</th>
+                                    <th>City</th>
+                                    <th class="text-right">Units</th>
+                                    <th class="text-right">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($dispatches->take(8) as $d)
+                                    @php
+                                        $dBags = $d->items->sum('quantity_bags');
+                                        $dKg = $d->items->sum('calculated_weight_kg');
+                                    @endphp
+                                    <tr>
+                                        <td class="font-mono font-bold">{{ $d->dispatch_number }}</td>
+                                        <td class="font-bold">{{ $d->party_name }}</td>
+                                        <td>{{ $d->city ?: '-' }}</td>
+                                        <td class="text-right font-mono font-bold">{{ number_format($dBags) }}</td>
+                                        <td class="text-right font-mono font-bold">{{ number_format($dKg, 2) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </td>
+                @endif
+            </tr>
+        </table>
+    @endif
 
     <div class="footer">
         Solcon Industries | Generated: {{ now()->format('d M Y, h:i:s A') }}

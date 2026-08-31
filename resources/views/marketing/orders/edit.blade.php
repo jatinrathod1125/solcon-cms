@@ -220,7 +220,7 @@
 @section('content')
 <div class="marketing-orders-page mx-auto max-w-[1700px]">
 
-    <form id="editOrderForm" action="{{ route('marketing.orders.update', $order->id) }}" method="POST">
+    <form id="editOrderForm" action="{{ route('marketing.orders.update', $order->id) }}" method="POST" data-no-loading="true" class="ajax-form">
         @csrf
         @method('PUT')
         <section class="bg-white border border-slate-200 rounded-[24px] p-5 shadow-sm space-y-5">
@@ -445,12 +445,12 @@
                         </div>
                     </div>
 
-                    <!-- SOLITITE -->
+                    <!-- SOLITITE / FIXOTITE -->
                     <div
                         class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Solitite</span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ (($order->brand_id ?? (function_exists('currentBrand') ? currentBrand()?->id : 1)) == 2) ? 'Fixotite' : 'Solitite' }}</span>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full erp-table text-center min-w-[200px]">
@@ -584,11 +584,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($epoxyColors as $color)
                                     @php 
-                                        $epoxy1kg = $epoxies->where('code', '1B')->first();
-                                        $epoxy5kg = $epoxies->where('code', '5B')->first();
+                                        $epoxy1kg = $epoxies->first(fn($p) => str_contains($p->name, '1KG') || $p->code === '1B' || $p->code === '1B-B2');
+                                        $epoxy5kg = $epoxies->first(fn($p) => str_contains($p->name, '5KG') || $p->code === '5B' || $p->code === '5B-B2');
                                     @endphp
+                                    @foreach($epoxyColors as $color)
                                     <tr>
                                         <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
                                             {{ $color->code }} - {{ $color->name }}
@@ -596,7 +596,7 @@
                                         <td class="w-14">
                                             <input type="number" min="0" class="compact-input qty-input" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="1KG">
                                         </td>
@@ -604,14 +604,14 @@
                                             <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase" 
                                                    placeholder="Coupon" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy1kg->id ?? 1 }}" 
+                                                   data-product-id="{{ $epoxy1kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="1KG">
                                         </td>
                                         <td class="w-14">
                                             <input type="number" min="0" class="compact-input qty-input" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="5KG">
                                         </td>
@@ -619,7 +619,7 @@
                                             <input type="text" list="availableCouponsDatalist" class="compact-input coupon-code-input uppercase" 
                                                    placeholder="Coupon" 
                                                    data-dept="EPX" 
-                                                   data-product-id="{{ $epoxy5kg->id ?? 2 }}" 
+                                                   data-product-id="{{ $epoxy5kg->id ?? '' }}" 
                                                    data-filler-color-id="{{ $color->id }}" 
                                                    data-packing="5KG">
                                         </td>
@@ -957,6 +957,35 @@
         $('#editOrderForm').on('submit', function(e) {
             e.preventDefault();
 
+            var $form = $(this);
+            var $submitBtn = $form.find('button[type="submit"]');
+            var originalBtnHtml = $submitBtn.data('original-html') || $submitBtn.html();
+            $submitBtn.data('original-html', originalBtnHtml);
+
+            function resetButton() {
+                $submitBtn.prop('disabled', false).html(originalBtnHtml);
+            }
+
+            var partyName = $('#party_name').val() ? $('#party_name').val().trim() : '';
+            var orderDate = $('#order_date').val();
+            var city = $('#city').val() ? $('#city').val().trim() : '';
+            var vehicleNumber = $('#vehicle_number').val() ? $('#vehicle_number').val().trim() : '';
+            var priority = $('#priority').val();
+            var remarks = $('#remarks').val();
+
+            if (!partyName) {
+                resetButton();
+                Swal.fire({
+                    title: 'Missing Party Name',
+                    text: 'Please enter the Party Name before saving the order.',
+                    icon: 'warning',
+                    confirmButtonColor: '#2563eb'
+                }).then(function() {
+                    $('#party_name').focus();
+                });
+                return;
+            }
+
             // Prepare items array
             var items = [];
 
@@ -1024,25 +1053,30 @@
             });
 
             if (items.length === 0) {
-                Swal.fire('Error', 'Please enter a quantity for at least one product.', 'error');
+                resetButton();
+                Swal.fire({
+                    title: 'No Products Added',
+                    text: 'Please enter a quantity for at least one product.',
+                    icon: 'warning',
+                    confirmButtonColor: '#2563eb'
+                });
                 return;
             }
 
-            var partyName = $('#party_name').val().trim();
-            var orderDate = $('#order_date').val();
-            var city = $('#city').val().trim();
-            var vehicleNumber = $('#vehicle_number').val() ? $('#vehicle_number').val().trim() : '';
-            var priority = $('#priority').val();
-            var remarks = $('#remarks').val();
-
-            if (!partyName) {
-                Swal.fire('Error', 'Party name is required.', 'error');
-                return;
-            }
+            // Set loading state on submit button
+            $submitBtn.prop('disabled', true).html(`
+                <span class="inline-flex items-center gap-2">
+                    <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Updating Order...</span>
+                </span>
+            `);
 
             // AJAX call
             $.ajax({
-                url: $(this).attr('action'),
+                url: $form.attr('action'),
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -1066,13 +1100,20 @@
                             window.location.href = "{{ route('marketing.orders.index') }}";
                         });
                     } else {
+                        resetButton();
                         Swal.fire('Error', response.message || 'Failed to update order.', 'error');
                     }
                 },
                 error: function(xhr) {
+                    resetButton();
                     var errorMsg = 'Failed to update order.';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMsg = xhr.responseJSON.message;
+                    if (xhr.responseJSON) {
+                        if (xhr.responseJSON.errors) {
+                            var firstKey = Object.keys(xhr.responseJSON.errors)[0];
+                            errorMsg = xhr.responseJSON.errors[firstKey][0] || errorMsg;
+                        } else if (xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        }
                     }
                     Swal.fire('Error', errorMsg, 'error');
                 }

@@ -164,7 +164,7 @@
         <div class="report-title">PRODUCTION SUMMARY REPORT</div>
         <div class="report-meta">
             <div><strong>Period:</strong> {{ $startDate }} {{ $isMultiDay ? 'to ' . $endDate : '' }}</div>
-            <div class="badge">Department: {{ strtoupper($deptFilter === 'all' ? 'All Departments' : $deptFilter) }}</div>
+            <div class="badge">Department: {{ strtoupper($deptFilter === 'all' ? 'All Departments' : (in_array(strtoupper($deptFilter), ['DSP', 'DISPATCH']) ? 'Dispatch' : $deptFilter)) }}</div>
         </div>
     </div>
 
@@ -485,23 +485,181 @@
         @endif
     @endif
 
-    <!-- 4. UNIFIED RAW MATERIAL CONSUMPTION -->
-    @if(count($materialSummary) > 0)
-        <div class="section-header" style="border-left-color: #f59e0b; color: #b45309;">4. RAW MATERIAL CONSUMPTION</div>
+    <!-- 4. MATERIAL CONSUMPTION (OUT) -->
+    @if($showConsumption && (count($materialSummary) > 0 || count($packingMaterialConsumptionSummary) > 0))
+        <div class="section-header" style="border-left-color: #f59e0b; color: #b45309;">4. MATERIAL CONSUMPTION (OUT)</div>
+        
+        @if(count($materialSummary) > 0)
+            <div style="margin-bottom: 4px; font-weight: bold; font-size: 10px; color: #b45309;">4.1 Raw Material Consumption (Total: {{ number_format($totalConsumptionWeight, 2) }} KG)</div>
+            <table style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th>Material Name</th>
+                        <th>Code</th>
+                        <th>Dept</th>
+                        <th class="text-right">Consumed Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($materialSummary as $mat)
+                        @if($mat->rawMaterial)
+                            <tr>
+                                <td class="font-bold">{{ $mat->rawMaterial->name }}</td>
+                                <td class="font-mono">{{ $mat->rawMaterial->code }}</td>
+                                <td>{{ $mat->rawMaterial->department?->code ?? '-' }}</td>
+                                <td class="text-right font-mono font-bold" style="color: #b45309;">{{ number_format($mat->total_consumed, 2) }} {{ $mat->rawMaterial->stockUnit?->code ?? $mat->rawMaterial->unit?->code ?? 'KG' }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(count($packingMaterialConsumptionSummary) > 0)
+            <div style="margin-bottom: 4px; font-weight: bold; font-size: 10px; color: #4338ca;">4.2 Packing Material Consumption (Total: {{ number_format($totalConsumptionPackingQty) }} Units)</div>
+            <table style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th>Packing Material Name</th>
+                        <th>Code</th>
+                        <th>Category</th>
+                        <th class="text-right">Consumed Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($packingMaterialConsumptionSummary as $pmOut)
+                        @if($pmOut->packingMaterial)
+                            <tr>
+                                <td class="font-bold">{{ $pmOut->packingMaterial->name }}</td>
+                                <td class="font-mono">{{ $pmOut->packingMaterial->code }}</td>
+                                <td>{{ $pmOut->packingMaterial->category?->name ?? '-' }}</td>
+                                <td class="text-right font-mono font-bold" style="color: #4338ca;">{{ number_format($pmOut->total_consumed) }} PCS</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    @endif
+
+    <!-- 5. MATERIAL INWARD & STOCK RECEIPTS (IN) -->
+    @if($showInward && (count($rawMaterialInwardSummary) > 0 || count($packingMaterialInwardSummary) > 0))
+        <div class="section-header" style="border-left-color: #10b981; color: #047857;">5. MATERIAL INWARD & STOCK RECEIPTS (IN)</div>
+        
+        @if(count($rawMaterialInwardSummary) > 0)
+            <div style="margin-bottom: 4px; font-weight: bold; font-size: 10px; color: #047857;">5.1 Raw Material Receipts (Total: {{ number_format($totalInwardRawWeight, 2) }} KG)</div>
+            <table style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th>Material Name</th>
+                        <th>Code</th>
+                        <th class="text-center">Entries</th>
+                        <th class="text-right">Inward Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($rawMaterialInwardSummary as $rmIn)
+                        @if($rmIn->rawMaterial)
+                            <tr>
+                                <td class="font-bold">{{ $rmIn->rawMaterial->name }}</td>
+                                <td class="font-mono">{{ $rmIn->rawMaterial->code }}</td>
+                                <td class="text-center font-mono">{{ $rmIn->entry_count }}</td>
+                                <td class="text-right font-mono font-bold" style="color: #047857;">+{{ number_format($rmIn->total_inward, 2) }} {{ $rmIn->rawMaterial->stockUnit?->code ?? 'KG' }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if(count($packingMaterialInwardSummary) > 0)
+            <div style="margin-bottom: 4px; font-weight: bold; font-size: 10px; color: #0369a1;">5.2 Packing Material Receipts (Total: {{ number_format($totalInwardPackingQty) }} Units)</div>
+            <table style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th>Packing Material Name</th>
+                        <th>Code</th>
+                        <th class="text-center">Entries</th>
+                        <th class="text-right">Inward Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($packingMaterialInwardSummary as $pmIn)
+                        @if($pmIn->packingMaterial)
+                            <tr>
+                                <td class="font-bold">{{ $pmIn->packingMaterial->name }}</td>
+                                <td class="font-mono">{{ $pmIn->packingMaterial->code }}</td>
+                                <td class="text-center font-mono">{{ $pmIn->entry_count }}</td>
+                                <td class="text-right font-mono font-bold" style="color: #0369a1;">+{{ number_format($pmIn->total_inward) }} PCS</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    @endif
+
+    <!-- 6. DISPATCH & OUTWARD LOGISTICS SUMMARY -->
+    @if($showDispatch && count($dispatches) > 0)
+        <div class="section-header" style="border-left-color: #3b82f6; color: #1d4ed8;">6. DISPATCH & OUTWARD LOGISTICS SUMMARY</div>
+        
+        <div style="margin-bottom: 4px; font-weight: bold; font-size: 10px; color: #1d4ed8;">
+            Dispatched Totals: {{ $totalDispatchesCount }} Completed Dispatches | {{ number_format($totalDispatchedWeightKg, 2) }} KG ({{ number_format($totalDispatchedWeightKg / 1000, 3) }} Tons)
+        </div>
+
+        @if(count($dispatchedProductsSummary) > 0)
+            <table style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Department</th>
+                        <th class="text-right">Quantity</th>
+                        <th class="text-right">Weight (KG)</th>
+                        <th class="text-right">Weight (Tons)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($dispatchedProductsSummary as $prod)
+                        <tr>
+                            <td class="font-bold">{{ $prod['product_name'] }}</td>
+                            <td>{{ $prod['department'] }}</td>
+                            <td class="text-right font-mono font-bold">{{ number_format($prod['total_quantity']) }} {{ $prod['unit'] }}</td>
+                            <td class="text-right font-mono">{{ number_format($prod['total_weight_kg'], 2) }} KG</td>
+                            <td class="text-right font-mono font-bold" style="color: #047857;">{{ number_format($prod['total_weight_kg'] / 1000, 3) }} T</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        <div style="margin-bottom: 4px; font-weight: bold; font-size: 10px; color: #475569;">Completed Dispatches List:</div>
         <table>
             <thead>
                 <tr>
-                    <th>Material Name</th>
-                    <th>Code</th>
-                    <th class="text-right">Consumed Quantity</th>
+                    <th>Dispatch No</th>
+                    <th>Date</th>
+                    <th>Party Name</th>
+                    <th>City</th>
+                    <th>Vehicle</th>
+                    <th class="text-right">Units</th>
+                    <th class="text-right">Weight (KG)</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($materialSummary as $mat)
+                @foreach($dispatches as $d)
+                    @php
+                        $dBags = $d->items->sum('quantity_bags');
+                        $dKg = $d->items->sum('calculated_weight_kg');
+                        $dDate = $d->loaded_at ?? $d->created_at;
+                    @endphp
                     <tr>
-                        <td class="font-bold">{{ $mat->rawMaterial->name }}</td>
-                        <td class="font-mono">{{ $mat->rawMaterial->code }}</td>
-                        <td class="text-right font-mono font-bold">{{ number_format($mat->total_consumed, 4) }} {{ $mat->rawMaterial->stockUnit->code }}</td>
+                        <td class="font-mono font-bold">{{ $d->dispatch_number }}</td>
+                        <td class="font-mono">{{ $dDate ? $dDate->format('d/m/Y') : '-' }}</td>
+                        <td class="font-bold">{{ $d->party_name }}</td>
+                        <td>{{ $d->city ?: '-' }}</td>
+                        <td class="font-mono">{{ $d->vehicle_number ?: '-' }}</td>
+                        <td class="text-right font-mono font-bold">{{ number_format($dBags) }}</td>
+                        <td class="text-right font-mono font-bold">{{ number_format($dKg, 2) }}</td>
                     </tr>
                 @endforeach
             </tbody>

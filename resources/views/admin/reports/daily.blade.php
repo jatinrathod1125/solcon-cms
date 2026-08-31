@@ -44,6 +44,7 @@
                     <option value="TAD" {{ $departmentCode === 'TAD' ? 'selected' : '' }}>Tile Adhesive</option>
                     <option value="GRT" {{ $departmentCode === 'GRT' ? 'selected' : '' }}>Grout</option>
                     <option value="EPX" {{ $departmentCode === 'EPX' ? 'selected' : '' }}>Epoxy</option>
+                    <option value="DSP" {{ in_array($departmentCode, ['DSP', 'DISPATCH']) ? 'selected' : '' }}>Dispatch</option>
                 </select>
             </div>
 
@@ -400,6 +401,403 @@
                 </div>
             @endif
         </div>
+    @endif
+
+    <!-- ==================== 4. MATERIAL INWARD & STOCK RECEIPTS ==================== -->
+    @if($showInward)
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
+            <div>
+                <h3 class="text-base font-extrabold text-emerald-700 uppercase tracking-wide flex items-center gap-2">
+                    <i data-lucide="arrow-down-left" class="w-5 h-5 text-emerald-600"></i>
+                    <span>Material Inward & Stock Receipts (Stock IN)</span>
+                </h3>
+                <p class="text-xs text-slate-500 font-medium mt-0.5">Raw materials & packing materials inwarded or added via positive stock adjustments.</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-black">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+                    {{ $inwardEntriesLog->count() }} Inward Entries
+                </span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 4.1 Raw Material Inward Table -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                    <span>4.1 Raw Material Receipts</span>
+                    <span class="text-[11px] text-slate-400 font-semibold">{{ $rawMaterialInwardSummary->count() }} Items</span>
+                </h4>
+                <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-100">
+                                <th class="px-3.5 py-2.5">Material</th>
+                                <th class="px-3.5 py-2.5">Code</th>
+                                <th class="px-3.5 py-2.5 text-center">Entries</th>
+                                <th class="px-3.5 py-2.5 text-right">Inward Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                            @forelse($rawMaterialInwardSummary as $rmIn)
+                                @php $rm = $rmIn->rawMaterial; @endphp
+                                <tr class="hover:bg-slate-50/50">
+                                    <td class="px-3.5 py-2 font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <span>{{ $rm->name }}</span>
+                                            @if($rm->department)
+                                                <span class="text-[9px] font-bold px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">{{ $rm->department->code }}</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class="px-3.5 py-2 font-mono text-slate-500 text-[11px]">{{ $rm->code }}</td>
+                                    <td class="px-3.5 py-2 text-center font-semibold text-slate-600">{{ $rmIn->entry_count }}</td>
+                                    <td class="px-3.5 py-2 text-right font-mono font-black text-emerald-700">
+                                        +{{ number_format($rmIn->total_inward, 2) }} {{ $rm->stockUnit?->code ?? 'KG' }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="px-4 py-6 text-center text-xs text-slate-400 font-semibold italic">No raw material inward entries in this period.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4.2 Packing Material Inward Table -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                    <span>4.2 Packing Material Receipts</span>
+                    <span class="text-[11px] text-slate-400 font-semibold">{{ $packingMaterialInwardSummary->count() }} Items</span>
+                </h4>
+                <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-100">
+                                <th class="px-3.5 py-2.5">Material</th>
+                                <th class="px-3.5 py-2.5">Code</th>
+                                <th class="px-3.5 py-2.5 text-center">Entries</th>
+                                <th class="px-3.5 py-2.5 text-right">Inward Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                            @forelse($packingMaterialInwardSummary as $pmIn)
+                                @php $pm = $pmIn->packingMaterial; @endphp
+                                <tr class="hover:bg-slate-50/50">
+                                    <td class="px-3.5 py-2 font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <span>{{ $pm->name }}</span>
+                                            @if($pm->category)
+                                                <span class="text-[9px] font-bold px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded">{{ $pm->category->name }}</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class="px-3.5 py-2 font-mono text-slate-500 text-[11px]">{{ $pm->code }}</td>
+                                    <td class="px-3.5 py-2 text-center font-semibold text-slate-600">{{ $pmIn->entry_count }}</td>
+                                    <td class="px-3.5 py-2 text-right font-mono font-black text-blue-700">
+                                        +{{ number_format($pmIn->total_inward) }} PCS
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="px-4 py-6 text-center text-xs text-slate-400 font-semibold italic">No packing material inward entries in this period.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.3 Inward Detailed Transactions Log -->
+        @if($inwardEntriesLog->isNotEmpty())
+            <div class="pt-3 border-t border-slate-100 space-y-2">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                    <span>4.3 Inward Transactions Detailed Log</span>
+                    <span class="text-[11px] text-slate-500 font-medium">Latest entries first</span>
+                </h4>
+                <div class="overflow-x-auto border border-slate-200 rounded-xl max-h-80 overflow-y-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead class="sticky top-0 bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-200 z-10">
+                            <tr>
+                                <th class="px-3.5 py-2.5">Date & Time</th>
+                                <th class="px-3.5 py-2.5">Type</th>
+                                <th class="px-3.5 py-2.5">Material Name</th>
+                                <th class="px-3.5 py-2.5 text-right">Quantity In</th>
+                                <th class="px-3.5 py-2.5">Remarks / Source</th>
+                                <th class="px-3.5 py-2.5">Created By</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                            @foreach($inwardEntriesLog as $entry)
+                                @php
+                                    $isRM = !is_null($entry->raw_material_id) && $entry->rawMaterial;
+                                    $matName = $isRM ? $entry->rawMaterial->name : ($entry->packingMaterial?->name ?? 'Unknown');
+                                    $matCode = $isRM ? $entry->rawMaterial->code : ($entry->packingMaterial?->code ?? '-');
+                                    $unit = $isRM ? ($entry->rawMaterial->stockUnit?->code ?? 'KG') : 'PCS';
+                                @endphp
+                                <tr class="hover:bg-slate-50/50">
+                                    <td class="px-3.5 py-2 font-mono text-[11px] text-slate-600 whitespace-nowrap">{{ $entry->created_at->format('d M Y, h:i A') }}</td>
+                                    <td class="px-3.5 py-2 whitespace-nowrap">
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold {{ $isRM ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-blue-50 text-blue-700 border border-blue-200' }}">
+                                            {{ $isRM ? 'Raw Material' : 'Packing Material' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-3.5 py-2 font-bold text-slate-900">
+                                        {{ $matName }} <span class="font-mono text-slate-400 text-[10px]">({{ $matCode }})</span>
+                                    </td>
+                                    <td class="px-3.5 py-2 text-right font-mono font-black text-emerald-700 whitespace-nowrap">
+                                        +{{ number_format($entry->quantity, 2) }} {{ $unit }}
+                                    </td>
+                                    <td class="px-3.5 py-2 text-slate-500 text-[11px]">{{ $entry->remarks ?: 'Stock Inward / Adjustment' }}</td>
+                                    <td class="px-3.5 py-2 text-slate-600 font-semibold">{{ $entry->creator?->name ?? 'Admin / System' }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+    </div>
+    @endif
+
+    <!-- ==================== 5. MATERIAL CONSUMPTION (STOCK OUT) ==================== -->
+    @if($showConsumption && (count($materialSummary) > 0 || count($packingMaterialConsumptionSummary) > 0))
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
+                <div>
+                    <h3 class="text-base font-extrabold text-amber-800 uppercase tracking-wide flex items-center gap-2">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-amber-600"></i>
+                        <span>Material Consumption (Stock OUT)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Raw materials & packing materials consumed for completed production and packaging.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-xl text-xs font-black">
+                        <i data-lucide="package-minus" class="w-3.5 h-3.5 text-amber-600"></i>
+                        {{ count($materialSummary) + count($packingMaterialConsumptionSummary) }} Consumed Materials
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- 5.1 Raw Material Consumption Table -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                        <span>5.1 Raw Material Consumption</span>
+                        <span class="text-[11px] text-amber-700 font-bold">Total: {{ number_format($totalConsumptionWeight, 2) }} KG</span>
+                    </h4>
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-100">
+                                    <th class="px-3.5 py-2.5">Material Name</th>
+                                    <th class="px-3.5 py-2.5">Code</th>
+                                    <th class="px-3.5 py-2.5">Dept</th>
+                                    <th class="px-3.5 py-2.5 text-right">Consumed Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                                @forelse($materialSummary as $mat)
+                                    @if($mat->rawMaterial)
+                                        <tr class="hover:bg-slate-50/50">
+                                            <td class="px-3.5 py-2 font-bold text-slate-900">{{ $mat->rawMaterial->name }}</td>
+                                            <td class="px-3.5 py-2 font-mono text-slate-500 text-[11px]">{{ $mat->rawMaterial->code }}</td>
+                                            <td class="px-3.5 py-2">
+                                                @if($mat->rawMaterial->department)
+                                                    <span class="text-[9px] font-bold px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">{{ $mat->rawMaterial->department->code }}</span>
+                                                @else
+                                                    <span class="text-slate-400 text-xs">-</span>
+                                                @endif
+                                            </td>
+                                            <td class="px-3.5 py-2 text-right font-mono font-black text-rose-700">
+                                                {{ number_format($mat->total_consumed, 2) }} {{ $mat->rawMaterial->stockUnit?->code ?? $mat->rawMaterial->unit?->code ?? 'KG' }}
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="px-4 py-6 text-center text-xs text-slate-400 font-semibold italic">No raw material consumed in this period.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5.2 Packing Material Consumption Table -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                        <span>5.2 Packing Material Consumption</span>
+                        <span class="text-[11px] text-indigo-700 font-bold">Total: {{ number_format($totalConsumptionPackingQty) }} PCS</span>
+                    </h4>
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-100">
+                                    <th class="px-3.5 py-2.5">Packing Material</th>
+                                    <th class="px-3.5 py-2.5">Code</th>
+                                    <th class="px-3.5 py-2.5">Category</th>
+                                    <th class="px-3.5 py-2.5 text-right">Consumed Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                                @forelse($packingMaterialConsumptionSummary as $pmOut)
+                                    @if($pmOut->packingMaterial)
+                                        <tr class="hover:bg-slate-50/50">
+                                            <td class="px-3.5 py-2 font-bold text-slate-900">{{ $pmOut->packingMaterial->name }}</td>
+                                            <td class="px-3.5 py-2 font-mono text-slate-500 text-[11px]">{{ $pmOut->packingMaterial->code }}</td>
+                                            <td class="px-3.5 py-2">
+                                                @if($pmOut->packingMaterial->category)
+                                                    <span class="text-[9px] font-bold px-1.5 py-0.5 bg-indigo-50 text-indigo-700 rounded">{{ $pmOut->packingMaterial->category->name }}</span>
+                                                @else
+                                                    <span class="text-slate-400 text-xs">-</span>
+                                                @endif
+                                            </td>
+                                            <td class="px-3.5 py-2 text-right font-mono font-black text-rose-700">
+                                                {{ number_format($pmOut->total_consumed) }} PCS
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="px-4 py-6 text-center text-xs text-slate-400 font-semibold italic">No packing material consumed in this period.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- ==================== 6. DISPATCH & OUTWARD LOGISTICS SUMMARY ==================== -->
+    @if($showDispatch)
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
+            <div>
+                <h3 class="text-base font-extrabold text-blue-700 uppercase tracking-wide flex items-center gap-2">
+                    <i data-lucide="truck" class="w-5 h-5 text-blue-600"></i>
+                    <span>Dispatch & Outward Logistics Summary</span>
+                </h3>
+                <p class="text-xs text-slate-500 font-medium mt-0.5">Finished goods loaded and dispatched during the selected period.</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-800 border border-blue-200 rounded-xl text-xs font-black">
+                    <i data-lucide="package-check" class="w-3.5 h-3.5 text-blue-600"></i>
+                    {{ $totalDispatchesCount }} Completed Dispatches
+                </span>
+            </div>
+        </div>
+
+        <!-- Dispatch Metric Badges -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100/40 border border-blue-200/80 rounded-xl p-4">
+                <span class="text-[10px] font-extrabold text-blue-700 uppercase tracking-wider block">Completed Dispatches</span>
+                <strong class="text-2xl font-black text-slate-900 mt-1 block font-mono">{{ $totalDispatchesCount }} <span class="text-xs text-slate-500 font-bold">Vehicles/Orders</span></strong>
+                <span class="text-[11px] font-bold text-blue-800 mt-0.5 block">{{ $dispatchedProductsSummary->count() }} Product Varieties • Factory Pickup & Crossing Deliveries</span>
+            </div>
+            <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/40 border border-emerald-200/80 rounded-xl p-4">
+                <span class="text-[10px] font-extrabold text-emerald-700 uppercase tracking-wider block">Total Dispatched Weight</span>
+                <strong class="text-2xl font-black text-slate-900 mt-1 block font-mono">{{ number_format($totalDispatchedWeightKg, 2) }} <span class="text-xs text-slate-500 font-bold">KG</span></strong>
+                <span class="text-[11px] font-bold text-emerald-800 mt-0.5 block">≈ {{ number_format($totalDispatchedWeightKg / 1000, 3) }} Metric Tons</span>
+            </div>
+        </div>
+
+        @if($dispatches->isNotEmpty())
+            <div class="space-y-6">
+                <!-- 6.1 Dispatched Products Breakdown -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                        <span>6.1 Dispatched Products Breakdown</span>
+                        <span class="text-[11px] text-slate-400 font-semibold">{{ $dispatchedProductsSummary->count() }} Products</span>
+                    </h4>
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-100">
+                                    <th class="px-4 py-2.5">Product Name</th>
+                                    <th class="px-4 py-2.5">Department</th>
+                                    <th class="px-4 py-2.5 text-right">Dispatched Quantity</th>
+                                    <th class="px-4 py-2.5 text-right">Total Weight (KG)</th>
+                                    <th class="px-4 py-2.5 text-right">Total Weight (Tons)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                                @foreach($dispatchedProductsSummary as $prod)
+                                    <tr class="hover:bg-slate-50/50">
+                                        <td class="px-4 py-2 font-bold text-slate-900">{{ $prod['product_name'] }}</td>
+                                        <td class="px-4 py-2 font-semibold text-slate-600">{{ $prod['department'] }}</td>
+                                        <td class="px-4 py-2 text-right font-mono font-black text-blue-700">
+                                            {{ number_format($prod['total_quantity']) }} {{ $prod['unit'] }}
+                                        </td>
+                                        <td class="px-4 py-2 text-right font-mono font-bold text-slate-900">{{ number_format($prod['total_weight_kg'], 2) }} KG</td>
+                                        <td class="px-4 py-2 text-right font-mono font-black text-emerald-700">{{ number_format($prod['total_weight_kg'] / 1000, 3) }} T</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 6.2 Dispatches Detailed Listing -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                        <span>6.2 Completed Dispatches List</span>
+                        <span class="text-[11px] text-slate-400 font-semibold">{{ $dispatches->count() }} Dispatches</span>
+                    </h4>
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[9px] border-b border-slate-100">
+                                    <th class="px-4 py-2.5">Dispatch No</th>
+                                    <th class="px-4 py-2.5">Date & Time</th>
+                                    <th class="px-4 py-2.5">Party Name</th>
+                                    <th class="px-4 py-2.5">City</th>
+                                    <th class="px-4 py-2.5">Vehicle</th>
+                                    <th class="px-4 py-2.5 text-right">Bags / Units</th>
+                                    <th class="px-4 py-2.5 text-right">Weight (KG)</th>
+                                    <th class="px-4 py-2.5">Products Loaded</th>
+                                    <th class="px-4 py-2.5">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                                @foreach($dispatches as $d)
+                                    @php
+                                        $dBags = $d->items->sum('quantity_bags');
+                                        $dKg = $d->items->sum('calculated_weight_kg');
+                                        $dDate = $d->loaded_at ?? $d->created_at;
+                                        $itemSummary = $d->items->map(fn($it) => $it->quantity_bags . ' ' . $it->unit_label . ' ' . $it->product_name)->implode(', ');
+                                    @endphp
+                                    <tr class="hover:bg-slate-50/50">
+                                        <td class="px-4 py-2.5 font-mono font-bold text-blue-700 whitespace-nowrap">{{ $d->dispatch_number }}</td>
+                                        <td class="px-4 py-2.5 font-mono text-slate-600 whitespace-nowrap text-[11px]">{{ $dDate ? $dDate->format('d M Y, h:i A') : '-' }}</td>
+                                        <td class="px-4 py-2.5 font-bold text-slate-900">{{ $d->party_name }}</td>
+                                        <td class="px-4 py-2.5 text-slate-600 font-semibold">{{ $d->city ?: 'N/A' }}</td>
+                                        <td class="px-4 py-2.5 font-mono text-slate-800">{{ $d->vehicle_number ?: '-' }}</td>
+                                        <td class="px-4 py-2.5 text-right font-mono font-black text-indigo-700">{{ number_format($dBags) }}</td>
+                                        <td class="px-4 py-2.5 text-right font-mono font-bold text-slate-900">{{ number_format($dKg, 2) }}</td>
+                                        <td class="px-4 py-2.5 text-slate-600 text-[11px] max-w-xs truncate" title="{{ $itemSummary }}">{{ $itemSummary }}</td>
+                                        <td class="px-4 py-2.5 whitespace-nowrap">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                ✅ Completed
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @else
+            <p class="text-xs text-slate-400 font-semibold italic text-center py-6">No completed dispatches recorded during this date range.</p>
+        @endif
+    </div>
     @endif
 
 </div>

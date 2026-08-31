@@ -409,10 +409,6 @@ class ProductionController extends Controller
                 $q->where('department_id', $user->department_id);
             });
         }
-        if (function_exists('currentBrand') && currentBrand()) {
-            $query->forBrand(currentBrand());
-        }
-
         if ($request->filled('brand_id')) {
             $query->forBrand($request->input('brand_id'));
         }
@@ -499,13 +495,6 @@ class ProductionController extends Controller
         // Dropdowns data
         $filterMachinesQuery = Machine::where('is_active', true);
         $filterGradesQuery = Grade::with('brand')->where('is_active', true);
-        if ($isSupervisor) {
-            $filterMachinesQuery->where('department_id', $user->department_id);
-            $filterGradesQuery->where('department_id', $user->department_id);
-        }
-        if (function_exists('currentBrand') && currentBrand()) {
-            $filterGradesQuery->forBrand(currentBrand());
-        }
         $machines = $filterMachinesQuery->orderBy('name')->get();
         $grades = $filterGradesQuery->orderBy('name')->get();
         $brands = \App\Models\Brand::active()->orderBy('name')->get();
