@@ -223,7 +223,7 @@
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Batch
                             Number <span class="text-slate-500 font-normal lowercase">(auto or custom)</span></label>
-                        <input type="text" name="batch_no" id="batch_no" value="{{ old('batch_no', $batchNo) }}" placeholder="{{ $batchNo }}"
+                        <input type="text" name="batch_no" id="batch_no" value="{{ old('batch_no') }}" placeholder="Auto-generated (1, 2, 3...)"
                             class="block w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-sm">
                         <p class="field-error text-xs text-red-650 mt-1 hidden" data-error-field="batch_no"></p>
                     </div>

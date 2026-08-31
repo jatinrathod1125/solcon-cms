@@ -44,7 +44,19 @@ class StoreProductionRequest extends FormRequest
                 }),
             ],
             'remarks' => ['nullable', 'string', 'max:500'],
-            'batch_no' => ['nullable', 'string', 'max:50', 'unique:production_batches,batch_no'],
+            'batch_no' => [
+                'nullable',
+                'string',
+                'max:50',
+                Rule::unique('production_batches', 'batch_no')->where(function ($query) {
+                    $machineId = $this->input('machine_id');
+                    $query->where('machine_id', $machineId)
+                          ->where(function ($sub) {
+                              $sub->whereDate('created_at', now()->toDateString())
+                                  ->orWhereDate('start_time', now()->toDateString());
+                          });
+                }),
+            ],
             'coupon_raw_material_id' => ['nullable', 'exists:raw_materials,id'],
         ];
     }

@@ -120,14 +120,19 @@ class ProductionService
                 // 5. Generate or use custom batch number
                 $cleanBatchNo = trim($customBatchNo ?? '');
                 if (!empty($cleanBatchNo)) {
-                    if (ProductionBatch::where('batch_no', $cleanBatchNo)->exists()) {
+                    $todayStr = now()->toDateString();
+                    if (ProductionBatch::where('machine_id', $machineId)
+                        ->where(function ($q) use ($todayStr) {
+                            $q->whereDate('created_at', $todayStr)
+                              ->orWhereDate('start_time', $todayStr);
+                        })->where('batch_no', $cleanBatchNo)->exists()) {
                         throw ValidationException::withMessages([
-                            'batch_no' => ['The specified batch number already exists.'],
+                            'batch_no' => ["Batch number '{$cleanBatchNo}' already exists for this machine today."],
                         ]);
                     }
                     $batchNo = $cleanBatchNo;
                 } else {
-                    $batchNo = BatchNumberService::generate();
+                    $batchNo = BatchNumberService::generate('ADH', ProductionBatch::class, $machineId);
                 }
 
                 // 6. Save production batch with snapshot
