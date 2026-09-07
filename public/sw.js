@@ -69,11 +69,10 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 // PWA Offline Caching & Update lifecycle configurations
-const CACHE_NAME = 'solcon-pwa-v1.0.1';
+const CACHE_NAME = 'solcon-pwa-v1.0.2';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_ASSETS = [
-    '/',
     '/offline.html',
     '/manifest.json',
     '/icons/icon-72x72.png',
@@ -118,27 +117,10 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Handle HTML Page Navigation
+    // Handle HTML Page Navigation - Network Only (Fallback to offline page, DO NOT cache dynamic pages/CSRF tokens)
     if (request.mode === 'navigate') {
         event.respondWith(
-            fetch(request)
-                .then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const responseClone = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(request, responseClone);
-                        });
-                    }
-                    return networkResponse;
-                })
-                .catch(() => {
-                    return caches.match(request).then((cachedResponse) => {
-                        if (cachedResponse) {
-                            return cachedResponse;
-                        }
-                        return caches.match(OFFLINE_URL);
-                    });
-                })
+            fetch(request).catch(() => caches.match(OFFLINE_URL))
         );
         return;
     }
