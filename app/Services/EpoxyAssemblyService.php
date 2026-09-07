@@ -82,6 +82,24 @@ class EpoxyAssemblyService
                             $directComponent = EpoxyComponent::where('epoxy_filler_color_id', $epoxyFillerColor->id)->first();
                         }
 
+                        // Fallback to name/code matching if component color mismatch or not found
+                        if (!$directComponent || ($epoxyFillerColor->name && stripos($directComponent->name, $epoxyFillerColor->name) === false)) {
+                            $byName = EpoxyComponent::when($brandId, fn($q) => $q->where('brand_id', $brandId))
+                                ->where(function ($q) use ($epoxyFillerColor) {
+                                    $q->where('name', 'like', "%{$epoxyFillerColor->name}%")
+                                      ->orWhere('code', 'like', "%{$epoxyFillerColor->code}%");
+                                })
+                                ->where(function ($q) {
+                                    $q->where('category', 'Pouch')
+                                      ->orWhere('name', 'like', '%Filler%');
+                                })
+                                ->first();
+
+                            if ($byName) {
+                                $directComponent = $byName;
+                            }
+                        }
+
                         if ($directComponent && $directComponent->rawMaterial) {
                             $resolvedMat = $directComponent->rawMaterial;
                         } else {

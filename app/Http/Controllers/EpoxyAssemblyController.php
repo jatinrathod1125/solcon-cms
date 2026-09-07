@@ -327,6 +327,24 @@ class EpoxyAssemblyController extends Controller
                         $directComponent = EpoxyComponent::where('epoxy_filler_color_id', $color->id)->first();
                     }
 
+                    // Fallback to name/code matching if component color mismatch or not found
+                    if (!$directComponent || ($color->name && stripos($directComponent->name, $color->name) === false)) {
+                        $byName = EpoxyComponent::when($brandId, fn($q) => $q->where('brand_id', $brandId))
+                            ->where(function ($q) use ($color) {
+                                $q->where('name', 'like', "%{$color->name}%")
+                                  ->orWhere('code', 'like', "%{$color->code}%");
+                            })
+                            ->where(function ($q) {
+                                $q->where('category', 'Pouch')
+                                  ->orWhere('name', 'like', '%Filler%');
+                            })
+                            ->first();
+
+                        if ($byName) {
+                            $directComponent = $byName;
+                        }
+                    }
+
                     if ($directComponent && $directComponent->rawMaterial) {
                         $resolvedMat = $directComponent->rawMaterial;
                     } else {

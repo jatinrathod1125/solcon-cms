@@ -317,9 +317,46 @@ body.brand-fixora .mobile-fab > span {
     #todoDrawerPanel { height: 100svh; max-height: 100svh; }
 }
 
+/* Header Dropdowns (Brand & Notifications) - Solid 100% Opaque Background */
+#brandSwitcherDropdown,
+#notificationsDropdown {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(226, 232, 240, 0.9) !important;
+}
+
+body.brand-fixora #brandSwitcherDropdown,
+body.brand-fixora #notificationsDropdown {
+    background-color: #020617 !important;
+    color: #ffffff !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(16, 185, 129, 0.2) !important;
+}
+
 @media (max-width: 640px) {
     #todoDrawerPanel { max-width: 100%; }
     .todo-card-actions { opacity: 1 !important; }
+
+    /* Mobile Header Dropdowns (Brand & Notifications) */
+    #brandSwitcherDropdown,
+    #notificationsDropdown {
+        position: fixed !important;
+        left: 0.75rem !important;
+        right: 0.75rem !important;
+        top: calc(4.25rem + env(safe-area-inset-top, 0px)) !important;
+        width: auto !important;
+        max-width: 26rem !important;
+        margin-inline: auto !important;
+        z-index: 75 !important;
+        background-color: #ffffff !important;
+    }
+    body.brand-fixora #brandSwitcherDropdown,
+    body.brand-fixora #notificationsDropdown {
+        background-color: #020617 !important;
+    }
+    #brandSwitcherDropdown.hidden,
+    #notificationsDropdown.hidden {
+        display: none !important;
+    }
 }
 
 @media (max-width: 1023px) {
