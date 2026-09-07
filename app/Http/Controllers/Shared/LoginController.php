@@ -81,6 +81,10 @@ class LoginController extends Controller
             return redirect()->intended(route('marketing.orders.index'));
         }
 
+        if ($user->isDispatch()) {
+            return redirect()->intended(route('dispatch.index'));
+        }
+
         return redirect()->to('/');
     }
 }

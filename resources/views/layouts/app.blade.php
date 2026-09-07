@@ -273,6 +273,11 @@
         <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-1 rounded-[22px] {{ $isFixoraBrand ? 'border border-emerald-500/25 bg-slate-950/95 shadow-black/70 text-slate-300' : 'border border-orange-100 bg-white/95 shadow-slate-900/15 text-slate-700' }} px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
             <a href="{{ route('marketing.orders.index') }}" class="mobile-nav-item {{ request()->routeIs('marketing.orders.*') ? 'is-active' : '' }}"><i data-lucide="clipboard-list"></i><span>Orders Board</span></a>
         </nav>
+    @elseif(Auth::check() && Auth::user()->isDispatch())
+        <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-2 rounded-[22px] {{ $isFixoraBrand ? 'border border-emerald-500/25 bg-slate-950/95 shadow-black/70 text-slate-300' : 'border border-orange-100 bg-white/95 shadow-slate-900/15 text-slate-700' }} px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+            <a href="{{ route('dispatch.index') }}" class="mobile-nav-item {{ request()->routeIs('dispatch.index') || request()->routeIs('dispatch.show') || request()->routeIs('dispatch.loading') ? 'is-active' : '' }}"><i data-lucide="truck"></i><span>Dispatches</span></a>
+            <a href="{{ route('dispatch.reports') }}" class="mobile-nav-item {{ request()->routeIs('dispatch.reports') ? 'is-active' : '' }}"><i data-lucide="bar-chart-3"></i><span>Reports</span></a>
+        </nav>
     @else
         <nav class="mobile-dock fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-[22px] {{ $isFixoraBrand ? 'border border-emerald-500/25 bg-slate-950/95 shadow-black/70 text-slate-300' : 'border border-orange-100 bg-white/95 shadow-slate-900/15 text-slate-700' }} px-2 pb-[max(.45rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
             @php

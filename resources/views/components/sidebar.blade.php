@@ -1,6 +1,12 @@
 @php
     $user = Auth::user();
-    $homeRoute = $user->isAdmin() ? route('admin.dashboard') : route('supervisor.dashboard');
+    $homeRoute = $user->isAdmin()
+        ? route('admin.dashboard')
+        : ($user->isDispatch()
+            ? route('dispatch.index')
+            : ($user->isMarketing()
+                ? route('marketing.orders.index')
+                : route('supervisor.dashboard')));
     $navClass = fn($active) => $active ? 'sidebar-link is-active' : 'sidebar-link';
 
     // Resolve dynamic department access permissions

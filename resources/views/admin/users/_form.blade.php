@@ -80,7 +80,7 @@
             <option value="" disabled selected>Select user role...</option>
         @endif
         @foreach($roles as $role)
-            <option value="{{ $role->id }}" {{ old('role_id', $userRole->id ?? '') == $role->id ? 'selected' : '' }}>
+            <option value="{{ $role->id }}" data-slug="{{ $role->slug }}" {{ old('role_id', $userRole->id ?? '') == $role->id ? 'selected' : '' }}>
                 {{ $role->name }} ({{ $role->description }})
             </option>
         @endforeach
@@ -91,8 +91,12 @@
 </div>
 
 <!-- Multiple Department Checkboxes -->
-<div>
-    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Assigned Departments</label>
+<div id="departments-wrapper">
+    <div class="flex items-center justify-between mb-3">
+        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            Assigned Departments <span id="dept-requirement-badge" class="normal-case text-[11px] font-normal text-slate-500"></span>
+        </label>
+    </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-900/40 p-4 border border-slate-800 rounded-xl">
         @php
             $assignedIds = old('departments', isset($user) ? $user->departments->pluck('id')->toArray() : []);
@@ -101,12 +105,13 @@
             <label class="flex items-center text-sm text-slate-350 hover:text-white cursor-pointer select-none">
                 <input type="checkbox" name="departments[]" value="{{ $dept->id }}" 
                     {{ in_array($dept->id, $assignedIds) ? 'checked' : '' }}
-                    class="w-4 h-4 rounded border-slate-800 bg-slate-950 text-cyan-500 focus:ring-cyan-500/30 focus:ring-offset-0 mr-2.5 cursor-pointer">
+                    class="dept-checkbox w-4 h-4 rounded border-slate-800 bg-slate-950 text-cyan-500 focus:ring-cyan-500/30 focus:ring-offset-0 mr-2.5 cursor-pointer">
                 <span class="font-mono text-xs text-cyan-400 bg-slate-950 border border-slate-850 px-1.5 py-0.5 rounded-md mr-1.5 uppercase font-bold">{{ $dept->code }}</span>
                 <span>{{ $dept->name }}</span>
             </label>
         @endforeach
     </div>
+    <p id="dept-help-text" class="text-xs text-slate-500 mt-2"></p>
     @error('departments')
         <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
     @enderror
@@ -123,3 +128,45 @@
         <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
     @enderror
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('role_id');
+        const deptWrapper = document.getElementById('departments-wrapper');
+        const deptBadge = document.getElementById('dept-requirement-badge');
+        const deptHelpText = document.getElementById('dept-help-text');
+
+        function updateDeptUI() {
+            if (!roleSelect) return;
+            const selectedOpt = roleSelect.options[roleSelect.selectedIndex];
+            const slug = selectedOpt ? selectedOpt.getAttribute('data-slug') : '';
+
+            if (slug === 'supervisor') {
+                deptBadge.innerHTML = '<span class="text-rose-400 font-semibold">(Required for Supervisor)</span>';
+                deptHelpText.textContent = 'Please select at least one production department managed by this supervisor.';
+                deptWrapper.classList.remove('opacity-60');
+            } else if (slug === 'dispatch') {
+                deptBadge.innerHTML = '<span class="text-slate-400 font-normal">(Not required for Dispatch)</span>';
+                deptHelpText.textContent = 'Dispatch role operates across all departments. Department assignment is optional.';
+                deptWrapper.classList.remove('opacity-60');
+            } else if (slug === 'marketing') {
+                deptBadge.innerHTML = '<span class="text-slate-400 font-normal">(Not required for Marketing)</span>';
+                deptHelpText.textContent = 'Marketing role operates across all departments. Department assignment is optional.';
+                deptWrapper.classList.remove('opacity-60');
+            } else if (slug === 'admin' || slug === 'super-admin') {
+                deptBadge.innerHTML = '<span class="text-slate-400 font-normal">(Optional - Full Access)</span>';
+                deptHelpText.textContent = 'Administrators have access to all departments by default.';
+                deptWrapper.classList.remove('opacity-60');
+            } else {
+                deptBadge.innerHTML = '';
+                deptHelpText.textContent = '';
+                deptWrapper.classList.remove('opacity-60');
+            }
+        }
+
+        if (roleSelect) {
+            roleSelect.addEventListener('change', updateDeptUI);
+            updateDeptUI();
+        }
+    });
+</script>

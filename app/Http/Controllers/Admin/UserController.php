@@ -60,16 +60,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $selectedRole = Role::find($request->input('role_id'));
+        $isSupervisor = $selectedRole && $selectedRole->slug === 'supervisor';
+
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
-            'departments' => 'required|array|min:1',
+            'departments' => $isSupervisor ? 'required|array|min:1' : 'nullable|array',
             'departments.*' => 'exists:departments,id|distinct',
             'is_active' => 'nullable|boolean',
         ], [
-            'departments.required' => 'At least one Department is required.',
+            'departments.required' => 'At least one Department is required for Supervisor.',
             'departments.*.distinct' => 'Duplicate Departments are not allowed.',
         ]);
 
@@ -84,7 +87,7 @@ class UserController extends Controller
         $user->roles()->sync([$request->input('role_id')]);
 
         // Sync Departments
-        $user->departments()->sync($request->input('departments'));
+        $user->departments()->sync($request->input('departments', []));
 
         // Clear cache
         $this->accessService->clearUserCache($user);
@@ -116,16 +119,19 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $selectedRole = Role::find($request->input('role_id'));
+        $isSupervisor = $selectedRole && $selectedRole->slug === 'supervisor';
+
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
-            'departments' => 'required|array|min:1',
+            'departments' => $isSupervisor ? 'required|array|min:1' : 'nullable|array',
             'departments.*' => 'exists:departments,id|distinct',
             'is_active' => 'nullable|boolean',
         ], [
-            'departments.required' => 'At least one Department is required.',
+            'departments.required' => 'At least one Department is required for Supervisor.',
             'departments.*.distinct' => 'Duplicate Departments are not allowed.',
         ]);
 
@@ -145,7 +151,7 @@ class UserController extends Controller
         $user->roles()->sync([$request->input('role_id')]);
 
         // Sync Departments
-        $user->departments()->sync($request->input('departments'));
+        $user->departments()->sync($request->input('departments', []));
 
         // Clear cache
         $this->accessService->clearUserCache($user);

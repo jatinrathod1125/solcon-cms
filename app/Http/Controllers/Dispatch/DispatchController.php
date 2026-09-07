@@ -31,8 +31,8 @@ class DispatchController extends Controller
         $user = auth()->user();
         $query = Dispatch::with(['items', 'creator', 'releaser', 'loader'])->orderByDesc('id');
 
-        // Non-admin users (Marketing role) only see dispatches created by or containing orders created by themselves
-        if (!$user->isAdmin()) {
+        // Marketing role only sees dispatches created by or containing orders created by themselves
+        if ($user->isMarketing()) {
             $query->where(function ($q) use ($user) {
                 $q->where('created_by', $user->id)
                   ->orWhereHas('items.order', function ($oq) use ($user) {
