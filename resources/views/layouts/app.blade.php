@@ -9,16 +9,21 @@
     <title>@yield('title', 'Dashboard') | {{ currentBrand()->name }} Industries</title>
 
     <!-- PWA Primary Meta & App Icons -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json?v=2">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Solcon">
     <meta name="application-name" content="Solcon">
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png?v=2">
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/icon-96x96.png?v=2">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48x48.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png?v=2">
+    <link rel="shortcut icon" href="/favicon.ico?v=2">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png?v=2">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png?v=2">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png?v=2">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

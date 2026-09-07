@@ -409,11 +409,6 @@ class DailyReportService
 
         if ($showEpoxy) {
             $epoxyCompletedAssemblies = EpoxyAssembly::whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate])
-                ->when($isSupervisor, function ($q) use ($supervisorDeptId) {
-                    $q->whereHas('product', function ($qm) use ($supervisorDeptId) {
-                        $qm->where('department_id', $supervisorDeptId);
-                    });
-                })
                 ->with(['product', 'color', 'operator'])
                 ->orderBy('created_at', 'asc')
                 ->get();

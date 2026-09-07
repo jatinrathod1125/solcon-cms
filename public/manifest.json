@@ -6,7 +6,7 @@
     "scope": "/",
     "display": "standalone",
     "orientation": "any",
-    "background_color": "#f8fafc",
+    "background_color": "#ffffff",
     "theme_color": "#0f172a",
     "categories": [
         "business",
@@ -15,43 +15,55 @@
     ],
     "icons": [
         {
-            "src": "/icons/icon-72x72.png",
+            "src": "/icons/icon-72x72.png?v=2",
             "sizes": "72x72",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/icons/icon-96x96.png",
+            "src": "/icons/icon-96x96.png?v=2",
             "sizes": "96x96",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/icons/icon-128x128.png",
+            "src": "/icons/icon-128x128.png?v=2",
             "sizes": "128x128",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/icons/icon-192x192.png",
+            "src": "/icons/icon-144x144.png?v=2",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-152x152.png?v=2",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-192x192.png?v=2",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/icons/icon-256x256.png",
+            "src": "/icons/icon-256x256.png?v=2",
             "sizes": "256x256",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/icons/icon-384x384.png",
+            "src": "/icons/icon-384x384.png?v=2",
             "sizes": "384x384",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/icons/icon-512x512.png",
+            "src": "/icons/icon-512x512.png?v=2",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
@@ -65,7 +77,7 @@
             "url": "/production",
             "icons": [
                 {
-                    "src": "/icons/icon-192x192.png",
+                    "src": "/icons/icon-192x192.png?v=2",
                     "sizes": "192x192"
                 }
             ]
@@ -77,7 +89,7 @@
             "url": "/finished-goods",
             "icons": [
                 {
-                    "src": "/icons/icon-192x192.png",
+                    "src": "/icons/icon-192x192.png?v=2",
                     "sizes": "192x192"
                 }
             ]
@@ -89,7 +101,7 @@
             "url": "/production/ledger",
             "icons": [
                 {
-                    "src": "/icons/icon-192x192.png",
+                    "src": "/icons/icon-192x192.png?v=2",
                     "sizes": "192x192"
                 }
             ]

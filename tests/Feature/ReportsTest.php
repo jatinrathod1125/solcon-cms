@@ -7,6 +7,9 @@ use App\Models\Machine;
 use App\Models\RawMaterial;
 use App\Models\ProductionBatch;
 use App\Models\User;
+use App\Models\Department;
+use App\Models\EpoxyProduct;
+use App\Models\EpoxyAssembly;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -117,4 +120,50 @@ class ReportsTest extends TestCase
         $this->assertStringContainsString('100gm Hardener Bottle', $content);
         $this->assertStringContainsString('120', $content);
     }
+
+    public function test_epoxy_supervisor_can_view_epoxy_assemblies_in_daily_report_without_sql_error(): void
+    {
+        $epxDept = Department::where('code', 'EPX')->first();
+        $supervisor = User::where('email', 'supervisor@solcon.com')->first();
+        $supervisor->update(['department_id' => $epxDept->id]);
+        $supervisor->departments()->sync([$epxDept->id]);
+
+        $product = EpoxyProduct::firstOrCreate(
+            ['code' => 'EPX-PROD-TEST'],
+            ['name' => 'Epoxy Test Resin Kit', 'requires_color' => false, 'is_active' => true]
+        );
+
+        EpoxyAssembly::create([
+            'epoxy_product_id' => $product->id,
+            'color_id' => null,
+            'formula_snapshot' => [],
+            'quantity' => 45,
+            'operator_id' => $supervisor->id,
+            'remarks' => 'Test Epoxy Report Assembly',
+        ]);
+
+        $todayStr = now()->toDateString();
+
+        // Acting as Epoxy supervisor viewing daily report
+        $response = $this->actingAs($supervisor)->get("/production/reports/daily?date={$todayStr}");
+        $response->assertStatus(200);
+        $response->assertSee('Epoxy Test Resin Kit');
+        $response->assertSee('45');
+
+        // Verify PDF download
+        $pdfResponse = $this->actingAs($supervisor)->get("/production/reports/daily/pdf?date={$todayStr}");
+        $pdfResponse->assertStatus(200);
+        $pdfResponse->assertHeader('Content-Type', 'application/pdf');
+
+        // Verify Excel download
+        $excelResponse = $this->actingAs($supervisor)->get("/production/reports/daily/excel?date={$todayStr}");
+        $excelResponse->assertStatus(200);
+
+        ob_start();
+        $excelResponse->sendContent();
+        $excelContent = ob_get_clean();
+        $this->assertStringContainsString('Epoxy Test Resin Kit', $excelContent);
+        $this->assertStringContainsString('45', $excelContent);
+    }
 }
+

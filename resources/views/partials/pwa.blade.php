@@ -1,12 +1,7 @@
 <!-- PWA Install Prompt Banner (Android / Desktop Chrome / Windows / macOS) -->
 <div id="pwaInstallBanner" class="pwa-install-banner hidden" style="display: none;">
     <div class="flex items-center gap-3 min-w-0">
-        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-md">
-            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-        </div>
+        <img src="/icons/icon-96x96.png" class="w-10 h-10 rounded-xl object-contain bg-white shadow-md p-1 shrink-0" alt="Solcon">
         <div class="min-w-0">
             <h4 class="text-xs font-extrabold text-white tracking-wide">Install Solcon App</h4>
             <p class="text-[11px] text-slate-350 truncate">Add to home screen for fast offline access</p>
@@ -29,12 +24,7 @@
 <!-- PWA iOS Safari Install Tip Banner -->
 <div id="pwaIosBanner" class="pwa-install-banner hidden" style="display: none;">
     <div class="flex items-center gap-3 min-w-0">
-        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-md">
-            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
-        </div>
+        <img src="/icons/icon-96x96.png" class="w-10 h-10 rounded-xl object-contain bg-white shadow-md p-1 shrink-0" alt="Solcon">
         <div class="min-w-0">
             <h4 class="text-xs font-extrabold text-white tracking-wide">Install Solcon on iPhone/iPad</h4>
             <p class="text-[11px] text-slate-350 leading-tight">Tap Share <span class="text-blue-400 font-bold">⎋</span>

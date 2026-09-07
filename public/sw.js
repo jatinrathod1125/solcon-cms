@@ -69,15 +69,19 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 // PWA Offline Caching & Update lifecycle configurations
-const CACHE_NAME = 'solcon-pwa-v1.0.2';
+const CACHE_NAME = 'solcon-pwa-v1.3.0';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_ASSETS = [
     '/offline.html',
     '/manifest.json',
+    '/logos/solcon.png',
+    '/apple-touch-icon.png',
     '/icons/icon-72x72.png',
     '/icons/icon-96x96.png',
     '/icons/icon-128x128.png',
+    '/icons/icon-144x144.png',
+    '/icons/icon-152x152.png',
     '/icons/icon-192x192.png',
     '/icons/icon-256x256.png',
     '/icons/icon-384x384.png',
