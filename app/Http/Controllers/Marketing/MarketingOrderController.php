@@ -40,8 +40,9 @@ class MarketingOrderController extends Controller
 
         $user = auth()->user();
 
-        // Get orders query
-        $ordersQuery = MarketingOrder::orderBy('sort_order', 'asc')
+        // Get orders query (latest created order on top)
+        $ordersQuery = MarketingOrder::orderByDesc('created_at')
+            ->orderByDesc('id')
             ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator']);
 
         if (function_exists('currentBrand') && currentBrand()) {
@@ -815,10 +816,19 @@ class MarketingOrderController extends Controller
             $tilesCleanerComponents->put('5-LTR', $tc5);
         }
 
+        $fillerPouchComponents = EpoxyComponent::with(['color', 'rawMaterial'])
+            ->where('is_active', true)
+            ->forCurrentBrand()
+            ->where('name', 'like', '%700gm%')
+            ->where('name', 'like', '%Filler%')
+            ->get()
+            ->sortBy(fn($c) => $c->color?->code ?? $c->code)
+            ->values();
+
         return compact(
             'solititeProduct', 'tilesCleanerProduct', 'tilesCleanerComponents', 'groutAdmixProduct', 'groutAdmixComponent', 'spacerProduct',
             'levelerProduct', 'resinKitProduct', 'resinKit15Product', 'jariComponents', 'sbPlusComponents',
-            'sbPlusPlusComponents', 'skPlusComponents', 'spacerComponents', 'levelerComponents'
+            'sbPlusPlusComponents', 'skPlusComponents', 'spacerComponents', 'levelerComponents', 'fillerPouchComponents'
         );
     }
 }

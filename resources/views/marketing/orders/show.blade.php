@@ -198,13 +198,33 @@
             </div>
         </div>
 
+        <!-- View Toggle & Summary -->
+        <div class="flex items-center justify-between flex-wrap gap-3 pt-1">
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-black uppercase tracking-wider text-slate-700">Ordered Products</span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-100 text-blue-800 border border-blue-200" id="ordered-items-count">
+                    {{ $order->items->count() }} {{ Str::plural('item', $order->items->count()) }}
+                </span>
+                <span class="text-xs font-bold text-slate-400">|</span>
+                <span class="text-xs font-bold text-slate-500">Total Units: <strong class="text-slate-800">{{ $order->items->sum('quantity_bags') }}</strong></span>
+            </div>
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+                <button type="button" id="btn-show-ordered" class="px-3 py-1.5 rounded-lg transition bg-white text-blue-700 shadow-sm font-black border border-slate-200/60">
+                    Ordered Only
+                </button>
+                <button type="button" id="btn-show-all" class="px-3 py-1.5 rounded-lg transition text-slate-500 hover:text-slate-900 font-bold">
+                    Show All
+                </button>
+            </div>
+        </div>
+
         <!-- 4-Column Product Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 transition-all duration-200">
 
             <!-- COLUMN 1 -->
-            <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-6 order-col">
                 <!-- TILE ADHESIVE -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tile Adhesive</span>
@@ -246,7 +266,7 @@
                 </div>
 
                 <!-- TILES CLEANER -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Cleaner</span>
@@ -285,7 +305,7 @@
                 </div>
 
                 <!-- GROUT ADMIX -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Grout Admix</span>
@@ -312,12 +332,51 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- 700GM FILLER POUCH -->
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
+                    <div class="px-4 py-3 flex items-center justify-between border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800">Filler Pouch (700 GM)</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">700 GM</span>
+                    </div>
+                    <div class="overflow-x-auto max-h-[360px] overflow-y-auto">
+                        <table class="w-full erp-table text-center min-w-[200px]">
+                            <thead class="sticky top-0 bg-slate-50 z-10">
+                                <tr>
+                                    <th class="text-left">Color</th>
+                                    <th class="w-20 text-center">Pouch</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(isset($fillerPouchComponents))
+                                @foreach($fillerPouchComponents as $fComp)
+                                <tr>
+                                    <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                        {{ $fComp->color?->code ?? $fComp->code }} - {{ $fComp->color?->name ?? str_replace('700gm ', '', str_replace(' Filler Pouch', '', $fComp->name)) }}
+                                    </td>
+                                    <td class="w-20">
+                                        <input type="text" class="compact-input qty-input"
+                                            data-dept="EPX"
+                                            data-component-id="{{ $fComp->id }}"
+                                            data-filler-color-id="{{ $fComp->epoxy_filler_color_id }}"
+                                            data-packing="700 GM" readonly>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <!-- COLUMN 2 -->
-            <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-6 order-col">
                 <!-- TILES GROUT -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Grout</span>
@@ -358,7 +417,7 @@
 
                     <!-- SOLITITE / FIXOTITE -->
                     <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ (($order->brand_id ?? (function_exists('currentBrand') ? currentBrand()?->id : 1)) == 2) ? 'Fixotite' : 'Solitite' }}</span>
@@ -392,7 +451,7 @@
 
                     <!-- RESIN KIT -->
                     <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Resin Kit</span>
@@ -439,7 +498,7 @@
 
                     <!-- JARI POWDER -->
                     <div
-                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                        class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Jari Powder</span>
@@ -476,9 +535,9 @@
                 </div>
 
                 <!-- COLUMN 3 -->
-                <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-6 order-col">
                     <!-- EPOXY -->
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                         <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                             <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                             <span class="text-xs font-black uppercase tracking-wider text-slate-800">Epoxy</span>
@@ -543,9 +602,9 @@
                 </div>
 
             <!-- COLUMN 4 -->
-            <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-6 order-col">
                 <!-- SPACER -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Spacer</span>
@@ -576,7 +635,7 @@
                 </div>
 
                 <!-- TILES LEVELER -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles Leveler</span>
@@ -607,7 +666,7 @@
                 </div>
 
                 <!-- SB+ -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB+</span>
@@ -641,7 +700,7 @@
                 </div>
 
                 <!-- SB++ -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB++</span>
@@ -675,7 +734,7 @@
                 </div>
 
                 <!-- SK+ -->
-                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200 product-card">
                     <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
                         <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-800">SK+</span>
@@ -707,14 +766,21 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- Remarks Notes -->
-                <div class="pt-2">
-                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Remarks / Notes</label>
-                    <textarea id="remarks" name="remarks" rows="2" class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-500 focus:outline-none" readonly>{{ $order->remarks ?: 'No remarks' }}</textarea>
-                </div>
             </div>
 
+        </div>
+
+        <!-- Empty State Alert (Hidden by default) -->
+        <div id="no-ordered-items-box" class="hidden text-center py-12 bg-slate-50/50 border border-slate-100 rounded-2xl">
+            <p class="text-sm font-extrabold text-slate-500">No products found in this order.</p>
+        </div>
+
+        <!-- Remarks Notes (Always visible at bottom) -->
+        <div class="bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
+            <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Remarks / Notes</label>
+            <div class="text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-xl px-3 py-2.5">
+                {{ $order->remarks ?: 'No remarks' }}
+            </div>
         </div>
     </section>
 </div>
@@ -785,6 +851,114 @@
                     }
                 }
             }
+        });
+
+        // Function to filter products: Show Ordered Only vs Show All
+        function applyFilter(onlyOrdered) {
+            if (onlyOrdered) {
+                // 1. In every product card, loop through tbody tr
+                $('.product-card').each(function() {
+                    var $card = $(this);
+                    var cardHasOrderedItem = false;
+
+                    $card.find('tbody tr').each(function() {
+                        var $tr = $(this);
+                        var rowHasQty = false;
+
+                        $tr.find('.qty-input').each(function() {
+                            var val = $(this).val();
+                            if (val && parseInt(val) > 0) {
+                                rowHasQty = true;
+                            }
+                        });
+
+                        if (rowHasQty) {
+                            $tr.show();
+                            cardHasOrderedItem = true;
+                        } else {
+                            $tr.hide();
+                        }
+                    });
+
+                    // 2. Hide card if no ordered items
+                    if (cardHasOrderedItem) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                });
+
+                // 3. Hide empty columns
+                $('.order-col').each(function() {
+                    var $col = $(this);
+                    var visibleCards = $col.find('.product-card:visible').length;
+                    if (visibleCards > 0) {
+                        $col.show();
+                    } else {
+                        $col.hide();
+                    }
+                });
+
+                // 4. Adapt grid columns based on count of visible columns
+                var visibleCols = $('.order-col:visible').length;
+                var $grid = $('#products-grid');
+                $grid.removeClass('md:grid-cols-2 xl:grid-cols-3 xl:grid-cols-4 max-w-2xl max-w-4xl max-w-6xl');
+
+                if (visibleCols === 1) {
+                    $grid.addClass('grid-cols-1 max-w-2xl');
+                } else if (visibleCols === 2) {
+                    $grid.addClass('grid-cols-1 md:grid-cols-2 max-w-4xl');
+                } else if (visibleCols === 3) {
+                    $grid.addClass('grid-cols-1 md:grid-cols-2 xl:grid-cols-3 max-w-6xl');
+                } else {
+                    $grid.addClass('grid-cols-1 md:grid-cols-2 xl:grid-cols-4');
+                }
+
+                // Show empty alert if no items
+                if (visibleCols === 0) {
+                    $('#no-ordered-items-box').removeClass('hidden');
+                } else {
+                    $('#no-ordered-items-box').addClass('hidden');
+                }
+
+                // Update toggle button styles
+                $('#btn-show-ordered')
+                    .addClass('bg-white text-blue-700 shadow-sm font-black border border-slate-200/60')
+                    .removeClass('text-slate-500 font-bold');
+                $('#btn-show-all')
+                    .removeClass('bg-white text-blue-700 shadow-sm font-black border border-slate-200/60')
+                    .addClass('text-slate-500 font-bold');
+
+            } else {
+                // Show ALL products
+                $('.product-card tbody tr').show();
+                $('.product-card').show();
+                $('.order-col').show();
+                $('#no-ordered-items-box').addClass('hidden');
+
+                var $grid = $('#products-grid');
+                $grid.removeClass('max-w-2xl max-w-4xl max-w-6xl xl:grid-cols-3')
+                     .addClass('grid-cols-1 md:grid-cols-2 xl:grid-cols-4');
+
+                // Update toggle button styles
+                $('#btn-show-all')
+                    .addClass('bg-white text-blue-700 shadow-sm font-black border border-slate-200/60')
+                    .removeClass('text-slate-500 font-bold');
+                $('#btn-show-ordered')
+                    .removeClass('bg-white text-blue-700 shadow-sm font-black border border-slate-200/60')
+                    .addClass('text-slate-500 font-bold');
+            }
+        }
+
+        // Apply immediately on page load (Default: show ordered products only)
+        applyFilter(true);
+
+        $('#btn-show-ordered').on('click', function() {
+            applyFilter(true);
+        });
+
+        $('#btn-show-all').on('click', function() {
+            applyFilter(false);
         });
     });
 </script>

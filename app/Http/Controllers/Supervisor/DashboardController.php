@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
 use App\Services\DashboardService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -49,11 +51,53 @@ class DashboardController extends Controller
     }
 
     /**
-     * Display approved orders for supervisors.
+     * Display approved orders for supervisors with daily default & custom filters.
      */
-    public function orders()
+    public function orders(Request $request)
     {
         $user = auth()->user();
+
+        // 1. Determine Date Filter / Preset (Default: 'today')
+        $rangePreset = $request->input('range_preset', 'today');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $departmentCode = $request->input('department_code', 'all');
+
+        $today = now()->toDateString();
+
+        switch ($rangePreset) {
+            case 'today':
+                $startDate = $today;
+                $endDate = $today;
+                break;
+            case 'yesterday':
+                $startDate = now()->subDay()->toDateString();
+                $endDate = $startDate;
+                break;
+            case 'this_week':
+            case 'week':
+                $startDate = now()->startOfWeek()->toDateString();
+                $endDate = now()->endOfWeek()->toDateString();
+                break;
+            case 'this_month':
+            case 'month':
+                $startDate = now()->startOfMonth()->toDateString();
+                $endDate = now()->endOfMonth()->toDateString();
+                break;
+            case 'custom':
+                $startDate = $startDate ?: $today;
+                $endDate = $endDate ?: $today;
+                break;
+            case 'all':
+                $startDate = null;
+                $endDate = null;
+                break;
+            default:
+                $rangePreset = 'today';
+                $startDate = $today;
+                $endDate = $today;
+                break;
+        }
 
         $ordersQuery = \App\Models\MarketingOrder::approved()
             ->orderByDesc('approved_at');
@@ -62,6 +106,14 @@ class DashboardController extends Controller
             $ordersQuery->forBrand(currentBrand());
         }
 
+        // Apply Date Range Filter (Uses approved_at or created_at)
+        if ($startDate && $endDate) {
+            $ordersQuery->where(function ($q) use ($startDate, $endDate) {
+                $q->whereBetween(DB::raw('DATE(COALESCE(approved_at, created_at))'), [$startDate, $endDate]);
+            });
+        }
+
+        // Department Scope for Supervisors
         $deptCodes = [];
         if ($user && $user->isSupervisor()) {
             $assignedCodes = $user->departments()->pluck('code')->toArray();
@@ -96,10 +148,20 @@ class DashboardController extends Controller
             }
         }
 
+        // Optional User Department Code Filter (e.g. from filter dropdown)
+        if ($departmentCode && $departmentCode !== 'all') {
+            $ordersQuery->whereHas('items', function ($itemQ) use ($departmentCode) {
+                $itemQ->where('department_code', $departmentCode);
+            });
+        }
+
         $ordersQuery->with([
-            'items' => function ($itemQ) use ($user, $deptCodes) {
+            'items' => function ($itemQ) use ($user, $deptCodes, $departmentCode) {
                 if ($user && $user->isSupervisor() && !empty($deptCodes)) {
                     $itemQ->whereIn('department_code', $deptCodes);
+                }
+                if ($departmentCode && $departmentCode !== 'all') {
+                    $itemQ->where('department_code', $departmentCode);
                 }
                 $itemQ->with(['grade.brand', 'color.brand', 'epoxyProduct', 'epoxyFillerColor', 'epoxyComponent', 'couponMaterial']);
             },
@@ -109,7 +171,7 @@ class DashboardController extends Controller
 
         $orders = $ordersQuery->get();
 
-        return view('supervisor.orders', compact('orders'));
+        return view('supervisor.orders', compact('orders', 'rangePreset', 'startDate', 'endDate', 'departmentCode'));
     }
 
     /**

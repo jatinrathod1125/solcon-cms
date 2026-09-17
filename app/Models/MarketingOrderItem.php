@@ -83,7 +83,7 @@ class MarketingOrderItem extends Model
         if (str_contains($packing, 'box')) {
             return $this->quantity_bags == 1 ? 'Box' : 'Boxes';
         }
-        if (str_contains($packing, 'pouch') || str_contains($packing, 'pckt') || str_contains($packing, 'packet')) {
+        if (str_contains($packing, 'pouch') || str_contains($packing, 'pckt') || str_contains($packing, 'packet') || str_contains($packing, '700')) {
             return $this->quantity_bags == 1 ? 'Pouch' : 'Pouches';
         }
         if (str_contains($packing, 'pcs') || str_contains($packing, 'piece')) {
@@ -101,7 +101,7 @@ class MarketingOrderItem extends Model
      */
     public function getCalculatedWeightKgAttribute(): float
     {
-        if (!empty($this->quantity_kg) && (float)$this->quantity_kg > 0) {
+        if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
             return (float) $this->quantity_kg;
         }
 
@@ -200,12 +200,12 @@ class MarketingOrderItem extends Model
         $name = match ($this->department_code) {
             'TAD' => $this->grade?->name,
             'GRT' => $this->color?->name,
-            'EPX' => $this->epoxyComponent?->name 
-                ?? ($this->epoxyProduct 
-                    ? ($this->epoxyFillerColor 
-                        ? $this->epoxyProduct->name . ' (' . $this->epoxyFillerColor->name . ')' 
-                        : $this->epoxyProduct->name) 
-                    : null),
+            'EPX' => $this->epoxyComponent?->name
+            ?? ($this->epoxyProduct
+                ? ($this->epoxyFillerColor
+                    ? $this->epoxyProduct->name . ' (' . $this->epoxyFillerColor->name . ')'
+                    : $this->epoxyProduct->name)
+                : null),
             default => null,
         };
 

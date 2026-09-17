@@ -49,10 +49,39 @@ class DispatchItem extends Model
     }
 
     /**
+     * Check if this item represents a 700gm filler pouch stored in raw materials.
+     */
+    public function isRawMaterialFillerPouch(): bool
+    {
+        if ($this->epoxy_component_id && $this->epoxyComponent?->raw_material_id) {
+            $name = $this->epoxyComponent->name ?? '';
+            $packing = $this->packing ?? '';
+            return str_contains($name, 'Filler Pouch') || str_contains($packing, '700');
+        }
+        return false;
+    }
+
+    /**
      * Stock availability info attribute.
      */
     public function getStockInfoAttribute(): array
     {
+        if ($this->isRawMaterialFillerPouch()) {
+            $rawMaterial = $this->epoxyComponent?->rawMaterial;
+            $availableBags = $rawMaterial ? (int) $rawMaterial->current_stock : 0;
+            $requiredBags = (int) $this->quantity_bags;
+            $isAvailable = $availableBags >= $requiredBags;
+
+            return [
+                'available_bags' => $availableBags,
+                'required_bags' => $requiredBags,
+                'is_available' => $isAvailable,
+                'label' => $isAvailable ? 'Available' : 'Not Available',
+                'stock_text' => "Stock: {$availableBags} " . $this->unit_label,
+                'badge_class' => $isAvailable ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200',
+            ];
+        }
+
         $finishedGood = $this->findFinishedGood();
         $availableBags = $finishedGood ? (int) $finishedGood->available_bags : 0;
         $requiredBags = (int) $this->quantity_bags;
@@ -77,7 +106,7 @@ class DispatchItem extends Model
         if (str_contains($packing, 'box')) {
             return $this->quantity_bags == 1 ? 'Box' : 'Boxes';
         }
-        if (str_contains($packing, 'pouch') || str_contains($packing, 'pckt') || str_contains($packing, 'packet')) {
+        if (str_contains($packing, 'pouch') || str_contains($packing, 'pckt') || str_contains($packing, 'packet') || str_contains($packing, '700')) {
             return $this->quantity_bags == 1 ? 'Pouch' : 'Pouches';
         }
         if (str_contains($packing, 'pcs') || str_contains($packing, 'piece')) {
@@ -95,7 +124,7 @@ class DispatchItem extends Model
      */
     public function getCalculatedWeightKgAttribute(): float
     {
-        if (!empty($this->quantity_kg) && (float)$this->quantity_kg > 0) {
+        if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
             return (float) $this->quantity_kg;
         }
 
@@ -180,12 +209,12 @@ class DispatchItem extends Model
         $name = match ($this->department_code) {
             'TAD' => $this->grade?->name,
             'GRT' => $this->color?->name,
-            'EPX' => $this->epoxyComponent?->name 
-                ?? ($this->epoxyProduct 
-                    ? ($this->epoxyFillerColor 
-                        ? $this->epoxyProduct->name . ' (' . $this->epoxyFillerColor->name . ')' 
-                        : $this->epoxyProduct->name) 
-                    : null),
+            'EPX' => $this->epoxyComponent?->name
+            ?? ($this->epoxyProduct
+                ? ($this->epoxyFillerColor
+                    ? $this->epoxyProduct->name . ' (' . $this->epoxyFillerColor->name . ')'
+                    : $this->epoxyProduct->name)
+                : null),
             default => null,
         };
 

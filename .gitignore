@@ -12,3 +12,6 @@
 .env.*
 .idea
 .vscode
+
+# ftp-sync credentials
+.vscode/ftp-sync.json

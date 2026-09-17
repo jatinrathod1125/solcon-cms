@@ -369,9 +369,15 @@ class MarketingOrderService
      */
     public function checkItemAvailability(MarketingOrderItem $item): array
     {
-        $fg = $this->finishedGoodsResolver->findForOrderItem($item);
-        $fgStock = $fg ? (int) $fg->available_bags : 0;
-        $productAvailable = $fgStock >= $item->quantity_bags;
+        if ($item->epoxy_component_id && $item->epoxyComponent?->raw_material_id && (str_contains($item->epoxyComponent->name ?? '', 'Filler Pouch') || str_contains($item->packing ?? '', '700'))) {
+            $rmStock = (int) ($item->epoxyComponent->rawMaterial?->current_stock ?? 0);
+            $productAvailable = $rmStock >= $item->quantity_bags;
+            $fgStock = $rmStock;
+        } else {
+            $fg = $this->finishedGoodsResolver->findForOrderItem($item);
+            $fgStock = $fg ? (int) $fg->available_bags : 0;
+            $productAvailable = $fgStock >= $item->quantity_bags;
+        }
 
         // Check coupon availability
         $couponAvailable = null;

@@ -269,7 +269,8 @@
                                 $priority = $order->priority ?: 'medium';
                                 $availability = $order->availability_badge;
                                 $cList = $order->items->map(fn($item) => $item->coupon_name)->filter(fn($c) => $c && $c !== 'No Coupon' && $c !== 'N/A')->unique()->implode(', ');
-                                $searchText = strtolower($order->order_number . ' ' . $order->party_name . ' ' . ($order->city ?: '') . ' ' . ($order->vehicle_number ?: '') . ' ' . $cList . ' ' . ($order->creator->name ?? '') . ' ' . $order->status . ' ' . $priority);
+                                $dateStr = ($order->created_at ? $order->created_at->format('d M Y h:i A') : '') . ' ' . ($order->order_date ? $order->order_date->format('d M Y') : '');
+                                $searchText = strtolower($order->order_number . ' ' . $order->party_name . ' ' . ($order->city ?: '') . ' ' . ($order->vehicle_number ?: '') . ' ' . $cList . ' ' . ($order->creator->name ?? '') . ' ' . $order->status . ' ' . $priority . ' ' . $dateStr);
                             @endphp
                             <tr class="order-row transition hover:bg-slate-50/70" data-status="{{ $order->status }}" data-search="{{ $searchText }}">
                                 <td data-label="Order No." class="font-mono text-sm font-black text-blue-700">
@@ -280,6 +281,10 @@
                                                 ✏️ Edited
                                             </span>
                                         @endif
+                                    </div>
+                                    <div class="text-[11px] font-semibold text-slate-400 font-sans mt-0.5 flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3 text-slate-400 inline"></i>
+                                        <span>{{ $order->created_at ? $order->created_at->format('d M Y, h:i A') : ($order->order_date ? $order->order_date->format('d M Y') : '-') }}</span>
                                     </div>
                                 </td>
                                 <td data-label="Party Name" class="font-extrabold text-slate-900">{{ $order->party_name }}</td>

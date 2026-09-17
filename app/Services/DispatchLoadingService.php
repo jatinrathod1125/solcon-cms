@@ -74,13 +74,18 @@ class DispatchLoadingService
             foreach ($dispatch->items as $item) {
                 $stockInfo = $item->stock_info;
                 if (!$stockInfo['is_available']) {
-                    throw new \Exception("Cannot complete loading! Insufficient finished goods stock for '{$item->product_name}'. Required: {$stockInfo['required_bags']} {$item->unit_label}, Available in Finished Goods: {$stockInfo['available_bags']} {$item->unit_label}.");
+                    $stockType = $item->isRawMaterialFillerPouch() ? 'raw material' : 'finished goods';
+                    throw new \Exception("Cannot complete loading! Insufficient {$stockType} stock for '{$item->product_name}'. Required: {$stockInfo['required_bags']} {$item->unit_label}, Available: {$stockInfo['available_bags']} {$item->unit_label}.");
                 }
             }
 
-            // 2. Deduct Finished Goods Stock for every item in the dispatch
+            // 2. Deduct Stock for every item in the dispatch
             foreach ($dispatch->items as $item) {
-                $this->deductFinishedGoodsStock($item, $dispatch->dispatch_number, $dispatch->party_name);
+                if ($item->isRawMaterialFillerPouch()) {
+                    $this->deductRawMaterialFillerPouchStock($item, $dispatch->dispatch_number, $dispatch->party_name);
+                } else {
+                    $this->deductFinishedGoodsStock($item, $dispatch->dispatch_number, $dispatch->party_name);
+                }
 
                 // If linked to marketing order item, mark item as completed
                 if ($item->marketing_order_item_id) {
@@ -122,17 +127,40 @@ class DispatchLoadingService
             $dispatch->statusHistory()->create([
                 'status' => 'completed',
                 'changed_by' => auth()->id(),
-                'remarks' => 'Dispatch completed by Dispatch staff. Finished Goods stock deducted.',
+                'remarks' => 'Dispatch completed by Dispatch staff. Stock deducted.',
             ]);
 
             ActivityLogService::log(
                 'DISPATCH_COMPLETED',
-                "Dispatch {$dispatch->dispatch_number} completed. Finished Goods stock deducted for party: {$dispatch->party_name}",
+                "Dispatch {$dispatch->dispatch_number} completed. Stock deducted for party: {$dispatch->party_name}",
                 auth()->id()
             );
 
             return $dispatch->fresh(['items', 'loadingLogs', 'statusHistory', 'loader']);
         });
+    }
+
+    /**
+     * Deduct raw material stock for a 700gm filler pouch dispatch item.
+     */
+    protected function deductRawMaterialFillerPouchStock(DispatchItem $item, string $dispatchNumber, string $partyName): void
+    {
+        $rawMaterial = $item->epoxyComponent?->rawMaterial;
+        if (!$rawMaterial) {
+            throw new \RuntimeException("No raw material record matches {$item->product_name}.");
+        }
+
+        if ((float) $rawMaterial->current_stock < (float) $item->quantity_bags) {
+            throw new \RuntimeException("Insufficient raw material stock for {$item->product_name}. Available: {$rawMaterial->current_stock}.");
+        }
+
+        \App\Services\StockService::recordMovement(
+            rawMaterialId: $rawMaterial->id,
+            quantity: $item->quantity_bags,
+            transactionType: 'OUT',
+            batchId: null,
+            remarks: "Dispatched to {$partyName} via Dispatch #{$dispatchNumber}"
+        );
     }
 
     /**
