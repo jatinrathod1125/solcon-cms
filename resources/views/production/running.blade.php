@@ -6,7 +6,7 @@
 @section('content')
 <div class="max-w-4xl mx-auto space-y-6">
     <!-- ISO Start Time for JS Timer -->
-    <div id="start-time-iso" class="hidden">{{ $batch->start_time->toIso8601String() }}</div>
+    <div id="start-time-iso" class="hidden">{{ $batch->effective_start_time->toIso8601String() }}</div>
 
     <!-- Back to Dashboard -->
     <div class="flex items-center justify-between">
@@ -50,8 +50,10 @@
         <!-- Live Digital Up-Timer -->
         @php
         $isPaused = $batch->status === 'paused';
-        $elapsedSeconds = $isPaused ? $batch->start_time->diffInSeconds($batch->updated_at) :
-        $batch->start_time->diffInSeconds(now());
+        $elapsedSeconds = $batch->elapsed_seconds;
+        $hours = floor($elapsedSeconds / 3600);
+        $minutes = floor(($elapsedSeconds % 3600) / 60);
+        $seconds = $elapsedSeconds % 60;
         @endphp
         <div id="batch-timer-container" data-status="{{ $batch->status }}" data-elapsed="{{ $elapsedSeconds }}"
             class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 flex flex-col items-center justify-center min-w-[200px] shadow-inner">
@@ -60,19 +62,19 @@
             </span>
             <div class="flex items-center space-x-2 text-white font-mono text-3xl font-bold tracking-tight">
                 <div class="flex flex-col items-center">
-                    <span id="timer-hours">00</span>
+                    <span id="timer-hours">{{ sprintf('%02d', $hours) }}</span>
                     <span
                         class="text-[10px] text-slate-500 font-sans font-semibold uppercase tracking-wider mt-1">HR</span>
                 </div>
                 <span class="text-slate-650 -mt-5">:</span>
                 <div class="flex flex-col items-center">
-                    <span id="timer-minutes">00</span>
+                    <span id="timer-minutes">{{ sprintf('%02d', $minutes) }}</span>
                     <span
                         class="text-[10px] text-slate-500 font-sans font-semibold uppercase tracking-wider mt-1">MIN</span>
                 </div>
                 <span class="text-slate-650 -mt-5">:</span>
                 <div class="flex flex-col items-center">
-                    <span id="timer-seconds">00</span>
+                    <span id="timer-seconds">{{ sprintf('%02d', $seconds) }}</span>
                     <span
                         class="text-[10px] text-slate-500 font-sans font-semibold uppercase tracking-wider mt-1">SEC</span>
                 </div>

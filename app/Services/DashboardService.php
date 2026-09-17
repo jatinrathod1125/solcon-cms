@@ -54,7 +54,7 @@ class DashboardService
             ->count();
 
         // Combined running machines count
-        $runningAdhMachineIds = ProductionBatch::where('status', 'running')->pluck('machine_id')->toArray();
+        $runningAdhMachineIds = ProductionBatch::whereIn('status', ['running', 'paused'])->pluck('machine_id')->toArray();
         $runningGroutMachineIds = \App\Models\GroutProductionBatch::where('status', '!=', 'Completed')->pluck('machine_id')->toArray();
         $runningMachineIds = array_unique(array_merge($runningAdhMachineIds, $runningGroutMachineIds));
         $runningMachines = count($runningMachineIds);
@@ -176,13 +176,13 @@ class DashboardService
                 $latestBatch = $latestAdhBatches->get($machine->id);
 
                 if ($latestBatch) {
-                    if ($latestBatch->status === 'running') {
-                        $status = 'Running';
+                    if (in_array($latestBatch->status, ['running', 'paused'])) {
+                        $status = ucfirst($latestBatch->status);
                         $grade = $latestBatch->grade->name;
                         $batchNo = $latestBatch->batch_no;
                         $supervisor = $latestBatch->supervisor->name;
-                        $startTime = $latestBatch->start_time;
-                        $elapsedSeconds = Carbon::now()->diffInSeconds($latestBatch->start_time);
+                        $startTime = $latestBatch->effective_start_time ?? $latestBatch->start_time;
+                        $elapsedSeconds = $latestBatch->elapsed_seconds;
                     } elseif ($latestBatch->status === 'completed' && $latestBatch->end_time && $latestBatch->end_time->toDateString() === $today) {
                         $status = 'Completed';
                         $grade = $latestBatch->grade->name;
@@ -622,12 +622,12 @@ class DashboardService
 
         // 1. Running batch over 45 minutes
         $longRunning = ProductionBatch::where('status', 'running')
-            ->where('start_time', '<', Carbon::now()->subMinutes(45))
             ->with(['machine', 'supervisor'])
-            ->get();
+            ->get()
+            ->filter(fn($batch) => $batch->duration_minutes >= 45);
 
         foreach ($longRunning as $batch) {
-            $diff = Carbon::now()->diffInMinutes($batch->start_time);
+            $diff = $batch->duration_minutes;
             $alerts[] = [
                 'type' => 'warning',
                 'title' => 'Long Running Batch Alert',
@@ -685,7 +685,7 @@ class DashboardService
 
         // 5. Today's Production Completed Alert
         $todayStartedCount = ProductionBatch::whereDate('start_time', $today)->count();
-        $todayRunningCount = ProductionBatch::whereDate('start_time', $today)->where('status', 'running')->count();
+        $todayRunningCount = ProductionBatch::whereDate('start_time', $today)->whereIn('status', ['running', 'paused'])->count();
 
         if ($todayStartedCount > 0 && $todayRunningCount === 0) {
             $alerts[] = [

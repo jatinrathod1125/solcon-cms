@@ -23,6 +23,38 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
+        // One-Click Database Migration Route
+        Route::get('/run-migrations', function () {
+            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            $output = \Illuminate\Support\Facades\Artisan::output();
+
+            $hasPausedAt = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'paused_at');
+            $hasTotalPaused = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'total_paused_seconds');
+
+            // If columns still missing (e.g. migration file was not uploaded), create them directly
+            if (!$hasPausedAt || !$hasTotalPaused) {
+                \Illuminate\Support\Facades\Schema::table('production_batches', function (\Illuminate\Database\Schema\Blueprint $table) use ($hasPausedAt, $hasTotalPaused) {
+                    if (!$hasPausedAt) {
+                        $table->dateTime('paused_at')->nullable()->after('end_time');
+                    }
+                    if (!$hasTotalPaused) {
+                        $table->unsignedInteger('total_paused_seconds')->default(0)->after('paused_at');
+                    }
+                });
+                $statusMessage = "Columns 'paused_at' and 'total_paused_seconds' were missing and have been successfully added to 'production_batches' table!";
+                $statusColor = "#047857";
+                $statusBg = "#064e3b";
+                $statusText = "#a7f3d0";
+            } else {
+                $statusMessage = "Columns 'paused_at' and 'total_paused_seconds' already exist in 'production_batches' table. Everything is up to date!";
+                $statusColor = "#047857";
+                $statusBg = "#064e3b";
+                $statusText = "#a7f3d0";
+            }
+
+            return response("<!DOCTYPE html><html><head><title>Database Migration</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='margin:0;padding:24px;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;'><div style='max-width:700px;margin:30px auto;background:#1e293b;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid #334155;'><div style='display:flex;align-items:center;gap:12px;margin-bottom:16px;'><div style='width:12px;height:12px;border-radius:50%;background:#10b981;'></div><h2 style='color:#f8fafc;margin:0;font-size:18px;'>Database Migration & Column Status</h2></div><pre style='background:#090d16;color:#38bdf8;padding:16px;border-radius:10px;font-family:monospace;font-size:13px;line-height:1.6;overflow-x:auto;border:1px solid #1e293b;margin:0 0 16px 0;white-space:pre-wrap;'>" . htmlspecialchars($output ?: 'Artisan Output: Nothing to migrate.') . "</pre><div style='background:{$statusBg};color:{$statusText};padding:14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:20px;border:1px solid {$statusColor};'>✓ " . htmlspecialchars($statusMessage) . "</div><div style='display:flex;gap:12px;'><a href='" . route('admin.dashboard') . "' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Return to Dashboard</a></div></div></body></html>");
+        })->name('admin.run.migrations');
+
         // User Management CRUD
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->names('admin.users');
 

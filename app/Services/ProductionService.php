@@ -9,6 +9,7 @@ use App\Models\Grade;
 use App\Models\RawMaterial;
 use App\Models\PackingMaterial;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;
 
 class ProductionService
@@ -251,8 +252,8 @@ class ProductionService
                 $batch = ProductionBatch::lockForUpdate()->findOrFail($batchId);
                 
                 // Completed batches cannot be edited
-                if ($batch->status !== 'running') {
-                    throw new \Exception('Only running batches can be completed.');
+                if (!in_array($batch->status, ['running', 'paused'])) {
+                    throw new \Exception('Only running or paused batches can be completed.');
                 }
 
                 // 1. Validate Supervisor Department boundary for completion
@@ -344,11 +345,17 @@ class ProductionService
 
                 // 4. Update batch status
                 $parsedEndTime = $endTime ? \Carbon\Carbon::parse($endTime) : now();
+                $additionalPaused = 0;
+                if ($batch->status === 'paused' && $batch->paused_at) {
+                    $additionalPaused = (int) abs($parsedEndTime->diffInSeconds($batch->paused_at));
+                }
                 $batch->update([
                     'end_time' => $parsedEndTime,
                     'output_bags' => $outputBags,
                     'output_kg' => $outputKg,
                     'status' => 'completed',
+                    'paused_at' => null,
+                    'total_paused_seconds' => ((int) ($batch->total_paused_seconds ?? 0)) + $additionalPaused,
                     'remarks' => $remarks ?? $batch->remarks,
                 ]);
 
@@ -459,8 +466,18 @@ class ProductionService
                 }
             }
 
+            // Self-healing migration guard: runs migrate --force automatically if columns not present yet
+            if (!Schema::hasColumn('production_batches', 'paused_at')) {
+                try {
+                    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+                } catch (\Throwable $e) {
+                    // ignore
+                }
+            }
+
             $batch->update([
                 'status' => 'paused',
+                'paused_at' => now(),
             ]);
 
             ActivityLogService::log(
@@ -492,8 +509,20 @@ class ProductionService
                 }
             }
 
+            $now = now();
+            $pausedSeconds = 0;
+            if ($batch->paused_at) {
+                $pausedSeconds = (int) abs($now->diffInSeconds($batch->paused_at));
+            } elseif ($batch->updated_at) {
+                $pausedSeconds = (int) abs($now->diffInSeconds($batch->updated_at));
+            }
+
+            $newTotalPaused = ((int) ($batch->total_paused_seconds ?? 0)) + $pausedSeconds;
+
             $batch->update([
                 'status' => 'running',
+                'paused_at' => null,
+                'total_paused_seconds' => $newTotalPaused,
             ]);
 
             ActivityLogService::log(

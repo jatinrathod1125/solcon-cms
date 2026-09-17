@@ -70,7 +70,10 @@
                     <span class="text-slate-500">Duration</span>
                     <span class="text-white font-semibold">
                         @if($batch->end_time)
-                            {{ $batch->start_time->diffInMinutes($batch->end_time) }} minutes
+                            {{ $batch->duration_minutes }} minutes
+                            @if($batch->total_paused_seconds > 0)
+                                <span class="text-xs text-amber-400 font-normal">({{ round($batch->total_paused_seconds / 60) }} min pause excluded)</span>
+                            @endif
                         @else
                             -
                         @endif
