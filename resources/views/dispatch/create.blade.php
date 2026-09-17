@@ -159,7 +159,14 @@
                         
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center justify-between gap-2 mb-1">
-                                <span class="font-mono text-xs font-black text-blue-700">{{ $order->order_number }}</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-mono text-xs font-black text-blue-700">{{ $order->order_number }}</span>
+                                    @if(auth()->user()->isAdmin() && $order->creator)
+                                        <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+                                            By: {{ $order->creator->name }}
+                                        </span>
+                                    @endif
+                                </div>
                                 <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
                                     {{ ucfirst($order->priority) }} Priority
                                 </span>

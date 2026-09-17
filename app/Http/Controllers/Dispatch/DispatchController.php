@@ -112,12 +112,19 @@ class DispatchController extends Controller
             ->unique();
 
         // Get approved marketing orders available for dispatch (not yet assigned to active dispatch)
-        $approvedOrders = MarketingOrder::approved()
+        $ordersQuery = MarketingOrder::approved()
             ->whereIn('status', ['pending', 'in_progress'])
             ->whereNotIn('id', $dispatchedOrderIds)
-            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial'])
-            ->orderByDesc('id')
-            ->get();
+            ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator'])
+            ->orderByDesc('created_at')
+            ->orderByDesc('id');
+
+        // Admin sees all orders; other users only see orders created by themselves
+        if (!$user->isAdmin()) {
+            $ordersQuery->where('created_by', $user->id);
+        }
+
+        $approvedOrders = $ordersQuery->get();
 
         return view('dispatch.create', compact('approvedOrders'));
     }
@@ -152,6 +159,18 @@ class DispatchController extends Controller
             'marketing_order_ids.*' => 'exists:marketing_orders,id',
             'items' => 'nullable|array',
         ]);
+
+        if (!$user->isAdmin() && !empty($validated['marketing_order_ids'])) {
+            $hasOtherOrders = MarketingOrder::whereIn('id', $validated['marketing_order_ids'])
+                ->where('created_by', '!=', $user->id)
+                ->exists();
+            if ($hasOtherOrders) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You can only dispatch orders created by yourself.'
+                ], 403);
+            }
+        }
 
         try {
             $dispatch = $this->dispatchService->createDispatch($validated);
@@ -474,10 +493,18 @@ class DispatchController extends Controller
      */
     public function apiApprovedOrders()
     {
-        $orders = MarketingOrder::approved()
+        $user = auth()->user();
+        $query = MarketingOrder::approved()
             ->whereIn('status', ['pending', 'in_progress'])
-            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial'])
-            ->get();
+            ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator'])
+            ->orderByDesc('created_at')
+            ->orderByDesc('id');
+
+        if (!$user->isAdmin()) {
+            $query->where('created_by', $user->id);
+        }
+
+        $orders = $query->get();
 
         return response()->json([
             'success' => true,
