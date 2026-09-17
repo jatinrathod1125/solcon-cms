@@ -98,6 +98,19 @@
     </div>
     @endif
 
+    <!-- Multi-Brand & Split Packaging Notice (Light Theme) -->
+    <div class="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 text-xs flex items-start gap-3 shadow-xs">
+        <div class="p-2 rounded-xl bg-blue-100 text-blue-700 border border-blue-200 shrink-0">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+        </div>
+        <div>
+            <p class="font-extrabold text-blue-900 uppercase tracking-wider text-[11px]">Multi-Brand & Multi-Coupon Packaging Supported</p>
+            <p class="mt-0.5 text-slate-600 leading-relaxed font-medium">
+                When completing this batch, you can distribute the mixed output across compatible brands (e.g. <strong>Solcon F-101</strong> and <strong>Fixora FX-01</strong>) and assign coupon tokens to specific quantities (e.g. 50 bags with ₹20 coupon, remainder without coupon).
+            </p>
+        </div>
+    </div>
+
     <!-- Details Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Log & Run Metadata -->

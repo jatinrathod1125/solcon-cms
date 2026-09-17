@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
     'grade_id',
     'formula_id',
     'formula_snapshot',
+    'output_breakdown',
     'supervisor_id',
     'start_time',
     'end_time',
@@ -39,6 +40,7 @@ class ProductionBatch extends Model
             'output_bags' => 'decimal:4',
             'output_kg' => 'decimal:4',
             'formula_snapshot' => 'array',
+            'output_breakdown' => 'array',
         ];
     }
 

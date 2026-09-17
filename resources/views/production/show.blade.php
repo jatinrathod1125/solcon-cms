@@ -44,6 +44,81 @@
         </div>
     </div>
 
+    @if(!empty($batch->output_breakdown) && is_array($batch->output_breakdown))
+    <!-- Multi-Brand & Coupon Breakdown Card (Light ERP Card) -->
+    <div class="erp-card overflow-hidden">
+        <div class="border-b border-slate-100 px-6 py-4 bg-slate-50/70 flex items-center justify-between flex-wrap gap-2">
+            <h3 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4 text-blue-600"></i>
+                <span>Packaging & Multi-Brand Output Breakdown</span>
+            </h3>
+            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100 text-xs font-mono font-bold">
+                {{ count($batch->output_breakdown) }} Packaging Variant(s)
+            </span>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-100 bg-slate-50/50 text-slate-500 text-xs uppercase font-extrabold tracking-wider">
+                        <th class="p-3.5">Brand & Product Grade</th>
+                        <th class="p-3.5">Packaging Bag</th>
+                        <th class="p-3.5">Coupon Variant</th>
+                        <th class="p-3.5 text-right">Bags Output</th>
+                        <th class="p-3.5 text-right">Weight (KG)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @foreach($batch->output_breakdown as $split)
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="p-3.5">
+                                <div class="font-extrabold text-slate-900">{{ $split['grade_name'] ?? 'N/A' }}</div>
+                                <div class="text-xs text-slate-500 font-mono mt-0.5">
+                                    @if(!empty($split['brand_name']))
+                                        <span class="text-amber-700 font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 text-[10px]">{{ $split['brand_name'] }}</span> • 
+                                    @endif
+                                    {{ $split['grade_code'] ?? '' }}
+                                </div>
+                            </td>
+                            <td class="p-3.5">
+                                <span class="px-2.5 py-1 bg-slate-100 border border-slate-200 rounded-lg text-slate-700 font-mono text-xs font-bold">
+                                    {{ $split['packing_material_name'] ?? 'Standard Bag' }}
+                                </span>
+                            </td>
+                            <td class="p-3.5">
+                                @if(!empty($split['coupon_name']) && $split['coupon_name'] !== 'No Coupon')
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        <i data-lucide="ticket" class="w-3 h-3 mr-1"></i>
+                                        {{ $split['coupon_name'] }}
+                                    </span>
+                                @else
+                                    <span class="text-slate-400 text-xs italic font-medium">No Coupon</span>
+                                @endif
+                            </td>
+                            <td class="p-3.5 text-right font-mono font-extrabold text-blue-600">
+                                {{ number_format($split['bags'] ?? 0) }} Bags
+                            </td>
+                            <td class="p-3.5 text-right font-mono font-extrabold text-emerald-600">
+                                {{ number_format($split['kg'] ?? 0, 2) }} KG
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot class="border-t-2 border-slate-100 bg-slate-50/80 text-xs font-extrabold text-slate-800">
+                    <tr>
+                        <td colspan="3" class="p-3.5 uppercase text-slate-500">Total Recorded Output</td>
+                        <td class="p-3.5 text-right font-mono text-blue-700 text-sm">
+                            {{ number_format($batch->output_bags, 0) }} Bags
+                        </td>
+                        <td class="p-3.5 text-right font-mono text-emerald-700 text-sm">
+                            {{ number_format($batch->output_kg, 2) }} KG
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    @endif
+
     <!-- Details Log Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Log & Run Metadata (col-span-2) -->

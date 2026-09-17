@@ -280,8 +280,13 @@ class ProductionController extends Controller
         }
 
         $batch->load(['machine', 'grade.bagSize', 'grade.brand', 'supervisor']);
+        $compatibleGrades = $batch->grade->getCompatibleGrades();
+        $availableCoupons = \App\Models\RawMaterial::where('is_coupon', true)
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'name', 'code', 'current_stock']);
 
-        return view('production.complete', compact('batch'));
+        return view('production.complete', compact('batch', 'compatibleGrades', 'availableCoupons'));
     }
 
     /**
@@ -294,7 +299,8 @@ class ProductionController extends Controller
                 $batch->id,
                 (float) $request->input('output_bags'),
                 $request->input('end_time'),
-                $request->input('remarks')
+                $request->input('remarks'),
+                $request->input('split_breakdown')
             );
 
             if ($request->ajax()) {

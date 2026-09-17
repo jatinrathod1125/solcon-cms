@@ -244,10 +244,10 @@ class ProductionService
     /**
      * Complete a running production batch, validating stock, deducting it, and recording ledger.
      */
-    public static function completeBatch(int $batchId, float $outputBags, ?string $endTime = null, ?string $remarks = null): ProductionBatch
+    public static function completeBatch(int $batchId, float $outputBags, ?string $endTime = null, ?string $remarks = null, ?array $splitBreakdown = null): ProductionBatch
     {
         try {
-            return DB::transaction(function () use ($batchId, $outputBags, $endTime, $remarks) {
+            return DB::transaction(function () use ($batchId, $outputBags, $endTime, $remarks, $splitBreakdown) {
                 // Load and lock the batch
                 $batch = ProductionBatch::lockForUpdate()->findOrFail($batchId);
                 
@@ -264,8 +264,74 @@ class ProductionService
                     }
                 }
 
-                $bagSizeValue = (float) $batch->grade->bagSize->value;
-                $outputKg = $outputBags * $bagSizeValue;
+                // Parse and enrich split breakdown if provided
+                $hasSplit = !empty($splitBreakdown) && is_array($splitBreakdown);
+                $normalizedSplit = [];
+                $totalSplitBags = 0;
+                $totalSplitKg = 0;
+
+                if ($hasSplit) {
+                    foreach ($splitBreakdown as $row) {
+                        $bags = isset($row['bags']) ? (float) $row['bags'] : 0;
+                        if ($bags <= 0) {
+                            continue;
+                        }
+
+                        $gradeId = isset($row['grade_id']) ? (int) $row['grade_id'] : $batch->grade_id;
+                        $grade = Grade::with(['brand', 'bagSize'])->find($gradeId) ?? $batch->grade;
+                        $bagSizeVal = (float) ($grade->bagSize->value ?? 20.0);
+                        $rowKg = $bags * $bagSizeVal;
+
+                        $pmId = !empty($row['packing_material_id']) ? (int) $row['packing_material_id'] : null;
+                        $pmName = 'Packaging Bag';
+                        if ($pmId) {
+                            $pm = PackingMaterial::find($pmId);
+                            if ($pm) {
+                                $pmName = $pm->name;
+                            }
+                        }
+
+                        $couponId = !empty($row['coupon_raw_material_id']) ? (int) $row['coupon_raw_material_id'] : null;
+                        $couponName = 'No Coupon';
+                        if ($couponId) {
+                            $cp = RawMaterial::find($couponId);
+                            if ($cp) {
+                                $couponName = $cp->name;
+                            }
+                        }
+
+                        $totalSplitBags += $bags;
+                        $totalSplitKg += $rowKg;
+
+                        $normalizedSplit[] = [
+                            'grade_id' => $grade->id,
+                            'grade_name' => $grade->name,
+                            'grade_code' => $grade->code,
+                            'brand_id' => $grade->brand_id,
+                            'brand_name' => $grade->brand->name ?? 'Default',
+                            'bag_size_id' => $grade->bag_size_id,
+                            'bag_size_name' => $grade->bagSize->name ?? '20KG',
+                            'packing_material_id' => $pmId,
+                            'packing_material_name' => $pmName,
+                            'coupon_raw_material_id' => $couponId,
+                            'coupon_name' => $couponName,
+                            'bags' => $bags,
+                            'weight' => $rowKg,
+                        ];
+                    }
+
+                    if ($totalSplitBags > 0) {
+                        $outputBags = $totalSplitBags;
+                        $outputKg = $totalSplitKg;
+                    } else {
+                        $hasSplit = false;
+                    }
+                }
+
+                if (!$hasSplit) {
+                    $bagSizeValue = (float) $batch->grade->bagSize->value;
+                    $outputKg = $outputBags * $bagSizeValue;
+                }
 
                 // Load formula snapshot
                 $snapshot = $batch->formula_snapshot;
@@ -299,48 +365,152 @@ class ProductionService
                 };
 
                 // 2. Validate stock before deduction
-                foreach ($snapshot as $itemData) {
-                    $requiredQty = $getRequiredQty($itemData, $outputBags);
-                    $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+                $pmDemands = [];
+                $couponDemands = [];
 
-                    if ($isPacking) {
-                        $packingMaterial = PackingMaterial::lockForUpdate()->findOrFail($itemData['packing_material_id']);
-                        if ((float) $packingMaterial->current_stock < $requiredQty) {
+                if ($hasSplit) {
+                    // A. Validate base chemical raw materials from snapshot (excluding coupons and packing)
+                    foreach ($snapshot as $itemData) {
+                        $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+                        if ($isPacking) continue;
+
+                        $rawMat = RawMaterial::find($itemData['raw_material_id']);
+                        if (!$rawMat || $rawMat->is_coupon) continue;
+
+                        $requiredQty = $getRequiredQty($itemData, $outputBags);
+                        $lockedRm = RawMaterial::lockForUpdate()->findOrFail($rawMat->id);
+                        if ((float) $lockedRm->current_stock < $requiredQty) {
                             ActivityLogService::log(
                                 'FAILED_STOCK_VALIDATION',
-                                "Failed to complete batch #{$batch->batch_no} due to insufficient stock of packing material {$packingMaterial->name}.",
+                                "Failed to complete batch #{$batch->batch_no} due to insufficient stock of {$lockedRm->name}.",
                                 auth()->id() ?? $batch->supervisor_id
                             );
-                            throw new \Exception("{$packingMaterial->name} Stock is insufficient.");
+                            throw new \Exception("{$lockedRm->name} Stock is insufficient.");
                         }
-                    } else {
-                        $rawMaterial = RawMaterial::lockForUpdate()->findOrFail($itemData['raw_material_id']);
-                        if ((float) $rawMaterial->current_stock < $requiredQty) {
-                            ActivityLogService::log(
-                                'FAILED_STOCK_VALIDATION',
-                                "Failed to complete batch #{$batch->batch_no} due to insufficient stock of {$rawMaterial->name}.",
-                                auth()->id() ?? $batch->supervisor_id
-                            );
-                            throw new \Exception("{$rawMaterial->name} Stock is insufficient.");
+                    }
+
+                    // B. Validate packing materials (bags) summed by packing_material_id
+                    foreach ($normalizedSplit as $row) {
+                        if (!empty($row['packing_material_id'])) {
+                            $pmDemands[$row['packing_material_id']] = ($pmDemands[$row['packing_material_id']] ?? 0) + $row['bags'];
+                        }
+                    }
+                    foreach ($pmDemands as $pmId => $demand) {
+                        $pm = PackingMaterial::lockForUpdate()->findOrFail($pmId);
+                        if ((float) $pm->current_stock < $demand) {
+                            throw new \Exception("{$pm->name} Stock is insufficient.");
+                        }
+                    }
+
+                    // C. Validate coupon tokens summed by coupon_raw_material_id
+                    foreach ($normalizedSplit as $row) {
+                        if (!empty($row['coupon_raw_material_id'])) {
+                            $couponDemands[$row['coupon_raw_material_id']] = ($couponDemands[$row['coupon_raw_material_id']] ?? 0) + $row['bags'];
+                        }
+                    }
+                    foreach ($couponDemands as $cId => $demand) {
+                        $cRm = RawMaterial::lockForUpdate()->findOrFail($cId);
+                        if ((float) $cRm->current_stock < $demand) {
+                            throw new \Exception("Coupon {$cRm->name} Stock is insufficient.");
+                        }
+                    }
+                } else {
+                    // Legacy single-grade validation
+                    foreach ($snapshot as $itemData) {
+                        $requiredQty = $getRequiredQty($itemData, $outputBags);
+                        $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+
+                        if ($isPacking) {
+                            $packingMaterial = PackingMaterial::lockForUpdate()->findOrFail($itemData['packing_material_id']);
+                            if ((float) $packingMaterial->current_stock < $requiredQty) {
+                                ActivityLogService::log(
+                                    'FAILED_STOCK_VALIDATION',
+                                    "Failed to complete batch #{$batch->batch_no} due to insufficient stock of packing material {$packingMaterial->name}.",
+                                    auth()->id() ?? $batch->supervisor_id
+                                );
+                                throw new \Exception("{$packingMaterial->name} Stock is insufficient.");
+                            }
+                        } else {
+                            $rawMaterial = RawMaterial::lockForUpdate()->findOrFail($itemData['raw_material_id']);
+                            if ((float) $rawMaterial->current_stock < $requiredQty) {
+                                ActivityLogService::log(
+                                    'FAILED_STOCK_VALIDATION',
+                                    "Failed to complete batch #{$batch->batch_no} due to insufficient stock of {$rawMaterial->name}.",
+                                    auth()->id() ?? $batch->supervisor_id
+                                );
+                                throw new \Exception("{$rawMaterial->name} Stock is insufficient.");
+                            }
                         }
                     }
                 }
 
                 // 3. Deduct stock & create ledger entries
-                foreach ($snapshot as $itemData) {
-                    $deductQty = $getRequiredQty($itemData, $outputBags);
-                    $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+                if ($hasSplit) {
+                    // A. Deduct base chemical raw materials
+                    foreach ($snapshot as $itemData) {
+                        $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+                        if ($isPacking) continue;
 
-                    StockService::recordMovement(
-                        $isPacking ? null : $itemData['raw_material_id'],
-                        $deductQty,
-                        'OUT',
-                        $batch->id,
-                        "Consumed in production batch #{$batch->batch_no}",
-                        null,
-                        null,
-                        $isPacking ? $itemData['packing_material_id'] : null
-                    );
+                        $rawMat = RawMaterial::find($itemData['raw_material_id']);
+                        if (!$rawMat || $rawMat->is_coupon) continue;
+
+                        $deductQty = $getRequiredQty($itemData, $outputBags);
+                        StockService::recordMovement(
+                            $itemData['raw_material_id'],
+                            $deductQty,
+                            'OUT',
+                            $batch->id,
+                            "Consumed in production batch #{$batch->batch_no}",
+                            null,
+                            null,
+                            null
+                        );
+                    }
+
+                    // B. Deduct packing materials
+                    foreach ($pmDemands as $pmId => $demand) {
+                        StockService::recordMovement(
+                            null,
+                            $demand,
+                            'OUT',
+                            $batch->id,
+                            "Packing bags consumed in production batch #{$batch->batch_no}",
+                            null,
+                            null,
+                            $pmId
+                        );
+                    }
+
+                    // C. Deduct coupon tokens
+                    foreach ($couponDemands as $cId => $demand) {
+                        StockService::recordMovement(
+                            $cId,
+                            $demand,
+                            'OUT',
+                            $batch->id,
+                            "Coupons consumed in production batch #{$batch->batch_no}",
+                            null,
+                            null,
+                            null
+                        );
+                    }
+                } else {
+                    // Legacy single-grade deduction
+                    foreach ($snapshot as $itemData) {
+                        $deductQty = $getRequiredQty($itemData, $outputBags);
+                        $isPacking = ($itemData['item_type'] ?? 'raw') === 'packing' || !empty($itemData['packing_material_id']);
+
+                        StockService::recordMovement(
+                            $isPacking ? null : $itemData['raw_material_id'],
+                            $deductQty,
+                            'OUT',
+                            $batch->id,
+                            "Consumed in production batch #{$batch->batch_no}",
+                            null,
+                            null,
+                            $isPacking ? $itemData['packing_material_id'] : null
+                        );
+                    }
                 }
 
                 // 4. Update batch status
@@ -349,7 +519,8 @@ class ProductionService
                 if ($batch->status === 'paused' && $batch->paused_at) {
                     $additionalPaused = (int) abs($parsedEndTime->diffInSeconds($batch->paused_at));
                 }
-                $batch->update([
+
+                $batchUpdateData = [
                     'end_time' => $parsedEndTime,
                     'output_bags' => $outputBags,
                     'output_kg' => $outputKg,
@@ -357,34 +528,52 @@ class ProductionService
                     'paused_at' => null,
                     'total_paused_seconds' => ((int) ($batch->total_paused_seconds ?? 0)) + $additionalPaused,
                     'remarks' => $remarks ?? $batch->remarks,
-                ]);
+                ];
 
-                // Find coupon raw material in formula snapshot to track finished good coupon variant
-                $couponRawMaterialId = null;
-                if (!empty($batch->formula_snapshot)) {
-                    foreach ($batch->formula_snapshot as $itemData) {
-                        $rm = RawMaterial::find($itemData['raw_material_id']);
-                        if ($rm && $rm->is_coupon) {
-                            $couponRawMaterialId = $rm->id;
-                            break;
-                        }
-                    }
+                if ($hasSplit) {
+                    $batchUpdateData['output_breakdown'] = $normalizedSplit;
                 }
 
-                // Update Finished Goods Stock
-                app(\App\Services\FinishedGoodsService::class)->incrementAdhesiveStock(
-                    $batch->grade_id,
-                    $batch->grade->bagSize->name,
-                    (int) $outputBags,
-                    (float) $outputKg,
-                    $couponRawMaterialId
-                );
+                $batch->update($batchUpdateData);
 
-                // 5. Write audit logs
+                // 5. Update Finished Goods Stock
+                if ($hasSplit) {
+                    foreach ($normalizedSplit as $row) {
+                        app(\App\Services\FinishedGoodsService::class)->incrementAdhesiveStock(
+                            $row['grade_id'],
+                            $row['bag_size_name'],
+                            (int) $row['bags'],
+                            (float) $row['weight'],
+                            $row['coupon_raw_material_id']
+                        );
+                    }
+                } else {
+                    // Legacy single-grade Finished Goods increment
+                    $couponRawMaterialId = null;
+                    if (!empty($batch->formula_snapshot)) {
+                        foreach ($batch->formula_snapshot as $itemData) {
+                            $rm = RawMaterial::find($itemData['raw_material_id']);
+                            if ($rm && $rm->is_coupon) {
+                                $couponRawMaterialId = $rm->id;
+                                break;
+                            }
+                        }
+                    }
+
+                    app(\App\Services\FinishedGoodsService::class)->incrementAdhesiveStock(
+                        $batch->grade_id,
+                        $batch->grade->bagSize->name,
+                        (int) $outputBags,
+                        (float) $outputKg,
+                        $couponRawMaterialId
+                    );
+                }
+
+                // 6. Write audit logs
                 $userId = auth()->id() ?? $batch->supervisor_id;
                 ActivityLogService::log(
                     'BATCH_COMPLETED',
-                    "Production batch #{$batch->batch_no} completed. Output: {$outputBags} bags ({$outputKg} KG).",
+                    "Production batch #{$batch->batch_no} completed. Output: {$outputBags} bags ({$outputKg} KG)" . ($hasSplit ? " across " . count($normalizedSplit) . " packaging splits." : "."),
                     $userId
                 );
                 ActivityLogService::log(
@@ -401,8 +590,7 @@ class ProductionService
                 return $batch;
             });
         } catch (\Exception $e) {
-            // Log Failed Production Attempt (unless it is failed validation which is logged separately)
-            if ($e->getMessage() !== 'Only running batches can be completed.' && strpos($e->getMessage(), 'Stock is insufficient') === false) {
+            if ($e->getMessage() !== 'Only running or paused batches can be completed.' && strpos($e->getMessage(), 'Stock is insufficient') === false) {
                 ActivityLogService::log(
                     'FAILED_PRODUCTION_ATTEMPT',
                     "Failed to complete batch ID {$batchId}. Reason: " . $e->getMessage()

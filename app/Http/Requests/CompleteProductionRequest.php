@@ -25,6 +25,11 @@ class CompleteProductionRequest extends FormRequest
             'output_bags' => ['required', 'numeric', 'min:0.0001'],
             'end_time' => ['nullable', 'date'],
             'remarks' => ['nullable', 'string', 'max:500'],
+            'split_breakdown' => ['nullable', 'array'],
+            'split_breakdown.*.grade_id' => ['required_with:split_breakdown', 'integer'],
+            'split_breakdown.*.bags' => ['required_with:split_breakdown', 'numeric', 'min:0.0001'],
+            'split_breakdown.*.coupon_raw_material_id' => ['nullable'],
+            'split_breakdown.*.packing_material_id' => ['nullable'],
         ];
     }
 

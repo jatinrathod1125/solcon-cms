@@ -30,23 +30,27 @@ Route::middleware('auth')->group(function () {
 
             $hasPausedAt = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'paused_at');
             $hasTotalPaused = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'total_paused_seconds');
+            $hasOutputBreakdown = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'output_breakdown');
 
             // If columns still missing (e.g. migration file was not uploaded), create them directly
-            if (!$hasPausedAt || !$hasTotalPaused) {
-                \Illuminate\Support\Facades\Schema::table('production_batches', function (\Illuminate\Database\Schema\Blueprint $table) use ($hasPausedAt, $hasTotalPaused) {
+            if (!$hasPausedAt || !$hasTotalPaused || !$hasOutputBreakdown) {
+                \Illuminate\Support\Facades\Schema::table('production_batches', function (\Illuminate\Database\Schema\Blueprint $table) use ($hasPausedAt, $hasTotalPaused, $hasOutputBreakdown) {
                     if (!$hasPausedAt) {
                         $table->dateTime('paused_at')->nullable()->after('end_time');
                     }
                     if (!$hasTotalPaused) {
                         $table->unsignedInteger('total_paused_seconds')->default(0)->after('paused_at');
                     }
+                    if (!$hasOutputBreakdown) {
+                        $table->json('output_breakdown')->nullable()->after('formula_snapshot');
+                    }
                 });
-                $statusMessage = "Columns 'paused_at' and 'total_paused_seconds' were missing and have been successfully added to 'production_batches' table!";
+                $statusMessage = "Columns 'paused_at', 'total_paused_seconds', and 'output_breakdown' were verified and added to 'production_batches' table!";
                 $statusColor = "#047857";
                 $statusBg = "#064e3b";
                 $statusText = "#a7f3d0";
             } else {
-                $statusMessage = "Columns 'paused_at' and 'total_paused_seconds' already exist in 'production_batches' table. Everything is up to date!";
+                $statusMessage = "All columns ('paused_at', 'total_paused_seconds', 'output_breakdown') are up to date in 'production_batches' table!";
                 $statusColor = "#047857";
                 $statusBg = "#064e3b";
                 $statusText = "#a7f3d0";
