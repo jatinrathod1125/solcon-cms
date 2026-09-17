@@ -322,7 +322,7 @@
                                                 <i data-lucide="check-circle" class="h-4 w-4"></i>
                                             </button>
                                         @endif
-                                        @if($order->status === 'pending' || auth()->user()->isAdmin())
+                                        @if(($order->status !== 'completed' && $order->status !== 'cancelled') || auth()->user()->isAdmin())
                                             <a href="{{ route('marketing.orders.edit', $order->id) }}" class="order-action-button hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" title="Edit order">
                                                 <i data-lucide="edit" class="h-4 w-4"></i>
                                             </a>

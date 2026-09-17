@@ -4,6 +4,9 @@ namespace App\Services;
 
 use App\Models\MarketingOrder;
 use App\Models\MarketingOrderItem;
+use App\Models\Dispatch;
+use App\Models\DispatchItem;
+use App\Models\User;
 use App\Models\RawMaterial;
 use App\Models\Grade;
 use App\Models\Color;
@@ -228,8 +231,90 @@ class MarketingOrderService
                 auth()->id()
             );
 
+            // Sync updated items to active dispatches and notify dispatch supervisors
+            $this->syncOrderToActiveDispatches($order);
+
             return $order->fresh(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator']);
         });
+    }
+
+    /**
+     * Synchronize edited marketing order items to any active dispatches and notify dispatch supervisors.
+     */
+    public function syncOrderToActiveDispatches(MarketingOrder $order): void
+    {
+        // Find active (non-completed, non-cancelled) dispatches containing this order
+        $activeDispatches = Dispatch::whereNotIn('status', ['completed', 'cancelled'])
+            ->whereHas('items', function ($q) use ($order) {
+                $q->where('marketing_order_id', $order->id);
+            })
+            ->get();
+
+        if ($activeDispatches->isEmpty()) {
+            return;
+        }
+
+        $order->load('items');
+
+        foreach ($activeDispatches as $dispatch) {
+            // Remove old dispatch items belonging to this order
+            $dispatch->items()->where('marketing_order_id', $order->id)->delete();
+
+            // Re-insert new dispatch items from updated order
+            foreach ($order->items as $item) {
+                $dispatch->items()->create([
+                    'marketing_order_id' => $order->id,
+                    'marketing_order_item_id' => $item->id,
+                    'department_code' => $item->department_code,
+                    'grade_id' => $item->grade_id,
+                    'color_id' => $item->color_id,
+                    'epoxy_product_id' => $item->epoxy_product_id,
+                    'epoxy_filler_color_id' => $item->epoxy_filler_color_id,
+                    'epoxy_component_id' => $item->epoxy_component_id,
+                    'quantity_bags' => $item->quantity_bags,
+                    'quantity_kg' => $item->calculated_weight_kg,
+                    'packing' => $item->packing,
+                    'coupon_raw_material_id' => $item->coupon_raw_material_id,
+                    'coupon_quantity' => $item->coupon_quantity,
+                ]);
+            }
+
+            // Sync party name and city if needed
+            $linkedOrders = MarketingOrder::whereIn(
+                'id',
+                $dispatch->items()->whereNotNull('marketing_order_id')->pluck('marketing_order_id')->unique()
+            )->get();
+
+            if ($linkedOrders->isNotEmpty()) {
+                $partyName = $linkedOrders->pluck('party_name')->unique()->filter()->implode(', ');
+                $city = $linkedOrders->pluck('city')->unique()->filter()->implode(', ');
+                $dispatch->update([
+                    'party_name' => $partyName ?: $dispatch->party_name,
+                    'city' => $city ?: $dispatch->city,
+                ]);
+            }
+
+            // Send notification to Dispatch department staff & admins
+            try {
+                $notificationService = app(\App\Services\NotificationService::class);
+                $dispatchUsers = User::whereHas('roles', function ($q) {
+                    $q->whereIn('slug', ['dispatch', 'admin', 'supervisor']);
+                })->where('is_active', true)->get();
+
+                foreach ($dispatchUsers as $u) {
+                    $notificationService->sendToUser(
+                        $u,
+                        "Order Edited in Dispatch: {$dispatch->dispatch_number}",
+                        "Order {$order->order_number} ({$order->party_name}) has been updated. Dispatch items have been refreshed.",
+                        'dispatch_order_edited',
+                        null,
+                        ['dispatch_id' => $dispatch->id, 'order_id' => $order->id, 'click_url' => "/dispatch/{$dispatch->id}"]
+                    );
+                }
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Dispatch order update notification error: ' . $e->getMessage());
+            }
+        }
     }
 
     /**

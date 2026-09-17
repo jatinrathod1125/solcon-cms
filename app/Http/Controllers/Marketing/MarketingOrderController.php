@@ -358,6 +358,17 @@ class MarketingOrderController extends Controller
             abort(403, 'Unauthorized. You can only edit orders created by yourself.');
         }
 
+        // Cannot edit if order is completed or cancelled, or if its dispatch is already completed
+        $hasCompletedDispatch = \App\Models\Dispatch::where('status', 'completed')
+            ->whereHas('items', function ($q) use ($order) {
+                $q->where('marketing_order_id', $order->id);
+            })
+            ->exists();
+
+        if ($hasCompletedDispatch || $order->status === 'completed' || $order->status === 'cancelled') {
+            abort(403, 'This order cannot be edited because it is completed, cancelled, or its dispatch has already been completed.');
+        }
+
         $order->load(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial']);
 
         $coupons = $this->orderService->getAvailableCoupons();
@@ -401,21 +412,26 @@ class MarketingOrderController extends Controller
             ], 403);
         }
 
-        // Admin can edit anything.
-        // Marketing can only edit if created by themselves and status is pending.
-        if (!$user->isAdmin()) {
-            if ($order->created_by !== $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Unauthorized. You can only edit orders created by yourself.'
-                ], 403);
-            }
-            if ($order->status !== 'pending') {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Only Administrators can edit orders that are already in progress or completed.'
-                ], 403);
-            }
+        // Non-admin can only edit orders created by themselves
+        if (!$user->isAdmin() && $order->created_by !== $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized. You can only edit orders created by yourself.'
+            ], 403);
+        }
+
+        // Cannot edit if order is completed or cancelled, or if its dispatch is already completed
+        $hasCompletedDispatch = \App\Models\Dispatch::where('status', 'completed')
+            ->whereHas('items', function ($q) use ($order) {
+                $q->where('marketing_order_id', $order->id);
+            })
+            ->exists();
+
+        if ($hasCompletedDispatch || $order->status === 'completed' || $order->status === 'cancelled') {
+            return response()->json([
+                'success' => false,
+                'message' => 'This order cannot be edited because it is completed, cancelled, or its dispatch has already been completed.'
+            ], 403);
         }
 
         $validated = $request->validate([

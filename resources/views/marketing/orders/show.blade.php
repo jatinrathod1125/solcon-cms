@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                @if($order->status === 'pending' || auth()->user()->isAdmin())
+                @if(($order->status !== 'completed' && $order->status !== 'cancelled') || auth()->user()->isAdmin())
                 <a href="{{ route('marketing.orders.edit', $order->id) }}" class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-blue-200 bg-blue-50 px-4 text-xs font-bold text-blue-700 hover:bg-blue-100 transition">
                     <i data-lucide="edit" class="w-4 h-4"></i>
                     Edit Order
