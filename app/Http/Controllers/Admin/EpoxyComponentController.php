@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\ComponentCategory;
 use App\Models\EpoxyComponent;
 use App\Models\EpoxyFillerColor;
 use App\Models\RawMaterial;
@@ -18,7 +19,7 @@ class EpoxyComponentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = EpoxyComponent::with(['brand', 'unit', 'color', 'parentComponent', 'rawMaterial']);
+        $query = EpoxyComponent::with(['brand', 'unit', 'color', 'parentComponent', 'rawMaterial', 'componentCategory']);
 
         if (function_exists('currentBrand') && currentBrand()) {
             $query->forBrand(currentBrand());
@@ -36,6 +37,10 @@ class EpoxyComponentController extends Controller
             $query->where('brand_id', $request->input('brand_id'));
         }
 
+        if ($request->filled('component_category_id')) {
+            $query->where('component_category_id', $request->input('component_category_id'));
+        }
+
         if ($request->filled('category')) {
             $query->where('category', $request->input('category'));
         }
@@ -50,8 +55,9 @@ class EpoxyComponentController extends Controller
 
         $components = $query->orderBy('name')->paginate(15)->withQueryString();
         $brands = Brand::active()->orderBy('name')->get();
+        $categories = ComponentCategory::ordered()->get();
 
-        return view('admin.epoxy_components.index', compact('components', 'brands'));
+        return view('admin.epoxy_components.index', compact('components', 'brands', 'categories'));
     }
 
     public function create()
@@ -60,8 +66,9 @@ class EpoxyComponentController extends Controller
         $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->get();
         $parentComponents = EpoxyComponent::whereNull('parent_component_id')->forCurrentBrand()->get();
         $brands = Brand::active()->orderBy('name')->get();
+        $categories = ComponentCategory::active()->ordered()->get();
         
-        return view('admin.epoxy_components.create', compact('units', 'colors', 'parentComponents', 'brands'));
+        return view('admin.epoxy_components.create', compact('units', 'colors', 'parentComponents', 'brands', 'categories'));
     }
 
     public function store(StoreEpoxyComponentRequest $request)
@@ -100,8 +107,9 @@ class EpoxyComponentController extends Controller
         $colors = EpoxyFillerColor::where('is_active', true)->forCurrentBrand()->get();
         $parentComponents = EpoxyComponent::whereNull('parent_component_id')->where('id', '!=', $epoxyComponent->id)->forCurrentBrand()->get();
         $brands = Brand::active()->orderBy('name')->get();
+        $categories = ComponentCategory::active()->ordered()->get();
         
-        return view('admin.epoxy_components.edit', compact('epoxyComponent', 'units', 'colors', 'parentComponents', 'brands'));
+        return view('admin.epoxy_components.edit', compact('epoxyComponent', 'units', 'colors', 'parentComponents', 'brands', 'categories'));
     }
 
     public function update(UpdateEpoxyComponentRequest $request, EpoxyComponent $epoxyComponent)

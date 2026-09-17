@@ -49,9 +49,39 @@
                         class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
                 </div>
 
-                <!-- Category -->
+                <!-- Component Category (Order Board Grouping) -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Category</label>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Component Category (Order Board)</label>
+                    <select name="component_category_id"
+                        class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
+                        <option value="">-- No Category / Internal Component --</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ old('component_category_id', $epoxyComponent->component_category_id) == $cat->id ? 'selected' : '' }}>
+                                {{ $cat->name }} (Order: {{ $cat->display_order }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Display Order -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Display Order in Category</label>
+                    <input type="number" name="display_order" value="{{ old('display_order', $epoxyComponent->display_order ?? 0) }}" min="0" step="1"
+                        class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm font-mono"
+                        placeholder="e.g. 1, 2, 3">
+                </div>
+
+                <!-- Default Packaging (e.g. Box) -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Default Packaging Unit</label>
+                    <input type="text" name="default_packing" value="{{ old('default_packing', $epoxyComponent->default_packing ?? 'Box') }}"
+                        class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm"
+                        placeholder="e.g. Box">
+                </div>
+
+                <!-- Category Type (Legacy) -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Physical Form / Type</label>
                     <select name="category" required
                         class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
                         <option value="Bottle" {{ old('category', $epoxyComponent->category) === 'Bottle' ? 'selected' : '' }}>Bottle</option>

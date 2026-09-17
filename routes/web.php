@@ -56,7 +56,66 @@ Route::middleware('auth')->group(function () {
                 $statusText = "#a7f3d0";
             }
 
-            return response("<!DOCTYPE html><html><head><title>Database Migration</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='margin:0;padding:24px;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;'><div style='max-width:700px;margin:30px auto;background:#1e293b;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid #334155;'><div style='display:flex;align-items:center;gap:12px;margin-bottom:16px;'><div style='width:12px;height:12px;border-radius:50%;background:#10b981;'></div><h2 style='color:#f8fafc;margin:0;font-size:18px;'>Database Migration & Column Status</h2></div><pre style='background:#090d16;color:#38bdf8;padding:16px;border-radius:10px;font-family:monospace;font-size:13px;line-height:1.6;overflow-x:auto;border:1px solid #1e293b;margin:0 0 16px 0;white-space:pre-wrap;'>" . htmlspecialchars($output ?: 'Artisan Output: Nothing to migrate.') . "</pre><div style='background:{$statusBg};color:{$statusText};padding:14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:20px;border:1px solid {$statusColor};'>✓ " . htmlspecialchars($statusMessage) . "</div><div style='display:flex;gap:12px;'><a href='" . route('admin.dashboard') . "' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Return to Dashboard</a></div></div></body></html>");
+            // Component Categories Self-Healing
+            if (!\Illuminate\Support\Facades\Schema::hasTable('component_categories')) {
+                \Illuminate\Support\Facades\Schema::create('component_categories', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->id();
+                    $table->string('name');
+                    $table->string('slug')->unique();
+                    $table->string('default_unit')->default('Box');
+                    $table->tinyInteger('column_no')->default(4);
+                    $table->integer('display_order')->default(0);
+                    $table->boolean('is_active')->default(true);
+                    $table->timestamps();
+                });
+            } elseif (!\Illuminate\Support\Facades\Schema::hasColumn('component_categories', 'column_no')) {
+                \Illuminate\Support\Facades\Schema::table('component_categories', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->tinyInteger('column_no')->default(4)->after('default_unit');
+                });
+            }
+
+            if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'component_category_id')) {
+                \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->foreignId('component_category_id')->nullable()->after('brand_id')->constrained('component_categories')->nullOnDelete();
+                });
+            }
+            if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'display_order')) {
+                \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->integer('display_order')->default(0)->after('is_active');
+                });
+            }
+            if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'default_packing')) {
+                \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->string('default_packing')->nullable()->default('Box')->after('display_order');
+                });
+            }
+
+            // Raw Material is_coupon Self-Healing
+            if (\Illuminate\Support\Facades\Schema::hasTable('raw_materials') && !\Illuminate\Support\Facades\Schema::hasColumn('raw_materials', 'is_coupon')) {
+                \Illuminate\Support\Facades\Schema::table('raw_materials', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->boolean('is_coupon')->default(false)->after('is_active');
+                });
+            }
+
+            // Seed default categories if none exist
+            if (\App\Models\ComponentCategory::count() === 0) {
+                $defaultCats = [
+                    ['name' => 'Tiles Cleaner', 'slug' => 'tiles-cleaner', 'default_unit' => 'Box', 'column_no' => 1, 'display_order' => 1],
+                    ['name' => 'Grout Admix', 'slug' => 'grout-admix', 'default_unit' => 'Box', 'column_no' => 1, 'display_order' => 2],
+                    ['name' => 'Solitite', 'slug' => 'solitite', 'default_unit' => 'Box', 'column_no' => 2, 'display_order' => 1],
+                    ['name' => 'Jari Powder', 'slug' => 'jari-powder', 'default_unit' => 'Box', 'column_no' => 2, 'display_order' => 2],
+                    ['name' => 'Tiles Spacers', 'slug' => 'tiles-spacers', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 1],
+                    ['name' => 'Tiles Leveler', 'slug' => 'tiles-leveler', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 2],
+                    ['name' => 'SB+', 'slug' => 'sb-plus', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 3],
+                    ['name' => 'SB++', 'slug' => 'sb-plus-plus', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 4],
+                    ['name' => 'SK+', 'slug' => 'sk-plus', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 5],
+                ];
+                foreach ($defaultCats as $dCat) {
+                    \App\Models\ComponentCategory::create($dCat);
+                }
+            }
+
+            return response("<!DOCTYPE html><html><head><title>Database Migration</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='margin:0;padding:24px;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;'><div style='max-width:700px;margin:30px auto;background:#1e293b;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid #334155;'><div style='display:flex;align-items:center;gap:12px;margin-bottom:16px;'><div style='width:12px;height:12px;border-radius:50%;background:#10b981;'></div><h2 style='color:#f8fafc;margin:0;font-size:18px;'>Database Migration & Column Status</h2></div><pre style='background:#090d16;color:#38bdf8;padding:16px;border-radius:10px;font-family:monospace;font-size:13px;line-height:1.6;overflow-x:auto;border:1px solid #1e293b;margin:0 0 16px 0;white-space:pre-wrap;'>" . htmlspecialchars($output ?: 'Artisan Output: Nothing to migrate.') . "</pre><div style='background:{$statusBg};color:{$statusText};padding:14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:20px;border:1px solid {$statusColor};'>✓ " . htmlspecialchars($statusMessage) . "<br>✓ Component categories and columns verified!</div><div style='display:flex;gap:12px;'><a href='" . route('admin.dashboard') . "' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Return to Dashboard</a></div></div></body></html>");
         })->name('admin.run.migrations');
 
         // User Management CRUD
@@ -85,6 +144,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('epoxy-formulas', \App\Http\Controllers\Admin\EpoxyFormulaController::class)->names('admin.epoxy-formulas');
         Route::resource('epoxy-colors', \App\Http\Controllers\Admin\EpoxyFillerColorController::class)->names('admin.epoxy-colors');
         Route::resource('epoxy-components', \App\Http\Controllers\Admin\EpoxyComponentController::class)->names('admin.epoxy-components');
+        Route::resource('component-categories', \App\Http\Controllers\Admin\ComponentCategoryController::class)->names('admin.component-categories');
         Route::resource('epoxy-component-formulas', \App\Http\Controllers\Admin\EpoxyComponentFormulaController::class)->names('admin.epoxy-component-formulas');
 
         // Factory & System Settings (FactoryAdminController)

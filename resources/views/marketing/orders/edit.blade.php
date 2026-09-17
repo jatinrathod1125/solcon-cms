@@ -358,80 +358,47 @@
                             </div>
                         </div>
 
-                        <!-- TILES CLEANER -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles
-                                    Cleaner</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Product</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['1-LTR', '5-LTR'] as $prod)
-                                            @php
-                                                $componentCode = $prod === '1-LTR' ? 'EPX-TC-1LTR' : 'EPX-TC-5LTR';
-                                                $tilesCleanerComponent = $tilesCleanerComponents->get($componentCode);
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $prod }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX"
-                                                        @if ($tilesCleanerComponent) data-component-id="{{ $tilesCleanerComponent->id }}"
-                                                   @else
-                                                       data-product-id="{{ $tilesCleanerProduct->id ?? '' }}" @endif
-                                                        data-packing="{{ $prod }}">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- GROUT ADMIX -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Grout Admix</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Product</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td
-                                                class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                200GM Admix</td>
-                                            <td class="w-20">
-                                                <input type="number" min="0" class="compact-input qty-input"
-                                                    data-dept="EPX"
-                                                    @if (isset($groutAdmixComponent) && $groutAdmixComponent) data-component-id="{{ $groutAdmixComponent->id }}"
-                                                 @else
-                                                     data-product-id="{{ $groutAdmixProduct->id ?? '' }}" @endif
-                                                    data-packing="200GM">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {{-- DYNAMIC COMPONENT CATEGORIES (COLUMN 1) --}}
+                        @if(isset($componentCategoriesGrouped) && $componentCategoriesGrouped->has(1))
+                            @foreach($componentCategoriesGrouped->get(1) as $cat)
+                                @if($cat->components->isNotEmpty())
+                                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                                        <div class="px-4 py-3 flex items-center justify-between border-b border-slate-100">
+                                            <div class="flex items-center gap-2">
+                                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ $cat->name }}</span>
+                                            </div>
+                                            <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">{{ $cat->default_unit }}</span>
+                                        </div>
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full erp-table text-center min-w-[200px]">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-left">{{ $cat->name }}</th>
+                                                        <th class="w-20 text-center">{{ $cat->default_unit }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($cat->components as $comp)
+                                                        <tr>
+                                                            <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                                                {{ $comp->name }}
+                                                            </td>
+                                                            <td class="w-20">
+                                                                <input type="number" min="0" class="compact-input qty-input"
+                                                                    data-dept="EPX"
+                                                                    data-component-id="{{ $comp->id }}"
+                                                                    data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
 
                         <!-- 700GM FILLER POUCH -->
                         <div
@@ -520,40 +487,6 @@
                             </div>
                         </div>
 
-                        <!-- SOLITITE -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Solitite</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Product</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['1.8KG', '900 GM', '450 GM'] as $size)
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $size }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX"
-                                                        data-product-id="{{ $solititeProduct->id ?? '' }}"
-                                                        data-packing="{{ $size }}">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
                         <!-- RESIN KIT -->
                         <div
                             class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
@@ -601,43 +534,47 @@
                             </div>
                         </div>
 
-                        <!-- JARI POWDER -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Jari Powder</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Color</th>
-                                            <th class="w-20 text-center">Pckt</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['SILVER', 'COPPER', 'GOLD', 'RED'] as $color)
-                                            @php
-                                                $comp = $jariComponents->first(
-                                                    fn($c) => str_contains(strtolower($c->name), strtolower($color)),
-                                                );
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $color }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX" data-component-id="{{ $comp->id ?? '' }}"
-                                                        data-packing="Pckt">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {{-- DYNAMIC COMPONENT CATEGORIES (COLUMN 2) --}}
+                        @if(isset($componentCategoriesGrouped) && $componentCategoriesGrouped->has(2))
+                            @foreach($componentCategoriesGrouped->get(2) as $cat)
+                                @if($cat->components->isNotEmpty())
+                                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                                        <div class="px-4 py-3 flex items-center justify-between border-b border-slate-100">
+                                            <div class="flex items-center gap-2">
+                                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ $cat->name }}</span>
+                                            </div>
+                                            <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">{{ $cat->default_unit }}</span>
+                                        </div>
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full erp-table text-center min-w-[200px]">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-left">{{ $cat->name }}</th>
+                                                        <th class="w-20 text-center">{{ $cat->default_unit }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($cat->components as $comp)
+                                                        <tr>
+                                                            <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                                                {{ $comp->name }}
+                                                            </td>
+                                                            <td class="w-20">
+                                                                <input type="number" min="0" class="compact-input qty-input"
+                                                                    data-dept="EPX"
+                                                                    data-component-id="{{ $comp->id }}"
+                                                                    data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- COLUMN 3 -->
@@ -709,221 +646,96 @@
                                 </table>
                             </div>
                         </div>
+                        {{-- DYNAMIC COMPONENT CATEGORIES (COLUMN 3) --}}
+                        @if(isset($componentCategoriesGrouped) && $componentCategoriesGrouped->has(3))
+                            @foreach($componentCategoriesGrouped->get(3) as $cat)
+                                @if($cat->components->isNotEmpty())
+                                    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                                        <div class="px-4 py-3 flex items-center justify-between border-b border-slate-100">
+                                            <div class="flex items-center gap-2">
+                                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ $cat->name }}</span>
+                                            </div>
+                                            <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">{{ $cat->default_unit }}</span>
+                                        </div>
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full erp-table text-center min-w-[200px]">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-left">{{ $cat->name }}</th>
+                                                        <th class="w-20 text-center">{{ $cat->default_unit }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($cat->components as $comp)
+                                                        <tr>
+                                                            <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                                                {{ $comp->name }}
+                                                            </td>
+                                                            <td class="w-20">
+                                                                <input type="number" min="0" class="compact-input qty-input"
+                                                                    data-dept="EPX"
+                                                                    data-component-id="{{ $comp->id }}"
+                                                                    data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- COLUMN 4 -->
                     <div class="flex flex-col gap-6">
-                        <!-- SPACER -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Spacer</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Spacer</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['2MM', '3MM', '4MM', '5MM', '6MM'] as $size)
-                                            @php
-                                                $comp = $spacerComponents->first(
-                                                    fn($c) => str_contains(strtolower($c->name), strtolower($size)) ||
-                                                        str_contains(strtolower($c->code), strtolower($size)),
-                                                );
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $size }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX"
-                                                        @if ($comp) data-component-id="{{ $comp->id }}"
-                                                       data-packing="Box"
-                                                   @else
-                                                       data-product-id="{{ $spacerProduct->id ?? '' }}" 
-                                                       data-packing="Box" @endif>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- TILES LEVELER -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Tiles
-                                    Leveler</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Tiles Leveler</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['CLIP 2MM', 'CLIP 3MM', 'CLIP 4MM', 'WEDGE', 'LEVELLING JACK SPACER', 'TROWEL', 'PLIER', 'VACUUM'] as $type)
-                                            @php
-                                                $searchStr = str_replace(
-                                                    'LEVELLING JACK SPACER',
-                                                    'JACK LEVELLING',
-                                                    $type,
-                                                );
-                                                $comp = $levelerComponents->first(
-                                                    fn($c) => str_contains(
-                                                        strtolower($c->name),
-                                                        strtolower($searchStr),
-                                                    ) ||
-                                                        str_contains(
-                                                            strtolower($c->name),
-                                                            strtolower(explode(' ', $type)[0]),
-                                                        ),
-                                                );
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $type }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX"
-                                                        @if ($comp) data-component-id="{{ $comp->id }}"
-                                                       data-packing="Box"
-                                                   @else
-                                                       data-product-id="{{ $levelerProduct->id ?? '' }}" 
-                                                       data-packing="Box" @endif>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- SB+ -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB+</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">SB+</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['1 KG', '5 KG', '20 KG'] as $size)
-                                            @php
-                                                $comp = $sbPlusComponents->first(
-                                                    fn($c) => str_contains($c->name, $size),
-                                                );
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $size }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX" data-component-id="{{ $comp->id ?? '' }}"
-                                                        data-packing="Box">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- SB++ -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">SB++</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">SB++</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['1 KG', '5 KG', '20 KG'] as $size)
-                                            @php
-                                                $comp = $sbPlusPlusComponents->first(
-                                                    fn($c) => str_contains($c->name, $size),
-                                                );
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $size }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX" data-component-id="{{ $comp->id ?? '' }}"
-                                                        data-packing="Box">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- SK+ -->
-                        <div
-                            class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="px-4 py-3 flex items-center gap-2 border-b border-slate-100">
-                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-slate-800">SK+</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full erp-table text-center min-w-[200px]">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">SK+</th>
-                                            <th class="w-20 text-center">Box</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (['1 LTR', '5 LTR', '20 LTR'] as $size)
-                                            @php
-                                                $comp = $skPlusComponents->first(
-                                                    fn($c) => str_contains($c->name, $size),
-                                                );
-                                            @endphp
-                                            <tr>
-                                                <td
-                                                    class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
-                                                    {{ $size }}</td>
-                                                <td class="w-20">
-                                                    <input type="number" min="0" class="compact-input qty-input"
-                                                        data-dept="EPX" data-component-id="{{ $comp->id ?? '' }}"
-                                                        data-packing="Box">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {{-- DYNAMIC COMPONENT CATEGORIES (COLUMN 4 & OTHERS) --}}
+                        @if(isset($componentCategoriesGrouped))
+                            @foreach($componentCategoriesGrouped as $colNum => $cats)
+                                @if(!in_array($colNum, [1, 2, 3]))
+                                    @foreach($cats as $cat)
+                                        @if($cat->components->isNotEmpty())
+                                            <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+                                                <div class="px-4 py-3 flex items-center justify-between border-b border-slate-100">
+                                                    <div class="flex items-center gap-2">
+                                                        <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                                                        <span class="text-xs font-black uppercase tracking-wider text-slate-800">{{ $cat->name }}</span>
+                                                    </div>
+                                                    <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">{{ $cat->default_unit }}</span>
+                                                </div>
+                                                <div class="overflow-x-auto">
+                                                    <table class="w-full erp-table text-center min-w-[200px]">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-left">{{ $cat->name }}</th>
+                                                                <th class="w-20 text-center">{{ $cat->default_unit }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($cat->components as $comp)
+                                                                <tr>
+                                                                    <td class="text-left font-bold text-slate-700 whitespace-nowrap text-[10px] sm:text-xs">
+                                                                        {{ $comp->name }}
+                                                                    </td>
+                                                                    <td class="w-20">
+                                                                        <input type="number" min="0" class="compact-input qty-input"
+                                                                            data-dept="EPX"
+                                                                            data-component-id="{{ $comp->id }}"
+                                                                            data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
 
                         <!-- Remarks Notes -->
                         <div class="pt-2">

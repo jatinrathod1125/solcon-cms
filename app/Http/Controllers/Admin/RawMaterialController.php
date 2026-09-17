@@ -37,6 +37,10 @@ class RawMaterialController extends Controller
             $query->where('department_id', $request->input('department_id'));
         }
 
+        if ($request->filled('is_coupon')) {
+            $query->where('is_coupon', $request->boolean('is_coupon'));
+        }
+
         $rawMaterials = $query->latest()->paginate(10)->withQueryString();
         $departments = Department::getActive();
 
@@ -62,6 +66,7 @@ class RawMaterialController extends Controller
     {
         $data = $request->validated();
         $data['is_active'] = $request->boolean('is_active');
+        $data['is_coupon'] = $request->boolean('is_coupon');
         $data['purchase_unit_id'] = $data['purchase_unit_id'] ?? $data['stock_unit_id'];
         $data['purchase_conversion'] = $data['purchase_conversion'] ?? 1.0000;
 
@@ -93,6 +98,7 @@ class RawMaterialController extends Controller
     {
         $data = $request->validated();
         $data['is_active'] = $request->boolean('is_active');
+        $data['is_coupon'] = $request->boolean('is_coupon');
         $data['purchase_unit_id'] = $data['purchase_unit_id'] ?? $data['stock_unit_id'];
         $data['purchase_conversion'] = $data['purchase_conversion'] ?? 1.0000;
 

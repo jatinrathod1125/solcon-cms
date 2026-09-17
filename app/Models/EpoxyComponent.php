@@ -14,9 +14,12 @@ class EpoxyComponent extends Model
         'name',
         'code',
         'category', // Bottle, Pouch, Packet, Liquid, Powder, Plastic, Accessory, Other
+        'component_category_id', // Foreign key to component_categories
         'purpose', // Assembly Component, Direct Finished Product
         'unit_id',
         'is_active',
+        'display_order',
+        'default_packing', // e.g. Box
         'description',
         'raw_material_id', // Points to the ready component's RawMaterial record representing prepared stock
         'parent_component_id', // Points to generic component (e.g. 700gm Filler Pouch) for color variants
@@ -25,6 +28,7 @@ class EpoxyComponent extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'display_order' => 'integer',
     ];
 
     /**
@@ -57,6 +61,14 @@ class EpoxyComponent extends Model
     public function rawMaterial(): BelongsTo
     {
         return $this->belongsTo(RawMaterial::class, 'raw_material_id');
+    }
+
+    /**
+     * Get component category.
+     */
+    public function componentCategory(): BelongsTo
+    {
+        return $this->belongsTo(ComponentCategory::class, 'component_category_id');
     }
 
     /**

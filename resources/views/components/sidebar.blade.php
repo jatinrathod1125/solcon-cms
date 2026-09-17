@@ -317,6 +317,7 @@
                         {{ request()->routeIs('admin.epoxy-products.*') ||
                         request()->routeIs('admin.epoxy-formulas.*') ||
                         request()->routeIs('admin.epoxy-colors.*') ||
+                        request()->routeIs('admin.component-categories.*') ||
                         request()->routeIs('admin.epoxy-components.*') ||
                         request()->routeIs('admin.epoxy-component-formulas.*')
                             ? 'open'
@@ -337,6 +338,9 @@
                             <a href="{{ route('admin.epoxy-colors.index') }}"
                                 class="sub-link {{ request()->routeIs('admin.epoxy-colors.*') ? 'is-active' : '' }}">Epoxy
                                 Colors</a>
+                            <a href="{{ route('admin.component-categories.index') }}"
+                                class="sub-link {{ request()->routeIs('admin.component-categories.*') ? 'is-active' : '' }}">Component
+                                Categories</a>
                             <a href="{{ route('admin.epoxy-components.index') }}"
                                 class="sub-link {{ request()->routeIs('admin.epoxy-components.*') ? 'is-active' : '' }}">Epoxy
                                 Components</a>

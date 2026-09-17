@@ -124,14 +124,38 @@
     @enderror
 </div>
 
-<!-- Active Status Toggle -->
-<div class="flex items-center">
-    <label class="flex items-center text-sm text-slate-400 cursor-pointer">
-        <input type="checkbox" name="is_active" value="1" {{ old('is_active', $rawMaterial->is_active ?? true) ? 'checked' : '' }}
-            class="w-4 h-4 rounded border-slate-800 bg-slate-900 text-cyan-500 focus:ring-cyan-500/30 focus:ring-offset-0 mr-2 cursor-pointer">
-        <span>Mark as Active (Available for Formula mapping and stock deduction logs)</span>
-    </label>
-    @error('is_active')
-        <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
-    @enderror
+<!-- Section 4: Configuration & Status -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+    <!-- Active Status Toggle -->
+    <div>
+        <label class="flex items-start text-sm text-slate-300 cursor-pointer">
+            <input type="checkbox" name="is_active" value="1" {{ old('is_active', $rawMaterial->is_active ?? true) ? 'checked' : '' }}
+                class="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900 text-cyan-500 focus:ring-cyan-500/30 focus:ring-offset-0 mr-3 cursor-pointer">
+            <div>
+                <span class="font-medium text-white">Active Status</span>
+                <p class="text-xs text-slate-400 mt-0.5">Available for formula mapping and stock deduction logs</p>
+            </div>
+        </label>
+        @error('is_active')
+            <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Is Coupon / Token Toggle -->
+    <div>
+        <label class="flex items-start text-sm text-slate-300 cursor-pointer">
+            <input type="checkbox" name="is_coupon" value="1" {{ old('is_coupon', $rawMaterial->is_coupon ?? false) ? 'checked' : '' }}
+                class="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900 text-amber-500 focus:ring-amber-500/30 focus:ring-offset-0 mr-3 cursor-pointer">
+            <div>
+                <span class="font-medium text-white flex items-center gap-1.5">
+                    <span>Is Coupon / Token</span>
+                    <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">Coupon</span>
+                </span>
+                <p class="text-xs text-slate-400 mt-0.5">Mark this material as a promotional coupon/token (for orders & batches)</p>
+            </div>
+        </label>
+        @error('is_coupon')
+            <p class="text-rose-455 text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
 </div>

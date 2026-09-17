@@ -36,6 +36,7 @@ class StoreRawMaterialRequest extends FormRequest
             'maximum_stock' => ['required', 'numeric', 'gte:minimum_stock'],
             'description' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],
+            'is_coupon' => ['nullable', 'boolean'],
         ];
     }
 }

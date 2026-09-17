@@ -12,6 +12,7 @@ use App\Models\EpoxyFillerColor;
 use App\Models\Color;
 use App\Models\EpoxyProduct;
 use App\Models\EpoxyComponent;
+use App\Models\ComponentCategory;
 
 class MarketingOrderController extends Controller
 {
@@ -841,10 +842,23 @@ class MarketingOrderController extends Controller
             ->sortBy(fn($c) => $c->color?->code ?? $c->code)
             ->values();
 
+        $componentCategories = ComponentCategory::with(['components' => function ($q) {
+            $q->where('is_active', true)
+              ->forCurrentBrand()
+              ->orderBy('display_order', 'asc')
+              ->orderBy('name', 'asc');
+        }])
+        ->active()
+        ->ordered()
+        ->get();
+
+        $componentCategoriesGrouped = $componentCategories->groupBy('column_no');
+
         return compact(
             'solititeProduct', 'tilesCleanerProduct', 'tilesCleanerComponents', 'groutAdmixProduct', 'groutAdmixComponent', 'spacerProduct',
             'levelerProduct', 'resinKitProduct', 'resinKit15Product', 'jariComponents', 'sbPlusComponents',
-            'sbPlusPlusComponents', 'skPlusComponents', 'spacerComponents', 'levelerComponents', 'fillerPouchComponents'
+            'sbPlusPlusComponents', 'skPlusComponents', 'spacerComponents', 'levelerComponents', 'fillerPouchComponents',
+            'componentCategories', 'componentCategoriesGrouped'
         );
     }
 }

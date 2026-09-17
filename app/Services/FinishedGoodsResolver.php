@@ -118,7 +118,7 @@ class FinishedGoodsResolver
                 return null;
         }
 
-        return $this->matchPacking($query, $packing, $componentId !== null);
+        return $this->matchPacking($query, $packing, $componentId !== null, $componentId);
     }
 
     /**
@@ -191,10 +191,28 @@ class FinishedGoodsResolver
         };
     }
 
-    private function matchPacking(Builder $query, ?string $packing, bool $isComponentStock): ?FinishedGood
+    private function matchPacking(Builder $query, ?string $packing, bool $isComponentStock, ?int $componentId = null): ?FinishedGood
     {
         $candidates = $query->orderBy('id')->get();
         if ($candidates->isEmpty()) {
+            if ($isComponentStock && $componentId) {
+                $comp = EpoxyComponent::find($componentId);
+                if ($comp) {
+                    $epxDept = \App\Models\Department::where('code', 'EPX')->first();
+                    if ($epxDept) {
+                        return FinishedGood::create([
+                            'department_id' => $epxDept->id,
+                            'epoxy_component_id' => $comp->id,
+                            'product_name' => $comp->name,
+                            'packing' => $comp->default_packing ?? ($packing ?: 'Box'),
+                            'available_bags' => 0,
+                            'available_weight' => 0,
+                            'minimum_stock' => 0,
+                            'status' => 'out_of_stock',
+                        ]);
+                    }
+                }
+            }
             return null;
         }
 
@@ -224,10 +242,8 @@ class FinishedGoodsResolver
             }
         }
 
-        // A component ID identifies one direct SKU.  This deliberately supports
-        // existing rows created with the old generic packing values (Box/1 Unit),
-        // but never guesses between two stock rows.
-        return $isComponentStock && $candidates->count() === 1
+        // A component ID identifies one direct SKU.
+        return $isComponentStock
             ? $candidates->first()
             : null;
     }

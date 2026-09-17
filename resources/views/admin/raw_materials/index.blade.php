@@ -31,7 +31,17 @@
                 </select>
             </div>
 
-            @if(request('search') || request('department_id'))
+            <!-- Filter Coupon -->
+            <div class="w-full sm:w-36">
+                <select name="is_coupon" onchange="this.form.submit()"
+                    class="block w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 text-sm">
+                    <option value="">All Types</option>
+                    <option value="1" {{ request('is_coupon') === '1' ? 'selected' : '' }}>🎟️ Coupons</option>
+                    <option value="0" {{ request('is_coupon') === '0' ? 'selected' : '' }}>Standard</option>
+                </select>
+            </div>
+
+            @if(request('search') || request('department_id') || request()->filled('is_coupon'))
                 <a href="{{ route('admin.raw-materials.index') }}" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1">
                     <i data-lucide="x" class="w-3.5 h-3.5"></i> Clear
                 </a>
@@ -88,6 +98,12 @@
                                     @if($material->brand)
                                         <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm">
                                             {{ $material->brand->name }}
+                                        </span>
+                                    @endif
+                                    @if($material->is_coupon)
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 shadow-sm" title="Promotional Coupon / Token">
+                                            <i data-lucide="ticket" class="w-3 h-3"></i>
+                                            Coupon
                                         </span>
                                     @endif
                                 </div>
