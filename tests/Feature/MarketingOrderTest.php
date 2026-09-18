@@ -86,37 +86,21 @@ class MarketingOrderTest extends TestCase
         ]);
     }
 
-    public function test_marketing_staff_can_delete_pending_order(): void
+    public function test_marketing_staff_cannot_delete_order(): void
     {
         $response = $this->actingAs($this->marketingUser)->delete(route('marketing.orders.destroy', $this->orderPending->id));
 
-        $response->assertStatus(200);
-        $this->assertEquals('cancelled', $this->orderPending->fresh()->status);
-    }
-
-    public function test_marketing_staff_can_delete_in_progress_order(): void
-    {
-        $response = $this->actingAs($this->marketingUser)->delete(route('marketing.orders.destroy', $this->orderInProgress->id));
-
-        $response->assertStatus(200);
-        $this->assertEquals('cancelled', $this->orderInProgress->fresh()->status);
-    }
-
-    public function test_marketing_staff_cannot_delete_completed_order(): void
-    {
-        $response = $this->actingAs($this->marketingUser)->delete(route('marketing.orders.destroy', $this->orderCompleted->id));
-
         $response->assertStatus(403);
-        $this->assertEquals('completed', $this->orderCompleted->fresh()->status);
+        $this->assertDatabaseHas('marketing_orders', ['id' => $this->orderPending->id]);
     }
 
-    public function test_admin_can_delete_completed_order(): void
+    public function test_admin_can_permanently_delete_order(): void
     {
-        $response = $this->actingAs($this->admin)->delete(route('marketing.orders.destroy', $this->orderCompleted->id));
+        $pendingId = $this->orderPending->id;
+        $response = $this->actingAs($this->admin)->delete(route('marketing.orders.destroy', $pendingId));
 
-        // Admin can delete/cancel any order
         $response->assertStatus(200);
-        $this->assertEquals('cancelled', $this->orderCompleted->fresh()->status);
+        $this->assertDatabaseMissing('marketing_orders', ['id' => $pendingId]);
     }
 
     public function test_supervisor_cannot_create_order(): void

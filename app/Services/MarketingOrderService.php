@@ -635,6 +635,36 @@ class MarketingOrderService
     }
 
     /**
+     * Permanently delete a marketing order and its items from database (Administrators only).
+     */
+    public function deleteOrderPermanently(MarketingOrder $order): void
+    {
+        DB::transaction(function () use ($order) {
+            $orderNumber = $order->order_number;
+            $partyName = $order->party_name;
+
+            // Nullify any dispatch items referencing this order
+            \App\Models\DispatchItem::where('marketing_order_id', $order->id)
+                ->update([
+                    'marketing_order_id' => null,
+                    'marketing_order_item_id' => null,
+                ]);
+
+            // Explicitly delete order items
+            $order->items()->delete();
+
+            // Permanently delete the order
+            $order->delete();
+
+            ActivityLogService::log(
+                'MARKETING_ORDER_DELETED',
+                "Marketing order {$orderNumber} for party '{$partyName}' was permanently deleted by Admin",
+                auth()->id()
+            );
+        });
+    }
+
+    /**
      * Get marketing orders represented as virtual todo items for the dashboard.
      * Shows only active orders (pending, in_progress) that are NOT fully available.
      */

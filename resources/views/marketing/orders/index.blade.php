@@ -326,7 +326,9 @@
                                             <a href="{{ route('marketing.orders.edit', $order->id) }}" class="order-action-button hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" title="Edit order">
                                                 <i data-lucide="edit" class="h-4 w-4"></i>
                                             </a>
-                                            <button type="button" onclick="confirmDeleteOrder({{ $order->id }})" class="order-action-button hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700" title="Delete/cancel order">
+                                        @endif
+                                        @if(auth()->user()->isAdmin())
+                                            <button type="button" onclick="confirmDeleteOrder({{ $order->id }}, '{{ addslashes($order->order_number) }}')" class="order-action-button hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700" title="Permanently delete order (Admin only)">
                                                 <i data-lucide="trash-2" class="h-4 w-4"></i>
                                             </button>
                                         @endif
@@ -422,17 +424,27 @@
         applyOrderFilters();
     });
 
-    function confirmDeleteOrder(orderId) {
+    function confirmDeleteOrder(orderId, orderNumber) {
+        orderNumber = orderNumber || ('#' + orderId);
         Swal.fire({
-            title: 'Cancel this order?',
-            text: 'This will move the order out of active work.',
+            title: 'Delete Order ' + orderNumber + '?',
+            text: 'Are you sure you want to permanently delete this order from the database? This action cannot be undone!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#cbd5e1',
-            confirmButtonText: 'Yes, cancel it'
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Yes, permanently delete',
+            cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Deleting order...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
                 $.ajax({
                     url: '/marketing/orders/' + orderId,
                     type: 'DELETE',
@@ -442,14 +454,14 @@
                     success: function(response) {
                         if (response.success) {
                             Swal.fire(
-                                'Cancelled!',
-                                'The order has been cancelled successfully.',
+                                'Deleted!',
+                                response.message || 'The order has been permanently deleted.',
                                 'success'
                             ).then(() => {
                                 window.location.reload();
                             });
                         } else {
-                            Swal.fire('Error', response.message || 'Failed to cancel order.', 'error');
+                            Swal.fire('Error', response.message || 'Failed to delete order.', 'error');
                         }
                     },
                     error: function(xhr) {

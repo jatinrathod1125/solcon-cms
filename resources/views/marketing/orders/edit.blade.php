@@ -246,6 +246,14 @@
                                 Ton</strong></span>
                     </div>
 
+                    @if(auth()->user()->isAdmin())
+                    <button type="button" onclick="confirmDeleteOrder({{ $order->id }}, '{{ addslashes($order->order_number) }}')"
+                        class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-4 text-xs font-bold text-rose-700 hover:bg-rose-100 transition">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        Delete Order
+                    </button>
+                    @endif
+
                     <a href="{{ route('marketing.orders.index') }}"
                         class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -1041,5 +1049,54 @@
                 });
             });
         });
+
+        function confirmDeleteOrder(orderId, orderNumber) {
+            orderNumber = orderNumber || ('#' + orderId);
+            Swal.fire({
+                title: 'Delete Order ' + orderNumber + '?',
+                text: 'Are you sure you want to permanently delete this order from the database? This action cannot be undone!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Yes, permanently delete',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Deleting order...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    $.ajax({
+                        url: '/marketing/orders/' + orderId,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    response.message || 'The order has been permanently deleted.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.href = "{{ route('marketing.orders.index') }}";
+                                });
+                            } else {
+                                Swal.fire('Error', response.message || 'Failed to delete order.', 'error');
+                            }
+                        },
+                        error: function(xhr) {
+                            var msg = xhr.responseJSON ? xhr.responseJSON.message : 'Server error occurred.';
+                            Swal.fire('Error', msg, 'error');
+                        }
+                    });
+                }
+            });
+        }
     </script>
 @endsection

@@ -677,49 +677,31 @@ class MarketingOrderController extends Controller
     }
 
     /**
-     * Cancel an order.
+     * Permanently delete an order (Administrators only).
      */
     public function destroy(Request $request, MarketingOrder $order)
     {
         $user = auth()->user();
 
-        // Supervisors cannot delete/cancel marketing orders
-        if (!$user->isAdmin() && !$user->isMarketing()) {
+        // Only Administrators can permanently delete marketing orders
+        if (!$user->isAdmin()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Only Marketing staff or Administrators can delete marketing orders.'
+                'message' => 'Unauthorized. Only Administrators can permanently delete marketing orders.'
             ], 403);
         }
 
-        // Admin always can delete. Marketing can only delete if created by themselves and pending or in_progress.
-        if (!$user->isAdmin()) {
-            if ($order->created_by !== $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Unauthorized. You can only delete orders created by yourself.'
-                ], 403);
-            }
-            if (!in_array($order->status, ['pending', 'in_progress'], true)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Marketing staff can only delete pending and in progress orders.'
-                ], 403);
-            }
-        }
-
-        $reason = $request->input('cancel_reason', 'Cancelled by user');
-
         try {
-            $this->orderService->cancelOrder($order, $reason);
+            $this->orderService->deleteOrderPermanently($order);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Order cancelled successfully.'
+                'message' => "Order {$order->order_number} has been permanently deleted."
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to cancel order: ' . $e->getMessage()
+                'message' => 'Failed to delete order: ' . $e->getMessage()
             ], 500);
         }
     }
