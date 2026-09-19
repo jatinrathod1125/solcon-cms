@@ -121,12 +121,51 @@
                             <tbody class="divide-y divide-slate-100 font-medium text-slate-750">
                                 @foreach($m['batches'] as $b)
                                     <tr class="hover:bg-slate-50/50 transition">
-                                        <td class="px-4 py-2 font-mono font-bold text-slate-900">{{ $b->batch_no }}</td>
-                                        <td class="px-4 py-2 font-bold text-blue-700">{{ $b->grade ? $b->grade->name : '-' }}</td>
-                                        <td class="px-4 py-2 text-right font-mono font-bold text-slate-900">{{ number_format($b->output_bags) }} Bags</td>
-                                        <td class="px-4 py-2 text-center font-mono text-slate-500">{{ $b->start_time ? $b->start_time->format('h:i A') : '-' }}</td>
-                                        <td class="px-4 py-2 text-center font-mono text-slate-500">{{ $b->end_time ? $b->end_time->format('h:i A') : '-' }}</td>
-                                        <td class="px-4 py-2 text-slate-600">{{ $b->supervisor ? $b->supervisor->name : '-' }}</td>
+                                        <td class="px-4 py-2 font-mono font-bold text-slate-900 align-top">{{ $b->batch_no }}</td>
+                                        <td class="px-4 py-2 align-top">
+                                            @if(!empty($b->output_breakdown) && count($b->output_breakdown) > 1)
+                                                <div class="space-y-1">
+                                                    @foreach($b->output_breakdown as $split)
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span class="font-bold text-blue-700">{{ $split['grade_name'] ?? 'N/A' }}</span>
+                                                            @if(!empty($split['brand_name']))
+                                                                <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                                    {{ $split['brand_name'] }}
+                                                                </span>
+                                                            @endif
+                                                            @if(!empty($split['coupon_name']) && $split['coupon_name'] !== 'No Coupon')
+                                                                <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                                    {{ $split['coupon_name'] }}
+                                                                </span>
+                                                            @else
+                                                                <span class="text-slate-400 text-[10px] font-medium">(No Coupon)</span>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @else
+                                                <span class="font-bold text-blue-700">{{ $b->grade ? $b->grade->name : '-' }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-2 text-right font-mono align-top">
+                                            @if(!empty($b->output_breakdown) && count($b->output_breakdown) > 1)
+                                                <div class="space-y-1">
+                                                    @foreach($b->output_breakdown as $split)
+                                                        <div class="font-semibold text-slate-700">
+                                                            {{ number_format($split['bags'] ?? 0) }} Bags
+                                                        </div>
+                                                    @endforeach
+                                                    <div class="font-bold text-slate-900 border-t border-slate-200 pt-0.5 text-xs">
+                                                        Tot: {{ number_format($b->output_bags) }} Bags
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <span class="font-bold text-slate-900">{{ number_format($b->output_bags) }} Bags</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-2 text-center font-mono text-slate-500 align-top">{{ $b->start_time ? $b->start_time->format('h:i A') : '-' }}</td>
+                                        <td class="px-4 py-2 text-center font-mono text-slate-500 align-top">{{ $b->end_time ? $b->end_time->format('h:i A') : '-' }}</td>
+                                        <td class="px-4 py-2 text-slate-600 align-top">{{ $b->supervisor ? $b->supervisor->name : '-' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

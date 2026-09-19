@@ -146,10 +146,26 @@ class ReportController extends Controller
                     fputcsv($file, ['Batch No', 'Grade', 'Quantity (Bags)', 'Start Time', 'End Time', 'Supervisor']);
 
                     foreach ($mDetails['batches'] as $b) {
+                        $gradeText = $b->grade ? $b->grade->name : '-';
+                        $bagsText = $b->output_bags;
+
+                        if (!empty($b->output_breakdown) && count($b->output_breakdown) > 1) {
+                            $gradeParts = [];
+                            $bagsParts = [];
+                            foreach ($b->output_breakdown as $split) {
+                                $brand = !empty($split['brand_name']) ? " [{$split['brand_name']}]" : '';
+                                $coupon = (!empty($split['coupon_name']) && $split['coupon_name'] !== 'No Coupon') ? " ({$split['coupon_name']})" : '';
+                                $gradeParts[] = ($split['grade_name'] ?? 'N/A') . $brand . $coupon;
+                                $bagsParts[] = ($split['bags'] ?? 0) . ' Bags';
+                            }
+                            $gradeText = implode(' / ', $gradeParts);
+                            $bagsText = implode(' / ', $bagsParts) . " (Tot: {$b->output_bags} Bags)";
+                        }
+
                         fputcsv($file, [
                             $b->batch_no,
-                            $b->grade ? $b->grade->name : '-',
-                            $b->output_bags,
+                            $gradeText,
+                            $bagsText,
                             $b->start_time ? $b->start_time->format('Y-m-d H:i') : '-',
                             $b->end_time ? $b->end_time->format('Y-m-d H:i') : '-',
                             $b->supervisor ? $b->supervisor->name : '-',

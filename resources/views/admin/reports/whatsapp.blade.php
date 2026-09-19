@@ -118,9 +118,30 @@
                     <tbody>
                         @foreach($m['batches'] as $b)
                             <tr>
-                                <td class="font-mono font-bold">{{ $b->batch_no }}</td>
-                                <td>{{ $b->grade ? $b->grade->name : '-' }}</td>
-                                <td class="text-right font-mono font-bold">{{ number_format($b->output_bags) }}</td>
+                                <td class="font-mono font-bold" style="vertical-align: top;">{{ $b->batch_no }}</td>
+                                <td style="vertical-align: top;">
+                                    @if(!empty($b->output_breakdown) && count($b->output_breakdown) > 1)
+                                        @foreach($b->output_breakdown as $split)
+                                            <div>
+                                                <strong>{{ $split['grade_name'] ?? 'N/A' }}</strong>
+                                                @if(!empty($split['brand_name']))<small>[{{ $split['brand_name'] }}]</small>@endif
+                                                @if(!empty($split['coupon_name']) && $split['coupon_name'] !== 'No Coupon')<small>({{ $split['coupon_name'] }})</small>@endif
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        {{ $b->grade ? $b->grade->name : '-' }}
+                                    @endif
+                                </td>
+                                <td class="text-right font-mono font-bold" style="vertical-align: top;">
+                                    @if(!empty($b->output_breakdown) && count($b->output_breakdown) > 1)
+                                        @foreach($b->output_breakdown as $split)
+                                            <div>{{ number_format($split['bags'] ?? 0) }}</div>
+                                        @endforeach
+                                        <div style="border-top: 1px dotted #ccc;">Tot: {{ number_format($b->output_bags) }}</div>
+                                    @else
+                                        {{ number_format($b->output_bags) }}
+                                    @endif
+                                </td>
                                 <td class="text-center font-mono">{{ $b->start_time ? $b->start_time->format('h:i A') : '-' }}</td>
                                 <td class="text-center font-mono">{{ $b->end_time ? $b->end_time->format('h:i A') : '-' }}</td>
                                 <td>{{ $b->supervisor ? $b->supervisor->name : '-' }}</td>

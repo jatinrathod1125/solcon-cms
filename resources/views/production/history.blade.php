@@ -161,48 +161,72 @@
                     @forelse($batches as $batch)
                         <tr class="hover:bg-slate-50/50 transition-colors">
                             <!-- Batch Number -->
-                            <td class="p-4 font-mono font-bold text-indigo-650">
+                            <td class="p-4 font-mono font-bold text-indigo-650 align-top">
                                 <a href="{{ route('production.show', $batch->id) }}" class="hover:underline" target="_blank">
                                     {{ $batch->batch_no }}
                                 </a>
                             </td>
 
                             <!-- Machine -->
-                            <td class="p-4 font-semibold text-slate-800">
+                            <td class="p-4 font-semibold text-slate-800 align-top">
                                 {{ $batch->machine->name }}
                                 <span class="block text-xs font-mono text-slate-450">{{ $batch->machine->code }}</span>
                             </td>
 
                             <!-- Grade -->
-                            <td class="p-4">
-                                <div class="flex items-center gap-1.5 flex-wrap">
-                                    <span class="font-semibold text-slate-800">{{ $batch->grade->name }}</span>
-                                    @if($batch->grade?->brand)
-                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                                            {{ $batch->grade->brand->name }}
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="text-xs text-slate-450 font-mono">Formula v{{ $batch->formula->version ?? 'N/A' }}</div>
+                            <td class="p-4 align-top">
+                                @if(!empty($batch->output_breakdown) && count($batch->output_breakdown) > 1)
+                                    <div class="space-y-1.5">
+                                        <div class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                            <i data-lucide="layers" class="w-3 h-3"></i>
+                                            <span>Split Output ({{ count($batch->output_breakdown) }})</span>
+                                        </div>
+                                        @foreach($batch->output_breakdown as $split)
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="font-bold text-slate-800 text-xs">{{ $split['grade_name'] ?? 'N/A' }}</span>
+                                                @if(!empty($split['brand_name']))
+                                                    <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                        {{ $split['brand_name'] }}
+                                                    </span>
+                                                @endif
+                                                @if(!empty($split['coupon_name']) && $split['coupon_name'] !== 'No Coupon')
+                                                    <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                        {{ $split['coupon_name'] }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="font-semibold text-slate-800">{{ $batch->grade->name }}</span>
+                                        @if($batch->grade?->brand)
+                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                {{ $batch->grade->brand->name }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endif
+                                <div class="text-xs text-slate-450 font-mono mt-0.5">Formula v{{ $batch->formula->version ?? 'N/A' }}</div>
                             </td>
 
                             <!-- Supervisor -->
-                            <td class="p-4 text-slate-600 font-medium">
+                            <td class="p-4 text-slate-600 font-medium align-top">
                                 {{ $batch->supervisor->name }}
                             </td>
 
                             <!-- Start Time -->
-                            <td class="p-4 font-mono text-xs text-slate-500">
+                            <td class="p-4 font-mono text-xs text-slate-500 align-top">
                                 {{ $batch->start_time->format('d M Y, h:i A') }}
                             </td>
 
                             <!-- End Time -->
-                            <td class="p-4 font-mono text-xs text-slate-500">
+                            <td class="p-4 font-mono text-xs text-slate-500 align-top">
                                 {{ $batch->end_time ? $batch->end_time->format('d M Y, h:i A') : '-' }}
                             </td>
 
                             <!-- Status Badge -->
-                            <td class="p-4 text-center">
+                            <td class="p-4 text-center align-top">
                                 @if($batch->status === 'completed')
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 uppercase tracking-wide">
                                         Completed
@@ -223,17 +247,47 @@
                             </td>
 
                             <!-- Output Bags -->
-                            <td class="p-4 text-right font-mono text-slate-800 font-bold">
-                                {{ $batch->output_bags ? number_format($batch->output_bags, 0) . ' Bags' : '-' }}
+                            <td class="p-4 text-right align-top">
+                                @if(!empty($batch->output_breakdown) && count($batch->output_breakdown) > 1)
+                                    <div class="space-y-1 font-mono">
+                                        @foreach($batch->output_breakdown as $split)
+                                            <div class="text-xs text-slate-700 font-semibold">
+                                                {{ number_format($split['bags'] ?? 0, 0) }} Bags
+                                            </div>
+                                        @endforeach
+                                        <div class="text-xs font-bold text-indigo-700 border-t border-slate-200 pt-0.5">
+                                            Tot: {{ number_format($batch->output_bags, 0) }} Bags
+                                        </div>
+                                    </div>
+                                @else
+                                    <span class="font-mono text-slate-800 font-bold">
+                                        {{ $batch->output_bags ? number_format($batch->output_bags, 0) . ' Bags' : '-' }}
+                                    </span>
+                                @endif
                             </td>
 
                             <!-- Output KG -->
-                            <td class="p-4 text-right font-mono text-slate-800 font-bold">
-                                {{ $batch->output_kg ? number_format($batch->output_kg, 2) . ' KG' : '-' }}
+                            <td class="p-4 text-right align-top">
+                                @if(!empty($batch->output_breakdown) && count($batch->output_breakdown) > 1)
+                                    <div class="space-y-1 font-mono">
+                                        @foreach($batch->output_breakdown as $split)
+                                            <div class="text-xs text-slate-700 font-semibold">
+                                                {{ number_format($split['weight'] ?? $split['kg'] ?? 0, 2) }} KG
+                                            </div>
+                                        @endforeach
+                                        <div class="text-xs font-bold text-slate-900 border-t border-slate-200 pt-0.5">
+                                            Tot: {{ number_format($batch->output_kg, 2) }} KG
+                                        </div>
+                                    </div>
+                                @else
+                                    <span class="font-mono text-slate-800 font-bold">
+                                        {{ $batch->output_kg ? number_format($batch->output_kg, 2) . ' KG' : '-' }}
+                                    </span>
+                                @endif
                             </td>
 
                             <!-- Action -->
-                            <td class="p-4 text-center print:hidden">
+                            <td class="p-4 text-center print:hidden align-top">
                                 <a href="{{ route('production.show', $batch->id) }}" 
                                    class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-all inline-block border border-slate-350" 
                                    title="View Details"

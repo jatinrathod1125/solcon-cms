@@ -97,8 +97,13 @@ class ProductionBatch extends Model
         if (!$brandId) {
             return $query;
         }
-        return $query->whereHas('grade', function ($q) use ($brandId) {
-            $q->forBrand($brandId);
+        return $query->where(function ($q) use ($brandId) {
+            $q->whereHas('grade', function ($gQ) use ($brandId) {
+                $gQ->forBrand($brandId);
+            })
+            ->orWhere('output_breakdown', 'like', '%"brand_id":' . $brandId . '%')
+            ->orWhere('output_breakdown', 'like', '%"brand_id":"' . $brandId . '"%')
+            ->orWhere('output_breakdown', 'like', '%"brand_id": ' . $brandId . '%');
         });
     }
 

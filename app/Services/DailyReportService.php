@@ -238,11 +238,25 @@ class DailyReportService
 
                 $gradeTotals = [];
                 foreach ($batches as $b) {
-                    $gradeName = $b->grade ? $b->grade->name : 'N/A';
-                    if (!isset($gradeTotals[$gradeName])) {
-                        $gradeTotals[$gradeName] = 0;
+                    if (!empty($b->output_breakdown) && is_array($b->output_breakdown)) {
+                        foreach ($b->output_breakdown as $split) {
+                            $splitBags = (float) ($split['bags'] ?? 0);
+                            $baseName = $split['grade_name'] ?? ($b->grade ? $b->grade->name : 'N/A');
+                            if (!str_contains($baseName, '(')) {
+                                $couponSuffix = !empty($split['coupon_name']) ? " ({$split['coupon_name']})" : ' (No Coupon)';
+                                $gName = $baseName . $couponSuffix;
+                            } else {
+                                $gName = $baseName;
+                            }
+                            $gradeTotals[$gName] = ($gradeTotals[$gName] ?? 0) + $splitBags;
+                        }
+                    } else {
+                        $gradeName = $b->grade ? $b->grade->name : 'N/A';
+                        if (!isset($gradeTotals[$gradeName])) {
+                            $gradeTotals[$gradeName] = 0;
+                        }
+                        $gradeTotals[$gradeName] += $b->output_bags;
                     }
-                    $gradeTotals[$gradeName] += $b->output_bags;
                 }
 
                 $totBags = (int) $batches->sum('output_bags');
@@ -269,11 +283,25 @@ class DailyReportService
 
             // Overall Grade-Wise Totals across ALL machines
             foreach ($completedBatches as $b) {
-                $gradeName = $b->grade ? $b->grade->name : 'N/A';
-                if (!isset($adhOverallGradeTotals[$gradeName])) {
-                    $adhOverallGradeTotals[$gradeName] = 0;
+                if (!empty($b->output_breakdown) && is_array($b->output_breakdown)) {
+                    foreach ($b->output_breakdown as $split) {
+                        $splitBags = (float) ($split['bags'] ?? 0);
+                        $baseName = $split['grade_name'] ?? ($b->grade ? $b->grade->name : 'N/A');
+                        if (!str_contains($baseName, '(')) {
+                            $couponSuffix = !empty($split['coupon_name']) ? " ({$split['coupon_name']})" : ' (No Coupon)';
+                            $gName = $baseName . $couponSuffix;
+                        } else {
+                            $gName = $baseName;
+                        }
+                        $adhOverallGradeTotals[$gName] = ($adhOverallGradeTotals[$gName] ?? 0) + $splitBags;
+                    }
+                } else {
+                    $gradeName = $b->grade ? $b->grade->name : 'N/A';
+                    if (!isset($adhOverallGradeTotals[$gradeName])) {
+                        $adhOverallGradeTotals[$gradeName] = 0;
+                    }
+                    $adhOverallGradeTotals[$gradeName] += $b->output_bags;
                 }
-                $adhOverallGradeTotals[$gradeName] += $b->output_bags;
             }
             ksort($adhOverallGradeTotals);
 
@@ -295,9 +323,24 @@ class DailyReportService
 
                         $mGradeTotals = [];
                         foreach ($mBatches as $b) {
-                            $gName = $b->grade ? $b->grade->name : 'N/A';
-                            $mGradeTotals[$gName] = ($mGradeTotals[$gName] ?? 0) + $b->output_bags;
-                            $dayOverallGradeTotals[$gName] = ($dayOverallGradeTotals[$gName] ?? 0) + $b->output_bags;
+                            if (!empty($b->output_breakdown) && is_array($b->output_breakdown)) {
+                                foreach ($b->output_breakdown as $split) {
+                                    $splitBags = (float) ($split['bags'] ?? 0);
+                                    $baseName = $split['grade_name'] ?? ($b->grade ? $b->grade->name : 'N/A');
+                                    if (!str_contains($baseName, '(')) {
+                                        $couponSuffix = !empty($split['coupon_name']) ? " ({$split['coupon_name']})" : ' (No Coupon)';
+                                        $gName = $baseName . $couponSuffix;
+                                    } else {
+                                        $gName = $baseName;
+                                    }
+                                    $mGradeTotals[$gName] = ($mGradeTotals[$gName] ?? 0) + $splitBags;
+                                    $dayOverallGradeTotals[$gName] = ($dayOverallGradeTotals[$gName] ?? 0) + $splitBags;
+                                }
+                            } else {
+                                $gName = $b->grade ? $b->grade->name : 'N/A';
+                                $mGradeTotals[$gName] = ($mGradeTotals[$gName] ?? 0) + $b->output_bags;
+                                $dayOverallGradeTotals[$gName] = ($dayOverallGradeTotals[$gName] ?? 0) + $b->output_bags;
+                            }
                         }
 
                         $mBags = (int) $mBatches->sum('output_bags');

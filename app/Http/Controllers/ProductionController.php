@@ -416,7 +416,13 @@ class ProductionController extends Controller
             });
         }
         if ($request->filled('brand_id')) {
-            $query->forBrand($request->input('brand_id'));
+            $brandId = $request->input('brand_id');
+            $query->where(function ($q) use ($brandId) {
+                $q->forBrand($brandId)
+                    ->orWhere('output_breakdown', 'like', '%"brand_id":' . $brandId . '%')
+                    ->orWhere('output_breakdown', 'like', '%"brand_id":"' . $brandId . '"%')
+                    ->orWhere('output_breakdown', 'like', '%"brand_id": ' . $brandId . '%');
+            });
         }
 
         // Search by batch number
@@ -431,7 +437,13 @@ class ProductionController extends Controller
 
         // Filter by Grade
         if ($request->filled('grade_id')) {
-            $query->where('grade_id', $request->input('grade_id'));
+            $gradeId = $request->input('grade_id');
+            $query->where(function ($q) use ($gradeId) {
+                $q->where('grade_id', $gradeId)
+                    ->orWhere('output_breakdown', 'like', '%"grade_id":' . $gradeId . '%')
+                    ->orWhere('output_breakdown', 'like', '%"grade_id":"' . $gradeId . '"%')
+                    ->orWhere('output_breakdown', 'like', '%"grade_id": ' . $gradeId . '%');
+            });
         }
 
         // Filter by Date
@@ -476,17 +488,41 @@ class ProductionController extends Controller
                 fputcsv($file, $columns);
                 
                 foreach ($batchesToExport as $b) {
+                    $gradeCode = $b->grade->code ?? '';
+                    $gradeName = $b->grade->name ?? '';
+                    $outputBags = $b->output_bags;
+                    $outputKg = $b->output_kg;
+
+                    if (!empty($b->output_breakdown) && count($b->output_breakdown) > 1) {
+                        $codeList = [];
+                        $nameList = [];
+                        $bagsList = [];
+                        $kgList = [];
+                        foreach ($b->output_breakdown as $split) {
+                            $brand = !empty($split['brand_name']) ? "[{$split['brand_name']}] " : '';
+                            $coupon = (!empty($split['coupon_name']) && $split['coupon_name'] !== 'No Coupon') ? " ({$split['coupon_name']})" : '';
+                            $codeList[] = $split['grade_code'] ?? '';
+                            $nameList[] = $brand . ($split['grade_name'] ?? '') . $coupon;
+                            $bagsList[] = ($split['bags'] ?? 0) . ' Bags';
+                            $kgList[] = ($split['weight'] ?? $split['kg'] ?? 0) . ' KG';
+                        }
+                        $gradeCode = implode(' / ', $codeList);
+                        $gradeName = implode(' / ', $nameList);
+                        $outputBags = implode(' / ', $bagsList) . " (Tot: {$b->output_bags} Bags)";
+                        $outputKg = implode(' / ', $kgList) . " (Tot: {$b->output_kg} KG)";
+                    }
+
                     fputcsv($file, [
                         $b->batch_no,
                         $b->machine->code,
                         $b->machine->name,
-                        $b->grade->code,
-                        $b->grade->name,
+                        $gradeCode,
+                        $gradeName,
                         $b->supervisor->name,
                         $b->start_time ? $b->start_time->format('Y-m-d H:i:s') : '',
                         $b->end_time ? $b->end_time->format('Y-m-d H:i:s') : '',
-                        $b->output_bags,
-                        $b->output_kg,
+                        $outputBags,
+                        $outputKg,
                         $b->status
                     ]);
                 }
