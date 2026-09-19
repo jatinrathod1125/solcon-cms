@@ -111,15 +111,15 @@ class MarketingOrderItem extends Model
      */
     public function getCalculatedWeightKgAttribute(): float
     {
-        if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
-            return (float) $this->quantity_kg;
-        }
-
         $bags = (int) $this->quantity_bags;
 
-        // Grout is always 25 KG per bag
+        // Grout (GRT) is always strictly 25 KG per bag
         if ($this->department_code === 'GRT') {
-            return $bags * 25;
+            return $bags * 25.0;
+        }
+
+        if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
+            return (float) $this->quantity_kg;
         }
 
         if ($this->department_code === 'TAD') {
@@ -129,7 +129,7 @@ class MarketingOrderItem extends Model
                     return $bags * $pkgSize;
                 }
             }
-            return $bags * 20;
+            return $bags * 20.0;
         }
 
         if (!empty($this->packing) && preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
@@ -139,7 +139,7 @@ class MarketingOrderItem extends Model
             }
         }
 
-        return $bags * 1;
+        return $bags * 1.0;
     }
 
     // ─── Relationships ───────────────────────────
@@ -272,7 +272,7 @@ class MarketingOrderItem extends Model
             'TAD' => 'Adhesive',
             'GRT' => 'Grout',
             'EPX' => 'Epoxy',
-            default => $this->department_code,
+            default => (string) ($this->department_code ?? 'Other'),
         };
     }
 

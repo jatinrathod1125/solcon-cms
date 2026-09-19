@@ -182,6 +182,30 @@ class MarketingOrder extends Model
     // ─── Accessors ───────────────────────────────
 
     /**
+     * Get total units (bags) in this order.
+     */
+    public function getTotalUnitsAttribute(): int
+    {
+        return (int) $this->items->sum('quantity_bags');
+    }
+
+    /**
+     * Get total weight in KG in this order.
+     */
+    public function getTotalWeightKgAttribute(): float
+    {
+        return (float) $this->items->sum('calculated_weight_kg');
+    }
+
+    /**
+     * Get total weight in Tons in this order.
+     */
+    public function getTotalTonsAttribute(): float
+    {
+        return $this->total_weight_kg / 1000.0;
+    }
+
+    /**
      * Get a short summary of all items in this order.
      */
     public function getItemsSummaryAttribute(): string

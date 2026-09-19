@@ -783,8 +783,12 @@
     <script>
         $(document).ready(function() {
             function parsePackingWeight(packing, deptCode) {
+                // In Grout (GRT), 1 bag is always 25 KG
+                if (deptCode === 'GRT') {
+                    return 25.0;
+                }
                 if (!packing) {
-                    return deptCode === 'GRT' ? 25.0 : (deptCode === 'TAD' ? 20.0 : 1.0);
+                    return deptCode === 'TAD' ? 20.0 : 1.0;
                 }
                 var str = packing.toString().toUpperCase().trim();
 
@@ -801,7 +805,6 @@
                     }
                 }
 
-                if (deptCode === 'GRT') return 25.0;
                 if (deptCode === 'TAD') return 20.0;
                 return 1.0;
             }
@@ -831,7 +834,7 @@
                 }) + ' KG';
                 var formattedTon = totalTon.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
+                    maximumFractionDigits: 3
                 }) + ' Ton';
 
                 $('#live_top_units, #live_bottom_units').text(formattedUnits);

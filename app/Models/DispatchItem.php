@@ -124,15 +124,15 @@ class DispatchItem extends Model
      */
     public function getCalculatedWeightKgAttribute(): float
     {
-        if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
-            return (float) $this->quantity_kg;
-        }
-
         $bags = (int) $this->quantity_bags;
 
-        // Grout is always 25 KG per bag
+        // Grout (GRT) is always strictly 25 KG per bag
         if ($this->department_code === 'GRT') {
-            return $bags * 25;
+            return $bags * 25.0;
+        }
+
+        if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
+            return (float) $this->quantity_kg;
         }
 
         if ($this->department_code === 'TAD') {

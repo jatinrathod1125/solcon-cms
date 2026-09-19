@@ -217,7 +217,7 @@
             </div>
         </header>
 
-        <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-3 lg:grid-cols-5">
             <div class="order-metric">
                 <span>Total Orders</span>
                 <strong>{{ $orders->count() }}</strong>
@@ -233,6 +233,10 @@
             <div class="order-metric">
                 <span>Total Items</span>
                 <strong>{{ $totalItems }}</strong>
+            </div>
+            <div class="order-metric">
+                <span>Total Weight</span>
+                <strong class="text-blue-600">{{ number_format($orders->sum(fn($o) => $o->total_weight_kg) / 1000, 2) }} Ton</strong>
             </div>
         </div>
 
@@ -298,7 +302,10 @@
                                         <span class="text-xs text-slate-400 font-normal">None</span>
                                     @endif
                                 </td>
-                                <td data-label="Items" class="text-center font-black text-slate-900">{{ $order->items->count() }}</td>
+                                <td data-label="Items" class="text-center">
+                                    <span class="font-black text-slate-900 block text-xs">{{ $order->total_units }} Units</span>
+                                    <span class="text-[10px] font-bold text-slate-500 block">({{ number_format($order->total_tons, 2) }} Ton)</span>
+                                </td>
                                 <td data-label="Priority">
                                     <span class="priority-badge priority-{{ $priority }}">{{ ucfirst($priority) }}</span>
                                 </td>

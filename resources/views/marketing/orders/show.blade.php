@@ -154,6 +154,14 @@
                     <p class="text-xs text-slate-400 font-bold">Created by {{ $order->creator->name ?? 'System' }} on {{ $order->created_at->format('d M Y, h:i A') }}</p>
                 </div>
             </div>
+            <!-- Live Summary Counter Badges -->
+            <div class="flex items-center gap-2.5 text-xs bg-slate-50 border border-slate-200 px-3.5 py-1.5 rounded-xl font-bold">
+                <span class="text-slate-500">Bags/Units: <strong class="text-slate-900 font-black">{{ $order->total_units }}</strong></span>
+                <span class="text-slate-300">|</span>
+                <span class="text-slate-500">Weight: <strong class="text-emerald-600 font-black">{{ number_format($order->total_weight_kg, 1) }} KG</strong></span>
+                <span class="text-slate-300">|</span>
+                <span class="text-slate-500">Total: <strong class="text-blue-600 font-black">{{ number_format($order->total_tons, 2) }} Ton</strong></span>
+            </div>
             <div class="flex items-center gap-2">
                 @if(($order->status !== 'completed' && $order->status !== 'cancelled') || auth()->user()->isAdmin())
                 <a href="{{ route('marketing.orders.edit', $order->id) }}" class="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-blue-200 bg-blue-50 px-4 text-xs font-bold text-blue-700 hover:bg-blue-100 transition">
@@ -206,13 +214,17 @@
 
         <!-- View Toggle & Summary -->
         <div class="flex items-center justify-between flex-wrap gap-3 pt-1">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
                 <span class="text-xs font-black uppercase tracking-wider text-slate-700">Ordered Products</span>
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-100 text-blue-800 border border-blue-200" id="ordered-items-count">
                     {{ $order->items->count() }} {{ Str::plural('item', $order->items->count()) }}
                 </span>
                 <span class="text-xs font-bold text-slate-400">|</span>
-                <span class="text-xs font-bold text-slate-500">Total Units: <strong class="text-slate-800">{{ $order->items->sum('quantity_bags') }}</strong></span>
+                <span class="text-xs font-bold text-slate-500">Total Units: <strong class="text-slate-800">{{ $order->total_units }}</strong></span>
+                <span class="text-xs font-bold text-slate-400">|</span>
+                <span class="text-xs font-bold text-slate-500">Weight: <strong class="text-emerald-600 font-bold">{{ number_format($order->total_weight_kg, 1) }} KG</strong></span>
+                <span class="text-xs font-bold text-slate-400">|</span>
+                <span class="text-xs font-bold text-slate-500">Total: <strong class="text-blue-600 font-bold">{{ number_format($order->total_tons, 2) }} Ton</strong></span>
             </div>
             <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
                 <button type="button" id="btn-show-ordered" class="px-3 py-1.5 rounded-lg transition bg-white text-blue-700 shadow-sm font-black border border-slate-200/60">
@@ -648,6 +660,24 @@
         <!-- Empty State Alert (Hidden by default) -->
         <div id="no-ordered-items-box" class="hidden text-center py-12 bg-slate-50/50 border border-slate-100 rounded-2xl">
             <p class="text-sm font-extrabold text-slate-500">No products found in this order.</p>
+        </div>
+
+        <!-- Order Totals Box -->
+        <div class="flex flex-col sm:flex-row justify-end items-center gap-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
+            <div class="flex items-center gap-4 flex-wrap text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Total Units / Bags:</span>
+                    <span class="font-black text-slate-900 bg-white border border-slate-200 px-3 py-1 rounded-lg text-xs">{{ $order->total_units }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Total Weight (KG):</span>
+                    <span class="font-black text-emerald-600 bg-white border border-slate-200 px-3 py-1 rounded-lg text-xs">{{ number_format($order->total_weight_kg, 1) }} KG</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-slate-700 uppercase tracking-wider text-[10px]">Total Weight (Tons):</span>
+                    <span class="font-black text-blue-600 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-lg text-sm">{{ number_format($order->total_tons, 2) }} Ton</span>
+                </div>
+            </div>
         </div>
 
         <!-- Remarks Notes (Always visible at bottom) -->
