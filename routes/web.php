@@ -36,9 +36,23 @@ Route::middleware('auth')->group(function () {
                 $added = true;
             }
 
+            // Populate 0.700 KG for all 700gm Filler Pouches
+            if (\Illuminate\Support\Facades\Schema::hasTable('epoxy_components') && \Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'weight_kg')) {
+                \Illuminate\Support\Facades\DB::table('epoxy_components')
+                    ->where(function ($q) {
+                        $q->where('name', 'like', '%700gm%')
+                          ->orWhere('name', 'like', '%700 gm%')
+                          ->orWhere('name', 'like', '%Filler Pouch%');
+                    })
+                    ->where(function ($q) {
+                        $q->whereNull('weight_kg')->orWhere('weight_kg', 0);
+                    })
+                    ->update(['weight_kg' => 0.700]);
+            }
+
             $statusMessage = $added 
-                ? "Column 'weight_kg' has been successfully added to 'epoxy_components' table!" 
-                : "Column 'weight_kg' is verified and already exists in 'epoxy_components' table!";
+                ? "Column 'weight_kg' has been successfully added to 'epoxy_components' and 700gm Filler Pouches set to 0.700 KG!" 
+                : "Column 'weight_kg' is verified and 700gm Filler Pouches set to 0.700 KG!";
 
             return response("<!DOCTYPE html><html><head><title>Database Migration</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='margin:0;padding:24px;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;'><div style='max-width:700px;margin:30px auto;background:#1e293b;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid #334155;'><div style='display:flex;align-items:center;gap:12px;margin-bottom:16px;'><div style='width:12px;height:12px;border-radius:50%;background:#10b981;'></div><h2 style='color:#f8fafc;margin:0;font-size:18px;'>Epoxy Component Weight Migration Status</h2></div><pre style='background:#090d16;color:#38bdf8;padding:16px;border-radius:10px;font-family:monospace;font-size:13px;line-height:1.6;overflow-x:auto;border:1px solid #1e293b;margin:0 0 16px 0;white-space:pre-wrap;'>" . htmlspecialchars($output ?: 'Artisan Output: Nothing to migrate.') . "</pre><div style='background:#064e3b;color:#a7f3d0;padding:14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:20px;border:1px solid #047857;'>✓ " . htmlspecialchars($statusMessage) . "</div><div style='display:flex;gap:12px;'><a href='" . route('admin.epoxy-components.index') . "' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Go to Epoxy Components</a><a href='" . route('admin.dashboard') . "' style='display:inline-block;padding:10px 20px;background:#334155;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Return to Dashboard</a></div></div></body></html>");
         })->name('admin.run.migrations');
@@ -277,14 +291,31 @@ Route::get('/add-epoxy-weight-column', function () {
             return response()->json(['status' => 'error', 'message' => 'Table epoxy_components does not exist.'], 404);
         }
 
+        $added = false;
         if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'weight_kg')) {
             \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
                 $table->decimal('weight_kg', 10, 3)->nullable()->after('purpose');
             });
-            return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#10b981;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #10b981;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;color:#34d399;'>✓ Success!</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>Column <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>weight_kg</code> has been successfully added to table <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>epoxy_components</code>.</p><div style='margin-top:20px;'><a href='/admin/epoxy-components' style='display:inline-block;padding:10px 18px;background:#2563eb;color:#fff;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;'>Go to Epoxy Components &rarr;</a></div></div></div>");
+            $added = true;
         }
 
-        return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#38bdf8;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #38bdf8;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;color:#38bdf8;'>ℹ Column Already Exists</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>Column <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>weight_kg</code> is already present in table <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>epoxy_components</code>. No changes required.</p><div style='margin-top:20px;'><a href='/admin/epoxy-components' style='display:inline-block;padding:10px 18px;background:#2563eb;color:#fff;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;'>Go to Epoxy Components &rarr;</a></div></div></div>");
+        // Populate 0.700 KG for all 700gm Filler Pouches
+        $updated = \Illuminate\Support\Facades\DB::table('epoxy_components')
+            ->where(function ($q) {
+                $q->where('name', 'like', '%700gm%')
+                  ->orWhere('name', 'like', '%700 gm%')
+                  ->orWhere('name', 'like', '%Filler Pouch%');
+            })
+            ->where(function ($q) {
+                $q->whereNull('weight_kg')->orWhere('weight_kg', 0);
+            })
+            ->update(['weight_kg' => 0.700]);
+
+        $msg = $added 
+            ? "Column 'weight_kg' was added and {$updated} 700gm filler pouches set to 0.700 KG!" 
+            : "Column 'weight_kg' verified. {$updated} 700gm filler pouches updated to 0.700 KG.";
+
+        return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#10b981;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #10b981;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;color:#34d399;'>✓ Success!</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>" . htmlspecialchars($msg) . "</p><div style='margin-top:20px;'><a href='/admin/epoxy-components' style='display:inline-block;padding:10px 18px;background:#2563eb;color:#fff;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;'>Go to Epoxy Components &rarr;</a></div></div></div>");
     } catch (\Exception $e) {
         return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#ef4444;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #ef4444;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;'>⚠ Error</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>" . htmlspecialchars($e->getMessage()) . "</p></div></div>", 500);
     }

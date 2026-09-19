@@ -108,55 +108,75 @@ class MarketingOrderItem extends Model
     /**
      * Calculate total weight in KG based on quantity_kg or quantity_bags * packing size.
      * Grout (GRT) is always 25 KG per bag.
+     * Filler Pouches (700gm) are always strictly 0.7 KG per pouch (e.g. 60 pouches = 42 KG).
      */
     public function getCalculatedWeightKgAttribute(): float
     {
         $bags = (int) $this->quantity_bags;
 
-        // Grout (GRT) is always strictly 25 KG per bag
+        // 1. Grout (GRT) is always strictly 25 KG per bag
         if ($this->department_code === 'GRT') {
-            return $bags * 25.0;
+            return (float) ($bags * 25.0);
         }
 
+        // 2. Check 700gm Filler Pouch FIRST across packing, product name, or linked component
+        $packingUpper = strtoupper((string) ($this->packing ?? ''));
+        $nameUpper = strtoupper((string) ($this->product_name ?? ''));
+        $compNameUpper = strtoupper((string) ($this->epoxyComponent?->name ?? ''));
+
+        $isFillerPouch700 = str_contains($packingUpper, '700GM') 
+            || str_contains($packingUpper, '700 GM')
+            || str_contains($nameUpper, '700GM')
+            || str_contains($nameUpper, '700 GM')
+            || str_contains($compNameUpper, '700GM')
+            || str_contains($compNameUpper, '700 GM');
+
+        if ($isFillerPouch700) {
+            return (float) ($bags * 0.7);
+        }
+
+        // 3. Generic grams detection in packing/name/component (e.g., 500gm = 0.5kg, 200gm = 0.2kg)
+        $combinedText = $packingUpper . ' ' . $nameUpper . ' ' . $compNameUpper;
+        if (preg_match('/(\d+(?:\.\d+)?)\s*(?:GM|GRAM)/i', $combinedText, $gmMatches)) {
+            $gmVal = (float) $gmMatches[1];
+            if ($gmVal > 0) {
+                return (float) ($bags * ($gmVal / 1000.0));
+            }
+        }
+
+        // 4. If linked to an Epoxy Component with custom unit weight
+        if ($this->epoxy_component_id && $this->epoxyComponent) {
+            $compWeight = (float) ($this->epoxyComponent->weight_kg ?? 0);
+            if ($compWeight > 0) {
+                return (float) ($bags * $compWeight);
+            }
+        }
+
+        // 5. If quantity_kg was stored explicitly and is positive
         if (!empty($this->quantity_kg) && (float) $this->quantity_kg > 0) {
             return (float) $this->quantity_kg;
         }
 
-        // If linked to an Epoxy Component with custom unit weight
-        if ($this->epoxy_component_id && $this->epoxyComponent) {
-            $compWeight = (float) ($this->epoxyComponent->weight_kg ?? 0);
-            if ($compWeight > 0) {
-                return $bags * $compWeight;
-            }
-        }
-
+        // 6. Adhesive (TAD) default packing 20 KG
         if ($this->department_code === 'TAD') {
             if (!empty($this->packing) && preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
                 $pkgSize = (float) $matches[1];
                 if ($pkgSize > 0) {
-                    return $bags * $pkgSize;
+                    return (float) ($bags * $pkgSize);
                 }
             }
-            return $bags * 20.0;
+            return (float) ($bags * 20.0);
         }
 
-        if (!empty($this->packing)) {
-            $packingUpper = strtoupper($this->packing);
-            if (str_contains($packingUpper, '700GM') || str_contains($packingUpper, '700 GM')) return $bags * 0.7;
-            if (str_contains($packingUpper, '500GM') || str_contains($packingUpper, '500 GM')) return $bags * 0.5;
-            if (str_contains($packingUpper, '200GM') || str_contains($packingUpper, '200 GM')) return $bags * 0.2;
-            if (str_contains($packingUpper, '100GM') || str_contains($packingUpper, '100 GM')) return $bags * 0.1;
-            if (str_contains($packingUpper, '50GM') || str_contains($packingUpper, '50 GM')) return $bags * 0.05;
-
-            if (preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
-                $pkgSize = (float) $matches[1];
-                if ($pkgSize > 0) {
-                    return $bags * $pkgSize;
-                }
+        // 7. General packing extraction
+        if (!empty($this->packing) && preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
+            $pkgSize = (float) $matches[1];
+            if ($pkgSize > 0) {
+                return (float) ($bags * $pkgSize);
             }
         }
 
-        return $bags * 1.0;
+        return (float) ($bags * 1.0);
     }
 
     // ─── Relationships ───────────────────────────

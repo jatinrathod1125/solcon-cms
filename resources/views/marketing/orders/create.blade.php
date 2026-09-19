@@ -428,7 +428,7 @@
                                                     data-dept="EPX"
                                                     data-component-id="{{ $fComp->id }}"
                                                     data-filler-color-id="{{ $fComp->epoxy_filler_color_id }}"
-                                                    data-unit-weight="{{ $fComp->weight_kg ?? 0.7 }}"
+                                                    data-unit-weight="{{ ($fComp->weight_kg && (float)$fComp->weight_kg > 0) ? $fComp->weight_kg : 0.7 }}"
                                                     data-packing="700 GM">
                                             </td>
                                         </tr>
@@ -805,11 +805,19 @@
                 }
                 var str = packing.toString().toUpperCase().trim();
 
-                if (str.includes('700GM') || str.includes('700 GM')) return 0.7;
+                if (str.includes('700GM') || str.includes('700 GM') || str.includes('700')) return 0.7;
                 if (str.includes('500GM') || str.includes('500 GM')) return 0.5;
                 if (str.includes('200GM') || str.includes('200 GM')) return 0.2;
                 if (str.includes('100GM') || str.includes('100 GM')) return 0.1;
                 if (str.includes('50GM') || str.includes('50 GM')) return 0.05;
+
+                var gmMatch = str.match(/(\d+(?:\.\d+)?)\s*(?:GM|GRAM)/i);
+                if (gmMatch) {
+                    var gmVal = parseFloat(gmMatch[1]);
+                    if (!isNaN(gmVal) && gmVal > 0) {
+                        return gmVal / 1000.0;
+                    }
+                }
 
                 var match = str.match(/(\d+(?:\.\d+)?)/);
                 if (match) {
@@ -939,8 +947,11 @@
                                 item.epoxy_filler_color_id = fillerColorId;
                             }
                             var unitWeight = $(this).data('unit-weight');
+                            var packingVal = ($(this).data('packing') || '').toString().toUpperCase();
                             if (unitWeight !== undefined && unitWeight !== null && unitWeight !== '' && parseFloat(unitWeight) > 0) {
                                 item.quantity_kg = val * parseFloat(unitWeight);
+                            } else if (packingVal.indexOf('700GM') !== -1 || packingVal.indexOf('700 GM') !== -1 || packingVal.indexOf('700') !== -1) {
+                                item.quantity_kg = val * 0.7;
                             }
                         }
 
