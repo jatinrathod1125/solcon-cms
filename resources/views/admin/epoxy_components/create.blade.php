@@ -99,11 +99,23 @@
                 <!-- Purpose -->
                 <div>
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Component Purpose</label>
-                    <select name="purpose" required
+                    <select name="purpose" id="purpose_select" required
                         class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm">
-                        <option value="Assembly Component">Assembly Component (Increments Component Inventory)</option>
-                        <option value="Direct Finished Product">Direct Finished Product (Increments Finished Goods)</option>
+                        <option value="Assembly Component" {{ old('purpose') === 'Assembly Component' ? 'selected' : '' }}>Assembly Component (Increments Component Inventory)</option>
+                        <option value="Direct Finished Product" {{ old('purpose') === 'Direct Finished Product' ? 'selected' : '' }}>Direct Finished Product (Increments Finished Goods)</option>
                     </select>
+                </div>
+
+                <!-- Weight per Unit (KG) (Only for Direct Finished Product) -->
+                <div id="weightFieldGroup" class="{{ old('purpose') === 'Direct Finished Product' ? '' : 'hidden' }}">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                        <span>Weight per Unit (KG)</span>
+                        <span class="text-[10px] text-cyan-400 font-semibold lowercase">used for order & dispatch weight</span>
+                    </label>
+                    <input type="number" step="0.001" min="0" name="weight_kg" id="weight_kg_input"
+                        value="{{ old('weight_kg') }}"
+                        class="block w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-sm"
+                        placeholder="e.g. 5.000 or 1.000">
                 </div>
 
                 <!-- Unit -->
@@ -172,4 +184,27 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const purposeSelect = document.getElementById('purpose_select');
+        const weightFieldGroup = document.getElementById('weightFieldGroup');
+        const weightInput = document.getElementById('weight_kg_input');
+
+        function toggleWeightField() {
+            if (!purposeSelect || !weightFieldGroup) return;
+            if (purposeSelect.value === 'Direct Finished Product') {
+                weightFieldGroup.classList.remove('hidden');
+            } else {
+                weightFieldGroup.classList.add('hidden');
+                if (weightInput) weightInput.value = '';
+            }
+        }
+
+        if (purposeSelect) {
+            purposeSelect.addEventListener('change', toggleWeightField);
+            toggleWeightField();
+        }
+    });
+</script>
 @endsection

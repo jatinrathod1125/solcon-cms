@@ -125,7 +125,14 @@
                         </td>
                         <td class="p-4 text-xs font-semibold">
                             @if($comp->purpose === 'Direct Finished Product')
-                            <span class="text-indigo-400">Direct Finished Product</span>
+                            <div>
+                                <span class="text-indigo-400">Direct Finished Product</span>
+                                @if($comp->weight_kg > 0)
+                                <div class="text-[11px] font-bold text-slate-400 mt-0.5">
+                                    <span class="text-slate-500">Weight:</span> <span class="text-emerald-400 font-mono">{{ number_format($comp->weight_kg, 2) }} KG</span>
+                                </div>
+                                @endif
+                            </div>
                             @else
                             <span class="text-teal-450">Assembly Component</span>
                             @endif

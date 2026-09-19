@@ -28,94 +28,19 @@ Route::middleware('auth')->group(function () {
             \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
             $output = \Illuminate\Support\Facades\Artisan::output();
 
-            $hasPausedAt = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'paused_at');
-            $hasTotalPaused = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'total_paused_seconds');
-            $hasOutputBreakdown = \Illuminate\Support\Facades\Schema::hasColumn('production_batches', 'output_breakdown');
-
-            // If columns still missing (e.g. migration file was not uploaded), create them directly
-            if (!$hasPausedAt || !$hasTotalPaused || !$hasOutputBreakdown) {
-                \Illuminate\Support\Facades\Schema::table('production_batches', function (\Illuminate\Database\Schema\Blueprint $table) use ($hasPausedAt, $hasTotalPaused, $hasOutputBreakdown) {
-                    if (!$hasPausedAt) {
-                        $table->dateTime('paused_at')->nullable()->after('end_time');
-                    }
-                    if (!$hasTotalPaused) {
-                        $table->unsignedInteger('total_paused_seconds')->default(0)->after('paused_at');
-                    }
-                    if (!$hasOutputBreakdown) {
-                        $table->json('output_breakdown')->nullable()->after('formula_snapshot');
-                    }
-                });
-                $statusMessage = "Columns 'paused_at', 'total_paused_seconds', and 'output_breakdown' were verified and added to 'production_batches' table!";
-                $statusColor = "#047857";
-                $statusBg = "#064e3b";
-                $statusText = "#a7f3d0";
-            } else {
-                $statusMessage = "All columns ('paused_at', 'total_paused_seconds', 'output_breakdown') are up to date in 'production_batches' table!";
-                $statusColor = "#047857";
-                $statusBg = "#064e3b";
-                $statusText = "#a7f3d0";
-            }
-
-            // Component Categories Self-Healing
-            if (!\Illuminate\Support\Facades\Schema::hasTable('component_categories')) {
-                \Illuminate\Support\Facades\Schema::create('component_categories', function (\Illuminate\Database\Schema\Blueprint $table) {
-                    $table->id();
-                    $table->string('name');
-                    $table->string('slug')->unique();
-                    $table->string('default_unit')->default('Box');
-                    $table->tinyInteger('column_no')->default(4);
-                    $table->integer('display_order')->default(0);
-                    $table->boolean('is_active')->default(true);
-                    $table->timestamps();
-                });
-            } elseif (!\Illuminate\Support\Facades\Schema::hasColumn('component_categories', 'column_no')) {
-                \Illuminate\Support\Facades\Schema::table('component_categories', function (\Illuminate\Database\Schema\Blueprint $table) {
-                    $table->tinyInteger('column_no')->default(4)->after('default_unit');
-                });
-            }
-
-            if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'component_category_id')) {
+            $added = false;
+            if (\Illuminate\Support\Facades\Schema::hasTable('epoxy_components') && !\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'weight_kg')) {
                 \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
-                    $table->foreignId('component_category_id')->nullable()->after('brand_id')->constrained('component_categories')->nullOnDelete();
+                    $table->decimal('weight_kg', 10, 3)->nullable()->after('purpose');
                 });
-            }
-            if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'display_order')) {
-                \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
-                    $table->integer('display_order')->default(0)->after('is_active');
-                });
-            }
-            if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'default_packing')) {
-                \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
-                    $table->string('default_packing')->nullable()->default('Box')->after('display_order');
-                });
+                $added = true;
             }
 
-            // Raw Material is_coupon Self-Healing
-            if (\Illuminate\Support\Facades\Schema::hasTable('raw_materials') && !\Illuminate\Support\Facades\Schema::hasColumn('raw_materials', 'is_coupon')) {
-                \Illuminate\Support\Facades\Schema::table('raw_materials', function (\Illuminate\Database\Schema\Blueprint $table) {
-                    $table->boolean('is_coupon')->default(false)->after('is_active');
-                });
-            }
+            $statusMessage = $added 
+                ? "Column 'weight_kg' has been successfully added to 'epoxy_components' table!" 
+                : "Column 'weight_kg' is verified and already exists in 'epoxy_components' table!";
 
-            // Seed default categories if none exist
-            if (\App\Models\ComponentCategory::count() === 0) {
-                $defaultCats = [
-                    ['name' => 'Tiles Cleaner', 'slug' => 'tiles-cleaner', 'default_unit' => 'Box', 'column_no' => 1, 'display_order' => 1],
-                    ['name' => 'Grout Admix', 'slug' => 'grout-admix', 'default_unit' => 'Box', 'column_no' => 1, 'display_order' => 2],
-                    ['name' => 'Solitite', 'slug' => 'solitite', 'default_unit' => 'Box', 'column_no' => 2, 'display_order' => 1],
-                    ['name' => 'Jari Powder', 'slug' => 'jari-powder', 'default_unit' => 'Box', 'column_no' => 2, 'display_order' => 2],
-                    ['name' => 'Tiles Spacers', 'slug' => 'tiles-spacers', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 1],
-                    ['name' => 'Tiles Leveler', 'slug' => 'tiles-leveler', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 2],
-                    ['name' => 'SB+', 'slug' => 'sb-plus', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 3],
-                    ['name' => 'SB++', 'slug' => 'sb-plus-plus', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 4],
-                    ['name' => 'SK+', 'slug' => 'sk-plus', 'default_unit' => 'Box', 'column_no' => 4, 'display_order' => 5],
-                ];
-                foreach ($defaultCats as $dCat) {
-                    \App\Models\ComponentCategory::create($dCat);
-                }
-            }
-
-            return response("<!DOCTYPE html><html><head><title>Database Migration</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='margin:0;padding:24px;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;'><div style='max-width:700px;margin:30px auto;background:#1e293b;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid #334155;'><div style='display:flex;align-items:center;gap:12px;margin-bottom:16px;'><div style='width:12px;height:12px;border-radius:50%;background:#10b981;'></div><h2 style='color:#f8fafc;margin:0;font-size:18px;'>Database Migration & Column Status</h2></div><pre style='background:#090d16;color:#38bdf8;padding:16px;border-radius:10px;font-family:monospace;font-size:13px;line-height:1.6;overflow-x:auto;border:1px solid #1e293b;margin:0 0 16px 0;white-space:pre-wrap;'>" . htmlspecialchars($output ?: 'Artisan Output: Nothing to migrate.') . "</pre><div style='background:{$statusBg};color:{$statusText};padding:14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:20px;border:1px solid {$statusColor};'>✓ " . htmlspecialchars($statusMessage) . "<br>✓ Component categories and columns verified!</div><div style='display:flex;gap:12px;'><a href='" . route('admin.dashboard') . "' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Return to Dashboard</a></div></div></body></html>");
+            return response("<!DOCTYPE html><html><head><title>Database Migration</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body style='margin:0;padding:24px;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;'><div style='max-width:700px;margin:30px auto;background:#1e293b;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,0.3);border:1px solid #334155;'><div style='display:flex;align-items:center;gap:12px;margin-bottom:16px;'><div style='width:12px;height:12px;border-radius:50%;background:#10b981;'></div><h2 style='color:#f8fafc;margin:0;font-size:18px;'>Epoxy Component Weight Migration Status</h2></div><pre style='background:#090d16;color:#38bdf8;padding:16px;border-radius:10px;font-family:monospace;font-size:13px;line-height:1.6;overflow-x:auto;border:1px solid #1e293b;margin:0 0 16px 0;white-space:pre-wrap;'>" . htmlspecialchars($output ?: 'Artisan Output: Nothing to migrate.') . "</pre><div style='background:#064e3b;color:#a7f3d0;padding:14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:20px;border:1px solid #047857;'>✓ " . htmlspecialchars($statusMessage) . "</div><div style='display:flex;gap:12px;'><a href='" . route('admin.epoxy-components.index') . "' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Go to Epoxy Components</a><a href='" . route('admin.dashboard') . "' style='display:inline-block;padding:10px 20px;background:#334155;color:#ffffff;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;'>Return to Dashboard</a></div></div></body></html>");
         })->name('admin.run.migrations');
 
         // User Management CRUD
@@ -123,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
         // Brand Management
         Route::resource('brands', \App\Http\Controllers\Admin\BrandController::class)->except('show', 'destroy');
-        Route::resource('brand-products', \App\Http\Controllers\Admin\BrandProductController::class)->except('show', 'destroy');
+        // Route::resource('brand-products', \App\Http\Controllers\Admin\BrandProductController::class)->except('show', 'destroy');
 
         // Master Modules CRUD
         Route::resource('departments', \App\Http\Controllers\Admin\DepartmentController::class)->names('admin.departments');
@@ -343,6 +268,26 @@ Route::get('/', function () {
         }
     }
     return redirect()->route('login');
+});
+
+// Live Migration Helper Route for Epoxy Component weight_kg
+Route::get('/add-epoxy-weight-column', function () {
+    try {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('epoxy_components')) {
+            return response()->json(['status' => 'error', 'message' => 'Table epoxy_components does not exist.'], 404);
+        }
+
+        if (!\Illuminate\Support\Facades\Schema::hasColumn('epoxy_components', 'weight_kg')) {
+            \Illuminate\Support\Facades\Schema::table('epoxy_components', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->decimal('weight_kg', 10, 3)->nullable()->after('purpose');
+            });
+            return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#10b981;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #10b981;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;color:#34d399;'>✓ Success!</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>Column <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>weight_kg</code> has been successfully added to table <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>epoxy_components</code>.</p><div style='margin-top:20px;'><a href='/admin/epoxy-components' style='display:inline-block;padding:10px 18px;background:#2563eb;color:#fff;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;'>Go to Epoxy Components &rarr;</a></div></div></div>");
+        }
+
+        return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#38bdf8;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #38bdf8;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;color:#38bdf8;'>ℹ Column Already Exists</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>Column <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>weight_kg</code> is already present in table <code style='background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;'>epoxy_components</code>. No changes required.</p><div style='margin-top:20px;'><a href='/admin/epoxy-components' style='display:inline-block;padding:10px 18px;background:#2563eb;color:#fff;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;'>Go to Epoxy Components &rarr;</a></div></div></div>");
+    } catch (\Exception $e) {
+        return response("<div style='font-family:sans-serif;padding:30px;background:#0f172a;color:#ef4444;min-height:100vh;'><div style='background:#1e293b;padding:24px;border-radius:14px;border:1px solid #ef4444;max-width:600px;margin:30px auto;box-shadow:0 10px 25px rgba(0,0,0,0.5);'><h2 style='margin-top:0;'>⚠ Error</h2><p style='color:#f1f5f9;font-size:15px;line-height:1.6;'>" . htmlspecialchars($e->getMessage()) . "</p></div></div>", 500);
+    }
 });
 
 // Secret bypass route - must be at the very bottom of web.php to prevent route clashing

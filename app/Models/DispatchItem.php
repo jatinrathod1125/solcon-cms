@@ -135,6 +135,14 @@ class DispatchItem extends Model
             return (float) $this->quantity_kg;
         }
 
+        // If linked to an Epoxy Component with custom unit weight
+        if ($this->epoxy_component_id && $this->epoxyComponent) {
+            $compWeight = (float) ($this->epoxyComponent->weight_kg ?? 0);
+            if ($compWeight > 0) {
+                return $bags * $compWeight;
+            }
+        }
+
         if ($this->department_code === 'TAD') {
             if (!empty($this->packing) && preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
                 $pkgSize = (float) $matches[1];
@@ -145,10 +153,19 @@ class DispatchItem extends Model
             return $bags * 20;
         }
 
-        if (!empty($this->packing) && preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
-            $pkgSize = (float) $matches[1];
-            if ($pkgSize > 0) {
-                return $bags * $pkgSize;
+        if (!empty($this->packing)) {
+            $packingUpper = strtoupper($this->packing);
+            if (str_contains($packingUpper, '700GM') || str_contains($packingUpper, '700 GM')) return $bags * 0.7;
+            if (str_contains($packingUpper, '500GM') || str_contains($packingUpper, '500 GM')) return $bags * 0.5;
+            if (str_contains($packingUpper, '200GM') || str_contains($packingUpper, '200 GM')) return $bags * 0.2;
+            if (str_contains($packingUpper, '100GM') || str_contains($packingUpper, '100 GM')) return $bags * 0.1;
+            if (str_contains($packingUpper, '50GM') || str_contains($packingUpper, '50 GM')) return $bags * 0.05;
+
+            if (!empty($this->packing) && preg_match('/(\d+(?:\.\d+)?)/', $this->packing, $matches)) {
+                $pkgSize = (float) $matches[1];
+                if ($pkgSize > 0) {
+                    return $bags * $pkgSize;
+                }
             }
         }
 

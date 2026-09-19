@@ -16,6 +16,7 @@ class EpoxyComponent extends Model
         'category', // Bottle, Pouch, Packet, Liquid, Powder, Plastic, Accessory, Other
         'component_category_id', // Foreign key to component_categories
         'purpose', // Assembly Component, Direct Finished Product
+        'weight_kg', // Unit weight in KG when purpose is Direct Finished Product
         'unit_id',
         'is_active',
         'display_order',
@@ -29,6 +30,7 @@ class EpoxyComponent extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'display_order' => 'integer',
+        'weight_kg' => 'float',
     ];
 
     /**

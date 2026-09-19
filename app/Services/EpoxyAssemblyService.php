@@ -366,8 +366,9 @@ class EpoxyAssemblyService
                     'status' => 'Active',
                 ]);
 
+                $unitWeight = (float) ($component->weight_kg ?: 1.0);
                 $finishedGood->increment('available_bags', $quantity);
-                $finishedGood->increment('available_weight', (float) $quantity);
+                $finishedGood->increment('available_weight', (float) ($quantity * $unitWeight));
                 $finishedGood->update(['last_production_date' => now()]);
             } else {
                 // Assembly Component: Increase raw material stock of ready component

@@ -76,6 +76,9 @@ class EpoxyComponentController extends Controller
         $data = $request->validated();
         $data['code'] = strtoupper($data['code']);
         $data['is_active'] = $request->boolean('is_active', true);
+        if ($request->purpose !== 'Direct Finished Product') {
+            $data['weight_kg'] = null;
+        }
 
         DB::transaction(function () use ($data, $request) {
             $component = EpoxyComponent::create($data);
@@ -117,6 +120,9 @@ class EpoxyComponentController extends Controller
         $data = $request->validated();
         $data['code'] = strtoupper($data['code']);
         $data['is_active'] = $request->boolean('is_active');
+        if ($request->purpose !== 'Direct Finished Product') {
+            $data['weight_kg'] = null;
+        }
 
         DB::transaction(function () use ($data, $request, $epoxyComponent) {
             $epoxyComponent->update($data);

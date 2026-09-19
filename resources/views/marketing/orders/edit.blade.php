@@ -396,6 +396,7 @@
                                                                 <input type="number" min="0" class="compact-input qty-input"
                                                                     data-dept="EPX"
                                                                     data-component-id="{{ $comp->id }}"
+                                                                    data-unit-weight="{{ $comp->weight_kg ?? '' }}"
                                                                     data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
                                                             </td>
                                                         </tr>
@@ -439,6 +440,7 @@
                                                     data-dept="EPX"
                                                     data-component-id="{{ $fComp->id }}"
                                                     data-filler-color-id="{{ $fComp->epoxy_filler_color_id }}"
+                                                    data-unit-weight="{{ $fComp->weight_kg ?? 0.7 }}"
                                                     data-packing="700 GM">
                                             </td>
                                         </tr>
@@ -572,6 +574,7 @@
                                                                 <input type="number" min="0" class="compact-input qty-input"
                                                                     data-dept="EPX"
                                                                     data-component-id="{{ $comp->id }}"
+                                                                    data-unit-weight="{{ $comp->weight_kg ?? '' }}"
                                                                     data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
                                                             </td>
                                                         </tr>
@@ -684,6 +687,7 @@
                                                                 <input type="number" min="0" class="compact-input qty-input"
                                                                     data-dept="EPX"
                                                                     data-component-id="{{ $comp->id }}"
+                                                                    data-unit-weight="{{ $comp->weight_kg ?? '' }}"
                                                                     data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
                                                             </td>
                                                         </tr>
@@ -731,6 +735,7 @@
                                                                         <input type="number" min="0" class="compact-input qty-input"
                                                                             data-dept="EPX"
                                                                             data-component-id="{{ $comp->id }}"
+                                                                            data-unit-weight="{{ $comp->weight_kg ?? '' }}"
                                                                             data-packing="{{ $comp->default_packing ?? $cat->default_unit }}">
                                                                     </td>
                                                                 </tr>
@@ -794,7 +799,15 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            function parsePackingWeight(packing, deptCode) {
+            function parsePackingWeight(packing, deptCode, unitWeight) {
+                // If explicit unit weight was specified (e.g. from direct finished good component)
+                if (unitWeight !== undefined && unitWeight !== null && unitWeight !== '') {
+                    var parsedUw = parseFloat(unitWeight);
+                    if (!isNaN(parsedUw) && parsedUw > 0) {
+                        return parsedUw;
+                    }
+                }
+
                 // In Grout (GRT), 1 bag is always 25 KG
                 if (deptCode === 'GRT') {
                     return 25.0;
@@ -804,6 +817,7 @@
                 }
                 var str = packing.toString().toUpperCase().trim();
 
+                if (str.includes('700GM') || str.includes('700 GM')) return 0.7;
                 if (str.includes('500GM') || str.includes('500 GM')) return 0.5;
                 if (str.includes('200GM') || str.includes('200 GM')) return 0.2;
                 if (str.includes('100GM') || str.includes('100 GM')) return 0.1;
@@ -831,9 +845,10 @@
                         totalUnits += val;
                         var packing = $(this).data('packing') || '';
                         var dept = $(this).data('dept') || '';
+                        var unitWeight = $(this).data('unit-weight');
 
-                        var unitWeight = parsePackingWeight(packing, dept);
-                        totalWeightKg += (val * unitWeight);
+                        var unitWeightVal = parsePackingWeight(packing, dept, unitWeight);
+                        totalWeightKg += (val * unitWeightVal);
                     }
                 });
 
@@ -987,6 +1002,10 @@
                             item.epoxy_component_id = componentId;
                             if (fillerColorId) {
                                 item.epoxy_filler_color_id = fillerColorId;
+                            }
+                            var unitWeight = $(this).data('unit-weight');
+                            if (unitWeight !== undefined && unitWeight !== null && unitWeight !== '' && parseFloat(unitWeight) > 0) {
+                                item.quantity_kg = val * parseFloat(unitWeight);
                             }
                         }
 

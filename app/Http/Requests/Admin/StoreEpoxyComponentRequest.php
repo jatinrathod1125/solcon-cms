@@ -28,6 +28,7 @@ class StoreEpoxyComponentRequest extends FormRequest
             'code' => ['required', 'string', 'max:50', 'unique:epoxy_components,code'],
             'category' => ['required', 'string', 'in:Bottle,Pouch,Packet,Liquid,Powder,Plastic,Accessory,Other'],
             'purpose' => ['required', 'string', 'in:Assembly Component,Direct Finished Product'],
+            'weight_kg' => ['nullable', 'numeric', 'min:0'],
             'unit_id' => ['required', 'exists:units,id'],
             'is_active' => ['nullable', 'boolean'],
             'component_category_id' => ['nullable', 'exists:component_categories,id'],
