@@ -160,17 +160,47 @@
 
             <!-- End Time & Remarks Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-2 border-t border-slate-100">
-                <!-- End Time Picker -->
+                <!-- End Time Section -->
                 <div>
-                    <label for="end_time_picker" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        End Time <span class="text-blue-600">*</span>
-                    </label>
-                    <div class="relative">
-                        <input type="text" id="end_time_picker" placeholder="Select end date & time..." required
-                            class="block w-full px-4 py-2.5 bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-xl text-slate-800 font-mono text-sm transition-all cursor-pointer outline-none">
-                        <i data-lucide="clock" class="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                            Batch End Time <span class="text-blue-600">*</span>
+                        </label>
+                        <!-- Auto / Custom Toggle -->
+                        <div class="inline-flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-bold">
+                            <button type="button" id="btn-mode-auto" class="px-2.5 py-1 rounded-md transition-all bg-white text-emerald-700 shadow-sm flex items-center gap-1.5 cursor-pointer">
+                                <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Real-Time (Auto)
+                            </button>
+                            <button type="button" id="btn-mode-manual" class="px-2.5 py-1 rounded-md transition-all text-slate-500 hover:text-slate-700 cursor-pointer">
+                                Custom / Past
+                            </button>
+                        </div>
                     </div>
-                    <input type="hidden" id="end_time" name="end_time" value="{{ now()->timezone('Asia/Kolkata')->format('Y-m-d H:i') }}">
+
+                    <!-- Auto Live Time Box (Default) -->
+                    <div id="auto-time-box" class="p-3 bg-emerald-50/70 border border-emerald-200/80 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div class="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <span id="live-clock-display" class="font-mono font-extrabold text-slate-900 text-sm">--:--:--</span>
+                        </div>
+                    </div>
+
+                    <!-- Manual Time Picker Box (Hidden by default) -->
+                    <div id="manual-time-box" class="hidden">
+                        <div class="relative">
+                            <input type="text" id="end_time_picker" placeholder="Select exact end date & time..."
+                                class="block w-full px-4 py-2.5 bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-xl text-slate-800 font-mono text-sm transition-all cursor-pointer outline-none">
+                            <i data-lucide="calendar" class="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                        </div>
+                        <p class="text-[10px] text-slate-500 font-medium mt-1">
+                            Only use this if you are recording a past batch completed earlier.
+                        </p>
+                    </div>
+
+                    <input type="hidden" id="end_time" name="end_time" value="auto">
                     <p class="field-error text-rose-600 text-xs mt-1.5 hidden font-semibold" data-error-field="end_time"></p>
                 </div>
 
@@ -209,15 +239,54 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     $(document).ready(function() {
-        flatpickr("#end_time_picker", {
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",
-            altInput: true,
-            altFormat: "d M Y, h:i K", // 12-Hour AM/PM format
-            time_24hr: false,
-            defaultDate: new Date(),
-            onChange: function(selectedDates, dateStr) {
-                $('#end_time').val(dateStr);
+        // Live ticking clock in Indian Standard Time (IST)
+        function updateLiveClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            $('#live-clock-display').text(timeStr);
+        }
+        updateLiveClock();
+        setInterval(updateLiveClock, 1000);
+
+        let fpInstance = null;
+        function initFlatpickr() {
+            if (!fpInstance) {
+                fpInstance = flatpickr("#end_time_picker", {
+                    enableTime: true,
+                    enableSeconds: true,
+                    dateFormat: "Y-m-d H:i:S",
+                    altInput: true,
+                    altFormat: "d M Y, h:i:S K",
+                    time_24hr: false,
+                    defaultDate: new Date(),
+                    onChange: function(selectedDates, dateStr) {
+                        $('#end_time').val(dateStr);
+                    }
+                });
+            }
+        }
+
+        // Mode Switching
+        $('#btn-mode-auto').on('click', function() {
+            $(this).addClass('bg-white text-emerald-700 shadow-sm').removeClass('text-slate-500');
+            $('#btn-mode-manual').removeClass('bg-white text-emerald-700 shadow-sm').addClass('text-slate-500');
+            $('#auto-time-box').removeClass('hidden');
+            $('#manual-time-box').addClass('hidden');
+            $('#end_time').val('auto');
+            $('.field-error[data-error-field="end_time"]').addClass('hidden').text('');
+        });
+
+        $('#btn-mode-manual').on('click', function() {
+            $(this).addClass('bg-white text-emerald-700 shadow-sm').removeClass('text-slate-500');
+            $('#btn-mode-auto').removeClass('bg-white text-emerald-700 shadow-sm').addClass('text-slate-500');
+            $('#auto-time-box').addClass('hidden');
+            $('#manual-time-box').removeClass('hidden');
+            initFlatpickr();
+            if (fpInstance) {
+                fpInstance.setDate(new Date(), true);
+            }
+            if (window.lucide) {
+                lucide.createIcons();
             }
         });
 

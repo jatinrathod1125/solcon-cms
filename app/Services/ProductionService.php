@@ -514,7 +514,17 @@ class ProductionService
                 }
 
                 // 4. Update batch status
-                $parsedEndTime = $endTime ? \Carbon\Carbon::parse($endTime) : now();
+                $nowKolkata = \Carbon\Carbon::now('Asia/Kolkata');
+                if (!empty($endTime) && strtolower(trim((string) $endTime)) !== 'auto') {
+                    $parsedEndTime = \Carbon\Carbon::parse($endTime, 'Asia/Kolkata');
+                    // Safety check: if parsed end time is before batch start time, clamp safely
+                    if ($batch->start_time && $parsedEndTime->lessThan($batch->start_time)) {
+                        $parsedEndTime = $nowKolkata->greaterThanOrEqualTo($batch->start_time) ? $nowKolkata : $batch->start_time;
+                    }
+                } else {
+                    $parsedEndTime = $nowKolkata;
+                }
+
                 $additionalPaused = 0;
                 if ($batch->status === 'paused' && $batch->paused_at) {
                     $additionalPaused = (int) abs($parsedEndTime->diffInSeconds($batch->paused_at));

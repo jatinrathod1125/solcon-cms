@@ -16,14 +16,30 @@ class CompleteProductionRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
             'output_bags' => ['required', 'numeric', 'min:0.0001'],
-            'end_time' => ['nullable', 'date'],
+            'end_time' => [
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    if (empty($value) || strtolower(trim((string) $value)) === 'auto') {
+                        return;
+                    }
+                    if (strtotime($value) === false) {
+                        $fail('The end time must be a valid date and time.');
+                        return;
+                    }
+                    $batch = $this->route('batch');
+                    if ($batch && $batch->start_time) {
+                        $parsed = \Carbon\Carbon::parse($value, 'Asia/Kolkata');
+                        if ($parsed->lessThan($batch->start_time)) {
+                            $fail('The end time cannot be earlier than the batch start time (' . $batch->start_time->format('h:i A') . ').');
+                        }
+                    }
+                },
+            ],
             'remarks' => ['nullable', 'string', 'max:500'],
             'split_breakdown' => ['nullable', 'array'],
             'split_breakdown.*.grade_id' => ['required_with:split_breakdown', 'integer'],
