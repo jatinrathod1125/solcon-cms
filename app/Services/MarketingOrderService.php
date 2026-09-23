@@ -118,6 +118,53 @@ class MarketingOrderService
                 auth()->id()
             );
 
+            // Send notification to all supervisors and admins
+            try {
+                $notificationService = app(\App\Services\NotificationService::class);
+                
+                // Notify all active supervisors
+                $supervisors = \App\Models\User::whereHas('roles', function ($q) {
+                    $q->where('slug', 'supervisor');
+                })->where('is_active', true)->get();
+
+                foreach ($supervisors as $supervisor) {
+                    $notificationService->sendToUser(
+                        $supervisor,
+                        'New Order: ' . $order->order_number,
+                        "Order created for {$order->party_name} ({$order->city}). Priority: " . ucfirst($order->priority),
+                        'marketing_order_created',
+                        null,
+                        [
+                            'order_id' => $order->id,
+                            'click_url' => '/marketing/orders/' . $order->id,
+                            'click_action' => '/marketing/orders/' . $order->id,
+                        ]
+                    );
+                }
+
+                // Notify all active admins
+                $admins = \App\Models\User::whereHas('roles', function ($q) {
+                    $q->where('slug', 'admin');
+                })->where('is_active', true)->get();
+
+                foreach ($admins as $admin) {
+                    $notificationService->sendToUser(
+                        $admin,
+                        'New Order: ' . $order->order_number,
+                        "Order created for {$order->party_name} ({$order->city}). Priority: " . ucfirst($order->priority),
+                        'marketing_order_created',
+                        null,
+                        [
+                            'order_id' => $order->id,
+                            'click_url' => '/marketing/orders/' . $order->id,
+                            'click_action' => '/marketing/orders/' . $order->id,
+                        ]
+                    );
+                }
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Failed to send order creation notification: ' . $e->getMessage());
+            }
+
             return $order->fresh(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator']);
         });
     }
@@ -330,11 +377,6 @@ class MarketingOrderService
             $maxSort = MarketingOrder::where('status', $newStatus)->max('sort_order');
             $updateData['sort_order'] = ($maxSort ?? 0) + 1;
 
-            if ($newStatus === 'in_progress' && !$order->approved_by) {
-                $updateData['approved_by'] = auth()->id();
-                $updateData['approved_at'] = now();
-            }
-
             if ($newStatus === 'cancelled') {
                 $updateData['cancelled_at'] = now();
             }
@@ -348,52 +390,6 @@ class MarketingOrderService
             );
 
             return $order->fresh();
-        });
-    }
-
-    /**
-     * Approve an order (Admin only). Sets status to in_progress.
-     */
-    public function approveOrder(MarketingOrder $order): MarketingOrder
-    {
-        return DB::transaction(function () use ($order) {
-            $maxSort = MarketingOrder::where('status', 'in_progress')->max('sort_order');
-
-            $order->update([
-                'status' => 'in_progress',
-                'approved_by' => auth()->id(),
-                'approved_at' => now(),
-                'sort_order' => ($maxSort ?? 0) + 1,
-            ]);
-
-            ActivityLogService::log(
-                'MARKETING_ORDER_APPROVED',
-                "Marketing order {$order->order_number} approved for party: {$order->party_name}",
-                auth()->id()
-            );
-
-            // Send notification to all supervisors
-            try {
-                $notificationService = app(\App\Services\NotificationService::class);
-                $supervisors = \App\Models\User::whereHas('roles', function ($q) {
-                    $q->where('slug', 'supervisor');
-                })->where('is_active', true)->get();
-
-                foreach ($supervisors as $supervisor) {
-                    $notificationService->sendToUser(
-                        $supervisor,
-                        'New Order Approved: ' . $order->order_number,
-                        "Order for {$order->party_name} ({$order->city}) has been approved. Priority: " . ucfirst($order->priority),
-                        'marketing_order_approved',
-                        null,
-                        ['order_id' => $order->id, 'click_url' => '/supervisor/orders']
-                    );
-                }
-            } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error('Failed to send order approval notification: ' . $e->getMessage());
-            }
-
-            return $order->fresh(['items.grade', 'items.color', 'items.epoxyProduct', 'items.couponMaterial', 'creator']);
         });
     }
 

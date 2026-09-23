@@ -28,10 +28,6 @@ class MarketingOrderController extends Controller
      */
     public function index(Request $request)
     {
-        if (auth()->user()->isSupervisor()) {
-            return redirect()->route('supervisor.orders');
-        }
-
         // Refresh availability on load to ensure accurate data
         try {
             $this->orderService->refreshAllAvailability();
@@ -50,8 +46,8 @@ class MarketingOrderController extends Controller
             $ordersQuery->forBrand(currentBrand());
         }
 
-        // Non-admin users (Marketing role) only see orders created by themselves
-        if (!$user->isAdmin()) {
+        // Non-admin & non-supervisor users (Marketing role) only see orders created by themselves
+        if (!$user->isAdmin() && !$user->isSupervisor()) {
             $ordersQuery->where('created_by', $user->id);
         }
 
@@ -225,48 +221,11 @@ class MarketingOrderController extends Controller
     }
 
     /**
-     * Approve a pending order (Admin only).
-     */
-    public function approve(MarketingOrder $order)
-    {
-        $user = auth()->user();
-
-        if (!$user->isAdmin()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Only Administrators can approve marketing orders.'
-            ], 403);
-        }
-
-        if ($order->status !== 'pending') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Only pending orders can be approved.'
-            ], 400);
-        }
-
-        try {
-            $approvedOrder = $this->orderService->approveOrder($order);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Order approved successfully! Supervisors have been notified.',
-                'order' => $approvedOrder,
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to approve order: ' . $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    /**
      * Show order details.
      */
     public function show(MarketingOrder $order)
     {
-        $order->load(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator', 'approver']);
+        $order->load(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator']);
         
         // If JSON requested (e.g. from an AJAX call)
         if (request()->expectsJson()) {
@@ -313,8 +272,6 @@ class MarketingOrderController extends Controller
                     'availability_badge' => $order->availability_badge,
                     'remarks' => $order->remarks,
                     'created_by_name' => $order->creator->name ?? 'N/A',
-                    'approved_by_name' => $order->approver->name ?? null,
-                    'approved_at' => $order->approved_at ? $order->approved_at->format('Y-m-d h:i A') : null,
                     'completed_at' => $order->completed_at ? $order->completed_at->format('Y-m-d h:i A') : null,
                     'cancelled_at' => $order->cancelled_at ? $order->cancelled_at->format('Y-m-d h:i A') : null,
                     'cancel_reason' => $order->cancel_reason,

@@ -146,14 +146,14 @@
         <!-- 3. Customer Order Selection -->
         <div class="dispatch-card space-y-4">
             <div class="flex items-center justify-between">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">3. Select Approved Orders</h3>
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">3. Select Orders</h3>
                 <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
                     Select single or multiple orders
                 </span>
             </div>
 
             <div class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-                @forelse($approvedOrders as $order)
+                @forelse($orders ?? $approvedOrders as $order)
                     <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-2xl hover:bg-slate-50 transition cursor-pointer order-checkbox-card">
                         <input type="checkbox" name="marketing_order_ids[]" value="{{ $order->id }}" class="mt-1 h-5 w-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 order-checkbox" onchange="recalculateSummary()">
                         
@@ -189,7 +189,7 @@
                     </label>
                 @empty
                     <div class="p-8 text-center text-slate-400 font-bold text-xs bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                        No approved orders found. You can still create manual dispatch.
+                        No pending orders found. You can still create manual dispatch.
                     </div>
                 @endforelse
             </div>
@@ -254,7 +254,7 @@
 
 @section('scripts')
 <script>
-    var approvedOrdersData = @json($approvedOrders);
+    var ordersData = @json($orders ?? $approvedOrders);
 
     function setDispatchType(type) {
         $('.type-selector-label').removeClass('border-blue-600 bg-blue-50/30').addClass('border-slate-200');
@@ -332,7 +332,7 @@
         var totalWeight = 0;
         var deptSummary = {};
 
-        approvedOrdersData.forEach(function(order) {
+        ordersData.forEach(function(order) {
             if (selectedOrderIds.includes(order.id)) {
                 order.items.forEach(function(item) {
                     var deptCode = item.department_code || '';

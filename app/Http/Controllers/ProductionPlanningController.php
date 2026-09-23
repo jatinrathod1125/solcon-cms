@@ -72,8 +72,7 @@ class ProductionPlanningController extends Controller
         $pendingWithoutCoupon = MarketingOrderItem::query()
             ->selectRaw('grade_id, SUM(quantity_bags) as total_pending')
             ->whereHas('order', function ($q) {
-                $q->whereNotNull('approved_by')
-                  ->whereIn('status', ['pending', 'in_progress']);
+                $q->whereIn('status', ['pending', 'in_progress']);
             })
             ->where('department_code', 'TAD')
             ->where('item_status', '!=', 'completed')
@@ -157,8 +156,7 @@ class ProductionPlanningController extends Controller
         $pending20Coupon = MarketingOrderItem::query()
             ->selectRaw('grade_id, SUM(quantity_bags) as total_pending')
             ->whereHas('order', function ($q) {
-                $q->whereNotNull('approved_by')
-                  ->whereIn('status', ['pending', 'in_progress']);
+                $q->whereIn('status', ['pending', 'in_progress']);
             })
             ->where('department_code', 'TAD')
             ->where('item_status', '!=', 'completed')
@@ -192,7 +190,6 @@ class ProductionPlanningController extends Controller
             ->select('marketing_order_items.grade_id', 'marketing_orders.party_name')
             ->selectRaw('SUM(marketing_order_items.quantity_bags) as total_pending')
             ->join('marketing_orders', 'marketing_order_items.marketing_order_id', '=', 'marketing_orders.id')
-            ->whereNotNull('marketing_orders.approved_by')
             ->whereIn('marketing_orders.status', ['pending', 'in_progress'])
             ->where('marketing_order_items.item_status', '!=', 'completed')
             ->where('marketing_order_items.department_code', 'TAD')
@@ -256,8 +253,7 @@ class ProductionPlanningController extends Controller
         $query = MarketingOrderItem::query()
             ->with(['order', 'grade', 'couponMaterial'])
             ->whereHas('order', function ($q) {
-                $q->whereNotNull('approved_by')
-                  ->whereIn('status', ['pending', 'in_progress']);
+                $q->whereIn('status', ['pending', 'in_progress']);
             })
             ->where('department_code', 'TAD')
             ->where('item_status', '!=', 'completed');

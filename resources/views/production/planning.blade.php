@@ -227,7 +227,7 @@
     <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
         <div>
             <span id="drawerCategoryBadge" class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200">
-                Approved Pending Orders
+                Pending Orders
             </span>
             <h3 id="drawerGradeTitle" class="text-sm font-extrabold text-slate-900 mt-1">Grade Pending Orders</h3>
         </div>
@@ -339,7 +339,7 @@
                     rowsHtml = `
                         <tr>
                             <td colspan="6" class="text-center py-8 text-slate-400 font-semibold">
-                                No approved pending orders found for this selection.
+                                No pending orders found for this selection.
                             </td>
                         </tr>
                     `;

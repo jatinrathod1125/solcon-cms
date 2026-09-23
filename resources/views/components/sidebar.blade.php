@@ -67,20 +67,11 @@
             <section>
                 <p class="sidebar-label nav-eyebrow">Marketing</p>
                 <div class="space-y-1">
-                    @if (!$user->isSupervisor())
-                        <a href="{{ route('marketing.orders.index') }}"
-                            class="{{ $navClass(request()->routeIs('marketing.orders.*')) }}" title="Orders Board">
-                            <i data-lucide="clipboard-list"></i>
-                            <span class="sidebar-label">Orders Board</span>
-                        </a>
-                    @endif
-                    @if ($user->isSupervisor() || $user->isAdmin())
-                        <a href="{{ route('supervisor.orders') }}"
-                            class="{{ $navClass(request()->routeIs('supervisor.orders')) }}" title="Approved Orders">
-                            <i data-lucide="check-circle"></i>
-                            <span class="sidebar-label">Approved Orders</span>
-                        </a>
-                    @endif
+                    <a href="{{ route('marketing.orders.index') }}"
+                        class="{{ $navClass(request()->routeIs('marketing.orders.*')) }}" title="Orders Board">
+                        <i data-lucide="clipboard-list"></i>
+                        <span class="sidebar-label">Orders Board</span>
+                    </a>
                 </div>
             </section>
         @endif

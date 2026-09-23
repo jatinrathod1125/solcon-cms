@@ -111,9 +111,8 @@ class DispatchController extends Controller
             ->pluck('dispatch_items.marketing_order_id')
             ->unique();
 
-        // Get approved marketing orders available for dispatch (not yet assigned to active dispatch)
-        $ordersQuery = MarketingOrder::approved()
-            ->whereIn('status', ['pending', 'in_progress'])
+        // Get marketing orders available for dispatch (not yet assigned to active dispatch)
+        $ordersQuery = MarketingOrder::whereIn('status', ['pending', 'in_progress'])
             ->whereNotIn('id', $dispatchedOrderIds)
             ->with(['items.grade.brand', 'items.color.brand', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator'])
             ->orderByDesc('created_at')
@@ -124,9 +123,10 @@ class DispatchController extends Controller
             $ordersQuery->where('created_by', $user->id);
         }
 
-        $approvedOrders = $ordersQuery->get();
+        $orders = $ordersQuery->get();
+        $approvedOrders = $orders;
 
-        return view('dispatch.create', compact('approvedOrders'));
+        return view('dispatch.create', compact('orders', 'approvedOrders'));
     }
 
     /**
@@ -494,8 +494,7 @@ class DispatchController extends Controller
     public function apiApprovedOrders()
     {
         $user = auth()->user();
-        $query = MarketingOrder::approved()
-            ->whereIn('status', ['pending', 'in_progress'])
+        $query = MarketingOrder::whereIn('status', ['pending', 'in_progress'])
             ->with(['items.grade', 'items.color', 'items.epoxyProduct', 'items.epoxyFillerColor', 'items.epoxyComponent', 'items.couponMaterial', 'creator'])
             ->orderByDesc('created_at')
             ->orderByDesc('id');

@@ -89,7 +89,7 @@ class MarketingOrder extends Model
 
     public function scopeApproved($query)
     {
-        return $query->whereNotNull('approved_by');
+        return $query->whereIn('status', ['pending', 'in_progress']);
     }
 
     public function scopePending($query)

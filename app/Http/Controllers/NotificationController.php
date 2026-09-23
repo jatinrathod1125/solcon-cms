@@ -93,7 +93,7 @@ class NotificationController extends Controller
                     'type' => $notif->type,
                     'created_at_human' => $notif->created_at->diffForHumans(),
                     'is_read' => !is_null($notif->read_at),
-                    'click_url' => $notif->payload['click_action'] ?? '#',
+                    'click_url' => $notif->payload['click_action'] ?? ($notif->payload['click_url'] ?? '#'),
                 ];
             });
 

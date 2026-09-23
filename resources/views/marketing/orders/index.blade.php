@@ -324,11 +324,6 @@
                                         <a href="{{ route('marketing.orders.show', $order->id) }}" class="order-action-button hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700" title="View details">
                                             <i data-lucide="eye" class="h-4 w-4"></i>
                                         </a>
-                                        @if(auth()->user()->isAdmin() && $order->status === 'pending')
-                                            <button type="button" onclick="approveOrder({{ $order->id }})" class="order-action-button hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" title="Approve order" style="border-color:#bbf7d0;background:#f0fdf4;color:#16a34a;">
-                                                <i data-lucide="check-circle" class="h-4 w-4"></i>
-                                            </button>
-                                        @endif
                                         @if(($order->status !== 'completed' && $order->status !== 'cancelled') || auth()->user()->isAdmin())
                                             <a href="{{ route('marketing.orders.edit', $order->id) }}" class="order-action-button hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" title="Edit order">
                                                 <i data-lucide="edit" class="h-4 w-4"></i>
@@ -469,44 +464,6 @@
                             });
                         } else {
                             Swal.fire('Error', response.message || 'Failed to delete order.', 'error');
-                        }
-                    },
-                    error: function(xhr) {
-                        var msg = xhr.responseJSON ? xhr.responseJSON.message : 'Server error occurred.';
-                        Swal.fire('Error', msg, 'error');
-                    }
-                });
-            }
-        });
-    }
-    function approveOrder(orderId) {
-        Swal.fire({
-            title: 'Approve this order?',
-            text: 'This will notify supervisors and make the order visible to them.',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#16a34a',
-            cancelButtonColor: '#cbd5e1',
-            confirmButtonText: 'Yes, approve it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/marketing/orders/' + orderId + '/approve',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire(
-                                'Approved!',
-                                response.message || 'The order has been approved.',
-                                'success'
-                            ).then(() => {
-                                window.location.reload();
-                            });
-                        } else {
-                            Swal.fire('Error', response.message || 'Failed to approve order.', 'error');
                         }
                     },
                     error: function(xhr) {

@@ -353,15 +353,6 @@ class GroutBrandIsolationTest extends TestCase
         $mktSolconRes->assertDontSee('MKT-FIX-001');
         $mktSolconRes->assertDontSee('Fixora Customer B');
 
-        $supSolconRes = $this->actingAs($admin)
-            ->withSession(['current_brand_id_' . $admin->id => $solcon->id])
-            ->get(route('supervisor.orders'));
-        $supSolconRes->assertOk();
-        $supSolconRes->assertSee('MKT-SOL-001');
-        $supSolconRes->assertSee('Solcon Customer A');
-        $supSolconRes->assertDontSee('MKT-FIX-001');
-        $supSolconRes->assertDontSee('Fixora Customer B');
-
         // Test 2: When Active Brand is Fixora
         app(\App\Services\BrandContextService::class)->switch($fixora);
 
@@ -373,15 +364,6 @@ class GroutBrandIsolationTest extends TestCase
         $mktFixoraRes->assertSee('Fixora Customer B');
         $mktFixoraRes->assertDontSee('MKT-SOL-001');
         $mktFixoraRes->assertDontSee('Solcon Customer A');
-
-        $supFixoraRes = $this->actingAs($admin)
-            ->withSession(['current_brand_id_' . $admin->id => $fixora->id])
-            ->get(route('supervisor.orders'));
-        $supFixoraRes->assertOk();
-        $supFixoraRes->assertSee('MKT-FIX-001');
-        $supFixoraRes->assertSee('Fixora Customer B');
-        $supFixoraRes->assertDontSee('MKT-SOL-001');
-        $supFixoraRes->assertDontSee('Solcon Customer A');
     }
 
     public function test_finished_goods_inventory_filtered_by_active_brand(): void
